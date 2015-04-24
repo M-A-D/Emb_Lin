@@ -384,14 +384,13 @@ Studiengang Technische Informatik, 6. Semester <br>
 Sommersemester 2015
  <br>
 <!-- print date -->
-Datum: 2015-04-10 14:18
+Datum: 2015-04-17 17:53
 
 <p>
 
-#Felix Fischer, &lt;felix.fischer@hs-augsburg.de&gt;,  #939116 <br>
 Matthias Pfitzmayer, &lt;matthias.pfitzmayer@hs-augsburg.de&gt;,  #935691 <br>
+Daniel Schneider, &lt;daniel.schneider@hs-augsburg.de&gt;,  # <br>
 Matthias Struwe, &lt;matthias.struwe@hs-augsburg.de&gt;,  # <br>
-#Andreas Triffo, &lt;andreas.triffo@hs-augsburg.de&gt;,  # <br>
 
 <hr>
 <img src=img/cc-logo.jpg width="150" alt="cc-logo"><br>
@@ -401,12 +400,303 @@ Dieser Text steht unter der Creative Commons Lizenz
 
 <center>
           <h2>
-Übungen 1 - 4
+Geocaching Modul
 </h2>
 </center>
 
 
+<div class="contents topic" id="inhalt">
+<p class="topic-title first">Inhalt</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#beschreibung-der-hardware" id="id3">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a><ul class="auto-toc">
+<li><a class="reference internal" href="#verbindung" id="id4">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></li>
+<li><a class="reference internal" href="#blockschaltplan-beaglebone-black" id="id5">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></li>
+<li><a class="reference internal" href="#komponenten" id="id6">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject" id="id7">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a><ul class="auto-toc">
+<li><a class="reference internal" href="#minicom-konfigurieren" id="id8">2.1&nbsp;&nbsp;&nbsp;Minicom konfigurieren</a></li>
+<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id9">2.2&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id10">3&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
+</ul>
+</div>
+<div class="section" id="beschreibung-der-hardware">
+<h1><a class="toc-backref" href="#id3">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a></h1>
+<p>Für das Projekt wird das Beaglebone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.</p>
+<p>Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues Beaglebone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.</p>
+<pre class="code bash literal-block">
+ssh debian&#64;192.168.7.2
+<span class="comment"># pwd: temppwd</span>
+</pre>
+<div class="figure align-center">
+<img alt="img/ssh-BBB.png" src="img/ssh-BBB.png" />
+</div>
+<p>Es befindet sich bereits eine angepasste Debian Version Linux beaglebone 3.8.13-bone47 auf dem 4 GB großen eMMC Speicher. Es wird per default von der eMMC gebootet und unter Verwendung von Maus, Tastatur und Display könnte man das BBB wie einen  rechenpower armen PC verwenden.</p>
+<!-- cat /proc/cpuinfo -->
+<!-- cat /proc/meminfo -->
+<!-- cat /proc/version -->
+<!-- cat /lib/libc.so -->
+<div class="section" id="verbindung">
+<h2><a class="toc-backref" href="#id4">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></h2>
+<pre class="code bash literal-block">
+debian&#64;beaglebone:~# ifconfig
+debian&#64;beaglebone:~# dhclient eth0
+</pre>
+<div class="figure align-center">
+<img alt="img/ssh-ifconfig-BBB.png" src="img/ssh-ifconfig-BBB.png" />
+</div>
+</div>
+<div class="section" id="blockschaltplan-beaglebone-black">
+<h2><a class="toc-backref" href="#id5">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></h2>
+<div class="figure align-center">
+<img alt="img/BBB-Blockschaltplan.png" src="img/BBB-Blockschaltplan.png" />
+</div>
+</div>
+<div class="section" id="komponenten">
+<h2><a class="toc-backref" href="#id6">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></h2>
+<div class="figure align-center">
+<img alt="img/BBB-components.png" src="img/BBB-components.png" />
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Komponenten</th>
+<th class="head">Model / Ausführung</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>CPU</td>
+<td>Sitara AM3358BZCZ100 ARM® Cortex-A8
+1GHz  dual-core</td>
+</tr>
+<tr><td>RAM</td>
+<td>512 MB DDR3L &#64; 800 MHz</td>
+</tr>
+<tr><td>ROM</td>
+<td>4 GB eMMC</td>
+</tr>
+<tr><td>IPU</td>
+<td>4 x ARM® Cortex-M4</td>
+</tr>
+<tr><td>GPU</td>
+<td><ul class="first last simple">
+<li>PowerVR SGX544 dual core (3D)</li>
+<li>Vivante GC320 core       (2D)</li>
+</ul>
+</td>
+</tr>
+<tr><td>Power Source</td>
+<td><ul class="first last simple">
+<li>mini USB DC Jack</li>
+<li>5 V DC Jack</li>
+<li>TPS65217C PMIC</li>
+<li>LDO</li>
+</ul>
+</td>
+</tr>
+<tr><td>User Input</td>
+<td><ul class="first last simple">
+<li>Reset Button</li>
+<li>Boot Button</li>
+<li>Power Button</li>
+</ul>
+</td>
+</tr>
+<tr><td>Connectors</td>
+<td><ul class="first last simple">
+<li>RJ-45 Ethernet 10 / 100</li>
+<li>USB-A (2.0), mini USB</li>
+<li>mini HDMI (audio / video)</li>
+<li>microSD (3,3V)</li>
+<li>VDD_ADC (1,8V)</li>
+<li>GPIO    (3,3V)</li>
+<li>SPI</li>
+<li>I2C</li>
+<li>UART</li>
+<li>JTAG (20 pin Onboard Header)</li>
+<li>MMC1, MMC2</li>
+<li>4 Timer</li>
+<li>CAN</li>
+<li>XDMA Interrupt</li>
+<li>LCD</li>
+<li>Expansion Board ID</li>
+</ul>
+</td>
+</tr>
+<tr><td>PCB</td>
+<td><ul class="first last simple">
+<li>3,4&quot; x 2,1&quot;</li>
+<li>6 Layer</li>
+<li>39,68 g</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><a class="citation-reference" href="#bbb-bsp" id="id1">[BBB-BSP]</a></p>
+</div>
+</div>
+<div class="section" id="bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject">
+<h1><a class="toc-backref" href="#id7">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a></h1>
+<!-- sudo apt-get install chrpath gawk diffstat texinfo g++ -->
+<p>Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufgesetzt werden. Hierzu bedienen wir uns des Yoctoproject. <a class="citation-reference" href="#bbb-yocto" id="id2">[BBB-YOCTO]</a></p>
+<blockquote>
+<ul class="simple">
+<li><strong>Herunterladen der Buildumgebung vom Github des Yoctoproject.</strong></li>
+</ul>
+<pre class="code bash literal-block">
+git clone git://git.yoctoproject.org/meta-yocto -b dizzy
+</pre>
+<ul class="simple">
+<li><strong>Den richtigen USB-Port finden</strong></li>
+</ul>
+<pre class="code bash literal-block">
+dmesg
+</pre>
+<div class="figure align-center">
+<img alt="img/BBB-dmesg.png" src="img/BBB-dmesg.png" />
+</div>
+<ul>
+<li><p class="first"><strong>Auf den Port zugreifen</strong> - Hierfür benötigt man ein [] wie z.B. Minicom außerdem werden spezielle Befugnisse für das Zugreifen auf den Port benötigt hierfür gibt es 2 unterschiedliche herangehensweisen:</p>
+<blockquote>
+<ol class="loweralpha simple">
+<li>Ändern der Befugnisse um auf den seriellen Port zugreifen zu dürfen</li>
+</ol>
+<pre class="code bash literal-block">
+sudo chmod 0666 dev/&lt;tty of the eth connection to the bbb&gt;
+<span class="comment"># for my system
+</span>sudo chmod 0666 dev/ttyACM0
+</pre>
+<ol class="loweralpha simple" start="2">
+<li>Eigenes Profil zur Gruppe &quot;dialout&quot; hinzufügen um auf den seriellen Port zugreifen zu dürfen</li>
+</ol>
+<pre class="code bash literal-block">
+sudo usermod -a -G dialout &lt;username&gt;
+</pre>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<div class="section" id="minicom-konfigurieren">
+<h2><a class="toc-backref" href="#id8">2.1&nbsp;&nbsp;&nbsp;Minicom konfigurieren</a></h2>
+<blockquote>
+<pre class="code bash literal-block">
+<span class="comment"># for ubuntu / debian based distributions
+</span>sudo apt-get install minicom
+
+sudo minicom -s
+</pre>
+<ul class="simple">
+<li><strong>Einstellungen zum seriellen Anschluss</strong></li>
+</ul>
+<div class="figure align-center">
+<img alt="img/microcom-setup1.png" src="img/microcom-setup1.png" />
+</div>
+<ul class="simple">
+<li><strong>Unter A das richtige Device einrichten</strong></li>
+</ul>
+<div class="figure align-center">
+<img alt="img/microcom-setup2.png" src="img/microcom-setup2.png" />
+</div>
+<ul class="simple">
+<li><strong>Als default Speichern</strong></li>
+</ul>
+<div class="figure align-center">
+<img alt="img/microcom-setup3.png" src="img/microcom-setup3.png" />
+</div>
+<ul class="simple">
+<li><strong>Minicom beenden und neu starten</strong></li>
+</ul>
+<div class="figure align-center">
+<img alt="img/microcom-setup4.png" src="img/microcom-setup4.png" />
+</div>
+</blockquote>
+</div>
+<div class="section" id="vorbereiten-der-microsd-karte">
+<h2><a class="toc-backref" href="#id9">2.2&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h2>
+<blockquote>
+<blockquote>
+<pre class="code bash literal-block">
+sudo fdisk -lu &lt;device_name&gt;
+<span class="comment"># for my system
+</span>sudo fdisk -lu mmcblk0
+</pre>
+<div class="figure align-center">
+<img alt="img/fdisk-list-volumes.png" src="img/fdisk-list-volumes.png" />
+</div>
+<ul class="simple">
+<li>/dev/mmcblk0p1 * 63 144584 72261 c Win95 FAT32 (LBA)</li>
+<li>/dev/mmcblk0p2 144585 465884 160650 83 Linux</li>
+<li>mkfs.vfat -F 16 -n &quot;boot&quot; /dev/mmcblk0p1</li>
+<li>mke2fs -j -L &quot;root&quot; /dev/mmcblk0p2</li>
+</ul>
+<div class="figure align-center">
+<img alt="img/mkfs-2.png" src="img/mkfs-2.png" />
+</div>
+</blockquote>
+<ul>
+<li><p class="first"><strong>Yocto Build Download</strong></p>
+<blockquote>
+<pre class="code bash literal-block">
+wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
+</pre>
+</blockquote>
+</li>
+<li><p class="first"><strong>Build the Yocto core and bootloader</strong></p>
+<blockquote>
+<pre class="code bash literal-block">
+<span class="name builtin">source </span>oe-init-build-env build
+</pre>
+<div class="figure align-center">
+<img alt="img/Yocto-build1.png" src="img/Yocto-build1.png" />
+</div>
+<pre class="code bash literal-block">
+Remove the <span class="literal string single">'#'</span> from the
+<span class="comment">#MACHINE ?= &quot;beaglebone&quot;</span>
+</pre>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="section" id="literatur-und-sonstige-quellen">
+<h1><a class="toc-backref" href="#id10">3&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
+<table class="docutils citation" frame="void" id="bbb-bsp" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[BBB-BSP]</a></td><td>Beaglebone Black Blockschaltpläne
+<a class="reference external" href="http://linuxgizmos.com/beagleboard-x15-features-dual-core-cortex-a15-sitara/">http://linuxgizmos.com/beagleboard-x15-features-dual-core-cortex-a15-sitara/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="elin-bbb-os" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[ELIN-BBB-OS]</td><td>Beaglebone Black Operating Systems
+<a class="reference external" href="http://elinux.org/BeagleBone_Operating_Systems">http://elinux.org/BeagleBone_Operating_Systems</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="elin-bbb-debian" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[ELIN-BBB-Debian]</td><td>Beaglebone Black Debian
+<a class="reference external" href="http://elinux.org/BeagleBoardDebian">http://elinux.org/BeagleBoardDebian</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="bbb-yocto" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[BBB-YOCTO]</a></td><td>Yocto Project Beaglebone Black
+<a class="reference external" href="https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone">https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone</a></td></tr>
+</tbody>
+</table>
 <!-- vim: et sw=4 ts=4 -->
+</div>
 </div>
 </body>
 </html>
