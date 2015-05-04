@@ -110,120 +110,433 @@ Komponenten
 Bau einer eigenen Linuxumgebung mit dem Yoctoproject
 ====================================================
 
-.. sudo apt-get install chrpath gawk diffstat texinfo g++
-
 Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufgesetzt werden. Hierzu bedienen wir uns des Yoctoproject. [BBB-YOCTO]_
 
-	* **Herunterladen der Buildumgebung vom Github des Yoctoproject.**
+.. code:: bash
+	
+	#
+	sudo apt-get install chrpath texinfo
+	#
+	sudo apt-get install gawk
+	# 
+	sudo apt-get install diffstat 
+	#
+	sudo apt-get install g++
 
-	.. code:: bash
+
+Beziehen der Daten
+------------------
+
+Herunterladen der Buildumgebung vom Github des Yoctoproject
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. code:: bash
 	    
-	    git clone git://git.yoctoproject.org/meta-yocto -b dizzy
+    git clone git://git.yoctoproject.org/meta-yocto -b dizzy
 
-	* **Den richtigen USB-Port finden**
+Herunterladen des aktuellen images von der webseite des Yoctoproject
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	.. code:: bash
+.. code:: bash
 
-		dmesg
-
-	.. figure:: img/BBB-dmesg.png
-	   :align: center
+	wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
 
 
-	* **Auf den Port zugreifen** - Hierfür benötigt man ein [] wie z.B. Minicom außerdem werden spezielle Befugnisse für das Zugreifen auf den Port benötigt hierfür gibt es 2 unterschiedliche herangehensweisen: 
+Bauen des Yocto-core-images und des Bootloaders
+-----------------------------------------------
 
-		a) Ändern der Befugnisse um auf den seriellen Port zugreifen zu dürfen
+Erstellen der Buildumgebung und Überprüfung der Variablen
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		.. code:: bash
-
-			sudo chmod 0666 dev/<tty of the eth connection to the bbb>
-			# for my system
-			sudo chmod 0666 dev/ttyACM0
-
-		b) Eigenes Profil zur Gruppe "dialout" hinzufügen um auf den seriellen Port zugreifen zu dürfen
-
-		.. code:: bash
-
-			sudo usermod -a -G dialout <username>
+Um den Bauvorgang einzuleiten empfiehlt es sich in den Ordner "'*'/poky" zu wechseln.
 
 
-Minicom konfigurieren
----------------------
+.. code:: bash
 
-	.. code:: bash
+	source oe-init-build-env build
+	# oder
+	. oe-init-build-env build
 
-		# for ubuntu / debian based distributions
-		sudo apt-get install minicom
+Der Ordner "build" wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner "conf" und in diesem die Datei "local.conf" diese datei einthält unter anderem Informationen darüber für welches Target das Yocto Image gebaut werden soll. Um den Build-Prozess anstoßen zu können muss sie allerdings noch angepasst werden.
 
-		sudo minicom -s
+.. code:: bash
 
-	* **Einstellungen zum seriellen Anschluss**
-	
-	.. figure:: img/microcom-setup1.png
-	   :align: center
-	
-	* **Unter A das richtige Device einrichten**
+	vim conf/local.conf
 
-	.. figure:: img/microcom-setup2.png
-	   :align: center
+	# Remove the '#' from the 
+	#MACHINE ?= "beaglebone"
+	# so that it reads
+	MACHINE ?= "beaglebone"
 
-	* **Als default Speichern**
 
-	.. figure:: img/microcom-setup3.png
-	   :align: center
+Bitbake eine Buildumgebung für ein angepasstes Yocto-linux
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	* **Minicom beenden und neu starten**
+Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
 
-	.. figure:: img/microcom-setup4.png
-	   :align: center
+.. code:: bash
+
+	bitbake core-image-base
+
+.. figure:: img/Yocto-build1.png
+   :align: center
 
 
 Vorbereiten der microSD Karte
 -----------------------------
 
-		.. code:: bash
+.. code:: bash
 
-			sudo fdisk -lu <device_name>
-			# for my system
-			sudo fdisk -lu mmcblk0
+	sudo fdisk -lu <dev/device_name>
+	# for my system
+	sudo fdisk -lu dev/mmcblk0
 
-		.. figure:: img/fdisk-list-volumes.png
-		   :align: center
+.. figure:: img/fdisk-list-volumes.png
+   :align: center
 
-		- /dev/mmcblk0p1 * 63 144584 72261 c Win95 FAT32 (LBA) 
-		
-		- /dev/mmcblk0p2 144585 465884 160650 83 Linux	
-		
-		- mkfs.vfat -F 16 -n "boot" /dev/mmcblk0p1
+* Die aktuelle Partitionierung der microSD Karte löschen
 
-		- mke2fs -j -L "root" /dev/mmcblk0p2
+.. code:: bash
 
-		.. figure:: img/mkfs-2.png
-		   :align: center
+	Befehl (m für Hilfe): d
+	Selected partition 1
+	Partition 1 has been deleted.
 
-	* **Yocto Build Download**
-		
-		.. code:: bash
+* Anlegen der zwei neuen Partitionen boot (min. 100 MB) und root (rest)
 
-			wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
+.. code:: bash
 
-	* **Build the Yocto core and bootloader**
-		
-		.. code:: bash
+	Befehl (m für Hilfe): n
+	Partition type
+	   p   primary (0 primary, 0 extended, 4 free)
+	   e   extended (container for logical partitions)
+	Select (default p): p
+	Partitionsnummer (1-4, default 1): 1
+	First sector (2048-30881791, default 2048): 
+	Last sector, +sectors or +size{K,M,G,T,P} (2048-30881791, default 30881791): +100M
 
-			source oe-init-build-env build
-
-		.. figure:: img/Yocto-build1.png
-		   :align: center
-
-		.. code:: bash
-
-			Remove the '#' from the 
-			#MACHINE ?= "beaglebone"
+	Created a new partition 1 of type 'Linux' and of size 100 MiB.
 
 
+	Befehl (m für Hilfe): n
+	Partition type
+	   p   primary (1 primary, 0 extended, 3 free)
+	   e   extended (container for logical partitions)
+	Select (default p): p
+	Partitionsnummer (2-4, default 2): 2
+	First sector (206848-30881791, default 206848): [ENTER]
+	Last sector, +sectors or +size{K,M,G,T,P} (206848-30881791, default 30881791): [ENTER]
+
+	Created a new partition 2 of type 'Linux' and of size 14,6 GiB.
 
 
+* setzen des bootable flags auf der boot Partition
+
+.. code:: bash
+
+	Befehl (m für Hilfe): a
+	Partitionsnummer (1,2, default 2): 1
+
+	The bootable flag on partition 1 is enabled now.
+
+* boot formatieren als FAT32
+
+.. code:: bash
+
+	Befehl (m für Hilfe): t
+	Partitionsnummer (1,2, default 2): 1
+	Hex code (type L to list all codes): c
+
+	If you have created or modified any DOS 6.x partitions, please see the fdisk documentation for additional information.
+	Changed type of partition 'Linux' to 'W95 FAT32 (LBA)'.
+
+* root als "Linux" formatieren
+
+.. code:: bash
+
+	Befehl (m für Hilfe): t
+	Partitionsnummer (1,2, default 2): 2
+	Hex code (type L to list all codes): 83
+
+	Changed type of partition 'Linux' to 'Linux'.
+
+* Überprüfung der SD Karte im Normalfall sollte es etwar so aussehen
+
+.. code:: bash
+
+	Befehl (m für Hilfe): p
+	Disk /dev/mmcblk0: 14,7 GiB, 15811477504 bytes, 30881792 sectors
+	Geometry: 255 heads, 63 sectors/track, 482528 cylinders
+	Units: sectors of 1 * 512 = 512 bytes
+	Sector size (logical/physical): 512 bytes / 512 bytes
+	I/O size (minimum/optimal): 512 bytes / 512 bytes
+	Disklabel type: dos
+	Disk identifier: 0x00000000
+
+	Device         Boot  Start      End  Sectors  Size Id Type
+	/dev/mmcblk0p1 *      2048   206847   204800  100M  c W95 FAT32 (LBA)
+	/dev/mmcblk0p2      206848 30881791 30674944 14,6G 83 Linux
+
+
+Die Änderungen auf der SD Karte anwenden
+++++++++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+	Befehl (m für Hilfe): w
+	The partition table has been altered.
+	Calling ioctl() to re-read partition table.
+	Re-reading the partition table failed.: Das Gerät oder die Ressource ist belegt
+
+	The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
+
+.. code:: bash
+
+	lsblk
+	NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+	sda           8:0    0 465,8G  0 disk 
+	├─sda1        8:1    0   100M  0 part 
+	├─sda2        8:2    0 140,5G  0 part 
+	├─sda3        8:3    0   100G  0 part 
+	├─sda4        8:4    0     1K  0 part 
+	├─sda5        8:5    0 221,6G  0 part /
+	└─sda6        8:6    0   3,6G  0 part [SWAP]
+	mmcblk0     179:0    0  14,7G  0 disk 
+	├─mmcblk0p1 179:1    0   100M  0 part 
+	└─mmcblk0p2 179:2    0  14,6G  0 part 
+
+
+Formatieren der "boot-Festplatte"
++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+	sudo mkfs.vfat -F 16 -n "boot" /dev/mmcblk0p1mkfs.fat 3.0.27
+
+
+Formatieren der "root-Festplatte"
++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+	sudo mke2fs -j -L "root" /dev/mmcblk0p2 mke2fs 1.42.12
+	Ein Dateisystems mit 3833856 (4k) Blöcken und 960336 Inodes wird erzeugt.
+	UUID des Dateisystems: f013f938-dc87-4a3a-a1c4-9961d1d88215
+	Superblock-Sicherungskopien gespeichert in den Blöcken: 
+		32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208
+
+	beim Anfordern von Speicher für die Gruppentabellen: erledigt                        
+	Inode-Tabellen werden geschrieben: erledigt                        
+	Das Journal (32768 Blöcke) wird angelegt: erledgt
+	Die Superblöcke und die Informationen über die Dateisystemnutzung werden geschrieben: erledigt
+
+
+Zugriff auf das serielle Terminal während des Bootvorganges
+-----------------------------------------------------------
+
+Zunächst gilt es das BBB wie auf dem folgenden Bild richtig mit dem PC zu verbinden.
+
+[TODO]_ 
+
+.. add picture
+
+Nun muss man herausfinden auf welche Schnittstelle die Verbindung zum BBB im Moment abgebildet wird.
+
+.. code:: bash
+
+	dmesg
+
+
+.. figure:: img/BBB-dmesg.png
+   :align: center
+
+Um während des Bootvorganges auf das Serielle Terminal und somit auch auf den Bootloader u-boot zugreifen zu können benötigt man einen serielles Terminal (bzw. einen Emulator) wie z.B. Minicom außerdem werden spezielle Befugnisse für das Zugreifen auf den Port benötigt hierfür gibt es 2 unterschiedliche herangehensweisen: 
+
+a) Ändern der Befugnisse um auf den seriellen Port zugreifen zu dürfen
+
+.. code:: bash
+
+	sudo chmod 0666 dev/tty<Device>
+	# for my system
+	sudo chmod 0666 dev/ttyUSB0
+
+b) Eigenes Profil zur Gruppe "dialout" hinzufügen um auf den seriellen Port zugreifen zu dürfen
+
+.. code:: bash
+
+	sudo usermod -a -G dialout <username>
+
+Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit den entsprechenden Variablen, wie dem Pfad, der Baudrate, Parity und der Konfiguration an Datenbits und Stopbits aufgerufen werden. Die Vorgehensweise für "minicom" wird im Abschnitt "Tools und Programme" genauer beschrieben.
+
++------------------------------------+-----------------------+
+|                                    | Konfiguration für BBB |
++====================================+=======================+
+| Baudrate                           | 115200                |
++------------------------------------+-----------------------+
+| Anzahl der Daten-Bits              | 8 Databits            |
++------------------------------------+-----------------------+
+| Parity                             | no Parity             |
++------------------------------------+-----------------------+
+| Stopbits                           | 1 Stopbit             |
++------------------------------------+-----------------------+
+
+
+
+
+Instalation des Bootloaders
+---------------------------
+
+.. code:: bash
+	
+	cp MLO-beaglebone /media/<USER>/BOOT/MLO
+	cp u-boot-beaglebone.img /media/<USER>/BOOT/u-boot.img
+
+Instalation des Filesystems
+---------------------------
+
+.. code:: bash
+
+	sudo tar x -C /media/<USER>/root/ -f modules-beaglebone.tgz 
+
+
+
+Netboot test
+============
+
+
+Tools und Programme
+===================
+
+
+Minicom ein serial Terminal Emulator
+------------------------------------
+
+Installation
+++++++++++++
+
+.. code:: bash
+
+	# for ubuntu / debian based distributions
+	sudo apt-get install minicom
+
+	sudo minicom -s
+
+Einstellungen des seriellen Anschlusses
+	
+.. figure:: img/microcom-setup1.png
+   :align: center
+	
+Unter A das richtige Device einrichten
+++++++++++++++++++++++++++++++++++++++
+
+.. figure:: img/microcom-setup2.png
+   :align: center
+
+Als default Speichern
++++++++++++++++++++++
+
+.. figure:: img/microcom-setup3.png
+   :align: center
+
+Minicom beenden und neu starten
++++++++++++++++++++++++++++++++
+
+.. figure:: img/microcom-setup4.png
+   :align: center
+
+
+fdisk partitionierungs tool 
+---------------------------
+
+* öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)
+
+.. code:: bash
+	
+	sudo fdisk /dev/mmcblk0 
+
+* Auflisten der Partitionen eines Laufwerks
+
+.. code:: bash
+
+	sudo fdisk -lu /dev/mmcblk0 
+	
+	Disk /dev/mmcblk0: 14,7 GiB, 15811477504 bytes, 30881792 sectors
+	Units: sectors of 1 * 512 = 512 bytes
+	Sector size (logical/physical): 512 bytes / 512 bytes
+	I/O size (minimum/optimal): 512 bytes / 512 bytes
+	Disklabel type: dos
+	Disk identifier: 0x00000000
+
+	Device         Boot Start      End  Sectors  Size Id Type
+	/dev/mmcblk0p1       8192 30881791 30873600 14,7G  c W95 FAT32 (LBA)
+
+
+Sonstige Befehle
+++++++++++++++++
+
+.. code:: bash
+	
+	DOS (MBR)
+	   a   toggle a bootable flag
+	   b   edit nested BSD disklabel
+	   c   toggle the dos compatibility flag
+
+	Generic
+	   d   delete a partition
+	   l   list known partition types
+	   n   add a new partition
+	   p   print the partition table
+	   t   change a partition type
+	   v   verify the partition table
+
+	Misc
+	   m   print this menu
+	   u   change display/entry units
+	   x   extra functionality (experts only)
+
+ 	Save & Exit
+	   w   write table to disk and exit
+	   q   quit without saving changes
+
+	Create a new label
+	   g   create a new empty GPT partition table
+	   G   create a new empty SGI (IRIX) partition table
+	   o   create a new empty DOS partition table
+	   s   create a new empty Sun partition table
+
+
+Unterschiedliche Formatierungen
++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+	Befehl (m für Hilfe): l
+
+	 0  Leer            24  NEC DOS         81  Minix / altes L bf  Solaris        
+	 1  FAT12           27  Hidden NTFS Win 82  Linux Swap / So c1  DRDOS/sec (FAT-
+	 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+	 3  XENIX usr       3c  PartitionMagic  84  OS/2 verst. C:- c6  DRDOS/sec (FAT-
+	 4  FAT16 <32M      40  Venix 80286     85  Linux erweitert c7  Syrinx         
+	 5  Erweiterte      41  PPC PReP Boot   86  NTFS Datenträge da  Keine Dateisyst
+	 6  FAT16           42  SFS             87  NTFS Datenträge db  CP/M / CTOS / …
+	 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux Klartext  de  Dell Dienstprog
+	 8  AIX             4e  QNX4.x 2. Teil  8e  Linux LVM       df  BootIt         
+	 9  AIX bootfähig   4f  QNX4.x 3. Teil  93  Amoeba          e1  DOS-Zugriff    
+	 a  OS/2-Bootmanage 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O        
+	 b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor      
+	 c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad Ru eb  BeOS Dateisyste
+	 e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT            
+	 f  W95 Erw. (LBA)  54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/
+	10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC B
+	11  Verst. FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor      
+	12  Compaq Diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      
+	14  Verst. FAT16 <3 61  SpeedStor       ab  Darwin Boot     f2  DOS sekundär   
+	16  Verst. FAT16    63  GNU HURD oder S af  HFS / HFS+      fb  VMware VMFS    
+	17  Verst. HPFS/NTF 64  Novell Netware  b7  BSDi Dateisyste fc  VMware VMKCORE 
+	18  AST SmartSleep  65  Novell Netware  b8  BSDI Swap       fd  Linux raid auto
+	1b  Verst. W95 FAT3 70  DiskSecure Mult bb  Boot-Assistent  fe  LANstep        
+	1c  Verst. W95 FAT3 75  PC/IX           be  Solaris Boot    ff  BBT            
+	1e  Verst. W95 FAT1 80  Altes Minix    
 
 
 Literatur und sonstige Quellen
@@ -240,5 +553,10 @@ Literatur und sonstige Quellen
 
 .. [BBB-YOCTO] Yocto Project Beaglebone Black
 	https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone
+
+.. [YOCTO] Yocto Project Build
+	http://android.serverbox.ch/?p=1273
+
+.. [TODO] Look for comments
 
 .. vim: et sw=4 ts=4

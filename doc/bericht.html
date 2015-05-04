@@ -408,22 +408,55 @@ Geocaching Modul
 <div class="contents topic" id="inhalt">
 <p class="topic-title first">Inhalt</p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#beschreibung-der-hardware" id="id3">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a><ul class="auto-toc">
-<li><a class="reference internal" href="#verbindung" id="id4">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></li>
-<li><a class="reference internal" href="#blockschaltplan-beaglebone-black" id="id5">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></li>
-<li><a class="reference internal" href="#komponenten" id="id6">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></li>
+<li><a class="reference internal" href="#beschreibung-der-hardware" id="id4">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a><ul class="auto-toc">
+<li><a class="reference internal" href="#verbindung" id="id5">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></li>
+<li><a class="reference internal" href="#blockschaltplan-beaglebone-black" id="id6">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></li>
+<li><a class="reference internal" href="#komponenten" id="id7">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject" id="id7">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a><ul class="auto-toc">
-<li><a class="reference internal" href="#minicom-konfigurieren" id="id8">2.1&nbsp;&nbsp;&nbsp;Minicom konfigurieren</a></li>
-<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id9">2.2&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></li>
+<li><a class="reference internal" href="#bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject" id="id8">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a><ul class="auto-toc">
+<li><a class="reference internal" href="#beziehen-der-daten" id="id9">2.1&nbsp;&nbsp;&nbsp;Beziehen der Daten</a><ul class="auto-toc">
+<li><a class="reference internal" href="#herunterladen-der-buildumgebung-vom-github-des-yoctoproject" id="id10">2.1.1&nbsp;&nbsp;&nbsp;Herunterladen der Buildumgebung vom Github des Yoctoproject</a></li>
+<li><a class="reference internal" href="#herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject" id="id11">2.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id10">3&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
+<li><a class="reference internal" href="#bauen-des-yocto-core-images-und-des-bootloaders" id="id12">2.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a><ul class="auto-toc">
+<li><a class="reference internal" href="#erstellen-der-buildumgebung-und-uberprufung-der-variablen" id="id13">2.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></li>
+<li><a class="reference internal" href="#bitbake-eine-buildumgebung-fur-ein-angepasstes-yocto-linux" id="id14">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Buildumgebung für ein angepasstes Yocto-linux</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id15">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a><ul class="auto-toc">
+<li><a class="reference internal" href="#die-anderungen-auf-der-sd-karte-anwenden" id="id16">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></li>
+<li><a class="reference internal" href="#formatieren-der-boot-festplatte" id="id17">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Festplatte&quot;</a></li>
+<li><a class="reference internal" href="#formatieren-der-root-festplatte" id="id18">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Festplatte&quot;</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges" id="id19">2.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></li>
+<li><a class="reference internal" href="#instalation-des-bootloaders" id="id20">2.5&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></li>
+<li><a class="reference internal" href="#instalation-des-filesystems" id="id21">2.6&nbsp;&nbsp;&nbsp;Instalation des Filesystems</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#netboot-test" id="id22">3&nbsp;&nbsp;&nbsp;Netboot test</a></li>
+<li><a class="reference internal" href="#tools-und-programme" id="id23">4&nbsp;&nbsp;&nbsp;Tools und Programme</a><ul class="auto-toc">
+<li><a class="reference internal" href="#minicom-ein-serial-terminal-emulator" id="id24">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installation" id="id25">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
+<li><a class="reference internal" href="#unter-a-das-richtige-device-einrichten" id="id26">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></li>
+<li><a class="reference internal" href="#als-default-speichern" id="id27">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></li>
+<li><a class="reference internal" href="#minicom-beenden-und-neu-starten" id="id28">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id29">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
+<li><a class="reference internal" href="#sonstige-befehle" id="id30">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
+<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id31">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id32">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
 </ul>
 </div>
 <div class="section" id="beschreibung-der-hardware">
-<h1><a class="toc-backref" href="#id3">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a></h1>
+<h1><a class="toc-backref" href="#id4">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a></h1>
 <p>Für das Projekt wird das Beaglebone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.</p>
 <p>Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues Beaglebone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.</p>
 <pre class="code bash literal-block">
@@ -438,8 +471,12 @@ ssh debian&#64;192.168.7.2
 <!-- cat /proc/meminfo -->
 <!-- cat /proc/version -->
 <!-- cat /lib/libc.so -->
+<!-- bootloader -->
+<!-- printenv -->
+<!--  -->
+<!-- hush.c - shell -->
 <div class="section" id="verbindung">
-<h2><a class="toc-backref" href="#id4">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></h2>
+<h2><a class="toc-backref" href="#id5">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></h2>
 <pre class="code bash literal-block">
 debian&#64;beaglebone:~# ifconfig
 debian&#64;beaglebone:~# dhclient eth0
@@ -449,13 +486,13 @@ debian&#64;beaglebone:~# dhclient eth0
 </div>
 </div>
 <div class="section" id="blockschaltplan-beaglebone-black">
-<h2><a class="toc-backref" href="#id5">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></h2>
+<h2><a class="toc-backref" href="#id6">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></h2>
 <div class="figure align-center">
 <img alt="img/BBB-Blockschaltplan.png" src="img/BBB-Blockschaltplan.png" />
 </div>
 </div>
 <div class="section" id="komponenten">
-<h2><a class="toc-backref" href="#id6">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></h2>
+<h2><a class="toc-backref" href="#id7">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></h2>
 <div class="figure align-center">
 <img alt="img/BBB-components.png" src="img/BBB-components.png" />
 </div>
@@ -472,7 +509,7 @@ debian&#64;beaglebone:~# dhclient eth0
 <tbody valign="top">
 <tr><td>CPU</td>
 <td>Sitara AM3358BZCZ100 ARM® Cortex-A8
-1GHz  dual-core</td>
+1GHz  dual-core mit 2000 MIPS</td>
 </tr>
 <tr><td>RAM</td>
 <td>512 MB DDR3L &#64; 800 MHz</td>
@@ -542,35 +579,223 @@ debian&#64;beaglebone:~# dhclient eth0
 </div>
 </div>
 <div class="section" id="bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject">
-<h1><a class="toc-backref" href="#id7">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a></h1>
-<!-- sudo apt-get install chrpath gawk diffstat texinfo g++ -->
+<h1><a class="toc-backref" href="#id8">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a></h1>
 <p>Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufgesetzt werden. Hierzu bedienen wir uns des Yoctoproject. <a class="citation-reference" href="#bbb-yocto" id="id2">[BBB-YOCTO]</a></p>
-<blockquote>
-<ul class="simple">
-<li><strong>Herunterladen der Buildumgebung vom Github des Yoctoproject.</strong></li>
-</ul>
+<pre class="code bash literal-block">
+<span class="comment">#
+</span>sudo apt-get install chrpath texinfo
+<span class="comment">#
+</span>sudo apt-get install gawk
+<span class="comment">#
+</span>sudo apt-get install diffstat
+<span class="comment">#
+</span>sudo apt-get install g++
+</pre>
+<div class="section" id="beziehen-der-daten">
+<h2><a class="toc-backref" href="#id9">2.1&nbsp;&nbsp;&nbsp;Beziehen der Daten</a></h2>
+<div class="section" id="herunterladen-der-buildumgebung-vom-github-des-yoctoproject">
+<h3><a class="toc-backref" href="#id10">2.1.1&nbsp;&nbsp;&nbsp;Herunterladen der Buildumgebung vom Github des Yoctoproject</a></h3>
 <pre class="code bash literal-block">
 git clone git://git.yoctoproject.org/meta-yocto -b dizzy
 </pre>
+</div>
+<div class="section" id="herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject">
+<h3><a class="toc-backref" href="#id11">2.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></h3>
+<pre class="code bash literal-block">
+wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
+</pre>
+</div>
+</div>
+<div class="section" id="bauen-des-yocto-core-images-und-des-bootloaders">
+<h2><a class="toc-backref" href="#id12">2.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a></h2>
+<div class="section" id="erstellen-der-buildumgebung-und-uberprufung-der-variablen">
+<h3><a class="toc-backref" href="#id13">2.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></h3>
+<p>Um den Bauvorgang einzuleiten empfiehlt es sich in den Ordner &quot;'*'/poky&quot; zu wechseln.</p>
+<pre class="code bash literal-block">
+<span class="name builtin">source </span>oe-init-build-env build
+<span class="comment"># oder
+</span>. oe-init-build-env build
+</pre>
+<p>Der Ordner &quot;build&quot; wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner &quot;conf&quot; und in diesem die Datei &quot;local.conf&quot; diese datei einthält unter anderem Informationen darüber für welches Target das Yocto Image gebaut werden soll. Um den Build-Prozess anstoßen zu können muss sie allerdings noch angepasst werden.</p>
+<pre class="code bash literal-block">
+vim conf/local.conf
+
+<span class="comment"># Remove the '#' from the
+#MACHINE ?= &quot;beaglebone&quot;
+# so that it reads
+</span>MACHINE ?<span class="operator">=</span> <span class="literal string double">&quot;beaglebone&quot;</span>
+</pre>
+</div>
+<div class="section" id="bitbake-eine-buildumgebung-fur-ein-angepasstes-yocto-linux">
+<h3><a class="toc-backref" href="#id14">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Buildumgebung für ein angepasstes Yocto-linux</a></h3>
+<p>Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.</p>
+<pre class="code bash literal-block">
+bitbake core-image-base
+</pre>
+<div class="figure align-center">
+<img alt="img/Yocto-build1.png" src="img/Yocto-build1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="vorbereiten-der-microsd-karte">
+<h2><a class="toc-backref" href="#id15">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h2>
+<pre class="code bash literal-block">
+sudo fdisk -lu &lt;dev/device_name&gt;
+<span class="comment"># for my system
+</span>sudo fdisk -lu dev/mmcblk0
+</pre>
+<div class="figure align-center">
+<img alt="img/fdisk-list-volumes.png" src="img/fdisk-list-volumes.png" />
+</div>
 <ul class="simple">
-<li><strong>Den richtigen USB-Port finden</strong></li>
+<li>Die aktuelle Partitionierung der microSD Karte löschen</li>
 </ul>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: d
+Selected partition 1
+Partition <span class="literal number">1</span> has been deleted.
+</pre>
+<ul class="simple">
+<li>Anlegen der zwei neuen Partitionen boot (min. 100 MB) und root (rest)</li>
+</ul>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: n
+Partition <span class="name builtin">type
+   </span>p   primary <span class="operator">(</span><span class="literal number">0</span> primary, <span class="literal number">0</span> extended, <span class="literal number">4</span> free<span class="operator">)</span>
+   e   extended <span class="operator">(</span>container <span class="keyword">for</span> logical partitions<span class="operator">)</span>
+Select <span class="operator">(</span>default p<span class="operator">)</span>: p
+Partitionsnummer <span class="operator">(</span>1-4, default 1<span class="operator">)</span>: 1
+First sector <span class="operator">(</span>2048-30881791, default 2048<span class="operator">)</span>:
+Last sector, +sectors or +size<span class="operator">{</span>K,M,G,T,P<span class="operator">}</span> <span class="operator">(</span>2048-30881791, default 30881791<span class="operator">)</span>: +100M
+
+Created a new partition <span class="literal number">1</span> of <span class="name builtin">type</span> <span class="literal string single">'Linux'</span> and of size <span class="literal number">100</span> MiB.
+
+
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: n
+Partition <span class="name builtin">type
+   </span>p   primary <span class="operator">(</span><span class="literal number">1</span> primary, <span class="literal number">0</span> extended, <span class="literal number">3</span> free<span class="operator">)</span>
+   e   extended <span class="operator">(</span>container <span class="keyword">for</span> logical partitions<span class="operator">)</span>
+Select <span class="operator">(</span>default p<span class="operator">)</span>: p
+Partitionsnummer <span class="operator">(</span>2-4, default 2<span class="operator">)</span>: 2
+First sector <span class="operator">(</span>206848-30881791, default 206848<span class="operator">)</span>: <span class="operator">[</span>ENTER<span class="operator">]</span>
+Last sector, +sectors or +size<span class="operator">{</span>K,M,G,T,P<span class="operator">}</span> <span class="operator">(</span>206848-30881791, default 30881791<span class="operator">)</span>: <span class="operator">[</span>ENTER<span class="operator">]</span>
+
+Created a new partition <span class="literal number">2</span> of <span class="name builtin">type</span> <span class="literal string single">'Linux'</span> and of size 14,6 GiB.
+</pre>
+<ul class="simple">
+<li>setzen des bootable flags auf der boot Partition</li>
+</ul>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: a
+Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="operator">)</span>: 1
+
+The bootable flag on partition <span class="literal number">1</span> is enabled now.
+</pre>
+<ul class="simple">
+<li>boot formatieren als FAT32</li>
+</ul>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: t
+Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="operator">)</span>: 1
+Hex code <span class="operator">(</span><span class="name builtin">type </span>L to list all codes<span class="operator">)</span>: c
+
+If you have created or modified any DOS 6.x partitions, please see the fdisk documentation <span class="keyword">for</span> additional information.
+Changed <span class="name builtin">type </span>of partition <span class="literal string single">'Linux'</span> to <span class="literal string single">'W95 FAT32 (LBA)'</span>.
+</pre>
+<ul class="simple">
+<li>root als &quot;Linux&quot; formatieren</li>
+</ul>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: t
+Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="operator">)</span>: 2
+Hex code <span class="operator">(</span><span class="name builtin">type </span>L to list all codes<span class="operator">)</span>: 83
+
+Changed <span class="name builtin">type </span>of partition <span class="literal string single">'Linux'</span> to <span class="literal string single">'Linux'</span>.
+</pre>
+<ul class="simple">
+<li>Überprüfung der SD Karte im Normalfall sollte es etwar so aussehen</li>
+</ul>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: p
+Disk /dev/mmcblk0: 14,7 GiB, <span class="literal number">15811477504</span> bytes, <span class="literal number">30881792</span> sectors
+Geometry: <span class="literal number">255</span> heads, <span class="literal number">63</span> sectors/track, <span class="literal number">482528</span> cylinders
+Units: sectors of <span class="literal number">1</span> * <span class="name variable">512</span> <span class="operator">=</span> <span class="literal number">512</span> bytes
+Sector size <span class="operator">(</span>logical/physical<span class="operator">)</span>: <span class="literal number">512</span> bytes / <span class="literal number">512</span> bytes
+I/O size <span class="operator">(</span>minimum/optimal<span class="operator">)</span>: <span class="literal number">512</span> bytes / <span class="literal number">512</span> bytes
+Disklabel <span class="name builtin">type</span>: dos
+Disk identifier: 0x00000000
+
+Device         Boot  Start      End  Sectors  Size Id Type
+/dev/mmcblk0p1 *      <span class="literal number">2048</span>   <span class="literal number">206847</span>   <span class="literal number">204800</span>  100M  c W95 FAT32 <span class="operator">(</span>LBA<span class="operator">)</span>
+/dev/mmcblk0p2      <span class="literal number">206848</span> <span class="literal number">30881791</span> <span class="literal number">30674944</span> 14,6G <span class="literal number">83</span> Linux
+</pre>
+<div class="section" id="die-anderungen-auf-der-sd-karte-anwenden">
+<h3><a class="toc-backref" href="#id16">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></h3>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: w
+The partition table has been altered.
+Calling ioctl<span class="operator">()</span> to re-read partition table.
+Re-reading the partition table failed.: Das Gerät oder die Ressource ist belegt
+
+The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe<span class="operator">(</span>8<span class="operator">)</span> or kpartx<span class="operator">(</span>8<span class="operator">)</span>.
+</pre>
+<pre class="code bash literal-block">
+lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda           8:0    <span class="literal number">0</span> 465,8G  <span class="literal number">0</span> disk
+├─sda1        8:1    <span class="literal number">0</span>   100M  <span class="literal number">0</span> part
+├─sda2        8:2    <span class="literal number">0</span> 140,5G  <span class="literal number">0</span> part
+├─sda3        8:3    <span class="literal number">0</span>   100G  <span class="literal number">0</span> part
+├─sda4        8:4    <span class="literal number">0</span>     1K  <span class="literal number">0</span> part
+├─sda5        8:5    <span class="literal number">0</span> 221,6G  <span class="literal number">0</span> part /
+└─sda6        8:6    <span class="literal number">0</span>   3,6G  <span class="literal number">0</span> part <span class="operator">[</span>SWAP<span class="operator">]</span>
+mmcblk0     179:0    <span class="literal number">0</span>  14,7G  <span class="literal number">0</span> disk
+├─mmcblk0p1 179:1    <span class="literal number">0</span>   100M  <span class="literal number">0</span> part
+└─mmcblk0p2 179:2    <span class="literal number">0</span>  14,6G  <span class="literal number">0</span> part
+</pre>
+</div>
+<div class="section" id="formatieren-der-boot-festplatte">
+<h3><a class="toc-backref" href="#id17">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Festplatte&quot;</a></h3>
+<pre class="code bash literal-block">
+sudo mkfs.vfat -F <span class="literal number">16</span> -n <span class="literal string double">&quot;boot&quot;</span> /dev/mmcblk0p1mkfs.fat 3.0.27
+</pre>
+</div>
+<div class="section" id="formatieren-der-root-festplatte">
+<h3><a class="toc-backref" href="#id18">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Festplatte&quot;</a></h3>
+<pre class="code bash literal-block">
+sudo mke2fs -j -L <span class="literal string double">&quot;root&quot;</span> /dev/mmcblk0p2 mke2fs 1.42.12
+Ein Dateisystems mit <span class="literal number">3833856</span> <span class="operator">(</span>4k<span class="operator">)</span> Blöcken und <span class="literal number">960336</span> Inodes wird erzeugt.
+UUID des Dateisystems: f013f938-dc87-4a3a-a1c4-9961d1d88215
+Superblock-Sicherungskopien gespeichert in den Blöcken:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208
+
+beim Anfordern von Speicher für die Gruppentabellen: erledigt
+Inode-Tabellen werden geschrieben: erledigt
+Das Journal <span class="operator">(</span><span class="literal number">32768</span> Blöcke<span class="operator">)</span> wird angelegt: erledgt
+Die Superblöcke und die Informationen über die Dateisystemnutzung werden geschrieben: erledigt
+</pre>
+</div>
+</div>
+<div class="section" id="zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges">
+<h2><a class="toc-backref" href="#id19">2.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></h2>
+<p>Zunächst gilt es das BBB wie auf dem folgenden Bild richtig mit dem PC zu verbinden.</p>
+<p><a class="citation-reference" href="#todo" id="id3">[TODO]</a></p>
+<!-- add picture -->
+<p>Nun muss man herausfinden auf welche Schnittstelle die Verbindung zum BBB im Moment abgebildet wird.</p>
 <pre class="code bash literal-block">
 dmesg
 </pre>
 <div class="figure align-center">
 <img alt="img/BBB-dmesg.png" src="img/BBB-dmesg.png" />
 </div>
-<ul>
-<li><p class="first"><strong>Auf den Port zugreifen</strong> - Hierfür benötigt man ein [] wie z.B. Minicom außerdem werden spezielle Befugnisse für das Zugreifen auf den Port benötigt hierfür gibt es 2 unterschiedliche herangehensweisen:</p>
-<blockquote>
+<p>Um während des Bootvorganges auf das Serielle Terminal und somit auch auf den Bootloader u-boot zugreifen zu können benötigt man einen serielles Terminal (bzw. einen Emulator) wie z.B. Minicom außerdem werden spezielle Befugnisse für das Zugreifen auf den Port benötigt hierfür gibt es 2 unterschiedliche herangehensweisen:</p>
 <ol class="loweralpha simple">
 <li>Ändern der Befugnisse um auf den seriellen Port zugreifen zu dürfen</li>
 </ol>
 <pre class="code bash literal-block">
-sudo chmod 0666 dev/&lt;tty of the eth connection to the bbb&gt;
+sudo chmod <span class="literal number">0666</span> dev/tty&lt;Device&gt;
 <span class="comment"># for my system
-</span>sudo chmod 0666 dev/ttyACM0
+</span>sudo chmod <span class="literal number">0666</span> dev/ttyUSB0
 </pre>
 <ol class="loweralpha simple" start="2">
 <li>Eigenes Profil zur Gruppe &quot;dialout&quot; hinzufügen um auf den seriellen Port zugreifen zu dürfen</li>
@@ -578,95 +803,178 @@ sudo chmod 0666 dev/&lt;tty of the eth connection to the bbb&gt;
 <pre class="code bash literal-block">
 sudo usermod -a -G dialout &lt;username&gt;
 </pre>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-<div class="section" id="minicom-konfigurieren">
-<h2><a class="toc-backref" href="#id8">2.1&nbsp;&nbsp;&nbsp;Minicom konfigurieren</a></h2>
-<blockquote>
+<p>Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit den entsprechenden Variablen, wie dem Pfad, der Baudrate, Parity und der Konfiguration an Datenbits und Stopbits aufgerufen werden. Die Vorgehensweise für &quot;minicom&quot; wird im Abschnitt &quot;Tools und Programme&quot; genauer beschrieben.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="61%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">&nbsp;</th>
+<th class="head">Konfiguration für BBB</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Baudrate</td>
+<td>115200</td>
+</tr>
+<tr><td>Anzahl der Daten-Bits</td>
+<td>8 Databits</td>
+</tr>
+<tr><td>Parity</td>
+<td>no Parity</td>
+</tr>
+<tr><td>Stopbits</td>
+<td>1 Stopbit</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="instalation-des-bootloaders">
+<h2><a class="toc-backref" href="#id20">2.5&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></h2>
+<pre class="code bash literal-block">
+cp MLO-beaglebone /media/&lt;USER&gt;/BOOT/MLO
+cp u-boot-beaglebone.img /media/&lt;USER&gt;/BOOT/u-boot.img
+</pre>
+</div>
+<div class="section" id="instalation-des-filesystems">
+<h2><a class="toc-backref" href="#id21">2.6&nbsp;&nbsp;&nbsp;Instalation des Filesystems</a></h2>
+<pre class="code bash literal-block">
+sudo tar x -C /media/&lt;USER&gt;/root/ -f modules-beaglebone.tgz
+</pre>
+</div>
+</div>
+<div class="section" id="netboot-test">
+<h1><a class="toc-backref" href="#id22">3&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
+</div>
+<div class="section" id="tools-und-programme">
+<h1><a class="toc-backref" href="#id23">4&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
+<div class="section" id="minicom-ein-serial-terminal-emulator">
+<h2><a class="toc-backref" href="#id24">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a></h2>
+<div class="section" id="installation">
+<h3><a class="toc-backref" href="#id25">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></h3>
 <pre class="code bash literal-block">
 <span class="comment"># for ubuntu / debian based distributions
 </span>sudo apt-get install minicom
 
 sudo minicom -s
 </pre>
-<ul class="simple">
-<li><strong>Einstellungen zum seriellen Anschluss</strong></li>
-</ul>
+<p>Einstellungen des seriellen Anschlusses</p>
 <div class="figure align-center">
 <img alt="img/microcom-setup1.png" src="img/microcom-setup1.png" />
 </div>
-<ul class="simple">
-<li><strong>Unter A das richtige Device einrichten</strong></li>
-</ul>
+</div>
+<div class="section" id="unter-a-das-richtige-device-einrichten">
+<h3><a class="toc-backref" href="#id26">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup2.png" src="img/microcom-setup2.png" />
 </div>
-<ul class="simple">
-<li><strong>Als default Speichern</strong></li>
-</ul>
+</div>
+<div class="section" id="als-default-speichern">
+<h3><a class="toc-backref" href="#id27">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup3.png" src="img/microcom-setup3.png" />
 </div>
-<ul class="simple">
-<li><strong>Minicom beenden und neu starten</strong></li>
-</ul>
+</div>
+<div class="section" id="minicom-beenden-und-neu-starten">
+<h3><a class="toc-backref" href="#id28">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup4.png" src="img/microcom-setup4.png" />
 </div>
-</blockquote>
 </div>
-<div class="section" id="vorbereiten-der-microsd-karte">
-<h2><a class="toc-backref" href="#id9">2.2&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h2>
-<blockquote>
-<blockquote>
-<pre class="code bash literal-block">
-sudo fdisk -lu &lt;device_name&gt;
-<span class="comment"># for my system
-</span>sudo fdisk -lu mmcblk0
-</pre>
-<div class="figure align-center">
-<img alt="img/fdisk-list-volumes.png" src="img/fdisk-list-volumes.png" />
 </div>
+<div class="section" id="fdisk-partitionierungs-tool">
+<h2><a class="toc-backref" href="#id29">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
 <ul class="simple">
-<li>/dev/mmcblk0p1 * 63 144584 72261 c Win95 FAT32 (LBA)</li>
-<li>/dev/mmcblk0p2 144585 465884 160650 83 Linux</li>
-<li>mkfs.vfat -F 16 -n &quot;boot&quot; /dev/mmcblk0p1</li>
-<li>mke2fs -j -L &quot;root&quot; /dev/mmcblk0p2</li>
+<li>öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)</li>
 </ul>
-<div class="figure align-center">
-<img alt="img/mkfs-2.png" src="img/mkfs-2.png" />
-</div>
-</blockquote>
-<ul>
-<li><p class="first"><strong>Yocto Build Download</strong></p>
-<blockquote>
 <pre class="code bash literal-block">
-wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
+sudo fdisk /dev/mmcblk0
 </pre>
-</blockquote>
-</li>
-<li><p class="first"><strong>Build the Yocto core and bootloader</strong></p>
-<blockquote>
-<pre class="code bash literal-block">
-<span class="name builtin">source </span>oe-init-build-env build
-</pre>
-<div class="figure align-center">
-<img alt="img/Yocto-build1.png" src="img/Yocto-build1.png" />
-</div>
-<pre class="code bash literal-block">
-Remove the <span class="literal string single">'#'</span> from the
-<span class="comment">#MACHINE ?= &quot;beaglebone&quot;</span>
-</pre>
-</blockquote>
-</li>
+<ul class="simple">
+<li>Auflisten der Partitionen eines Laufwerks</li>
 </ul>
-</blockquote>
+<pre class="code bash literal-block">
+sudo fdisk -lu /dev/mmcblk0
+
+Disk /dev/mmcblk0: 14,7 GiB, <span class="literal number">15811477504</span> bytes, <span class="literal number">30881792</span> sectors
+Units: sectors of <span class="literal number">1</span> * <span class="name variable">512</span> <span class="operator">=</span> <span class="literal number">512</span> bytes
+Sector size <span class="operator">(</span>logical/physical<span class="operator">)</span>: <span class="literal number">512</span> bytes / <span class="literal number">512</span> bytes
+I/O size <span class="operator">(</span>minimum/optimal<span class="operator">)</span>: <span class="literal number">512</span> bytes / <span class="literal number">512</span> bytes
+Disklabel <span class="name builtin">type</span>: dos
+Disk identifier: 0x00000000
+
+Device         Boot Start      End  Sectors  Size Id Type
+/dev/mmcblk0p1       <span class="literal number">8192</span> <span class="literal number">30881791</span> <span class="literal number">30873600</span> 14,7G  c W95 FAT32 <span class="operator">(</span>LBA<span class="operator">)</span>
+</pre>
+<div class="section" id="sonstige-befehle">
+<h3><a class="toc-backref" href="#id30">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
+<pre class="code bash literal-block">
+DOS <span class="operator">(</span>MBR<span class="operator">)</span>
+   a   toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
+
+Generic
+   d   delete a partition
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition <span class="name builtin">type
+   </span>v   verify the partition table
+
+Misc
+   m   print this menu
+   u   change display/entry units
+   x   extra functionality <span class="operator">(</span>experts only<span class="operator">)</span>
+
+Save <span class="punctuation">&amp;</span> Exit
+   w   write table to disk and <span class="name builtin">exit
+   </span>q   quit without saving changes
+
+Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI <span class="operator">(</span>IRIX<span class="operator">)</span> partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+</pre>
+</div>
+<div class="section" id="unterschiedliche-formatierungen">
+<h3><a class="toc-backref" href="#id31">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
+<pre class="code bash literal-block">
+Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: l
+
+ <span class="literal number">0</span>  Leer            <span class="literal number">24</span>  NEC DOS         <span class="literal number">81</span>  Minix / altes L bf  Solaris
+ <span class="literal number">1</span>  FAT12           <span class="literal number">27</span>  Hidden NTFS Win <span class="literal number">82</span>  Linux Swap / So c1  DRDOS/sec <span class="operator">(</span>FAT-
+ <span class="literal number">2</span>  XENIX root      <span class="literal number">39</span>  Plan <span class="literal number">9</span>          <span class="literal number">83</span>  Linux           c4  DRDOS/sec <span class="operator">(</span>FAT-
+ <span class="literal number">3</span>  XENIX usr       3c  PartitionMagic  <span class="literal number">84</span>  OS/2 verst. C:- c6  DRDOS/sec <span class="operator">(</span>FAT-
+ <span class="literal number">4</span>  FAT16 &lt;32M      <span class="literal number">40</span>  Venix <span class="literal number">80286</span>     <span class="literal number">85</span>  Linux erweitert c7  Syrinx
+ <span class="literal number">5</span>  Erweiterte      <span class="literal number">41</span>  PPC PReP Boot   <span class="literal number">86</span>  NTFS Datenträge da  Keine Dateisyst
+ <span class="literal number">6</span>  FAT16           <span class="literal number">42</span>  SFS             <span class="literal number">87</span>  NTFS Datenträge db  CP/M / CTOS / …
+ <span class="literal number">7</span>  HPFS/NTFS/exFAT 4d  QNX4.x          <span class="literal number">88</span>  Linux Klartext  de  Dell Dienstprog
+ <span class="literal number">8</span>  AIX             4e  QNX4.x 2. Teil  8e  Linux LVM       df  BootIt
+ <span class="literal number">9</span>  AIX bootfähig   4f  QNX4.x 3. Teil  <span class="literal number">93</span>  Amoeba          e1  DOS-Zugriff
+ a  OS/2-Bootmanage <span class="literal number">50</span>  OnTrack DM      <span class="literal number">94</span>  Amoeba BBT      e3  DOS R/O
+ b  W95 FAT32       <span class="literal number">51</span>  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor
+ c  W95 FAT32 <span class="operator">(</span>LBA<span class="operator">)</span> <span class="literal number">52</span>  CP/M            a0  IBM Thinkpad Ru eb  BeOS Dateisyste
+ e  W95 FAT16 <span class="operator">(</span>LBA<span class="operator">)</span> <span class="literal number">53</span>  OnTrack DM6 Aux a5  FreeBSD         ee  GPT
+ f  W95 Erw. <span class="operator">(</span>LBA<span class="operator">)</span>  <span class="literal number">54</span>  OnTrackDM6      a6  OpenBSD         ef  EFI <span class="operator">(</span>FAT-12/16/
+<span class="literal number">10</span>  OPUS            <span class="literal number">55</span>  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC B
+<span class="literal number">11</span>  Verst. FAT12    <span class="literal number">56</span>  Golden Bow      a8  Darwin UFS      f1  SpeedStor
+<span class="literal number">12</span>  Compaq Diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor
+<span class="literal number">14</span>  Verst. FAT16 &lt;<span class="literal number">3</span> <span class="literal number">61</span>  SpeedStor       ab  Darwin Boot     f2  DOS sekundär
+<span class="literal number">16</span>  Verst. FAT16    <span class="literal number">63</span>  GNU HURD oder S af  HFS / HFS+      fb  VMware VMFS
+<span class="literal number">17</span>  Verst. HPFS/NTF <span class="literal number">64</span>  Novell Netware  b7  BSDi Dateisyste <span class="name builtin">fc  </span>VMware VMKCORE
+<span class="literal number">18</span>  AST SmartSleep  <span class="literal number">65</span>  Novell Netware  b8  BSDI Swap       fd  Linux raid auto
+1b  Verst. W95 FAT3 <span class="literal number">70</span>  DiskSecure Mult bb  Boot-Assistent  fe  LANstep
+1c  Verst. W95 FAT3 <span class="literal number">75</span>  PC/IX           be  Solaris Boot    ff  BBT
+1e  Verst. W95 FAT1 <span class="literal number">80</span>  Altes Minix
+</pre>
+</div>
 </div>
 </div>
 <div class="section" id="literatur-und-sonstige-quellen">
-<h1><a class="toc-backref" href="#id10">3&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
+<h1><a class="toc-backref" href="#id32">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
 <table class="docutils citation" frame="void" id="bbb-bsp" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -693,6 +1001,19 @@ Remove the <span class="literal string single">'#'</span> from the
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[BBB-YOCTO]</a></td><td>Yocto Project Beaglebone Black
 <a class="reference external" href="https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone">https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="yocto" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[YOCTO]</td><td>Yocto Project Build
+<a class="reference external" href="http://android.serverbox.ch/?p=1273">http://android.serverbox.ch/?p=1273</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="todo" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[TODO]</a></td><td>Look for comments</td></tr>
 </tbody>
 </table>
 <!-- vim: et sw=4 ts=4 -->
