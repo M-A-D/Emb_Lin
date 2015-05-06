@@ -384,7 +384,7 @@ Studiengang Technische Informatik, 6. Semester <br>
 Sommersemester 2015
  <br>
 <!-- print date -->
-Datum: 2015-04-17 17:53
+Datum: 2015-05-06 16:53
 
 <p>
 
@@ -408,55 +408,59 @@ Geocaching Modul
 <div class="contents topic" id="inhalt">
 <p class="topic-title first">Inhalt</p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#beschreibung-der-hardware" id="id4">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a><ul class="auto-toc">
-<li><a class="reference internal" href="#verbindung" id="id5">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></li>
-<li><a class="reference internal" href="#blockschaltplan-beaglebone-black" id="id6">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></li>
-<li><a class="reference internal" href="#komponenten" id="id7">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></li>
+<li><a class="reference internal" href="#beschreibung-der-hardware" id="id3">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a><ul class="auto-toc">
+<li><a class="reference internal" href="#verbindung" id="id4">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></li>
+<li><a class="reference internal" href="#blockschaltplan-beaglebone-black" id="id5">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></li>
+<li><a class="reference internal" href="#komponenten" id="id6">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject" id="id8">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a><ul class="auto-toc">
-<li><a class="reference internal" href="#beziehen-der-daten" id="id9">2.1&nbsp;&nbsp;&nbsp;Beziehen der Daten</a><ul class="auto-toc">
-<li><a class="reference internal" href="#herunterladen-der-buildumgebung-vom-github-des-yoctoproject" id="id10">2.1.1&nbsp;&nbsp;&nbsp;Herunterladen der Buildumgebung vom Github des Yoctoproject</a></li>
-<li><a class="reference internal" href="#herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject" id="id11">2.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></li>
+<li><a class="reference internal" href="#bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject" id="id7">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a><ul class="auto-toc">
+<li><a class="reference internal" href="#beziehen-der-daten" id="id8">2.1&nbsp;&nbsp;&nbsp;Beziehen der Daten</a><ul class="auto-toc">
+<li><a class="reference internal" href="#herunterladen-der-buildumgebung-vom-github-des-yoctoproject" id="id9">2.1.1&nbsp;&nbsp;&nbsp;Herunterladen der Buildumgebung vom Github des Yoctoproject</a></li>
+<li><a class="reference internal" href="#herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject" id="id10">2.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bauen-des-yocto-core-images-und-des-bootloaders" id="id12">2.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a><ul class="auto-toc">
-<li><a class="reference internal" href="#erstellen-der-buildumgebung-und-uberprufung-der-variablen" id="id13">2.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></li>
-<li><a class="reference internal" href="#bitbake-eine-buildumgebung-fur-ein-angepasstes-yocto-linux" id="id14">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Buildumgebung für ein angepasstes Yocto-linux</a></li>
+<li><a class="reference internal" href="#bauen-des-yocto-core-images-und-des-bootloaders" id="id11">2.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a><ul class="auto-toc">
+<li><a class="reference internal" href="#erstellen-der-buildumgebung-und-uberprufung-der-variablen" id="id12">2.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></li>
+<li><a class="reference internal" href="#bitbake-eine-buildumgebung-fur-ein-angepasstes-yocto-linux" id="id13">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Buildumgebung für ein angepasstes Yocto-linux</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id15">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a><ul class="auto-toc">
-<li><a class="reference internal" href="#die-anderungen-auf-der-sd-karte-anwenden" id="id16">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></li>
-<li><a class="reference internal" href="#formatieren-der-boot-festplatte" id="id17">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Festplatte&quot;</a></li>
-<li><a class="reference internal" href="#formatieren-der-root-festplatte" id="id18">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Festplatte&quot;</a></li>
+<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id14">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a><ul class="auto-toc">
+<li><a class="reference internal" href="#die-anderungen-auf-der-sd-karte-anwenden" id="id15">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></li>
+<li><a class="reference internal" href="#formatieren-der-boot-partition" id="id16">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Partition&quot;</a></li>
+<li><a class="reference internal" href="#formatieren-der-root-partition" id="id17">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Partition&quot;</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges" id="id19">2.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></li>
-<li><a class="reference internal" href="#instalation-des-bootloaders" id="id20">2.5&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></li>
-<li><a class="reference internal" href="#instalation-des-filesystems" id="id21">2.6&nbsp;&nbsp;&nbsp;Instalation des Filesystems</a></li>
+<li><a class="reference internal" href="#instalation-des-bootloaders" id="id18">2.4&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></li>
+<li><a class="reference internal" href="#instalation-des-filesystems" id="id19">2.5&nbsp;&nbsp;&nbsp;Instalation des Filesystems</a></li>
+<li><a class="reference internal" href="#uberprufung-der-instalation" id="id20">2.6&nbsp;&nbsp;&nbsp;Überprüfung der Instalation</a><ul class="auto-toc">
+<li><a class="reference internal" href="#einstellungen-von-u-boot-uberprufen" id="id21">2.6.1&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#netboot-test" id="id22">3&nbsp;&nbsp;&nbsp;Netboot test</a></li>
-<li><a class="reference internal" href="#tools-und-programme" id="id23">4&nbsp;&nbsp;&nbsp;Tools und Programme</a><ul class="auto-toc">
-<li><a class="reference internal" href="#minicom-ein-serial-terminal-emulator" id="id24">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a><ul class="auto-toc">
-<li><a class="reference internal" href="#installation" id="id25">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
-<li><a class="reference internal" href="#unter-a-das-richtige-device-einrichten" id="id26">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></li>
-<li><a class="reference internal" href="#als-default-speichern" id="id27">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></li>
-<li><a class="reference internal" href="#minicom-beenden-und-neu-starten" id="id28">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></li>
+<li><a class="reference internal" href="#zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges" id="id22">2.7&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id29">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
-<li><a class="reference internal" href="#sonstige-befehle" id="id30">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
-<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id31">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
+<li><a class="reference internal" href="#netboot-test" id="id23">3&nbsp;&nbsp;&nbsp;Netboot test</a></li>
+<li><a class="reference internal" href="#tools-und-programme" id="id24">4&nbsp;&nbsp;&nbsp;Tools und Programme</a><ul class="auto-toc">
+<li><a class="reference internal" href="#minicom-ein-serial-terminal-emulator" id="id25">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installation" id="id26">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
+<li><a class="reference internal" href="#unter-a-das-richtige-device-einrichten" id="id27">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></li>
+<li><a class="reference internal" href="#als-default-speichern" id="id28">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></li>
+<li><a class="reference internal" href="#minicom-beenden-und-neu-starten" id="id29">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id30">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
+<li><a class="reference internal" href="#sonstige-befehle" id="id31">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
+<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id32">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id32">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
+<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id33">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
 </ul>
 </div>
 <div class="section" id="beschreibung-der-hardware">
-<h1><a class="toc-backref" href="#id4">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a></h1>
+<h1><a class="toc-backref" href="#id3">1&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a></h1>
 <p>Für das Projekt wird das Beaglebone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.</p>
 <p>Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues Beaglebone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.</p>
 <pre class="code bash literal-block">
@@ -476,7 +480,7 @@ ssh debian&#64;192.168.7.2
 <!--  -->
 <!-- hush.c - shell -->
 <div class="section" id="verbindung">
-<h2><a class="toc-backref" href="#id5">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></h2>
+<h2><a class="toc-backref" href="#id4">1.1&nbsp;&nbsp;&nbsp;Verbindung</a></h2>
 <pre class="code bash literal-block">
 debian&#64;beaglebone:~# ifconfig
 debian&#64;beaglebone:~# dhclient eth0
@@ -486,13 +490,13 @@ debian&#64;beaglebone:~# dhclient eth0
 </div>
 </div>
 <div class="section" id="blockschaltplan-beaglebone-black">
-<h2><a class="toc-backref" href="#id6">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></h2>
+<h2><a class="toc-backref" href="#id5">1.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></h2>
 <div class="figure align-center">
 <img alt="img/BBB-Blockschaltplan.png" src="img/BBB-Blockschaltplan.png" />
 </div>
 </div>
 <div class="section" id="komponenten">
-<h2><a class="toc-backref" href="#id7">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></h2>
+<h2><a class="toc-backref" href="#id6">1.3&nbsp;&nbsp;&nbsp;Komponenten</a></h2>
 <div class="figure align-center">
 <img alt="img/BBB-components.png" src="img/BBB-components.png" />
 </div>
@@ -579,7 +583,7 @@ debian&#64;beaglebone:~# dhclient eth0
 </div>
 </div>
 <div class="section" id="bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject">
-<h1><a class="toc-backref" href="#id8">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a></h1>
+<h1><a class="toc-backref" href="#id7">2&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a></h1>
 <p>Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufgesetzt werden. Hierzu bedienen wir uns des Yoctoproject. <a class="citation-reference" href="#bbb-yocto" id="id2">[BBB-YOCTO]</a></p>
 <pre class="code bash literal-block">
 <span class="comment">#
@@ -592,24 +596,24 @@ debian&#64;beaglebone:~# dhclient eth0
 </span>sudo apt-get install g++
 </pre>
 <div class="section" id="beziehen-der-daten">
-<h2><a class="toc-backref" href="#id9">2.1&nbsp;&nbsp;&nbsp;Beziehen der Daten</a></h2>
+<h2><a class="toc-backref" href="#id8">2.1&nbsp;&nbsp;&nbsp;Beziehen der Daten</a></h2>
 <div class="section" id="herunterladen-der-buildumgebung-vom-github-des-yoctoproject">
-<h3><a class="toc-backref" href="#id10">2.1.1&nbsp;&nbsp;&nbsp;Herunterladen der Buildumgebung vom Github des Yoctoproject</a></h3>
+<h3><a class="toc-backref" href="#id9">2.1.1&nbsp;&nbsp;&nbsp;Herunterladen der Buildumgebung vom Github des Yoctoproject</a></h3>
 <pre class="code bash literal-block">
 git clone git://git.yoctoproject.org/meta-yocto -b dizzy
 </pre>
 </div>
 <div class="section" id="herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject">
-<h3><a class="toc-backref" href="#id11">2.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></h3>
+<h3><a class="toc-backref" href="#id10">2.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></h3>
 <pre class="code bash literal-block">
 wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
 </pre>
 </div>
 </div>
 <div class="section" id="bauen-des-yocto-core-images-und-des-bootloaders">
-<h2><a class="toc-backref" href="#id12">2.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a></h2>
+<h2><a class="toc-backref" href="#id11">2.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a></h2>
 <div class="section" id="erstellen-der-buildumgebung-und-uberprufung-der-variablen">
-<h3><a class="toc-backref" href="#id13">2.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></h3>
+<h3><a class="toc-backref" href="#id12">2.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></h3>
 <p>Um den Bauvorgang einzuleiten empfiehlt es sich in den Ordner &quot;'*'/poky&quot; zu wechseln.</p>
 <pre class="code bash literal-block">
 <span class="name builtin">source </span>oe-init-build-env build
@@ -627,7 +631,7 @@ vim conf/local.conf
 </pre>
 </div>
 <div class="section" id="bitbake-eine-buildumgebung-fur-ein-angepasstes-yocto-linux">
-<h3><a class="toc-backref" href="#id14">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Buildumgebung für ein angepasstes Yocto-linux</a></h3>
+<h3><a class="toc-backref" href="#id13">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Buildumgebung für ein angepasstes Yocto-linux</a></h3>
 <p>Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.</p>
 <pre class="code bash literal-block">
 bitbake core-image-base
@@ -638,7 +642,7 @@ bitbake core-image-base
 </div>
 </div>
 <div class="section" id="vorbereiten-der-microsd-karte">
-<h2><a class="toc-backref" href="#id15">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h2>
+<h2><a class="toc-backref" href="#id14">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h2>
 <pre class="code bash literal-block">
 sudo fdisk -lu &lt;dev/device_name&gt;
 <span class="comment"># for my system
@@ -730,7 +734,7 @@ Device         Boot  Start      End  Sectors  Size Id Type
 /dev/mmcblk0p2      <span class="literal number">206848</span> <span class="literal number">30881791</span> <span class="literal number">30674944</span> 14,6G <span class="literal number">83</span> Linux
 </pre>
 <div class="section" id="die-anderungen-auf-der-sd-karte-anwenden">
-<h3><a class="toc-backref" href="#id16">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></h3>
+<h3><a class="toc-backref" href="#id15">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: w
 The partition table has been altered.
@@ -754,16 +758,19 @@ mmcblk0     179:0    <span class="literal number">0</span>  14,7G  <span class="
 └─mmcblk0p2 179:2    <span class="literal number">0</span>  14,6G  <span class="literal number">0</span> part
 </pre>
 </div>
-<div class="section" id="formatieren-der-boot-festplatte">
-<h3><a class="toc-backref" href="#id17">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Festplatte&quot;</a></h3>
+<div class="section" id="formatieren-der-boot-partition">
+<h3><a class="toc-backref" href="#id16">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Partition&quot;</a></h3>
+<p>Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogenannte &quot;bootable&quot; flag gesetzt werden.</p>
 <pre class="code bash literal-block">
-sudo mkfs.vfat -F <span class="literal number">16</span> -n <span class="literal string double">&quot;boot&quot;</span> /dev/mmcblk0p1mkfs.fat 3.0.27
+sudo mkfs.vfat -F <span class="literal number">16</span> -n <span class="literal string double">&quot;boot&quot;</span> /dev/mmcblk0p1
 </pre>
 </div>
-<div class="section" id="formatieren-der-root-festplatte">
-<h3><a class="toc-backref" href="#id18">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Festplatte&quot;</a></h3>
+<div class="section" id="formatieren-der-root-partition">
+<h3><a class="toc-backref" href="#id17">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Partition&quot;</a></h3>
+<p>Die root-Partition benötigt ein linux kompatibles Filesystem in diesem Beispiel verwenden wir ext2.</p>
 <pre class="code bash literal-block">
-sudo mke2fs -j -L <span class="literal string double">&quot;root&quot;</span> /dev/mmcblk0p2 mke2fs 1.42.12
+sudo mke2fs -j -L <span class="literal string double">&quot;root&quot;</span> /dev/mmcblk0p2
+
 Ein Dateisystems mit <span class="literal number">3833856</span> <span class="operator">(</span>4k<span class="operator">)</span> Blöcken und <span class="literal number">960336</span> Inodes wird erzeugt.
 UUID des Dateisystems: f013f938-dc87-4a3a-a1c4-9961d1d88215
 Superblock-Sicherungskopien gespeichert in den Blöcken:
@@ -776,14 +783,64 @@ Die Superblöcke und die Informationen über die Dateisystemnutzung werden gesch
 </pre>
 </div>
 </div>
+<div class="section" id="instalation-des-bootloaders">
+<h2><a class="toc-backref" href="#id18">2.4&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></h2>
+<pre class="code bash literal-block">
+cp MLO-beaglebone /media/&lt;USER&gt;/BOOT/MLO
+cp u-boot-beaglebone.img /media/&lt;USER&gt;/BOOT/u-boot.img
+</pre>
+</div>
+<div class="section" id="instalation-des-filesystems">
+<h2><a class="toc-backref" href="#id19">2.5&nbsp;&nbsp;&nbsp;Instalation des Filesystems</a></h2>
+<pre class="code bash literal-block">
+sudo tar x -C /media/&lt;USER&gt;/root/ -f modules-beaglebone.tgz
+
+cp uImage-am335x-bone.dtb /media/m-a-d/BOOT/am335x-bone.dtb
+
+sudo mkdir /media/&lt;USER&gt;/root/boot
+
+sudo cp uImage-am335x-bone.dtb /media/&lt;USER&gt;/root/boot/am335x-boneblack.dtb
+</pre>
+</div>
+<div class="section" id="uberprufung-der-instalation">
+<h2><a class="toc-backref" href="#id20">2.6&nbsp;&nbsp;&nbsp;Überprüfung der Instalation</a></h2>
+<div class="section" id="einstellungen-von-u-boot-uberprufen">
+<h3><a class="toc-backref" href="#id21">2.6.1&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></h3>
+<pre class="code bash literal-block">
+strings u-boot.img <span class="punctuation">|</span> grep loaduimage
+<span class="comment"># wichtige Ausgabe:
+</span><span class="name variable">loaduimage</span><span class="operator">=</span>load mmc <span class="literal string interpol">${</span><span class="name variable">bootpart</span><span class="literal string interpol">}</span> <span class="literal string interpol">${</span><span class="name variable">loadaddr</span><span class="literal string interpol">}</span> <span class="literal string interpol">${</span><span class="name variable">bootdir</span><span class="literal string interpol">}</span>/<span class="literal string interpol">${</span><span class="name variable">bootfile</span><span class="literal string interpol">}</span>
+</pre>
+<pre class="code bash literal-block">
+strings u-boot.img <span class="punctuation">|</span> grep bootpart
+<span class="comment"># wichtige Ausgabe:
+</span><span class="name variable">bootpart</span><span class="operator">=</span>0:2
+<span class="name variable">loadfdt</span><span class="operator">=</span>load mmc <span class="literal string interpol">${</span><span class="name variable">bootpart</span><span class="literal string interpol">}</span> <span class="literal string interpol">${</span><span class="name variable">fdtaddr</span><span class="literal string interpol">}</span> <span class="literal string interpol">${</span><span class="name variable">bootdir</span><span class="literal string interpol">}</span>/<span class="literal string interpol">${</span><span class="name variable">fdtfile</span><span class="literal string interpol">}</span>
+</pre>
+<pre class="code bash literal-block">
+strings u-boot.img <span class="punctuation">|</span> grep bootdir
+<span class="comment"># wichtige Ausgabe:
+</span><span class="name variable">bootdir</span><span class="operator">=</span>/boot
+</pre>
+<pre class="code bash literal-block">
+strings u-boot.img <span class="punctuation">|</span> grep bootfile
+<span class="comment"># wichtige Ausgabe
+</span><span class="name variable">bootfile</span><span class="operator">=</span>uImage
+</pre>
+</div>
+</div>
 <div class="section" id="zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges">
-<h2><a class="toc-backref" href="#id19">2.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></h2>
+<h2><a class="toc-backref" href="#id22">2.7&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></h2>
 <p>Zunächst gilt es das BBB wie auf dem folgenden Bild richtig mit dem PC zu verbinden.</p>
-<p><a class="citation-reference" href="#todo" id="id3">[TODO]</a></p>
-<!-- add picture -->
+<div class="figure align-center">
+<img alt="img/Connect-BBB-SerialTerminal.png" src="img/Connect-BBB-SerialTerminal.png" />
+</div>
 <p>Nun muss man herausfinden auf welche Schnittstelle die Verbindung zum BBB im Moment abgebildet wird.</p>
 <pre class="code bash literal-block">
 dmesg
+<span class="comment"># Normalerweise sollte es auf ttyUSB0 abgebildet werden deshalb lässt sich auch folgender Befehl anwenden:
+</span>dmesg <span class="punctuation">|</span> grep ttyUSB0
+<span class="operator">[</span> 1080.035495<span class="operator">]</span> usb 3-1.2: FTDI USB Serial Device converter now attached to ttyUSB0
 </pre>
 <div class="figure align-center">
 <img alt="img/BBB-dmesg.png" src="img/BBB-dmesg.png" />
@@ -830,29 +887,16 @@ sudo usermod -a -G dialout &lt;username&gt;
 </tbody>
 </table>
 </div>
-<div class="section" id="instalation-des-bootloaders">
-<h2><a class="toc-backref" href="#id20">2.5&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></h2>
-<pre class="code bash literal-block">
-cp MLO-beaglebone /media/&lt;USER&gt;/BOOT/MLO
-cp u-boot-beaglebone.img /media/&lt;USER&gt;/BOOT/u-boot.img
-</pre>
-</div>
-<div class="section" id="instalation-des-filesystems">
-<h2><a class="toc-backref" href="#id21">2.6&nbsp;&nbsp;&nbsp;Instalation des Filesystems</a></h2>
-<pre class="code bash literal-block">
-sudo tar x -C /media/&lt;USER&gt;/root/ -f modules-beaglebone.tgz
-</pre>
-</div>
 </div>
 <div class="section" id="netboot-test">
-<h1><a class="toc-backref" href="#id22">3&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
+<h1><a class="toc-backref" href="#id23">3&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
 </div>
 <div class="section" id="tools-und-programme">
-<h1><a class="toc-backref" href="#id23">4&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
+<h1><a class="toc-backref" href="#id24">4&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
 <div class="section" id="minicom-ein-serial-terminal-emulator">
-<h2><a class="toc-backref" href="#id24">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a></h2>
+<h2><a class="toc-backref" href="#id25">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a></h2>
 <div class="section" id="installation">
-<h3><a class="toc-backref" href="#id25">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></h3>
+<h3><a class="toc-backref" href="#id26">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></h3>
 <pre class="code bash literal-block">
 <span class="comment"># for ubuntu / debian based distributions
 </span>sudo apt-get install minicom
@@ -865,26 +909,26 @@ sudo minicom -s
 </div>
 </div>
 <div class="section" id="unter-a-das-richtige-device-einrichten">
-<h3><a class="toc-backref" href="#id26">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></h3>
+<h3><a class="toc-backref" href="#id27">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup2.png" src="img/microcom-setup2.png" />
 </div>
 </div>
 <div class="section" id="als-default-speichern">
-<h3><a class="toc-backref" href="#id27">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></h3>
+<h3><a class="toc-backref" href="#id28">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup3.png" src="img/microcom-setup3.png" />
 </div>
 </div>
 <div class="section" id="minicom-beenden-und-neu-starten">
-<h3><a class="toc-backref" href="#id28">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></h3>
+<h3><a class="toc-backref" href="#id29">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup4.png" src="img/microcom-setup4.png" />
 </div>
 </div>
 </div>
 <div class="section" id="fdisk-partitionierungs-tool">
-<h2><a class="toc-backref" href="#id29">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
+<h2><a class="toc-backref" href="#id30">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
 <ul class="simple">
 <li>öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)</li>
 </ul>
@@ -908,7 +952,7 @@ Device         Boot Start      End  Sectors  Size Id Type
 /dev/mmcblk0p1       <span class="literal number">8192</span> <span class="literal number">30881791</span> <span class="literal number">30873600</span> 14,7G  c W95 FAT32 <span class="operator">(</span>LBA<span class="operator">)</span>
 </pre>
 <div class="section" id="sonstige-befehle">
-<h3><a class="toc-backref" href="#id30">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
+<h3><a class="toc-backref" href="#id31">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
 <pre class="code bash literal-block">
 DOS <span class="operator">(</span>MBR<span class="operator">)</span>
    a   toggle a bootable flag
@@ -940,7 +984,7 @@ Create a new label
 </pre>
 </div>
 <div class="section" id="unterschiedliche-formatierungen">
-<h3><a class="toc-backref" href="#id31">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
+<h3><a class="toc-backref" href="#id32">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: l
 
@@ -970,11 +1014,47 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 1c  Verst. W95 FAT3 <span class="literal number">75</span>  PC/IX           be  Solaris Boot    ff  BBT
 1e  Verst. W95 FAT1 <span class="literal number">80</span>  Altes Minix
 </pre>
+<!-- Kernel image @ 0x82000000 [ 0x000000 - 0x38ba80 ] -->
+<!-- ## Flattened Device Tree blob at 88000000
+Booting using the fdt blob at 0x88000000
+Using Device Tree in place at 88000000, end 880091f7 -->
+<!-- Starting kernel ... -->
+<!-- Uncompressing Linux... done, booting the kernel.
+[    0.382213] omap2_mbox_probe: platform not supported
+[    0.549251] tps65217-bl tps65217-bl: no platform data provided
+[    0.614239] bone-capemgr bone_capemgr.9: slot #0: No cape found
+[    0.651348] bone-capemgr bone_capemgr.9: slot #1: No cape found
+[    0.688455] bone-capemgr bone_capemgr.9: slot #2: No cape found
+[    0.725563] bone-capemgr bone_capemgr.9: slot #3: No cape found
+[    0.741726] bone-capemgr bone_capemgr.9: slot #6: BB-BONELT-HDMIN conflict P8.45 (#5:BB-BONELT-HDMI)
+[    0.751323] bone-capemgr bone_capemgr.9: slot #6: Failed verification
+[    0.758069] bone-capemgr bone_capemgr.9: loader: failed to load slot-6 BB-BONELT-HDMIN:00A0 (prio 2)
+[    0.774531] omap_hsmmc mmc.5: of_parse_phandle_with_args of 'reset' failed
+[    0.837175] pinctrl-single 44e10800.pinmux: pin 44e10854 already requested by 44e10800.pinmux; cannot claim for gpio-leds.8
+[    0.848851] pinctrl-single 44e10800.pinmux: pin-21 (gpio-leds.8) status -22
+[    0.856136] pinctrl-single 44e10800.pinmux: could not request pin 21 on device pinctrl-single
+[    2.804039] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
+[    4.740032] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
+[    4.749723] end_request: I/O error, dev mmcblk0, sector 0
+Loading, please wait...
+Gave up waiting for root device.  Common problems:
+ - Boot args (cat /proc/cmdline)
+   - Check rootdelay= (did the system wait long enough?)
+   - Check root= (did the system wait for the right device?)
+ - Missing modules (cat /proc/modules; ls /dev)
+ALERT!  /dev/disk/by-uuid/80ce3eca-fb9a-456b-b489-c9243691dba6 does not exist.  Dropping to a shell!
+modprobe: module i8042 not found in modules.dep
+modprobe: module ehci-hcd not found in modules.dep
+modprobe: module uhci-hcd not found in modules.dep
+modprobe: module ohci-hcd not found in modules.dep -->
+<!-- BusyBox v1.20.2 (Debian 1:1.20.0-7) built-in shell (ash)
+Enter 'help' for a list of built-in commands. -->
+<!-- /bin/sh: can't access tty; job control turned off -->
 </div>
 </div>
 </div>
 <div class="section" id="literatur-und-sonstige-quellen">
-<h1><a class="toc-backref" href="#id32">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
+<h1><a class="toc-backref" href="#id33">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
 <table class="docutils citation" frame="void" id="bbb-bsp" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -1013,7 +1093,7 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 <table class="docutils citation" frame="void" id="todo" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[TODO]</a></td><td>Look for comments</td></tr>
+<tr><td class="label">[TODO]</td><td>Look for comments</td></tr>
 </tbody>
 </table>
 <!-- vim: et sw=4 ts=4 -->

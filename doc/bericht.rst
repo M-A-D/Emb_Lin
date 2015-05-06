@@ -306,20 +306,26 @@ Die Änderungen auf der SD Karte anwenden
 	└─mmcblk0p2 179:2    0  14,6G  0 part 
 
 
-Formatieren der "boot-Festplatte"
-+++++++++++++++++++++++++++++++++
+Formatieren der "boot-Partition"
+++++++++++++++++++++++++++++++++
+
+Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogenannte "bootable" flag gesetzt werden.
 
 .. code:: bash
 
-	sudo mkfs.vfat -F 16 -n "boot" /dev/mmcblk0p1mkfs.fat 3.0.27
+	sudo mkfs.vfat -F 16 -n "boot" /dev/mmcblk0p1
 
 
-Formatieren der "root-Festplatte"
-+++++++++++++++++++++++++++++++++
+
+Formatieren der "root-Partition"
+++++++++++++++++++++++++++++++++
+
+Die root-Partition benötigt ein linux kompatibles Filesystem in diesem Beispiel verwenden wir ext2.
 
 .. code:: bash
 
-	sudo mke2fs -j -L "root" /dev/mmcblk0p2 mke2fs 1.42.12
+	sudo mke2fs -j -L "root" /dev/mmcblk0p2
+	
 	Ein Dateisystems mit 3833856 (4k) Blöcken und 960336 Inodes wird erzeugt.
 	UUID des Dateisystems: f013f938-dc87-4a3a-a1c4-9961d1d88215
 	Superblock-Sicherungskopien gespeichert in den Blöcken: 
@@ -331,20 +337,84 @@ Formatieren der "root-Festplatte"
 	Die Superblöcke und die Informationen über die Dateisystemnutzung werden geschrieben: erledigt
 
 
+Instalation des Bootloaders
+---------------------------
+
+.. code:: bash
+	
+	cp MLO-beaglebone /media/<USER>/BOOT/MLO
+	cp u-boot-beaglebone.img /media/<USER>/BOOT/u-boot.img
+
+Instalation des Filesystems
+---------------------------
+
+.. code:: bash
+
+	sudo tar x -C /media/<USER>/root/ -f modules-beaglebone.tgz 
+
+	cp uImage-am335x-bone.dtb /media/m-a-d/BOOT/am335x-bone.dtb
+
+	sudo mkdir /media/<USER>/root/boot
+
+	sudo cp uImage-am335x-bone.dtb /media/<USER>/root/boot/am335x-boneblack.dtb
+
+
+Überprüfung der Instalation
+---------------------------
+
+Einstellungen von u-boot überprüfen
++++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+	
+	strings u-boot.img | grep loaduimage
+	# wichtige Ausgabe:
+	loaduimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}
+
+
+ 
+.. code:: bash
+
+	strings u-boot.img | grep bootpart
+	# wichtige Ausgabe:
+	bootpart=0:2
+	loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}
+
+
+
+.. code:: bash
+
+	strings u-boot.img | grep bootdir
+	# wichtige Ausgabe:
+	bootdir=/boot
+
+
+
+.. code:: bash
+
+	strings u-boot.img | grep bootfile
+	# wichtige Ausgabe
+	bootfile=uImage
+
+
 Zugriff auf das serielle Terminal während des Bootvorganges
 -----------------------------------------------------------
 
 Zunächst gilt es das BBB wie auf dem folgenden Bild richtig mit dem PC zu verbinden.
 
-[TODO]_ 
+.. figure:: img/Connect-BBB-SerialTerminal.png
+	:align: center
 
-.. add picture
 
 Nun muss man herausfinden auf welche Schnittstelle die Verbindung zum BBB im Moment abgebildet wird.
 
 .. code:: bash
 
 	dmesg
+	# Normalerweise sollte es auf ttyUSB0 abgebildet werden deshalb lässt sich auch folgender Befehl anwenden:
+	dmesg | grep ttyUSB0
+	[ 1080.035495] usb 3-1.2: FTDI USB Serial Device converter now attached to ttyUSB0
+
 
 
 .. figure:: img/BBB-dmesg.png
@@ -383,20 +453,9 @@ Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit de
 
 
 
-Instalation des Bootloaders
----------------------------
 
-.. code:: bash
 	
-	cp MLO-beaglebone /media/<USER>/BOOT/MLO
-	cp u-boot-beaglebone.img /media/<USER>/BOOT/u-boot.img
 
-Instalation des Filesystems
----------------------------
-
-.. code:: bash
-
-	sudo tar x -C /media/<USER>/root/ -f modules-beaglebone.tgz 
 
 
 
@@ -537,6 +596,49 @@ Unterschiedliche Formatierungen
 	1b  Verst. W95 FAT3 70  DiskSecure Mult bb  Boot-Assistent  fe  LANstep        
 	1c  Verst. W95 FAT3 75  PC/IX           be  Solaris Boot    ff  BBT            
 	1e  Verst. W95 FAT1 80  Altes Minix    
+
+
+.. Kernel image @ 0x82000000 [ 0x000000 - 0x38ba80 ]
+.. ## Flattened Device Tree blob at 88000000
+   Booting using the fdt blob at 0x88000000
+   Using Device Tree in place at 88000000, end 880091f7
+
+.. Starting kernel ...
+
+.. Uncompressing Linux... done, booting the kernel.
+	[    0.382213] omap2_mbox_probe: platform not supported
+	[    0.549251] tps65217-bl tps65217-bl: no platform data provided
+	[    0.614239] bone-capemgr bone_capemgr.9: slot #0: No cape found
+	[    0.651348] bone-capemgr bone_capemgr.9: slot #1: No cape found
+	[    0.688455] bone-capemgr bone_capemgr.9: slot #2: No cape found
+	[    0.725563] bone-capemgr bone_capemgr.9: slot #3: No cape found
+	[    0.741726] bone-capemgr bone_capemgr.9: slot #6: BB-BONELT-HDMIN conflict P8.45 (#5:BB-BONELT-HDMI)
+	[    0.751323] bone-capemgr bone_capemgr.9: slot #6: Failed verification
+	[    0.758069] bone-capemgr bone_capemgr.9: loader: failed to load slot-6 BB-BONELT-HDMIN:00A0 (prio 2)
+	[    0.774531] omap_hsmmc mmc.5: of_parse_phandle_with_args of 'reset' failed
+	[    0.837175] pinctrl-single 44e10800.pinmux: pin 44e10854 already requested by 44e10800.pinmux; cannot claim for gpio-leds.8
+	[    0.848851] pinctrl-single 44e10800.pinmux: pin-21 (gpio-leds.8) status -22
+	[    0.856136] pinctrl-single 44e10800.pinmux: could not request pin 21 on device pinctrl-single
+	[    2.804039] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
+	[    4.740032] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
+	[    4.749723] end_request: I/O error, dev mmcblk0, sector 0
+	Loading, please wait...
+	Gave up waiting for root device.  Common problems:
+	 - Boot args (cat /proc/cmdline)
+	   - Check rootdelay= (did the system wait long enough?)
+	   - Check root= (did the system wait for the right device?)
+	 - Missing modules (cat /proc/modules; ls /dev)
+	ALERT!  /dev/disk/by-uuid/80ce3eca-fb9a-456b-b489-c9243691dba6 does not exist.  Dropping to a shell!
+	modprobe: module i8042 not found in modules.dep
+	modprobe: module ehci-hcd not found in modules.dep
+	modprobe: module uhci-hcd not found in modules.dep
+	modprobe: module ohci-hcd not found in modules.dep
+
+
+..	BusyBox v1.20.2 (Debian 1:1.20.0-7) built-in shell (ash)
+	Enter 'help' for a list of built-in commands.
+
+..	/bin/sh: can't access tty; job control turned off
 
 
 Literatur und sonstige Quellen
