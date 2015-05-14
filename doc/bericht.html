@@ -450,13 +450,15 @@ Geocaching Modul
 </ul>
 </li>
 <li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id30">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
-<li><a class="reference internal" href="#sonstige-befehle" id="id31">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
-<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id32">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
+<li><a class="reference internal" href="#laufwerk-auswahlen" id="id31">4.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></li>
+<li><a class="reference internal" href="#laufwerksinformationen-ausgeben" id="id32">4.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></li>
+<li><a class="reference internal" href="#sonstige-befehle" id="id33">4.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
+<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id34">4.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id33">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
+<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id35">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
 </ul>
 </div>
 <div class="section" id="beschreibung-der-hardware">
@@ -787,6 +789,7 @@ Die Superblöcke und die Informationen über die Dateisystemnutzung werden gesch
 <h2><a class="toc-backref" href="#id18">2.4&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></h2>
 <pre class="code bash literal-block">
 cp MLO-beaglebone /media/&lt;USER&gt;/BOOT/MLO
+
 cp u-boot-beaglebone.img /media/&lt;USER&gt;/BOOT/u-boot.img
 </pre>
 </div>
@@ -800,6 +803,8 @@ cp uImage-am335x-bone.dtb /media/m-a-d/BOOT/am335x-bone.dtb
 sudo mkdir /media/&lt;USER&gt;/root/boot
 
 sudo cp uImage-am335x-bone.dtb /media/&lt;USER&gt;/root/boot/am335x-boneblack.dtb
+
+sudo cp uImage /media/&lt;USER&gt;/boot
 </pre>
 </div>
 <div class="section" id="uberprufung-der-instalation">
@@ -890,6 +895,7 @@ sudo usermod -a -G dialout &lt;username&gt;
 </div>
 <div class="section" id="netboot-test">
 <h1><a class="toc-backref" href="#id23">3&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
+<p>Im Netboot Teil wurde mangels eines USB auf TTL Adapters kurzerhand zum Raspberry Pi 2 gewechselt. Netzwerkboot bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. permanente kleine schreibende Zugriffe (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints).</p>
 </div>
 <div class="section" id="tools-und-programme">
 <h1><a class="toc-backref" href="#id24">4&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
@@ -929,14 +935,18 @@ sudo minicom -s
 </div>
 <div class="section" id="fdisk-partitionierungs-tool">
 <h2><a class="toc-backref" href="#id30">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
-<ul class="simple">
-<li>öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)</li>
-</ul>
+<p>&quot;fdisk&quot; ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux instalation vorbereiten.</p>
+<div class="section" id="laufwerk-auswahlen">
+<h3><a class="toc-backref" href="#id31">4.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></h3>
+<p>öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)</p>
 <pre class="code bash literal-block">
 sudo fdisk /dev/mmcblk0
 </pre>
+</div>
+<div class="section" id="laufwerksinformationen-ausgeben">
+<h3><a class="toc-backref" href="#id32">4.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></h3>
 <ul class="simple">
-<li>Auflisten der Partitionen eines Laufwerks</li>
+<li>Auflisten der Partitionstabelle eines Laufwerks</li>
 </ul>
 <pre class="code bash literal-block">
 sudo fdisk -lu /dev/mmcblk0
@@ -951,8 +961,9 @@ Disk identifier: 0x00000000
 Device         Boot Start      End  Sectors  Size Id Type
 /dev/mmcblk0p1       <span class="literal number">8192</span> <span class="literal number">30881791</span> <span class="literal number">30873600</span> 14,7G  c W95 FAT32 <span class="operator">(</span>LBA<span class="operator">)</span>
 </pre>
+</div>
 <div class="section" id="sonstige-befehle">
-<h3><a class="toc-backref" href="#id31">4.2.1&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
+<h3><a class="toc-backref" href="#id33">4.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
 <pre class="code bash literal-block">
 DOS <span class="operator">(</span>MBR<span class="operator">)</span>
    a   toggle a bootable flag
@@ -984,7 +995,7 @@ Create a new label
 </pre>
 </div>
 <div class="section" id="unterschiedliche-formatierungen">
-<h3><a class="toc-backref" href="#id32">4.2.2&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
+<h3><a class="toc-backref" href="#id34">4.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: l
 
@@ -1014,47 +1025,11 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 1c  Verst. W95 FAT3 <span class="literal number">75</span>  PC/IX           be  Solaris Boot    ff  BBT
 1e  Verst. W95 FAT1 <span class="literal number">80</span>  Altes Minix
 </pre>
-<!-- Kernel image @ 0x82000000 [ 0x000000 - 0x38ba80 ] -->
-<!-- ## Flattened Device Tree blob at 88000000
-Booting using the fdt blob at 0x88000000
-Using Device Tree in place at 88000000, end 880091f7 -->
-<!-- Starting kernel ... -->
-<!-- Uncompressing Linux... done, booting the kernel.
-[    0.382213] omap2_mbox_probe: platform not supported
-[    0.549251] tps65217-bl tps65217-bl: no platform data provided
-[    0.614239] bone-capemgr bone_capemgr.9: slot #0: No cape found
-[    0.651348] bone-capemgr bone_capemgr.9: slot #1: No cape found
-[    0.688455] bone-capemgr bone_capemgr.9: slot #2: No cape found
-[    0.725563] bone-capemgr bone_capemgr.9: slot #3: No cape found
-[    0.741726] bone-capemgr bone_capemgr.9: slot #6: BB-BONELT-HDMIN conflict P8.45 (#5:BB-BONELT-HDMI)
-[    0.751323] bone-capemgr bone_capemgr.9: slot #6: Failed verification
-[    0.758069] bone-capemgr bone_capemgr.9: loader: failed to load slot-6 BB-BONELT-HDMIN:00A0 (prio 2)
-[    0.774531] omap_hsmmc mmc.5: of_parse_phandle_with_args of 'reset' failed
-[    0.837175] pinctrl-single 44e10800.pinmux: pin 44e10854 already requested by 44e10800.pinmux; cannot claim for gpio-leds.8
-[    0.848851] pinctrl-single 44e10800.pinmux: pin-21 (gpio-leds.8) status -22
-[    0.856136] pinctrl-single 44e10800.pinmux: could not request pin 21 on device pinctrl-single
-[    2.804039] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
-[    4.740032] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
-[    4.749723] end_request: I/O error, dev mmcblk0, sector 0
-Loading, please wait...
-Gave up waiting for root device.  Common problems:
- - Boot args (cat /proc/cmdline)
-   - Check rootdelay= (did the system wait long enough?)
-   - Check root= (did the system wait for the right device?)
- - Missing modules (cat /proc/modules; ls /dev)
-ALERT!  /dev/disk/by-uuid/80ce3eca-fb9a-456b-b489-c9243691dba6 does not exist.  Dropping to a shell!
-modprobe: module i8042 not found in modules.dep
-modprobe: module ehci-hcd not found in modules.dep
-modprobe: module uhci-hcd not found in modules.dep
-modprobe: module ohci-hcd not found in modules.dep -->
-<!-- BusyBox v1.20.2 (Debian 1:1.20.0-7) built-in shell (ash)
-Enter 'help' for a list of built-in commands. -->
-<!-- /bin/sh: can't access tty; job control turned off -->
 </div>
 </div>
 </div>
 <div class="section" id="literatur-und-sonstige-quellen">
-<h1><a class="toc-backref" href="#id33">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
+<h1><a class="toc-backref" href="#id35">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
 <table class="docutils citation" frame="void" id="bbb-bsp" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">

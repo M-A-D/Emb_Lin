@@ -343,6 +343,7 @@ Instalation des Bootloaders
 .. code:: bash
 	
 	cp MLO-beaglebone /media/<USER>/BOOT/MLO
+	
 	cp u-boot-beaglebone.img /media/<USER>/BOOT/u-boot.img
 
 Instalation des Filesystems
@@ -357,6 +358,8 @@ Instalation des Filesystems
 	sudo mkdir /media/<USER>/root/boot
 
 	sudo cp uImage-am335x-bone.dtb /media/<USER>/root/boot/am335x-boneblack.dtb
+
+	sudo cp uImage /media/<USER>/boot 
 
 
 Überprüfung der Instalation
@@ -462,6 +465,9 @@ Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit de
 Netboot test
 ============
 
+Im Netboot Teil wurde mangels eines USB auf TTL Adapters kurzerhand zum Raspberry Pi 2 gewechselt. Netzwerkboot bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. permanente kleine schreibende Zugriffe (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints).
+
+
 
 Tools und Programme
 ===================
@@ -507,13 +513,21 @@ Minicom beenden und neu starten
 fdisk partitionierungs tool 
 ---------------------------
 
-* öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)
+"fdisk" ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux instalation vorbereiten.
+
+Laufwerk auswählen
+++++++++++++++++++
+
+öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)
 
 .. code:: bash
 	
 	sudo fdisk /dev/mmcblk0 
 
-* Auflisten der Partitionen eines Laufwerks
+Laufwerksinformationen ausgeben
++++++++++++++++++++++++++++++++
+
+* Auflisten der Partitionstabelle eines Laufwerks
 
 .. code:: bash
 
@@ -596,49 +610,6 @@ Unterschiedliche Formatierungen
 	1b  Verst. W95 FAT3 70  DiskSecure Mult bb  Boot-Assistent  fe  LANstep        
 	1c  Verst. W95 FAT3 75  PC/IX           be  Solaris Boot    ff  BBT            
 	1e  Verst. W95 FAT1 80  Altes Minix    
-
-
-.. Kernel image @ 0x82000000 [ 0x000000 - 0x38ba80 ]
-.. ## Flattened Device Tree blob at 88000000
-   Booting using the fdt blob at 0x88000000
-   Using Device Tree in place at 88000000, end 880091f7
-
-.. Starting kernel ...
-
-.. Uncompressing Linux... done, booting the kernel.
-	[    0.382213] omap2_mbox_probe: platform not supported
-	[    0.549251] tps65217-bl tps65217-bl: no platform data provided
-	[    0.614239] bone-capemgr bone_capemgr.9: slot #0: No cape found
-	[    0.651348] bone-capemgr bone_capemgr.9: slot #1: No cape found
-	[    0.688455] bone-capemgr bone_capemgr.9: slot #2: No cape found
-	[    0.725563] bone-capemgr bone_capemgr.9: slot #3: No cape found
-	[    0.741726] bone-capemgr bone_capemgr.9: slot #6: BB-BONELT-HDMIN conflict P8.45 (#5:BB-BONELT-HDMI)
-	[    0.751323] bone-capemgr bone_capemgr.9: slot #6: Failed verification
-	[    0.758069] bone-capemgr bone_capemgr.9: loader: failed to load slot-6 BB-BONELT-HDMIN:00A0 (prio 2)
-	[    0.774531] omap_hsmmc mmc.5: of_parse_phandle_with_args of 'reset' failed
-	[    0.837175] pinctrl-single 44e10800.pinmux: pin 44e10854 already requested by 44e10800.pinmux; cannot claim for gpio-leds.8
-	[    0.848851] pinctrl-single 44e10800.pinmux: pin-21 (gpio-leds.8) status -22
-	[    0.856136] pinctrl-single 44e10800.pinmux: could not request pin 21 on device pinctrl-single
-	[    2.804039] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
-	[    4.740032] mmcblk0: error -84 transferring data, sector 0, nr 8, cmd response 0x900, card status 0x0
-	[    4.749723] end_request: I/O error, dev mmcblk0, sector 0
-	Loading, please wait...
-	Gave up waiting for root device.  Common problems:
-	 - Boot args (cat /proc/cmdline)
-	   - Check rootdelay= (did the system wait long enough?)
-	   - Check root= (did the system wait for the right device?)
-	 - Missing modules (cat /proc/modules; ls /dev)
-	ALERT!  /dev/disk/by-uuid/80ce3eca-fb9a-456b-b489-c9243691dba6 does not exist.  Dropping to a shell!
-	modprobe: module i8042 not found in modules.dep
-	modprobe: module ehci-hcd not found in modules.dep
-	modprobe: module uhci-hcd not found in modules.dep
-	modprobe: module ohci-hcd not found in modules.dep
-
-
-..	BusyBox v1.20.2 (Debian 1:1.20.0-7) built-in shell (ash)
-	Enter 'help' for a list of built-in commands.
-
-..	/bin/sh: can't access tty; job control turned off
 
 
 Literatur und sonstige Quellen
