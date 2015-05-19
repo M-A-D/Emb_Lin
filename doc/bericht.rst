@@ -114,14 +114,22 @@ Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufges
 
 .. code:: bash
 	
+	# für den bau wurde eine ältere LTS-Version von Ubuntu verwendet es waren folgende zusätzliche Pakete nötig:
 	#
-	sudo apt-get install chrpath texinfo
+	sudo apt-get install libsdl1.2-dev
+	#
+	sudo apt-get install chrpath
+	# 
+	sudo apt-get install texinfo
 	#
 	sudo apt-get install gawk
 	# 
 	sudo apt-get install diffstat 
 	#
 	sudo apt-get install g++
+
+[TODO]_
+.. beschreibung der Funktion der Pakete hinzufügen
 
 
 Beziehen der Daten
@@ -131,8 +139,10 @@ Herunterladen der Buildumgebung vom Github des Yoctoproject
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code:: bash
-	    
+	
+	# aktuelle Version zum Zeitpunkt des Projektbeginns war Dizzy
     git clone git://git.yoctoproject.org/meta-yocto -b dizzy
+
 
 Herunterladen des aktuellen images von der webseite des Yoctoproject
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -169,8 +179,8 @@ Der Ordner "build" wurde angelegt und außerdem ist das Terminal gleich in diese
 	MACHINE ?= "beaglebone"
 
 
-Bitbake eine Buildumgebung für ein angepasstes Yocto-linux
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Bitbake eine Build-umgebung für ein angepasstes Yocto-linux
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
 
@@ -320,7 +330,7 @@ Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogen
 Formatieren der "root-Partition"
 ++++++++++++++++++++++++++++++++
 
-Die root-Partition benötigt ein linux kompatibles Filesystem in diesem Beispiel verwenden wir ext2.
+Die root-Partition benötigt ein linux kompatibles Filesystem in diesem Beispiel verwenden wir ext3.
 
 .. code:: bash
 
@@ -341,25 +351,33 @@ Instalation des Bootloaders
 ---------------------------
 
 .. code:: bash
-	
-	cp MLO-beaglebone /media/<USER>/BOOT/MLO
-	
-	cp u-boot-beaglebone.img /media/<USER>/BOOT/u-boot.img
 
-Instalation des Filesystems
----------------------------
+	cp MLO /media/<USER>/boot1/MLO
+	cp u-boot.img /media/<USER>/boot1/u-boot.img
+
+
+Kopieren und Entpacken des Filesystems
+--------------------------------------
+
+.. code:: bash
+	
+	sudo cp core-image-<something...>.rootfs.tar.bz2 /media/<USER>/root/
+	# die root-Partition der SD-Karte mit einem terminal öffnen und dort das image dort Entpacken
+	sudo tar -xf core-image-<something...>.rootfs.tar.bz2
+	# Zusätzliche Module installieren
+	sudo tar x -C /media/<USER>/root/ -f modules-beaglebone.tgz
+
+
+
 
 .. code:: bash
 
-	sudo tar x -C /media/<USER>/root/ -f modules-beaglebone.tgz 
+	sudo cp uImage-am335x-bone.dtb /media/<USER>/root/boot/am335x-bone.dtb
+	sudo cp uImage-am335x-boneblack.dtb /media/<USER>/root/boot/am335x-boneblack.dtb
+	sudo cp uImage-beaglebone.bin /media/<USER>/root/boot/beaglebone.bin
+	sudo cp uImage /media/<USER>/root/boot/uImage
+	 
 
-	cp uImage-am335x-bone.dtb /media/m-a-d/BOOT/am335x-bone.dtb
-
-	sudo mkdir /media/<USER>/root/boot
-
-	sudo cp uImage-am335x-bone.dtb /media/<USER>/root/boot/am335x-boneblack.dtb
-
-	sudo cp uImage /media/<USER>/boot 
 
 
 Überprüfung der Instalation
