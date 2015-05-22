@@ -125,7 +125,7 @@ Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufges
 	sudo apt-get install gawk
 	# 
 	sudo apt-get install diffstat 
-	#
+	# gnu c++-compiler
 	sudo apt-get install g++
 
 [TODO]_
@@ -166,17 +166,263 @@ Um den Bauvorgang einzuleiten empfiehlt es sich in den Ordner "'*'/poky" zu wech
 	source oe-init-build-env build
 	# oder
 	. oe-init-build-env build
+	# anzeigen verschiedener vorkonfigurierter "Rezepte"
+	bitbake-layers show-recipes
+
 
 Der Ordner "build" wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner "conf" und in diesem die Datei "local.conf" diese datei einthält unter anderem Informationen darüber für welches Target das Yocto Image gebaut werden soll. Um den Build-Prozess anstoßen zu können muss sie allerdings noch angepasst werden.
 
+
+Anpassungen in der Datei "local.conf"
++++++++++++++++++++++++++++++++++++++
+
 .. code:: bash
 
-	vim conf/local.conf
+	#
+	# This file is your local configuration file and is where all local user settings
+	# are placed. The comments in this file give some guide to the options a new user
+	# to the system might want to change but pretty much any configuration option can
+	# be set in this file. More adventurous users can look at local.conf.extended 
+	# which contains other examples of configuration which can be placed in this file
+	# but new users likely won't need any of them initially.
+	#
+	# Lines starting with the '#' character are commented out and in some cases the 
+	# default values are provided as comments to show people example syntax. Enabling
+	# the option is a question of removing the # character and making any change to the
+	# variable as required.
 
-	# Remove the '#' from the 
-	#MACHINE ?= "beaglebone"
-	# so that it reads
+	#
+	# Machine Selection
+	#
+	# You need to select a specific machine to target the build with. There are a selection
+	# of emulated machines available which can boot and run in the QEMU emulator:
+	#
+	#MACHINE ?= "qemuarm"
+	#MACHINE ?= "qemumips"
+	#MACHINE ?= "qemuppc"
+	#MACHINE ?= "qemux86"
+	#MACHINE ?= "qemux86-64"
+	#
+	# There are also the following hardware board target machines included for 
+	# demonstration purposes:
+	#
+
+	# [0] removed the '#' in front of 'MACHINE ?= "beaglebone"'
+
 	MACHINE ?= "beaglebone"
+	#MACHINE ?= "genericx86"
+	#MACHINE ?= "genericx86-64"
+	#MACHINE ?= "mpc8315e-rdb"
+	#MACHINE ?= "edgerouter"
+	#
+	# This sets the default machine to be qemux86 if no other machine is selected:
+	MACHINE ??= "qemux86"
+
+	#
+	# Where to place downloads
+	#
+	# During a first build the system will download many different source code tarballs
+	# from various upstream projects. This can take a while, particularly if your network
+	# connection is slow. These are all stored in DL_DIR. When wiping and rebuilding you
+	# can preserve this directory to speed up this part of subsequent builds. This directory
+	# is safe to share between multiple builds on the same machine too.
+	#
+	# The default is a downloads directory under TOPDIR which is the build directory.
+	#
+	#DL_DIR ?= "${TOPDIR}/downloads"
+
+	#
+	# Where to place shared-state files
+	#
+	# BitBake has the capability to accelerate builds based on previously built output.
+	# This is done using "shared state" files which can be thought of as cache objects
+	# and this option determines where those files are placed.
+	#
+	# You can wipe out TMPDIR leaving this directory intact and the build would regenerate
+	# from these files if no changes were made to the configuration. If changes were made
+	# to the configuration, only shared state files where the state was still valid would
+	# be used (done using checksums).
+	#
+	# The default is a sstate-cache directory under TOPDIR.
+	#
+	#SSTATE_DIR ?= "${TOPDIR}/sstate-cache"
+
+	#
+	# Where to place the build output
+	#
+	# This option specifies where the bulk of the building work should be done and
+	# where BitBake should place its temporary files and output. Keep in mind that
+	# this includes the extraction and compilation of many applications and the toolchain
+	# which can use Gigabytes of hard disk space.
+	#
+	# The default is a tmp directory under TOPDIR.
+	#
+	#TMPDIR = "${TOPDIR}/tmp"
+
+	#
+	# Default policy config
+	#
+	# The distribution setting controls which policy settings are used as defaults.
+	# The default value is fine for general Yocto project use, at least initially.
+	# Ultimately when creating custom policy, people will likely end up subclassing 
+	# these defaults.
+	#
+	DISTRO ?= "poky"
+	# As an example of a subclass there is a "bleeding" edge policy configuration
+	# where many versions are set to the absolute latest code from the upstream 
+	# source control systems. This is just mentioned here as an example, its not
+	# useful to most new users.
+	# DISTRO ?= "poky-bleeding"
+
+	#
+	# Package Management configuration
+	#
+	# This variable lists which packaging formats to enable. Multiple package backends 
+	# can be enabled at once and the first item listed in the variable will be used 
+	# to generate the root filesystems.
+	# Options are:
+	#  - 'package_deb' for debian style deb files
+	#  - 'package_ipk' for ipk files are used by opkg (a debian style embedded package manager)
+	#  - 'package_rpm' for rpm style packages
+	# E.g.: PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
+	# We default to rpm:
+	PACKAGE_CLASSES ?= "package_rpm"
+
+	#
+	# SDK/ADT target architecture
+	#
+	# This variable specifies the architecture to build SDK/ADT items for and means
+	# you can build the SDK packages for architectures other than the machine you are 
+	# running the build on (i.e. building i686 packages on an x86_64 host).
+	# Supported values are i686 and x86_64
+	#SDKMACHINE ?= "i686"
+
+	#
+	# Extra image configuration defaults
+	#
+	# The EXTRA_IMAGE_FEATURES variable allows extra packages to be added to the generated 
+	# images. Some of these options are added to certain image types automatically. The
+	# variable can contain the following options:
+	#  "dbg-pkgs"       - add -dbg packages for all installed packages
+	#                     (adds symbol information for debugging/profiling)
+	#  "dev-pkgs"       - add -dev packages for all installed packages
+	#                     (useful if you want to develop against libs in the image)
+	#  "ptest-pkgs"     - add -ptest packages for all ptest-enabled packages
+	#                     (useful if you want to run the package test suites)
+	#  "tools-sdk"      - add development tools (gcc, make, pkgconfig etc.)
+	#  "tools-debug"    - add debugging tools (gdb, strace)
+	#  "eclipse-debug"  - add Eclipse remote debugging support
+	#  "tools-profile"  - add profiling tools (oprofile, exmap, lttng, valgrind)
+	#  "tools-testapps" - add useful testing tools (ts_print, aplay, arecord etc.)
+	#  "debug-tweaks"   - make an image suitable for development
+	#                     e.g. ssh root access has a blank password
+	# There are other application targets that can be used here too, see
+	# meta/classes/image.bbclass and meta/classes/core-image.bbclass for more details.
+	# We default to enabling the debugging tweaks.
+
+	# [1] tools-sdk & tools-debug added
+	EXTRA_IMAGE_FEATURES = "debug-tweaks tools-sdk tools-debug"
+
+	#
+	# Additional image features
+	#
+	# The following is a list of additional classes to use when building images which
+	# enable extra features. Some available options which can be included in this variable 
+	# are:
+	#   - 'buildstats' collect build statistics
+	#   - 'image-mklibs' to reduce shared library files size for an image
+	#   - 'image-prelink' in order to prelink the filesystem image
+	#   - 'image-swab' to perform host system intrusion detection
+	# NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
+	# NOTE: mklibs also needs to be explicitly enabled for a given image, see local.conf.extended
+	USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+
+	#
+	# Runtime testing of images
+	#
+	# The build system can test booting virtual machine images under qemu (an emulator)
+	# after any root filesystems are created and run tests against those images. To
+	# enable this uncomment this line. See classes/testimage(-auto).bbclass for
+	# further details.
+	#TEST_IMAGE = "1"
+	#
+	# Interactive shell configuration
+	#
+	# Under certain circumstances the system may need input from you and to do this it 
+	# can launch an interactive shell. It needs to do this since the build is 
+	# multithreaded and needs to be able to handle the case where more than one parallel
+	# process may require the user's attention. The default is iterate over the available
+	# terminal types to find one that works.
+	#
+	# be applied, to use the devshell or the kernel menuconfig
+	#
+	# Supported values are auto, gnome, xfce, rxvt, screen, konsole (KDE 3.x only), none
+	# Note: currently, Konsole support only works for KDE 3.x due to the way
+	# newer Konsole versions behave
+	#OE_TERMINAL = "auto"
+	# By default disable interactive patch resolution (tasks will just fail instead):
+	PATCHRESOLVE = "noop"
+
+	#
+	# Disk Space Monitoring during the build
+	#
+	# Monitor the disk space during the build. If there is less that 1GB of space or less
+	# than 100K inodes in any key build location (TMPDIR, DL_DIR, SSTATE_DIR), gracefully
+	# shutdown the build. If there is less that 100MB or 1K inodes, perform a hard abort
+	# of the build. The reason for this is that running completely out of space can corrupt
+	# files and damages the build in ways which may not be easily recoverable.
+	BB_DISKMON_DIRS = "\
+	    STOPTASKS,${TMPDIR},1G,100K \
+	    STOPTASKS,${DL_DIR},1G,100K \
+	    STOPTASKS,${SSTATE_DIR},1G,100K \
+	    ABORT,${TMPDIR},100M,1K \
+	    ABORT,${DL_DIR},100M,1K \
+	    ABORT,${SSTATE_DIR},100M,1K" 
+
+	#
+	# Shared-state files from other locations
+	#
+	# As mentioned above, shared state files are prebuilt cache data objects which can 
+	# used to accelerate build time. This variable can be used to configure the system
+	# to search other mirror locations for these objects before it builds the data itself.
+	#
+	# This can be a filesystem directory, or a remote url such as http or ftp. These
+	# would contain the sstate-cache results from previous builds (possibly from other 
+	# machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the 
+	# cache locations to check for the shared objects.
+	# NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
+	# at the end as shown in the examples below. This will be substituted with the
+	# correct path within the directory structure.
+	#SSTATE_MIRRORS ?= "\
+	#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+	#file://.* file:///some/local/dir/sstate/PATH"
+
+
+	#
+	# Qemu configuration
+	#
+	# By default qemu will build with a builtin VNC server where graphical output can be
+	# seen. The two lines below enable the SDL backend too. This assumes there is a
+	# libsdl library available on your build system.
+	PACKAGECONFIG_append_pn-qemu-native = " sdl"
+	PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+	ASSUME_PROVIDED += "libsdl-native"
+
+
+	# CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+	# track the version of this file when it was generated. This can safely be ignored if
+	# this doesn't mean anything to you.
+	CONF_VERSION = "1"
+	
+	# [2] slim ssh-client dropbear added
+	CORE_IMAGE_EXTRA_INSTALL += "dropbear"
+	# [3] git-vcn added
+	CORE_IMAGE_EXTRA_INSTALL += "git"
+	# [4] slim htpd-server added
+	CORE_IMAGE_EXTRA_INSTALL += "lighttpd"
+	# [5] wireless-tools and functions for the hot-spot functionality
+	CORE_IMAGE_EXTRA_INSTALL += "wireless-tools"
+
 
 
 Bitbake eine Build-umgebung für ein angepasstes Yocto-linux
@@ -249,18 +495,20 @@ Vorbereiten der microSD Karte
 
 	The bootable flag on partition 1 is enabled now.
 
-* boot formatieren als FAT32
+boot formatieren als FAT16 (LBA)
+++++++++++++++++++++++++++++++++
 
 .. code:: bash
 
 	Befehl (m für Hilfe): t
 	Partitionsnummer (1,2, default 2): 1
-	Hex code (type L to list all codes): c
+	Hex code (type L to list all codes): e
 
 	If you have created or modified any DOS 6.x partitions, please see the fdisk documentation for additional information.
-	Changed type of partition 'Linux' to 'W95 FAT32 (LBA)'.
+	Changed type of partition 'Linux' to 'W95 FAT16 (LBA)'.
 
-* root als "Linux" formatieren
+root als "Linux" formatieren
+++++++++++++++++++++++++++++
 
 .. code:: bash
 
@@ -361,16 +609,27 @@ Kopieren und Entpacken des Filesystems
 
 .. code:: bash
 	
+	# Dateisystem direkt auf der SD-Karte entpacken (von manchen systemen nicht unterstützt)
+	sudo tar -xvpf core-image-<something...>.tar.bz2 -C /media/<USER>/root/
+
+	# Sollte das nicht möglich sein kann man das Archiv alternativ auf die SD-Karte kopieren und dort entpacken
 	sudo cp core-image-<something...>.rootfs.tar.bz2 /media/<USER>/root/
-	# die root-Partition der SD-Karte mit einem terminal öffnen und dort das image dort Entpacken
+	# die root-Partition der SD-Karte in einem terminal öffnen und dort entpacken
 	sudo tar -xf core-image-<something...>.rootfs.tar.bz2
-	# Zusätzliche Module installieren
+	# falls nötig Zusätzliche Module installieren
 	sudo tar x -C /media/<USER>/root/ -f modules-beaglebone.tgz
 
 
-
-
 .. code:: bash
+
+	# da in unseren Versuchen die Ergebnisse nicht einheitlich waren sollte noch angemerkt werden,
+	# dass auf der "root-Partition" im Verzeichnis "/boot" die folgenden Dateien vorhanden sein sollten:
+	# boot/ 
+	# ├─am335-bone.dtb
+	# ├─am335-boneblack.dtb
+	# ├─beaglebone.bin
+	# └─uImage
+	# falls nicht sollten diese manuel in das Verzeichnis kopiert werden.
 
 	sudo cp uImage-am335x-bone.dtb /media/<USER>/root/boot/am335x-bone.dtb
 	sudo cp uImage-am335x-boneblack.dtb /media/<USER>/root/boot/am335x-boneblack.dtb
@@ -421,17 +680,18 @@ Einstellungen von u-boot überprüfen
 Zugriff auf das serielle Terminal während des Bootvorganges
 -----------------------------------------------------------
 
-Zunächst gilt es das BBB wie auf dem folgenden Bild richtig mit dem PC zu verbinden.
+Nachdem das Beaglebone Black mit dem USB-to-ttl mit dem Entwicklungsrechner verbunden wurde müssen noch einige Einstellungen getätigt werden um das arbeiten mit einem "Serial-Terminal-Emulator" möglich zu machen.
 
 .. figure:: img/Connect-BBB-SerialTerminal.png
 	:align: center
 
 
-Nun muss man herausfinden auf welche Schnittstelle die Verbindung zum BBB im Moment abgebildet wird.
+Unter anderem muss die richtige Schnittstelle, auf die die Verbindung zum BBB im Moment abgebildet wird gefunden werden.
 
 .. code:: bash
 
-	dmesg
+	dmesg | grep serial
+
 	# Normalerweise sollte es auf ttyUSB0 abgebildet werden deshalb lässt sich auch folgender Befehl anwenden:
 	dmesg | grep ttyUSB0
 	[ 1080.035495] usb 3-1.2: FTDI USB Serial Device converter now attached to ttyUSB0
@@ -474,16 +734,12 @@ Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit de
 
 
 
-
-	
-
-
-
-
 Netboot test
 ============
 
 Im Netboot Teil wurde mangels eines USB auf TTL Adapters kurzerhand zum Raspberry Pi 2 gewechselt. Netzwerkboot bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. permanente kleine schreibende Zugriffe (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints).
+
+
 
 
 
@@ -647,6 +903,9 @@ Literatur und sonstige Quellen
 
 .. [YOCTO] Yocto Project Build
 	http://android.serverbox.ch/?p=1273
+
+.. [TLWN] Wifi Driver for TL-WN725N V2
+	http://brilliantlyeasy.com/ubuntu-linux-tl-wn725n-tp-link-version-2-wifi-driver-install/
 
 .. [TODO] Look for comments
 

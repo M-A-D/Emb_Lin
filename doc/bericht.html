@@ -422,43 +422,46 @@ Geocaching Modul
 </li>
 <li><a class="reference internal" href="#bauen-des-yocto-core-images-und-des-bootloaders" id="id12">2.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a><ul class="auto-toc">
 <li><a class="reference internal" href="#erstellen-der-buildumgebung-und-uberprufung-der-variablen" id="id13">2.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></li>
-<li><a class="reference internal" href="#bitbake-eine-build-umgebung-fur-ein-angepasstes-yocto-linux" id="id14">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></li>
+<li><a class="reference internal" href="#anpassungen-in-der-datei-local-conf" id="id14">2.2.2&nbsp;&nbsp;&nbsp;Anpassungen in der Datei &quot;local.conf&quot;</a></li>
+<li><a class="reference internal" href="#bitbake-eine-build-umgebung-fur-ein-angepasstes-yocto-linux" id="id15">2.2.3&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id15">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a><ul class="auto-toc">
-<li><a class="reference internal" href="#die-anderungen-auf-der-sd-karte-anwenden" id="id16">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></li>
-<li><a class="reference internal" href="#formatieren-der-boot-partition" id="id17">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Partition&quot;</a></li>
-<li><a class="reference internal" href="#formatieren-der-root-partition" id="id18">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Partition&quot;</a></li>
+<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id16">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a><ul class="auto-toc">
+<li><a class="reference internal" href="#boot-formatieren-als-fat16-lba" id="id17">2.3.1&nbsp;&nbsp;&nbsp;boot formatieren als FAT16 (LBA)</a></li>
+<li><a class="reference internal" href="#root-als-linux-formatieren" id="id18">2.3.2&nbsp;&nbsp;&nbsp;root als &quot;Linux&quot; formatieren</a></li>
+<li><a class="reference internal" href="#die-anderungen-auf-der-sd-karte-anwenden" id="id19">2.3.3&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></li>
+<li><a class="reference internal" href="#formatieren-der-boot-partition" id="id20">2.3.4&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Partition&quot;</a></li>
+<li><a class="reference internal" href="#formatieren-der-root-partition" id="id21">2.3.5&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Partition&quot;</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#instalation-des-bootloaders" id="id19">2.4&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></li>
-<li><a class="reference internal" href="#kopieren-und-entpacken-des-filesystems" id="id20">2.5&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></li>
-<li><a class="reference internal" href="#uberprufung-der-instalation" id="id21">2.6&nbsp;&nbsp;&nbsp;Überprüfung der Instalation</a><ul class="auto-toc">
-<li><a class="reference internal" href="#einstellungen-von-u-boot-uberprufen" id="id22">2.6.1&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></li>
+<li><a class="reference internal" href="#instalation-des-bootloaders" id="id22">2.4&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></li>
+<li><a class="reference internal" href="#kopieren-und-entpacken-des-filesystems" id="id23">2.5&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></li>
+<li><a class="reference internal" href="#uberprufung-der-instalation" id="id24">2.6&nbsp;&nbsp;&nbsp;Überprüfung der Instalation</a><ul class="auto-toc">
+<li><a class="reference internal" href="#einstellungen-von-u-boot-uberprufen" id="id25">2.6.1&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges" id="id23">2.7&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></li>
+<li><a class="reference internal" href="#zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges" id="id26">2.7&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#netboot-test" id="id24">3&nbsp;&nbsp;&nbsp;Netboot test</a></li>
-<li><a class="reference internal" href="#tools-und-programme" id="id25">4&nbsp;&nbsp;&nbsp;Tools und Programme</a><ul class="auto-toc">
-<li><a class="reference internal" href="#minicom-ein-serial-terminal-emulator" id="id26">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a><ul class="auto-toc">
-<li><a class="reference internal" href="#installation" id="id27">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
-<li><a class="reference internal" href="#unter-a-das-richtige-device-einrichten" id="id28">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></li>
-<li><a class="reference internal" href="#als-default-speichern" id="id29">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></li>
-<li><a class="reference internal" href="#minicom-beenden-und-neu-starten" id="id30">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></li>
+<li><a class="reference internal" href="#netboot-test" id="id27">3&nbsp;&nbsp;&nbsp;Netboot test</a></li>
+<li><a class="reference internal" href="#tools-und-programme" id="id28">4&nbsp;&nbsp;&nbsp;Tools und Programme</a><ul class="auto-toc">
+<li><a class="reference internal" href="#minicom-ein-serial-terminal-emulator" id="id29">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installation" id="id30">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
+<li><a class="reference internal" href="#unter-a-das-richtige-device-einrichten" id="id31">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></li>
+<li><a class="reference internal" href="#als-default-speichern" id="id32">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></li>
+<li><a class="reference internal" href="#minicom-beenden-und-neu-starten" id="id33">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id31">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
-<li><a class="reference internal" href="#laufwerk-auswahlen" id="id32">4.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></li>
-<li><a class="reference internal" href="#laufwerksinformationen-ausgeben" id="id33">4.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></li>
-<li><a class="reference internal" href="#sonstige-befehle" id="id34">4.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
-<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id35">4.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
+<li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id34">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
+<li><a class="reference internal" href="#laufwerk-auswahlen" id="id35">4.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></li>
+<li><a class="reference internal" href="#laufwerksinformationen-ausgeben" id="id36">4.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></li>
+<li><a class="reference internal" href="#sonstige-befehle" id="id37">4.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
+<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id38">4.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id36">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
+<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id39">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
 </ul>
 </div>
 <div class="section" id="beschreibung-der-hardware">
@@ -599,7 +602,7 @@ debian&#64;beaglebone:~# dhclient eth0
 </span>sudo apt-get install gawk
 <span class="comment">#
 </span>sudo apt-get install diffstat
-<span class="comment">#
+<span class="comment"># gnu c++-compiler
 </span>sudo apt-get install g++
 </pre>
 <p><a class="citation-reference" href="#todo" id="id3">[TODO]</a>
@@ -629,19 +632,262 @@ wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beagleb
 <span class="name builtin">source </span>oe-init-build-env build
 <span class="comment"># oder
 </span>. oe-init-build-env build
+<span class="comment"># anzeigen verschiedener vorkonfigurierter &quot;Rezepte&quot;
+</span>bitbake-layers show-recipes
 </pre>
 <p>Der Ordner &quot;build&quot; wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner &quot;conf&quot; und in diesem die Datei &quot;local.conf&quot; diese datei einthält unter anderem Informationen darüber für welches Target das Yocto Image gebaut werden soll. Um den Build-Prozess anstoßen zu können muss sie allerdings noch angepasst werden.</p>
+</div>
+<div class="section" id="anpassungen-in-der-datei-local-conf">
+<h3><a class="toc-backref" href="#id14">2.2.2&nbsp;&nbsp;&nbsp;Anpassungen in der Datei &quot;local.conf&quot;</a></h3>
 <pre class="code bash literal-block">
-vim conf/local.conf
+<span class="comment">#
+# This file is your local configuration file and is where all local user settings
+# are placed. The comments in this file give some guide to the options a new user
+# to the system might want to change but pretty much any configuration option can
+# be set in this file. More adventurous users can look at local.conf.extended
+# which contains other examples of configuration which can be placed in this file
+# but new users likely won't need any of them initially.
+#
+# Lines starting with the '#' character are commented out and in some cases the
+# default values are provided as comments to show people example syntax. Enabling
+# the option is a question of removing the # character and making any change to the
+# variable as required.
+</span>
+<span class="comment">#
+# Machine Selection
+#
+# You need to select a specific machine to target the build with. There are a selection
+# of emulated machines available which can boot and run in the QEMU emulator:
+#
+#MACHINE ?= &quot;qemuarm&quot;
+#MACHINE ?= &quot;qemumips&quot;
+#MACHINE ?= &quot;qemuppc&quot;
+#MACHINE ?= &quot;qemux86&quot;
+#MACHINE ?= &quot;qemux86-64&quot;
+#
+# There are also the following hardware board target machines included for
+# demonstration purposes:
+#
+</span>
+<span class="comment"># [0] removed the '#' in front of 'MACHINE ?= &quot;beaglebone&quot;'
+</span>
+MACHINE ?<span class="operator">=</span> <span class="literal string double">&quot;beaglebone&quot;</span>
+<span class="comment">#MACHINE ?= &quot;genericx86&quot;
+#MACHINE ?= &quot;genericx86-64&quot;
+#MACHINE ?= &quot;mpc8315e-rdb&quot;
+#MACHINE ?= &quot;edgerouter&quot;
+#
+# This sets the default machine to be qemux86 if no other machine is selected:
+</span>MACHINE ??<span class="operator">=</span> <span class="literal string double">&quot;qemux86&quot;</span>
 
-<span class="comment"># Remove the '#' from the
-#MACHINE ?= &quot;beaglebone&quot;
-# so that it reads
-</span>MACHINE ?<span class="operator">=</span> <span class="literal string double">&quot;beaglebone&quot;</span>
+<span class="comment">#
+# Where to place downloads
+#
+# During a first build the system will download many different source code tarballs
+# from various upstream projects. This can take a while, particularly if your network
+# connection is slow. These are all stored in DL_DIR. When wiping and rebuilding you
+# can preserve this directory to speed up this part of subsequent builds. This directory
+# is safe to share between multiple builds on the same machine too.
+#
+# The default is a downloads directory under TOPDIR which is the build directory.
+#
+#DL_DIR ?= &quot;${TOPDIR}/downloads&quot;
+</span>
+<span class="comment">#
+# Where to place shared-state files
+#
+# BitBake has the capability to accelerate builds based on previously built output.
+# This is done using &quot;shared state&quot; files which can be thought of as cache objects
+# and this option determines where those files are placed.
+#
+# You can wipe out TMPDIR leaving this directory intact and the build would regenerate
+# from these files if no changes were made to the configuration. If changes were made
+# to the configuration, only shared state files where the state was still valid would
+# be used (done using checksums).
+#
+# The default is a sstate-cache directory under TOPDIR.
+#
+#SSTATE_DIR ?= &quot;${TOPDIR}/sstate-cache&quot;
+</span>
+<span class="comment">#
+# Where to place the build output
+#
+# This option specifies where the bulk of the building work should be done and
+# where BitBake should place its temporary files and output. Keep in mind that
+# this includes the extraction and compilation of many applications and the toolchain
+# which can use Gigabytes of hard disk space.
+#
+# The default is a tmp directory under TOPDIR.
+#
+#TMPDIR = &quot;${TOPDIR}/tmp&quot;
+</span>
+<span class="comment">#
+# Default policy config
+#
+# The distribution setting controls which policy settings are used as defaults.
+# The default value is fine for general Yocto project use, at least initially.
+# Ultimately when creating custom policy, people will likely end up subclassing
+# these defaults.
+#
+</span>DISTRO ?<span class="operator">=</span> <span class="literal string double">&quot;poky&quot;</span>
+<span class="comment"># As an example of a subclass there is a &quot;bleeding&quot; edge policy configuration
+# where many versions are set to the absolute latest code from the upstream
+# source control systems. This is just mentioned here as an example, its not
+# useful to most new users.
+# DISTRO ?= &quot;poky-bleeding&quot;
+</span>
+<span class="comment">#
+# Package Management configuration
+#
+# This variable lists which packaging formats to enable. Multiple package backends
+# can be enabled at once and the first item listed in the variable will be used
+# to generate the root filesystems.
+# Options are:
+#  - 'package_deb' for debian style deb files
+#  - 'package_ipk' for ipk files are used by opkg (a debian style embedded package manager)
+#  - 'package_rpm' for rpm style packages
+# E.g.: PACKAGE_CLASSES ?= &quot;package_rpm package_deb package_ipk&quot;
+# We default to rpm:
+</span>PACKAGE_CLASSES ?<span class="operator">=</span> <span class="literal string double">&quot;package_rpm&quot;</span>
+
+<span class="comment">#
+# SDK/ADT target architecture
+#
+# This variable specifies the architecture to build SDK/ADT items for and means
+# you can build the SDK packages for architectures other than the machine you are
+# running the build on (i.e. building i686 packages on an x86_64 host).
+# Supported values are i686 and x86_64
+#SDKMACHINE ?= &quot;i686&quot;
+</span>
+<span class="comment">#
+# Extra image configuration defaults
+#
+# The EXTRA_IMAGE_FEATURES variable allows extra packages to be added to the generated
+# images. Some of these options are added to certain image types automatically. The
+# variable can contain the following options:
+#  &quot;dbg-pkgs&quot;       - add -dbg packages for all installed packages
+#                     (adds symbol information for debugging/profiling)
+#  &quot;dev-pkgs&quot;       - add -dev packages for all installed packages
+#                     (useful if you want to develop against libs in the image)
+#  &quot;ptest-pkgs&quot;     - add -ptest packages for all ptest-enabled packages
+#                     (useful if you want to run the package test suites)
+#  &quot;tools-sdk&quot;      - add development tools (gcc, make, pkgconfig etc.)
+#  &quot;tools-debug&quot;    - add debugging tools (gdb, strace)
+#  &quot;eclipse-debug&quot;  - add Eclipse remote debugging support
+#  &quot;tools-profile&quot;  - add profiling tools (oprofile, exmap, lttng, valgrind)
+#  &quot;tools-testapps&quot; - add useful testing tools (ts_print, aplay, arecord etc.)
+#  &quot;debug-tweaks&quot;   - make an image suitable for development
+#                     e.g. ssh root access has a blank password
+# There are other application targets that can be used here too, see
+# meta/classes/image.bbclass and meta/classes/core-image.bbclass for more details.
+# We default to enabling the debugging tweaks.
+</span>
+<span class="comment"># [1] tools-sdk &amp; tools-debug added
+</span><span class="name variable">EXTRA_IMAGE_FEATURES</span> <span class="operator">=</span> <span class="literal string double">&quot;debug-tweaks tools-sdk tools-debug&quot;</span>
+
+<span class="comment">#
+# Additional image features
+#
+# The following is a list of additional classes to use when building images which
+# enable extra features. Some available options which can be included in this variable
+# are:
+#   - 'buildstats' collect build statistics
+#   - 'image-mklibs' to reduce shared library files size for an image
+#   - 'image-prelink' in order to prelink the filesystem image
+#   - 'image-swab' to perform host system intrusion detection
+# NOTE: if listing mklibs &amp; prelink both, then make sure mklibs is before prelink
+# NOTE: mklibs also needs to be explicitly enabled for a given image, see local.conf.extended
+</span>USER_CLASSES ?<span class="operator">=</span> <span class="literal string double">&quot;buildstats image-mklibs image-prelink&quot;</span>
+
+<span class="comment">#
+# Runtime testing of images
+#
+# The build system can test booting virtual machine images under qemu (an emulator)
+# after any root filesystems are created and run tests against those images. To
+# enable this uncomment this line. See classes/testimage(-auto).bbclass for
+# further details.
+#TEST_IMAGE = &quot;1&quot;
+#
+# Interactive shell configuration
+#
+# Under certain circumstances the system may need input from you and to do this it
+# can launch an interactive shell. It needs to do this since the build is
+# multithreaded and needs to be able to handle the case where more than one parallel
+# process may require the user's attention. The default is iterate over the available
+# terminal types to find one that works.
+#
+# be applied, to use the devshell or the kernel menuconfig
+#
+# Supported values are auto, gnome, xfce, rxvt, screen, konsole (KDE 3.x only), none
+# Note: currently, Konsole support only works for KDE 3.x due to the way
+# newer Konsole versions behave
+#OE_TERMINAL = &quot;auto&quot;
+# By default disable interactive patch resolution (tasks will just fail instead):
+</span><span class="name variable">PATCHRESOLVE</span> <span class="operator">=</span> <span class="literal string double">&quot;noop&quot;</span>
+
+<span class="comment">#
+# Disk Space Monitoring during the build
+#
+# Monitor the disk space during the build. If there is less that 1GB of space or less
+# than 100K inodes in any key build location (TMPDIR, DL_DIR, SSTATE_DIR), gracefully
+# shutdown the build. If there is less that 100MB or 1K inodes, perform a hard abort
+# of the build. The reason for this is that running completely out of space can corrupt
+# files and damages the build in ways which may not be easily recoverable.
+</span><span class="name variable">BB_DISKMON_DIRS</span> <span class="operator">=</span> <span class="literal string double">&quot;\
+    STOPTASKS,</span><span class="literal string interpol">${</span><span class="name variable">TMPDIR</span><span class="literal string interpol">}</span><span class="literal string double">,1G,100K \
+    STOPTASKS,</span><span class="literal string interpol">${</span><span class="name variable">DL_DIR</span><span class="literal string interpol">}</span><span class="literal string double">,1G,100K \
+    STOPTASKS,</span><span class="literal string interpol">${</span><span class="name variable">SSTATE_DIR</span><span class="literal string interpol">}</span><span class="literal string double">,1G,100K \
+    ABORT,</span><span class="literal string interpol">${</span><span class="name variable">TMPDIR</span><span class="literal string interpol">}</span><span class="literal string double">,100M,1K \
+    ABORT,</span><span class="literal string interpol">${</span><span class="name variable">DL_DIR</span><span class="literal string interpol">}</span><span class="literal string double">,100M,1K \
+    ABORT,</span><span class="literal string interpol">${</span><span class="name variable">SSTATE_DIR</span><span class="literal string interpol">}</span><span class="literal string double">,100M,1K&quot;</span>
+
+<span class="comment">#
+# Shared-state files from other locations
+#
+# As mentioned above, shared state files are prebuilt cache data objects which can
+# used to accelerate build time. This variable can be used to configure the system
+# to search other mirror locations for these objects before it builds the data itself.
+#
+# This can be a filesystem directory, or a remote url such as http or ftp. These
+# would contain the sstate-cache results from previous builds (possibly from other
+# machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the
+# cache locations to check for the shared objects.
+# NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
+# at the end as shown in the examples below. This will be substituted with the
+# correct path within the directory structure.
+#SSTATE_MIRRORS ?= &quot;\
+#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+#file://.* file:///some/local/dir/sstate/PATH&quot;
+</span>
+
+<span class="comment">#
+# Qemu configuration
+#
+# By default qemu will build with a builtin VNC server where graphical output can be
+# seen. The two lines below enable the SDL backend too. This assumes there is a
+# libsdl library available on your build system.
+</span>PACKAGECONFIG_append_pn-qemu-native <span class="operator">=</span> <span class="literal string double">&quot; sdl&quot;</span>
+PACKAGECONFIG_append_pn-nativesdk-qemu <span class="operator">=</span> <span class="literal string double">&quot; sdl&quot;</span>
+ASSUME_PROVIDED +<span class="operator">=</span> <span class="literal string double">&quot;libsdl-native&quot;</span>
+
+
+<span class="comment"># CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+# track the version of this file when it was generated. This can safely be ignored if
+# this doesn't mean anything to you.
+</span><span class="name variable">CONF_VERSION</span> <span class="operator">=</span> <span class="literal string double">&quot;1&quot;</span>
+
+<span class="comment"># [2] slim ssh-client dropbear added
+</span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;dropbear&quot;</span>
+<span class="comment"># [3] git-vcn added
+</span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;git&quot;</span>
+<span class="comment"># [4] slim htpd-server added
+</span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;lighttpd&quot;</span>
+<span class="comment"># [5] wireless-tools and functions for the hot-spot functionality
+</span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;wireless-tools&quot;</span>
 </pre>
 </div>
 <div class="section" id="bitbake-eine-build-umgebung-fur-ein-angepasstes-yocto-linux">
-<h3><a class="toc-backref" href="#id14">2.2.2&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></h3>
+<h3><a class="toc-backref" href="#id15">2.2.3&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></h3>
 <p>Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.</p>
 <pre class="code bash literal-block">
 bitbake core-image-base
@@ -652,7 +898,7 @@ bitbake core-image-base
 </div>
 </div>
 <div class="section" id="vorbereiten-der-microsd-karte">
-<h2><a class="toc-backref" href="#id15">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h2>
+<h2><a class="toc-backref" href="#id16">2.3&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h2>
 <pre class="code bash literal-block">
 sudo fdisk -lu &lt;dev/device_name&gt;
 <span class="comment"># for my system
@@ -705,20 +951,19 @@ Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="opera
 
 The bootable flag on partition <span class="literal number">1</span> is enabled now.
 </pre>
-<ul class="simple">
-<li>boot formatieren als FAT32</li>
-</ul>
+<div class="section" id="boot-formatieren-als-fat16-lba">
+<h3><a class="toc-backref" href="#id17">2.3.1&nbsp;&nbsp;&nbsp;boot formatieren als FAT16 (LBA)</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: t
 Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="operator">)</span>: 1
-Hex code <span class="operator">(</span><span class="name builtin">type </span>L to list all codes<span class="operator">)</span>: c
+Hex code <span class="operator">(</span><span class="name builtin">type </span>L to list all codes<span class="operator">)</span>: e
 
 If you have created or modified any DOS 6.x partitions, please see the fdisk documentation <span class="keyword">for</span> additional information.
-Changed <span class="name builtin">type </span>of partition <span class="literal string single">'Linux'</span> to <span class="literal string single">'W95 FAT32 (LBA)'</span>.
+Changed <span class="name builtin">type </span>of partition <span class="literal string single">'Linux'</span> to <span class="literal string single">'W95 FAT16 (LBA)'</span>.
 </pre>
-<ul class="simple">
-<li>root als &quot;Linux&quot; formatieren</li>
-</ul>
+</div>
+<div class="section" id="root-als-linux-formatieren">
+<h3><a class="toc-backref" href="#id18">2.3.2&nbsp;&nbsp;&nbsp;root als &quot;Linux&quot; formatieren</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: t
 Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="operator">)</span>: 2
@@ -743,8 +988,9 @@ Device         Boot  Start      End  Sectors  Size Id Type
 /dev/mmcblk0p1 *      <span class="literal number">2048</span>   <span class="literal number">206847</span>   <span class="literal number">204800</span>  100M  c W95 FAT32 <span class="operator">(</span>LBA<span class="operator">)</span>
 /dev/mmcblk0p2      <span class="literal number">206848</span> <span class="literal number">30881791</span> <span class="literal number">30674944</span> 14,6G <span class="literal number">83</span> Linux
 </pre>
+</div>
 <div class="section" id="die-anderungen-auf-der-sd-karte-anwenden">
-<h3><a class="toc-backref" href="#id16">2.3.1&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></h3>
+<h3><a class="toc-backref" href="#id19">2.3.3&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: w
 The partition table has been altered.
@@ -769,14 +1015,14 @@ mmcblk0     179:0    <span class="literal number">0</span>  14,7G  <span class="
 </pre>
 </div>
 <div class="section" id="formatieren-der-boot-partition">
-<h3><a class="toc-backref" href="#id17">2.3.2&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Partition&quot;</a></h3>
+<h3><a class="toc-backref" href="#id20">2.3.4&nbsp;&nbsp;&nbsp;Formatieren der &quot;boot-Partition&quot;</a></h3>
 <p>Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogenannte &quot;bootable&quot; flag gesetzt werden.</p>
 <pre class="code bash literal-block">
 sudo mkfs.vfat -F <span class="literal number">16</span> -n <span class="literal string double">&quot;boot&quot;</span> /dev/mmcblk0p1
 </pre>
 </div>
 <div class="section" id="formatieren-der-root-partition">
-<h3><a class="toc-backref" href="#id18">2.3.3&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Partition&quot;</a></h3>
+<h3><a class="toc-backref" href="#id21">2.3.5&nbsp;&nbsp;&nbsp;Formatieren der &quot;root-Partition&quot;</a></h3>
 <p>Die root-Partition benötigt ein linux kompatibles Filesystem in diesem Beispiel verwenden wir ext3.</p>
 <pre class="code bash literal-block">
 sudo mke2fs -j -L <span class="literal string double">&quot;root&quot;</span> /dev/mmcblk0p2
@@ -794,22 +1040,35 @@ Die Superblöcke und die Informationen über die Dateisystemnutzung werden gesch
 </div>
 </div>
 <div class="section" id="instalation-des-bootloaders">
-<h2><a class="toc-backref" href="#id19">2.4&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></h2>
+<h2><a class="toc-backref" href="#id22">2.4&nbsp;&nbsp;&nbsp;Instalation des Bootloaders</a></h2>
 <pre class="code bash literal-block">
 cp MLO /media/&lt;USER&gt;/boot1/MLO
 cp u-boot.img /media/&lt;USER&gt;/boot1/u-boot.img
 </pre>
 </div>
 <div class="section" id="kopieren-und-entpacken-des-filesystems">
-<h2><a class="toc-backref" href="#id20">2.5&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></h2>
+<h2><a class="toc-backref" href="#id23">2.5&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></h2>
 <pre class="code bash literal-block">
-sudo cp core-image-&lt;something...&gt;.rootfs.tar.bz2 /media/&lt;USER&gt;/root/
-<span class="comment"># die root-Partition der SD-Karte mit einem terminal öffnen und dort das image dort Entpacken
+<span class="comment"># Dateisystem direkt auf der SD-Karte entpacken (von manchen systemen nicht unterstützt)
+</span>sudo tar -xvpf core-image-&lt;something...&gt;.tar.bz2 -C /media/&lt;USER&gt;/root/
+
+<span class="comment"># Sollte das nicht möglich sein kann man das Archiv alternativ auf die SD-Karte kopieren und dort entpacken
+</span>sudo cp core-image-&lt;something...&gt;.rootfs.tar.bz2 /media/&lt;USER&gt;/root/
+<span class="comment"># die root-Partition der SD-Karte in einem terminal öffnen und dort entpacken
 </span>sudo tar -xf core-image-&lt;something...&gt;.rootfs.tar.bz2
-<span class="comment"># Zusätzliche Module installieren
+<span class="comment"># falls nötig Zusätzliche Module installieren
 </span>sudo tar x -C /media/&lt;USER&gt;/root/ -f modules-beaglebone.tgz
 </pre>
 <pre class="code bash literal-block">
+<span class="comment"># da in unseren Versuchen die Ergebnisse nicht einheitlich waren sollte noch angemerkt werden,
+# dass auf der &quot;root-Partition&quot; im Verzeichnis &quot;/boot&quot; die folgenden Dateien vorhanden sein sollten:
+# boot/
+# ├─am335-bone.dtb
+# ├─am335-boneblack.dtb
+# ├─beaglebone.bin
+# └─uImage
+# falls nicht sollten diese manuel in das Verzeichnis kopiert werden.
+</span>
 sudo cp uImage-am335x-bone.dtb /media/&lt;USER&gt;/root/boot/am335x-bone.dtb
 sudo cp uImage-am335x-boneblack.dtb /media/&lt;USER&gt;/root/boot/am335x-boneblack.dtb
 sudo cp uImage-beaglebone.bin /media/&lt;USER&gt;/root/boot/beaglebone.bin
@@ -817,9 +1076,9 @@ sudo cp uImage /media/&lt;USER&gt;/root/boot/uImage
 </pre>
 </div>
 <div class="section" id="uberprufung-der-instalation">
-<h2><a class="toc-backref" href="#id21">2.6&nbsp;&nbsp;&nbsp;Überprüfung der Instalation</a></h2>
+<h2><a class="toc-backref" href="#id24">2.6&nbsp;&nbsp;&nbsp;Überprüfung der Instalation</a></h2>
 <div class="section" id="einstellungen-von-u-boot-uberprufen">
-<h3><a class="toc-backref" href="#id22">2.6.1&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></h3>
+<h3><a class="toc-backref" href="#id25">2.6.1&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></h3>
 <pre class="code bash literal-block">
 strings u-boot.img <span class="punctuation">|</span> grep loaduimage
 <span class="comment"># wichtige Ausgabe:
@@ -844,14 +1103,15 @@ strings u-boot.img <span class="punctuation">|</span> grep bootfile
 </div>
 </div>
 <div class="section" id="zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges">
-<h2><a class="toc-backref" href="#id23">2.7&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></h2>
-<p>Zunächst gilt es das BBB wie auf dem folgenden Bild richtig mit dem PC zu verbinden.</p>
+<h2><a class="toc-backref" href="#id26">2.7&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></h2>
+<p>Nachdem das Beaglebone Black mit dem USB-to-ttl mit dem Entwicklungsrechner verbunden wurde müssen noch einige Einstellungen getätigt werden um das arbeiten mit einem &quot;Serial-Terminal-Emulator&quot; möglich zu machen.</p>
 <div class="figure align-center">
 <img alt="img/Connect-BBB-SerialTerminal.png" src="img/Connect-BBB-SerialTerminal.png" />
 </div>
-<p>Nun muss man herausfinden auf welche Schnittstelle die Verbindung zum BBB im Moment abgebildet wird.</p>
+<p>Unter anderem muss die richtige Schnittstelle, auf die die Verbindung zum BBB im Moment abgebildet wird gefunden werden.</p>
 <pre class="code bash literal-block">
-dmesg
+dmesg <span class="punctuation">|</span> grep serial
+
 <span class="comment"># Normalerweise sollte es auf ttyUSB0 abgebildet werden deshalb lässt sich auch folgender Befehl anwenden:
 </span>dmesg <span class="punctuation">|</span> grep ttyUSB0
 <span class="operator">[</span> 1080.035495<span class="operator">]</span> usb 3-1.2: FTDI USB Serial Device converter now attached to ttyUSB0
@@ -903,15 +1163,15 @@ sudo usermod -a -G dialout &lt;username&gt;
 </div>
 </div>
 <div class="section" id="netboot-test">
-<h1><a class="toc-backref" href="#id24">3&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
+<h1><a class="toc-backref" href="#id27">3&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
 <p>Im Netboot Teil wurde mangels eines USB auf TTL Adapters kurzerhand zum Raspberry Pi 2 gewechselt. Netzwerkboot bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. permanente kleine schreibende Zugriffe (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints).</p>
 </div>
 <div class="section" id="tools-und-programme">
-<h1><a class="toc-backref" href="#id25">4&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
+<h1><a class="toc-backref" href="#id28">4&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
 <div class="section" id="minicom-ein-serial-terminal-emulator">
-<h2><a class="toc-backref" href="#id26">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a></h2>
+<h2><a class="toc-backref" href="#id29">4.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a></h2>
 <div class="section" id="installation">
-<h3><a class="toc-backref" href="#id27">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></h3>
+<h3><a class="toc-backref" href="#id30">4.1.1&nbsp;&nbsp;&nbsp;Installation</a></h3>
 <pre class="code bash literal-block">
 <span class="comment"># for ubuntu / debian based distributions
 </span>sudo apt-get install minicom
@@ -924,36 +1184,36 @@ sudo minicom -s
 </div>
 </div>
 <div class="section" id="unter-a-das-richtige-device-einrichten">
-<h3><a class="toc-backref" href="#id28">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></h3>
+<h3><a class="toc-backref" href="#id31">4.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup2.png" src="img/microcom-setup2.png" />
 </div>
 </div>
 <div class="section" id="als-default-speichern">
-<h3><a class="toc-backref" href="#id29">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></h3>
+<h3><a class="toc-backref" href="#id32">4.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup3.png" src="img/microcom-setup3.png" />
 </div>
 </div>
 <div class="section" id="minicom-beenden-und-neu-starten">
-<h3><a class="toc-backref" href="#id30">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></h3>
+<h3><a class="toc-backref" href="#id33">4.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup4.png" src="img/microcom-setup4.png" />
 </div>
 </div>
 </div>
 <div class="section" id="fdisk-partitionierungs-tool">
-<h2><a class="toc-backref" href="#id31">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
+<h2><a class="toc-backref" href="#id34">4.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
 <p>&quot;fdisk&quot; ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux instalation vorbereiten.</p>
 <div class="section" id="laufwerk-auswahlen">
-<h3><a class="toc-backref" href="#id32">4.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></h3>
+<h3><a class="toc-backref" href="#id35">4.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></h3>
 <p>öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)</p>
 <pre class="code bash literal-block">
 sudo fdisk /dev/mmcblk0
 </pre>
 </div>
 <div class="section" id="laufwerksinformationen-ausgeben">
-<h3><a class="toc-backref" href="#id33">4.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></h3>
+<h3><a class="toc-backref" href="#id36">4.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></h3>
 <ul class="simple">
 <li>Auflisten der Partitionstabelle eines Laufwerks</li>
 </ul>
@@ -972,7 +1232,7 @@ Device         Boot Start      End  Sectors  Size Id Type
 </pre>
 </div>
 <div class="section" id="sonstige-befehle">
-<h3><a class="toc-backref" href="#id34">4.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
+<h3><a class="toc-backref" href="#id37">4.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
 <pre class="code bash literal-block">
 DOS <span class="operator">(</span>MBR<span class="operator">)</span>
    a   toggle a bootable flag
@@ -1004,7 +1264,7 @@ Create a new label
 </pre>
 </div>
 <div class="section" id="unterschiedliche-formatierungen">
-<h3><a class="toc-backref" href="#id35">4.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
+<h3><a class="toc-backref" href="#id38">4.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: l
 
@@ -1038,7 +1298,7 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 </div>
 </div>
 <div class="section" id="literatur-und-sonstige-quellen">
-<h1><a class="toc-backref" href="#id36">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
+<h1><a class="toc-backref" href="#id39">5&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
 <table class="docutils citation" frame="void" id="bbb-bsp" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -1072,6 +1332,13 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 <tbody valign="top">
 <tr><td class="label">[YOCTO]</td><td>Yocto Project Build
 <a class="reference external" href="http://android.serverbox.ch/?p=1273">http://android.serverbox.ch/?p=1273</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="tlwn" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[TLWN]</td><td>Wifi Driver for TL-WN725N V2
+<a class="reference external" href="http://brilliantlyeasy.com/ubuntu-linux-tl-wn725n-tp-link-version-2-wifi-driver-install/">http://brilliantlyeasy.com/ubuntu-linux-tl-wn725n-tp-link-version-2-wifi-driver-install/</a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="todo" rules="none">
