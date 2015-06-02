@@ -110,11 +110,12 @@ Komponenten
 Bau einer eigenen Linuxumgebung mit dem Yoctoproject
 ====================================================
 
-Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufgesetzt werden. Hierzu bedienen wir uns des Yoctoproject. [BBB-YOCTO]_
+Zu Begin soll eine neue angepasste Linuxumgebung für das Beagelbone Black compiliert und auf der MicroSD-Karte platziert werden. Hierzu bedienen wir uns im ersten Teil des Yoctoproject. Bei diesem handelt es sich um eine vereinfachte Version von "". Yocto wurde in den letzten Jahren zu einem wichtigen Standard in der Wirtschaft. Yocto ermöglicht den einfachen Bau von minimale angepasste Linux-distributionen für das eigene Board. Außerdem unterstützt es die Erstellung eines eigenen Paket-servers von dem aus mit dem Paketmanager "smart" updates auf allen Boards durchgeführt werden können. [BBB-YOCTO]_
+
+Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobten Linux Distribution. Wir haben Ubuntu 14.04 LTS-Version für den folgenden Bauversuch verwendet. Bevor mit dem Bauen einer eigenen Linux Distribution begonnen werden konnte mussten noch die folgenden Pakete nachinstalliert werden:
 
 .. code:: bash
-	
-	# für den bau wurde eine ältere LTS-Version von Ubuntu verwendet es waren folgende zusätzliche Pakete nötig:
+
 	#
 	sudo apt-get install libsdl1.2-dev
 	#
@@ -132,14 +133,16 @@ Zu Begin soll eine neue angepasste Linuxumgebung auf dem Beagelbone Black aufges
 .. beschreibung der Funktion der Pakete hinzufügen
 
 
-Beziehen der Daten
-------------------
+Herunterladen der Yocto Buildumgebung
+-------------------------------------
 
-Herunterladen der Buildumgebung vom Github des Yoctoproject
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Von Github des Yoctoproject
++++++++++++++++++++++++++++
 
 .. code:: bash
 	
+	git colone git://git.yoctoproject.org/meta-yocto -b <VERSION>
+
 	# aktuelle Version zum Zeitpunkt des Projektbeginns war Dizzy
     git clone git://git.yoctoproject.org/meta-yocto -b dizzy
 
@@ -147,9 +150,14 @@ Herunterladen der Buildumgebung vom Github des Yoctoproject
 Herunterladen des aktuellen images von der webseite des Yoctoproject
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+[TODO]_
+
+.. add a description and the link
+
 .. code:: bash
 
 	wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
+
 
 
 Bauen des Yocto-core-images und des Bootloaders
@@ -158,8 +166,7 @@ Bauen des Yocto-core-images und des Bootloaders
 Erstellen der Buildumgebung und Überprüfung der Variablen
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Um den Bauvorgang einzuleiten empfiehlt es sich in den Ordner "'*'/poky" zu wechseln.
-
+Nachdem herunterladen und entpacken kann mit dem Bau begonnen werden. Dafür wechselt man in das Verzeichnis "poky/". In diesem Verzeichnis befinden sich die Sources und Konfigurations-Dateien, die für den Bauvorgang benötigt werden. Vor jedem neuen Bauvorgang sollte die Buildumgebung gesourced werden. Dies sorgt dafür das die für den Bau benötigten Variablen, wie zum Beispiel Compiler, Kernel und Architekturen im jeweiligen Terminal gesetzt werden. Wechselt man das Terminal muss die Buildumgebung erneut gesourced werden. Eine weitere wichtige Anmerkung, je nach Konfiguration wird für das Bauen zwischen 10 und 25 GB Speicherplatz benötigt, läuft dieser voll bricht der Bauvorgang einfach ab!
 
 .. code:: bash
 
@@ -207,7 +214,7 @@ Anpassungen in der Datei "local.conf"
 	# demonstration purposes:
 	#
 
-	# [0] removed the '#' in front of 'MACHINE ?= "beaglebone"'
+	# [1.] removed the '#' in front of 'MACHINE ?= "beaglebone"'
 
 	MACHINE ?= "beaglebone"
 	#MACHINE ?= "genericx86"
@@ -320,7 +327,7 @@ Anpassungen in der Datei "local.conf"
 	# meta/classes/image.bbclass and meta/classes/core-image.bbclass for more details.
 	# We default to enabling the debugging tweaks.
 
-	# [1] tools-sdk & tools-debug added
+	# [2.] tools-sdk & tools-debug added
 	EXTRA_IMAGE_FEATURES = "debug-tweaks tools-sdk tools-debug"
 
 	#
@@ -414,13 +421,13 @@ Anpassungen in der Datei "local.conf"
 	# this doesn't mean anything to you.
 	CONF_VERSION = "1"
 	
-	# [2] slim ssh-client dropbear added
+	# [3.] slim ssh-client dropbear added
 	CORE_IMAGE_EXTRA_INSTALL += "dropbear"
-	# [3] git-vcn added
+	# [4.] git-vcn added
 	CORE_IMAGE_EXTRA_INSTALL += "git"
-	# [4] slim htpd-server added
+	# [5.] slim htpd-server added
 	CORE_IMAGE_EXTRA_INSTALL += "lighttpd"
-	# [5] wireless-tools and functions for the hot-spot functionality
+	# [6.] wireless-tools and functions for the hot-spot functionality
 	CORE_IMAGE_EXTRA_INSTALL += "wireless-tools"
 
 
@@ -432,10 +439,21 @@ Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies 
 
 .. code:: bash
 
+	# eine Linuxumgebung, die neben den vorgeingestellten Komponenten die wichtigsten Grundfunktionen enthält
+	# die von uns gewählte Konfiguration
 	bitbake core-image-base
+	
+	# weitere wichtige Basiskonfigurationen:
+	
+	# minimale Linuxumgebung
+	bitbake core-image-minimal
+	
+	# real-time unterstützte Linuxumgebung
+	bitbake core-image-rt
 
 .. figure:: img/Yocto-build1.png
    :align: center
+
 
 
 Vorbereiten der microSD Karte
