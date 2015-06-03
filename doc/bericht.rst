@@ -420,7 +420,7 @@ Anpassungen in der Datei "local.conf"
 	# track the version of this file when it was generated. This can safely be ignored if
 	# this doesn't mean anything to you.
 	CONF_VERSION = "1"
-	
+
 	# [3.] slim ssh-client dropbear added
 	CORE_IMAGE_EXTRA_INSTALL += "dropbear"
 	# [4.] git-vcn added
@@ -759,6 +759,131 @@ Im Netboot Teil wurde mangels eines USB auf TTL Adapters kurzerhand zum Raspberr
 
 
 
+Debian 8.0 für das BeagleBone Black
+===================================
+
+Da sich das arbeiten und entwickeln unter der selbst gebauten Yocto-distribution als zunehmend schwierig herausgestellt hat und wir bereits Erfahrungen mit dem Selbst bauen und kompilieren von Images für unser BBB gesammelt haben wurde beschlossen für die Fertigstellung unseres Projektes auf ein Debian zu wechseln. Vor allem um auf den Komfort eines Paketmanagers zurückgreifen zu können.
+
+.. code:: bash
+
+	# einfach ein passendes SD-Karten abbild finden und herunterladen
+	# Achtung für das BBB gibt es sowohl flasher images für den eMMC als auch SD-Karten images
+	wget https://rcn-ee.com/rootfs/2015-05-08/microsd/bone-debian-8.0-console-armhf-2015-05-08-2gb.img.xz
+
+	# image entpacken
+	unxz bone-debian-8.0-console-armhf-2015-05-08-2gb.img.xz
+
+	# image auf die SD-Karten kopieren
+	sudo dd if=./bone-debian-8.0-console-armhf-2015-05-08-2gb.img of=/dev/sdX
+
+
+
+Die ersten Schritte nach dem erfolgreichen platzieren des images:
+-----------------------------------------------------------------
+
+.. code:: bash
+
+	# aufgrund der Voreinstellungen im image ist es wieder möglich über eine feste ssh-Adresse über den mini-USB zu verbinden
+	ssh debian@192.168.7.2
+	passwd: temppwd
+
+	# image der größe der SD-Karten anpassen
+	sudo sh /opt/scripts/tools/growpartition.sh
+
+	# richtige Zeitzone angeben
+	echo "Europe/Berlin" > /etc/timezone
+	dpkg-reconfigure -f noninteractive tzdata
+
+	# installieren von "build-essentials"
+	sudo apt-get install build-essentials
+
+	# installieren von "lighttpd"
+	sudo apt-get install lighttpd
+
+
+Accesspoint
+-----------
+
+.. code:: bash
+
+	# modifizieren der Netzwerk Interfaces
+	vi /etc/network/interfaces
+
+	# folgende Zeilen sind nur ein beispiel, aber ähnliches sollte hinzugefügt werden:
+	auto wlan0
+		iface wlan0 inet dhcp
+        address 192.168.3.1
+        network 192.168.3.0
+        netmask 255.255.255.0
+        broadcast 192.168.3.255
+
+	# den Netzwerk Service reseten
+	/etc/init.d/networking restart
+
+	# ruft man nun ifconfig auf sollte das Interface wlan0 sichtbar sein
+	usb0      Link encap:Ethernet  HWaddr ce:24:9f:01:71:88  
+          inet addr:192.168.7.2  Bcast:192.168.7.3  Mask:255.255.255.252
+          inet6 addr: fe80::cc24:9fff:fe01:7188/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1075 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:725 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:87654 (85.5 KiB)  TX bytes:86496 (84.4 KiB)
+
+	wlan0     Link encap:Ethernet  HWaddr e0:46:9a:0d:61:a3  
+	          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+	          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+	          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+	          collisions:0 txqueuelen:1000 
+	          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+
+	vi /etc/default/hostapd
+	# setzen der option
+	DAEMON_CONF="/etc/hostapd/hostapd.conf"
+
+	# erstellen der "hostapd.conf" Datei
+	touch /etc/hostapt/hostapd.conf
+
+	# anpassen der "hostapd.conf" Datei
+	vi /etc/hostapt/hostapt.conf
+	
+	### Wireless network name ##
+	interface=wlan0
+	### Set your bridge name ###
+	#bridge=br0
+	### driver
+	driver=ath
+	### Country Code ###
+	country_code=GER
+	### SSID ###
+	ssid=GeoSpotAP
+	### Channel ###
+	channel=1
+	### HW-Mode ###
+	hw_mode=g
+	### Static WPA2 key configuration ###
+	# 1=wpa1, 2=wpa2, 3=both
+	wpa=2
+	### WPA-Passphrase ###
+	wpa_passphrase=geomodap
+	### Key management algorithms ###
+	wpa_key_mgmt=WPA-PSK
+	### Set cipher suites (encryption algorithms) ##
+	# TKIP = Temporal Key Integrity Protocol
+	# CCMP = AES in Counter mode with CBC-MAC
+	wpa_pairwise=TKIP
+	# rsn_pairwise=CCMP
+	### Shared Key Authentication ###
+	auth_algs=1
+	### Accept all MAC address ###
+	macaddr_acl=0
+
+
+
+
+[BBB-AP]_
+
 
 
 Tools und Programme
@@ -924,6 +1049,9 @@ Literatur und sonstige Quellen
 
 .. [TLWN] Wifi Driver for TL-WN725N V2
 	http://brilliantlyeasy.com/ubuntu-linux-tl-wn725n-tp-link-version-2-wifi-driver-install/
+
+.. [BBB-AP] Wifi Accesspoint on a Beaglebone Black
+	https://fleshandmachines.wordpress.com/2012/10/04/wifi-acces-point-on-beaglebone-with-dhcp/
 
 .. [TODO] Look for comments
 
