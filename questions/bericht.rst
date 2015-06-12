@@ -9,10 +9,12 @@ Leseliste für die Klausur
 A Typical Embedded System
 =========================
 
-[ATES]_
-
 Wie bootet ein Embedded Linux Rechner?
 --------------------------------------
+
+.. figure:: img/bootloader.jpg
+  :align: center
+
 
 
 [ATES]_
@@ -96,76 +98,101 @@ Tips for planning an embedded Linux project
 Welche Anforderungen sprechen für Linux? (5 Stück)
 --------------------------------------------------
 
+[TPEL]_
+
 
 Wie “bezahlt” man die Vorteile von Linux?
 -----------------------------------------
+
+[TPEL]_
 
 
 Aus welchen Einzelteilen besteht Embedded Linux? (6 Stück)
 ----------------------------------------------------------
 
+[TPEL]_
+
 
 Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatten und zu programmieren?
 ------------------------------------------------------------------------------------------------------
+
+[TPEL]_
 
 
 Welche Kosten sind zu erwarten?
 -------------------------------
 
+[TPEL]_
+
 
 Welche Risiken gibt es?
 -----------------------
+
+[TPEL]_
 
 
 Was umfasst der Lebenszyklus des Produktes?
 -------------------------------------------
 
-
+[TPEL]_
 
 
 Speichertechnologien und Filesystems
 ====================================
 
-[STFS]_
-
 
 Wie funktioniert Flash Speicher?
 --------------------------------
+
+[STFS]_
 
 
 Welche grundsätzlichen Bausteintypen gibt es?
 ---------------------------------------------
 
+[STFS]_
+
 
 Was verstehen Sie unter dem Kürzel “MTD”?
 -----------------------------------------
+
+[STFS]_
 
 
 Was ist CRAMFS?
 ---------------
 
+[STFS]_
+
 
 Was ist SQUASHFS?
 -----------------
+
+[STFS]_
 
 
 Was ist JFFS2?
 --------------
 
+[STFS]_
+
 
 Was ist YAFFS?
 --------------
+
+[STFS]_
 
 
 
 Anatomy of Flash Filesystems
 ============================
 
-[AFFS]_
 
 Was ist das Virtual File System VFS?
 ------------------------------------
 
+
+[AFFS]_
 
 
 
@@ -173,169 +200,179 @@ Was sind “bad blocks” und “wear leveling”?
 ------------------------------------------
 
 
+[AFFS]_
 
 
 Was kann man über die Mount-Zeit von verschiedenen Flash Filesystemen sagen?
 ----------------------------------------------------------------------------
 
 
-
+[AFFS]_
 
 
 Embedded Linux Primer (Bootloader)
 ==================================
 
-[ELPB]_
 
 Wozu braucht man einen Bootloader?
 ----------------------------------
 
 
+[ELPB]_
+
 
 Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?
 --------------------------------------------------------------------------------------------------------------------------------------
 
+[ELPB]_
 
 
 Wie gross sind typische Bootloader wie z.B. U-Boot und Apex?
 ------------------------------------------------------------
 
+[ELPB]_
 
 
 Welchen Funktionsumfang hat der U-Boot Bootloader?
 --------------------------------------------------
 
+[ELPB]_
 
 
 Fast Startup Linux
 ==================
 
-[FSTL]_
-
 
 Welche Möglichkeiten gibt es, die Bootzeit zu reduzieren?
 ---------------------------------------------------------
 
+[FSTL]_
 
 
 Linux Kernel Module
 ===================
-
-[LKMS]_
 
 
 Kann man in einem Kernelmodul auf die C Bibliothek zugreifen?
 -------------------------------------------------------------
 
 
+[LKMS]_
 
 
 Beschreiben Sie, wie man ein einfaches Kernelmodul nativ als auch cross-kompiliert.
 -----------------------------------------------------------------------------------
 
 
+[LKMS]_
 
 
 Wie lädt man ein Kernelmodul in den Kernel?
 -------------------------------------------
 
 
+[LKMS]_
 
 
 Was sind Gerätenummern?
 -----------------------
 
 
-
+[LKMS]_
 
 
 Wie legt man Gerätedateien an?
 ------------------------------
 
 
-
+[LKMS]_
 
 
 Was sind zeichenorientierte Treiber (character driver)?
 -------------------------------------------------------
 
+[LKMS]_
 
 
 Standard UNIX wird echtzeitfähig
 ================================
 
-[SURT]_
 
 Nennen Sie Anwendungsgebiete, die es notwendig machen, dem Linux Kern Echtzeit-Fähigkeit zu geben.
 --------------------------------------------------------------------------------------------------
 
+[SURT]_
 
 
 Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.
 -------------------------------------------------------------------------
 
+[SURT]_
 
 
 Welche Funktion hat die Organisation OSADL?
 -------------------------------------------
 
+[SURT]_
 
 
 Wie kann man das Scheduling von Prozessen im Anwendungsprogramm setzen?
 -----------------------------------------------------------------------
 
 
-
+[SURT]_
 
 
 Linuxtronix, Echtzeit - prinzipielle Ansätze
 ============================================
 
-[LTRT]_
 
 Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?
 ----------------------------------------------------------------------------------------------
 
 
+[LTRT]_
 
 
 Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?
 -------------------------------------------------------------------------------------------------------
 
-
+[LTRT]_
 
 
 Welchen Vorteil hat der “Preempt-RT” Ansatz, auch wenn er nicht für “harte” Echtzeit geeignet ist.
 --------------------------------------------------------------------------------------------------
 
+[LTRT]_
 
 
 Echtzeitsysteme mit Linux
 =========================
 
-[GRTL]_
 
 Was versteht man unter “Interrupt Latenzzeiten”?
 ------------------------------------------------
 
 
+[GRTL]_
 
 
 Wie werden im Kernel kritische Abschnitte geschützt?
 ----------------------------------------------------
 
 
+[GRTL]_
 
 
 Linux Debugging
-===============
+=============== 
 
-[TSLD]_ 
 
 Beschreiben Sie kurz den Zweck von Strace, LTTng und Systemtap.
 ---------------------------------------------------------------
 
 
+[TSLD]_
 
 
 Embedded Debugging

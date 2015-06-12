@@ -408,372 +408,403 @@ Zusammenfassung
 <div class="contents topic" id="inhalt">
 <p class="topic-title first">Inhalt</p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#leseliste-fur-die-klausur" id="id27">1&nbsp;&nbsp;&nbsp;Leseliste für die Klausur</a></li>
-<li><a class="reference internal" href="#a-typical-embedded-system" id="id28">2&nbsp;&nbsp;&nbsp;A Typical Embedded System</a><ul class="auto-toc">
-<li><a class="reference internal" href="#wie-bootet-ein-embedded-linux-rechner" id="id29">2.1&nbsp;&nbsp;&nbsp;Wie bootet ein Embedded Linux Rechner?</a></li>
-<li><a class="reference internal" href="#welche-aufgaben-hat-der-bootloader" id="id30">2.2&nbsp;&nbsp;&nbsp;Welche Aufgaben hat der Bootloader?</a></li>
-<li><a class="reference internal" href="#welche-besonderen-filesysteme-gibt-es-fur-embedded-linux" id="id31">2.3&nbsp;&nbsp;&nbsp;Welche besonderen Filesysteme gibt es für Embedded Linux?</a></li>
-<li><a class="reference internal" href="#welche-unterschiede-gibt-es-beim-kernel-im-vergleich-zum-pc" id="id32">2.4&nbsp;&nbsp;&nbsp;Welche Unterschiede gibt es beim Kernel im Vergleich zum PC?</a></li>
-<li><a class="reference internal" href="#welche-bedeutung-hat-die-c-bibliothek" id="id33">2.5&nbsp;&nbsp;&nbsp;Welche Bedeutung hat die C Bibliothek?</a></li>
-<li><a class="reference internal" href="#was-ist-die-busybox" id="id34">2.6&nbsp;&nbsp;&nbsp;Was ist die “Busybox”?</a></li>
-<li><a class="reference internal" href="#wie-funktioniert-cross-kompilierung" id="id35">2.7&nbsp;&nbsp;&nbsp;Wie funktioniert Cross-Kompilierung?</a></li>
-<li><a class="reference internal" href="#welche-distribution-fur-embedded-linux-werden-erwahnt" id="id36">2.8&nbsp;&nbsp;&nbsp;Welche Distribution für Embedded Linux werden erwähnt?</a></li>
-<li><a class="reference internal" href="#ist-der-apache-webserver-eine-gute-wahl-welche-anderen-webserver-gibt-es-noch" id="id37">2.9&nbsp;&nbsp;&nbsp;Ist der Apache Webserver eine gute Wahl? Welche anderen Webserver gibt es noch?</a></li>
-<li><a class="reference internal" href="#welche-werkzeuge-gibt-es-zur-programmierung-grafischer-oberflachen" id="id38">2.10&nbsp;&nbsp;&nbsp;Welche Werkzeuge gibt es zur Programmierung grafischer Oberflächen?</a></li>
-<li><a class="reference internal" href="#fazit-was-ist-der-unterschied-zwischen-embedded-linux-und-gewohnlichem-linux" id="id39">2.11&nbsp;&nbsp;&nbsp;Fazit: Was ist der Unterschied zwischen Embedded Linux und “gewöhnlichem” Linux?</a></li>
+<li><a class="reference internal" href="#leseliste-fur-die-klausur" id="id55">1&nbsp;&nbsp;&nbsp;Leseliste für die Klausur</a></li>
+<li><a class="reference internal" href="#a-typical-embedded-system" id="id56">2&nbsp;&nbsp;&nbsp;A Typical Embedded System</a><ul class="auto-toc">
+<li><a class="reference internal" href="#wie-bootet-ein-embedded-linux-rechner" id="id57">2.1&nbsp;&nbsp;&nbsp;Wie bootet ein Embedded Linux Rechner?</a></li>
+<li><a class="reference internal" href="#welche-aufgaben-hat-der-bootloader" id="id58">2.2&nbsp;&nbsp;&nbsp;Welche Aufgaben hat der Bootloader?</a></li>
+<li><a class="reference internal" href="#welche-besonderen-filesysteme-gibt-es-fur-embedded-linux" id="id59">2.3&nbsp;&nbsp;&nbsp;Welche besonderen Filesysteme gibt es für Embedded Linux?</a></li>
+<li><a class="reference internal" href="#welche-unterschiede-gibt-es-beim-kernel-im-vergleich-zum-pc" id="id60">2.4&nbsp;&nbsp;&nbsp;Welche Unterschiede gibt es beim Kernel im Vergleich zum PC?</a></li>
+<li><a class="reference internal" href="#welche-bedeutung-hat-die-c-bibliothek" id="id61">2.5&nbsp;&nbsp;&nbsp;Welche Bedeutung hat die C Bibliothek?</a></li>
+<li><a class="reference internal" href="#was-ist-die-busybox" id="id62">2.6&nbsp;&nbsp;&nbsp;Was ist die “Busybox”?</a></li>
+<li><a class="reference internal" href="#wie-funktioniert-cross-kompilierung" id="id63">2.7&nbsp;&nbsp;&nbsp;Wie funktioniert Cross-Kompilierung?</a></li>
+<li><a class="reference internal" href="#welche-distribution-fur-embedded-linux-werden-erwahnt" id="id64">2.8&nbsp;&nbsp;&nbsp;Welche Distribution für Embedded Linux werden erwähnt?</a></li>
+<li><a class="reference internal" href="#ist-der-apache-webserver-eine-gute-wahl-welche-anderen-webserver-gibt-es-noch" id="id65">2.9&nbsp;&nbsp;&nbsp;Ist der Apache Webserver eine gute Wahl? Welche anderen Webserver gibt es noch?</a></li>
+<li><a class="reference internal" href="#welche-werkzeuge-gibt-es-zur-programmierung-grafischer-oberflachen" id="id66">2.10&nbsp;&nbsp;&nbsp;Welche Werkzeuge gibt es zur Programmierung grafischer Oberflächen?</a></li>
+<li><a class="reference internal" href="#fazit-was-ist-der-unterschied-zwischen-embedded-linux-und-gewohnlichem-linux" id="id67">2.11&nbsp;&nbsp;&nbsp;Fazit: Was ist der Unterschied zwischen Embedded Linux und “gewöhnlichem” Linux?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tips-for-planning-an-embedded-linux-project" id="id40">3&nbsp;&nbsp;&nbsp;Tips for planning an embedded Linux project</a><ul class="auto-toc">
-<li><a class="reference internal" href="#welche-anforderungen-sprechen-fur-linux-5-stuck" id="id41">3.1&nbsp;&nbsp;&nbsp;Welche Anforderungen sprechen für Linux? (5 Stück)</a></li>
-<li><a class="reference internal" href="#wie-bezahlt-man-die-vorteile-von-linux" id="id42">3.2&nbsp;&nbsp;&nbsp;Wie “bezahlt” man die Vorteile von Linux?</a></li>
-<li><a class="reference internal" href="#aus-welchen-einzelteilen-besteht-embedded-linux-6-stuck" id="id43">3.3&nbsp;&nbsp;&nbsp;Aus welchen Einzelteilen besteht Embedded Linux? (6 Stück)</a></li>
-<li><a class="reference internal" href="#welche-fahigkeiten-braucht-man-um-einen-rechner-mit-embedded-linux-auszustatten-und-zu-programmieren" id="id44">3.4&nbsp;&nbsp;&nbsp;Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatten und zu programmieren?</a></li>
-<li><a class="reference internal" href="#welche-kosten-sind-zu-erwarten" id="id45">3.5&nbsp;&nbsp;&nbsp;Welche Kosten sind zu erwarten?</a></li>
-<li><a class="reference internal" href="#welche-risiken-gibt-es" id="id46">3.6&nbsp;&nbsp;&nbsp;Welche Risiken gibt es?</a></li>
-<li><a class="reference internal" href="#was-umfasst-der-lebenszyklus-des-produktes" id="id47">3.7&nbsp;&nbsp;&nbsp;Was umfasst der Lebenszyklus des Produktes?</a></li>
+<li><a class="reference internal" href="#tips-for-planning-an-embedded-linux-project" id="id68">3&nbsp;&nbsp;&nbsp;Tips for planning an embedded Linux project</a><ul class="auto-toc">
+<li><a class="reference internal" href="#welche-anforderungen-sprechen-fur-linux-5-stuck" id="id69">3.1&nbsp;&nbsp;&nbsp;Welche Anforderungen sprechen für Linux? (5 Stück)</a></li>
+<li><a class="reference internal" href="#wie-bezahlt-man-die-vorteile-von-linux" id="id70">3.2&nbsp;&nbsp;&nbsp;Wie “bezahlt” man die Vorteile von Linux?</a></li>
+<li><a class="reference internal" href="#aus-welchen-einzelteilen-besteht-embedded-linux-6-stuck" id="id71">3.3&nbsp;&nbsp;&nbsp;Aus welchen Einzelteilen besteht Embedded Linux? (6 Stück)</a></li>
+<li><a class="reference internal" href="#welche-fahigkeiten-braucht-man-um-einen-rechner-mit-embedded-linux-auszustatten-und-zu-programmieren" id="id72">3.4&nbsp;&nbsp;&nbsp;Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatten und zu programmieren?</a></li>
+<li><a class="reference internal" href="#welche-kosten-sind-zu-erwarten" id="id73">3.5&nbsp;&nbsp;&nbsp;Welche Kosten sind zu erwarten?</a></li>
+<li><a class="reference internal" href="#welche-risiken-gibt-es" id="id74">3.6&nbsp;&nbsp;&nbsp;Welche Risiken gibt es?</a></li>
+<li><a class="reference internal" href="#was-umfasst-der-lebenszyklus-des-produktes" id="id75">3.7&nbsp;&nbsp;&nbsp;Was umfasst der Lebenszyklus des Produktes?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#speichertechnologien-und-filesystems" id="id48">4&nbsp;&nbsp;&nbsp;Speichertechnologien und Filesystems</a><ul class="auto-toc">
-<li><a class="reference internal" href="#wie-funktioniert-flash-speicher" id="id49">4.1&nbsp;&nbsp;&nbsp;Wie funktioniert Flash Speicher?</a></li>
-<li><a class="reference internal" href="#welche-grundsatzlichen-bausteintypen-gibt-es" id="id50">4.2&nbsp;&nbsp;&nbsp;Welche grundsätzlichen Bausteintypen gibt es?</a></li>
-<li><a class="reference internal" href="#was-verstehen-sie-unter-dem-kurzel-mtd" id="id51">4.3&nbsp;&nbsp;&nbsp;Was verstehen Sie unter dem Kürzel “MTD”?</a></li>
-<li><a class="reference internal" href="#was-ist-cramfs" id="id52">4.4&nbsp;&nbsp;&nbsp;Was ist CRAMFS?</a></li>
-<li><a class="reference internal" href="#was-ist-squashfs" id="id53">4.5&nbsp;&nbsp;&nbsp;Was ist SQUASHFS?</a></li>
-<li><a class="reference internal" href="#was-ist-jffs2" id="id54">4.6&nbsp;&nbsp;&nbsp;Was ist JFFS2?</a></li>
-<li><a class="reference internal" href="#was-ist-yaffs" id="id55">4.7&nbsp;&nbsp;&nbsp;Was ist YAFFS?</a></li>
+<li><a class="reference internal" href="#speichertechnologien-und-filesystems" id="id76">4&nbsp;&nbsp;&nbsp;Speichertechnologien und Filesystems</a><ul class="auto-toc">
+<li><a class="reference internal" href="#wie-funktioniert-flash-speicher" id="id77">4.1&nbsp;&nbsp;&nbsp;Wie funktioniert Flash Speicher?</a></li>
+<li><a class="reference internal" href="#welche-grundsatzlichen-bausteintypen-gibt-es" id="id78">4.2&nbsp;&nbsp;&nbsp;Welche grundsätzlichen Bausteintypen gibt es?</a></li>
+<li><a class="reference internal" href="#was-verstehen-sie-unter-dem-kurzel-mtd" id="id79">4.3&nbsp;&nbsp;&nbsp;Was verstehen Sie unter dem Kürzel “MTD”?</a></li>
+<li><a class="reference internal" href="#was-ist-cramfs" id="id80">4.4&nbsp;&nbsp;&nbsp;Was ist CRAMFS?</a></li>
+<li><a class="reference internal" href="#was-ist-squashfs" id="id81">4.5&nbsp;&nbsp;&nbsp;Was ist SQUASHFS?</a></li>
+<li><a class="reference internal" href="#was-ist-jffs2" id="id82">4.6&nbsp;&nbsp;&nbsp;Was ist JFFS2?</a></li>
+<li><a class="reference internal" href="#was-ist-yaffs" id="id83">4.7&nbsp;&nbsp;&nbsp;Was ist YAFFS?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#anatomy-of-flash-filesystems" id="id56">5&nbsp;&nbsp;&nbsp;Anatomy of Flash Filesystems</a><ul class="auto-toc">
-<li><a class="reference internal" href="#was-ist-das-virtual-file-system-vfs" id="id57">5.1&nbsp;&nbsp;&nbsp;Was ist das Virtual File System VFS?</a></li>
-<li><a class="reference internal" href="#was-sind-bad-blocks-und-wear-leveling" id="id58">5.2&nbsp;&nbsp;&nbsp;Was sind “bad blocks” und “wear leveling”?</a></li>
-<li><a class="reference internal" href="#was-kann-man-uber-die-mount-zeit-von-verschiedenen-flash-filesystemen-sagen" id="id59">5.3&nbsp;&nbsp;&nbsp;Was kann man über die Mount-Zeit von verschiedenen Flash Filesystemen sagen?</a></li>
+<li><a class="reference internal" href="#anatomy-of-flash-filesystems" id="id84">5&nbsp;&nbsp;&nbsp;Anatomy of Flash Filesystems</a><ul class="auto-toc">
+<li><a class="reference internal" href="#was-ist-das-virtual-file-system-vfs" id="id85">5.1&nbsp;&nbsp;&nbsp;Was ist das Virtual File System VFS?</a></li>
+<li><a class="reference internal" href="#was-sind-bad-blocks-und-wear-leveling" id="id86">5.2&nbsp;&nbsp;&nbsp;Was sind “bad blocks” und “wear leveling”?</a></li>
+<li><a class="reference internal" href="#was-kann-man-uber-die-mount-zeit-von-verschiedenen-flash-filesystemen-sagen" id="id87">5.3&nbsp;&nbsp;&nbsp;Was kann man über die Mount-Zeit von verschiedenen Flash Filesystemen sagen?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#embedded-linux-primer-bootloader" id="id60">6&nbsp;&nbsp;&nbsp;Embedded Linux Primer (Bootloader)</a><ul class="auto-toc">
-<li><a class="reference internal" href="#wozu-braucht-man-einen-bootloader" id="id61">6.1&nbsp;&nbsp;&nbsp;Wozu braucht man einen Bootloader?</a></li>
-<li><a class="reference internal" href="#wieso-kann-der-first-level-bootloader-im-mikrocontroller-im-allgemeinen-nicht-den-allgemeinen-bootvorgang-des-linux-kernels-einleiten" id="id62">6.2&nbsp;&nbsp;&nbsp;Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?</a></li>
-<li><a class="reference internal" href="#wie-gross-sind-typische-bootloader-wie-z-b-u-boot-und-apex" id="id63">6.3&nbsp;&nbsp;&nbsp;Wie gross sind typische Bootloader wie z.B. U-Boot und Apex?</a></li>
-<li><a class="reference internal" href="#welchen-funktionsumfang-hat-der-u-boot-bootloader" id="id64">6.4&nbsp;&nbsp;&nbsp;Welchen Funktionsumfang hat der U-Boot Bootloader?</a></li>
+<li><a class="reference internal" href="#embedded-linux-primer-bootloader" id="id88">6&nbsp;&nbsp;&nbsp;Embedded Linux Primer (Bootloader)</a><ul class="auto-toc">
+<li><a class="reference internal" href="#wozu-braucht-man-einen-bootloader" id="id89">6.1&nbsp;&nbsp;&nbsp;Wozu braucht man einen Bootloader?</a></li>
+<li><a class="reference internal" href="#wieso-kann-der-first-level-bootloader-im-mikrocontroller-im-allgemeinen-nicht-den-allgemeinen-bootvorgang-des-linux-kernels-einleiten" id="id90">6.2&nbsp;&nbsp;&nbsp;Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?</a></li>
+<li><a class="reference internal" href="#wie-gross-sind-typische-bootloader-wie-z-b-u-boot-und-apex" id="id91">6.3&nbsp;&nbsp;&nbsp;Wie gross sind typische Bootloader wie z.B. U-Boot und Apex?</a></li>
+<li><a class="reference internal" href="#welchen-funktionsumfang-hat-der-u-boot-bootloader" id="id92">6.4&nbsp;&nbsp;&nbsp;Welchen Funktionsumfang hat der U-Boot Bootloader?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fast-startup-linux" id="id65">7&nbsp;&nbsp;&nbsp;Fast Startup Linux</a><ul class="auto-toc">
-<li><a class="reference internal" href="#welche-moglichkeiten-gibt-es-die-bootzeit-zu-reduzieren" id="id66">7.1&nbsp;&nbsp;&nbsp;Welche Möglichkeiten gibt es, die Bootzeit zu reduzieren?</a></li>
+<li><a class="reference internal" href="#fast-startup-linux" id="id93">7&nbsp;&nbsp;&nbsp;Fast Startup Linux</a><ul class="auto-toc">
+<li><a class="reference internal" href="#welche-moglichkeiten-gibt-es-die-bootzeit-zu-reduzieren" id="id94">7.1&nbsp;&nbsp;&nbsp;Welche Möglichkeiten gibt es, die Bootzeit zu reduzieren?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linux-kernel-module" id="id67">8&nbsp;&nbsp;&nbsp;Linux Kernel Module</a><ul class="auto-toc">
-<li><a class="reference internal" href="#kann-man-in-einem-kernelmodul-auf-die-c-bibliothek-zugreifen" id="id68">8.1&nbsp;&nbsp;&nbsp;Kann man in einem Kernelmodul auf die C Bibliothek zugreifen?</a></li>
-<li><a class="reference internal" href="#beschreiben-sie-wie-man-ein-einfaches-kernelmodul-nativ-als-auch-cross-kompiliert" id="id69">8.2&nbsp;&nbsp;&nbsp;Beschreiben Sie, wie man ein einfaches Kernelmodul nativ als auch cross-kompiliert.</a></li>
-<li><a class="reference internal" href="#wie-ladt-man-ein-kernelmodul-in-den-kernel" id="id70">8.3&nbsp;&nbsp;&nbsp;Wie lädt man ein Kernelmodul in den Kernel?</a></li>
-<li><a class="reference internal" href="#was-sind-geratenummern" id="id71">8.4&nbsp;&nbsp;&nbsp;Was sind Gerätenummern?</a></li>
-<li><a class="reference internal" href="#wie-legt-man-geratedateien-an" id="id72">8.5&nbsp;&nbsp;&nbsp;Wie legt man Gerätedateien an?</a></li>
-<li><a class="reference internal" href="#was-sind-zeichenorientierte-treiber-character-driver" id="id73">8.6&nbsp;&nbsp;&nbsp;Was sind zeichenorientierte Treiber (character driver)?</a></li>
+<li><a class="reference internal" href="#linux-kernel-module" id="id95">8&nbsp;&nbsp;&nbsp;Linux Kernel Module</a><ul class="auto-toc">
+<li><a class="reference internal" href="#kann-man-in-einem-kernelmodul-auf-die-c-bibliothek-zugreifen" id="id96">8.1&nbsp;&nbsp;&nbsp;Kann man in einem Kernelmodul auf die C Bibliothek zugreifen?</a></li>
+<li><a class="reference internal" href="#beschreiben-sie-wie-man-ein-einfaches-kernelmodul-nativ-als-auch-cross-kompiliert" id="id97">8.2&nbsp;&nbsp;&nbsp;Beschreiben Sie, wie man ein einfaches Kernelmodul nativ als auch cross-kompiliert.</a></li>
+<li><a class="reference internal" href="#wie-ladt-man-ein-kernelmodul-in-den-kernel" id="id98">8.3&nbsp;&nbsp;&nbsp;Wie lädt man ein Kernelmodul in den Kernel?</a></li>
+<li><a class="reference internal" href="#was-sind-geratenummern" id="id99">8.4&nbsp;&nbsp;&nbsp;Was sind Gerätenummern?</a></li>
+<li><a class="reference internal" href="#wie-legt-man-geratedateien-an" id="id100">8.5&nbsp;&nbsp;&nbsp;Wie legt man Gerätedateien an?</a></li>
+<li><a class="reference internal" href="#was-sind-zeichenorientierte-treiber-character-driver" id="id101">8.6&nbsp;&nbsp;&nbsp;Was sind zeichenorientierte Treiber (character driver)?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#standard-unix-wird-echtzeitfahig" id="id74">9&nbsp;&nbsp;&nbsp;Standard UNIX wird echtzeitfähig</a><ul class="auto-toc">
-<li><a class="reference internal" href="#nennen-sie-anwendungsgebiete-die-es-notwendig-machen-dem-linux-kern-echtzeit-fahigkeit-zu-geben" id="id75">9.1&nbsp;&nbsp;&nbsp;Nennen Sie Anwendungsgebiete, die es notwendig machen, dem Linux Kern Echtzeit-Fähigkeit zu geben.</a></li>
-<li><a class="reference internal" href="#beschreiben-sie-die-wichtigsten-komponenten-des-realtime-preempt-patches" id="id76">9.2&nbsp;&nbsp;&nbsp;Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.</a></li>
-<li><a class="reference internal" href="#welche-funktion-hat-die-organisation-osadl" id="id77">9.3&nbsp;&nbsp;&nbsp;Welche Funktion hat die Organisation OSADL?</a></li>
-<li><a class="reference internal" href="#wie-kann-man-das-scheduling-von-prozessen-im-anwendungsprogramm-setzen" id="id78">9.4&nbsp;&nbsp;&nbsp;Wie kann man das Scheduling von Prozessen im Anwendungsprogramm setzen?</a></li>
+<li><a class="reference internal" href="#standard-unix-wird-echtzeitfahig" id="id102">9&nbsp;&nbsp;&nbsp;Standard UNIX wird echtzeitfähig</a><ul class="auto-toc">
+<li><a class="reference internal" href="#nennen-sie-anwendungsgebiete-die-es-notwendig-machen-dem-linux-kern-echtzeit-fahigkeit-zu-geben" id="id103">9.1&nbsp;&nbsp;&nbsp;Nennen Sie Anwendungsgebiete, die es notwendig machen, dem Linux Kern Echtzeit-Fähigkeit zu geben.</a></li>
+<li><a class="reference internal" href="#beschreiben-sie-die-wichtigsten-komponenten-des-realtime-preempt-patches" id="id104">9.2&nbsp;&nbsp;&nbsp;Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.</a></li>
+<li><a class="reference internal" href="#welche-funktion-hat-die-organisation-osadl" id="id105">9.3&nbsp;&nbsp;&nbsp;Welche Funktion hat die Organisation OSADL?</a></li>
+<li><a class="reference internal" href="#wie-kann-man-das-scheduling-von-prozessen-im-anwendungsprogramm-setzen" id="id106">9.4&nbsp;&nbsp;&nbsp;Wie kann man das Scheduling von Prozessen im Anwendungsprogramm setzen?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linuxtronix-echtzeit-prinzipielle-ansatze" id="id79">10&nbsp;&nbsp;&nbsp;Linuxtronix, Echtzeit - prinzipielle Ansätze</a><ul class="auto-toc">
-<li><a class="reference internal" href="#welche-prinzipiellen-losungsansatze-gibt-es-um-linux-mit-echtzeit-eigenschaften-auszustatten" id="id80">10.1&nbsp;&nbsp;&nbsp;Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?</a></li>
-<li><a class="reference internal" href="#wie-heissen-die-seit-jahren-etablierten-praktischen-implementierungen-der-prinzipiellen-losungsansatze" id="id81">10.2&nbsp;&nbsp;&nbsp;Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?</a></li>
-<li><a class="reference internal" href="#welchen-vorteil-hat-der-preempt-rt-ansatz-auch-wenn-er-nicht-fur-harte-echtzeit-geeignet-ist" id="id82">10.3&nbsp;&nbsp;&nbsp;Welchen Vorteil hat der “Preempt-RT” Ansatz, auch wenn er nicht für “harte” Echtzeit geeignet ist.</a></li>
+<li><a class="reference internal" href="#linuxtronix-echtzeit-prinzipielle-ansatze" id="id107">10&nbsp;&nbsp;&nbsp;Linuxtronix, Echtzeit - prinzipielle Ansätze</a><ul class="auto-toc">
+<li><a class="reference internal" href="#welche-prinzipiellen-losungsansatze-gibt-es-um-linux-mit-echtzeit-eigenschaften-auszustatten" id="id108">10.1&nbsp;&nbsp;&nbsp;Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?</a></li>
+<li><a class="reference internal" href="#wie-heissen-die-seit-jahren-etablierten-praktischen-implementierungen-der-prinzipiellen-losungsansatze" id="id109">10.2&nbsp;&nbsp;&nbsp;Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?</a></li>
+<li><a class="reference internal" href="#welchen-vorteil-hat-der-preempt-rt-ansatz-auch-wenn-er-nicht-fur-harte-echtzeit-geeignet-ist" id="id110">10.3&nbsp;&nbsp;&nbsp;Welchen Vorteil hat der “Preempt-RT” Ansatz, auch wenn er nicht für “harte” Echtzeit geeignet ist.</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#echtzeitsysteme-mit-linux" id="id83">11&nbsp;&nbsp;&nbsp;Echtzeitsysteme mit Linux</a><ul class="auto-toc">
-<li><a class="reference internal" href="#was-versteht-man-unter-interrupt-latenzzeiten" id="id84">11.1&nbsp;&nbsp;&nbsp;Was versteht man unter “Interrupt Latenzzeiten”?</a></li>
-<li><a class="reference internal" href="#wie-werden-im-kernel-kritische-abschnitte-geschutzt" id="id85">11.2&nbsp;&nbsp;&nbsp;Wie werden im Kernel kritische Abschnitte geschützt?</a></li>
+<li><a class="reference internal" href="#echtzeitsysteme-mit-linux" id="id111">11&nbsp;&nbsp;&nbsp;Echtzeitsysteme mit Linux</a><ul class="auto-toc">
+<li><a class="reference internal" href="#was-versteht-man-unter-interrupt-latenzzeiten" id="id112">11.1&nbsp;&nbsp;&nbsp;Was versteht man unter “Interrupt Latenzzeiten”?</a></li>
+<li><a class="reference internal" href="#wie-werden-im-kernel-kritische-abschnitte-geschutzt" id="id113">11.2&nbsp;&nbsp;&nbsp;Wie werden im Kernel kritische Abschnitte geschützt?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linux-debugging" id="id86">12&nbsp;&nbsp;&nbsp;Linux Debugging</a><ul class="auto-toc">
-<li><a class="reference internal" href="#beschreiben-sie-kurz-den-zweck-von-strace-lttng-und-systemtap" id="id87">12.1&nbsp;&nbsp;&nbsp;Beschreiben Sie kurz den Zweck von Strace, LTTng und Systemtap.</a></li>
+<li><a class="reference internal" href="#linux-debugging" id="id114">12&nbsp;&nbsp;&nbsp;Linux Debugging</a><ul class="auto-toc">
+<li><a class="reference internal" href="#beschreiben-sie-kurz-den-zweck-von-strace-lttng-und-systemtap" id="id115">12.1&nbsp;&nbsp;&nbsp;Beschreiben Sie kurz den Zweck von Strace, LTTng und Systemtap.</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#embedded-debugging" id="id88">13&nbsp;&nbsp;&nbsp;Embedded Debugging</a></li>
-<li><a class="reference internal" href="#freie-offene-software" id="id89">14&nbsp;&nbsp;&nbsp;Freie / offene Software</a><ul class="auto-toc">
-<li><a class="reference internal" href="#erlautern-sie-das-prinzip-des-copyleft" id="id90">14.1&nbsp;&nbsp;&nbsp;Erläutern Sie das Prinzip des Copyleft.</a></li>
-<li><a class="reference internal" href="#welche-vier-freiheiten-gewahrt-die-gpl" id="id91">14.2&nbsp;&nbsp;&nbsp;Welche vier Freiheiten gewährt die GPL?</a></li>
-<li><a class="reference internal" href="#wie-unterscheidet-sich-die-lgpl-von-der-gpl" id="id92">14.3&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die LGPL von der GPL?</a></li>
-<li><a class="reference internal" href="#wie-unterscheidet-sich-die-bsd-lizenz-von-der-gpl" id="id93">14.4&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die BSD Lizenz von der GPL?</a></li>
-<li><a class="reference internal" href="#was-sind-duale-lizenzen-nennen-sie-ein-beispiel" id="id94">14.5&nbsp;&nbsp;&nbsp;Was sind Duale Lizenzen? Nennen Sie ein Beispiel.</a><ul class="auto-toc">
-<li><a class="reference internal" href="#vorteile" id="id95">14.5.1&nbsp;&nbsp;&nbsp;Vorteile</a></li>
-<li><a class="reference internal" href="#nachteile" id="id96">14.5.2&nbsp;&nbsp;&nbsp;Nachteile</a></li>
+<li><a class="reference internal" href="#embedded-debugging" id="id116">13&nbsp;&nbsp;&nbsp;Embedded Debugging</a></li>
+<li><a class="reference internal" href="#freie-offene-software" id="id117">14&nbsp;&nbsp;&nbsp;Freie / offene Software</a><ul class="auto-toc">
+<li><a class="reference internal" href="#erlautern-sie-das-prinzip-des-copyleft" id="id118">14.1&nbsp;&nbsp;&nbsp;Erläutern Sie das Prinzip des Copyleft.</a></li>
+<li><a class="reference internal" href="#welche-vier-freiheiten-gewahrt-die-gpl" id="id119">14.2&nbsp;&nbsp;&nbsp;Welche vier Freiheiten gewährt die GPL?</a></li>
+<li><a class="reference internal" href="#wie-unterscheidet-sich-die-lgpl-von-der-gpl" id="id120">14.3&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die LGPL von der GPL?</a></li>
+<li><a class="reference internal" href="#wie-unterscheidet-sich-die-bsd-lizenz-von-der-gpl" id="id121">14.4&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die BSD Lizenz von der GPL?</a></li>
+<li><a class="reference internal" href="#was-sind-duale-lizenzen-nennen-sie-ein-beispiel" id="id122">14.5&nbsp;&nbsp;&nbsp;Was sind Duale Lizenzen? Nennen Sie ein Beispiel.</a><ul class="auto-toc">
+<li><a class="reference internal" href="#vorteile" id="id123">14.5.1&nbsp;&nbsp;&nbsp;Vorteile</a></li>
+<li><a class="reference internal" href="#nachteile" id="id124">14.5.2&nbsp;&nbsp;&nbsp;Nachteile</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#darf-man-programme-im-linux-userspace-unter-einer-proprietaren-lizenz-vertreiben" id="id97">14.6&nbsp;&nbsp;&nbsp;Darf man Programme im Linux Userspace unter einer proprietären Lizenz vertreiben?</a></li>
-<li><a class="reference internal" href="#darf-man-mit-dem-freien-gnu-c-compiler-kommerzielle-geschlossene-programme-schreiben" id="id98">14.7&nbsp;&nbsp;&nbsp;Darf man mit dem freien GNU C Compiler kommerzielle geschlossene Programme schreiben?</a></li>
-<li><a class="reference internal" href="#was-halten-sie-von-geschlossenen-kernelmodulen" id="id99">14.8&nbsp;&nbsp;&nbsp;Was halten Sie von geschlossenen Kernelmodulen?</a></li>
+<li><a class="reference internal" href="#darf-man-programme-im-linux-userspace-unter-einer-proprietaren-lizenz-vertreiben" id="id125">14.6&nbsp;&nbsp;&nbsp;Darf man Programme im Linux Userspace unter einer proprietären Lizenz vertreiben?</a></li>
+<li><a class="reference internal" href="#darf-man-mit-dem-freien-gnu-c-compiler-kommerzielle-geschlossene-programme-schreiben" id="id126">14.7&nbsp;&nbsp;&nbsp;Darf man mit dem freien GNU C Compiler kommerzielle geschlossene Programme schreiben?</a></li>
+<li><a class="reference internal" href="#was-halten-sie-von-geschlossenen-kernelmodulen" id="id127">14.8&nbsp;&nbsp;&nbsp;Was halten Sie von geschlossenen Kernelmodulen?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linux-auf-eingebetteten-systemen" id="id100">15&nbsp;&nbsp;&nbsp;Linux auf eingebetteten Systemen</a><ul class="auto-toc">
-<li><a class="reference internal" href="#was-erwartet-sie-hinsichtlich-der-lizenzen-wenn-sie-linux-wahlen" id="id101">15.1&nbsp;&nbsp;&nbsp;Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?</a></li>
-<li><a class="reference internal" href="#warum-linux-6-grunde" id="id102">15.2&nbsp;&nbsp;&nbsp;Warum Linux? (6 Gründe)</a></li>
-<li><a class="reference internal" href="#was-bedeutet-gpl" id="id103">15.3&nbsp;&nbsp;&nbsp;Was bedeutet “GPL”?</a></li>
-<li><a class="reference internal" href="#was-ist-open-source" id="id104">15.4&nbsp;&nbsp;&nbsp;Was ist “Open Source”?</a></li>
-<li><a class="reference internal" href="#was-verstehen-sie-unter-linux-standard-base" id="id105">15.5&nbsp;&nbsp;&nbsp;Was verstehen Sie unter “Linux Standard Base”?</a></li>
-<li><a class="reference internal" href="#was-zeichnet-embedded-systems-aus" id="id106">15.6&nbsp;&nbsp;&nbsp;Was zeichnet Embedded Systems aus?</a></li>
-<li><a class="reference internal" href="#vergleichen-sie-bios-und-bootloader" id="id107">15.7&nbsp;&nbsp;&nbsp;Vergleichen Sie BIOS und Bootloader.</a></li>
-<li><a class="reference internal" href="#aus-welchen-wesentlichen-funktionsblocken-bestehen-embedded-systems" id="id108">15.8&nbsp;&nbsp;&nbsp;Aus welchen wesentlichen Funktionsblöcken bestehen Embedded Systems?</a></li>
-<li><a class="reference internal" href="#aus-welcher-hardware-besteht-die-entwicklungsumgebung" id="id109">15.9&nbsp;&nbsp;&nbsp;Aus welcher Hardware besteht die Entwicklungsumgebung?</a></li>
-<li><a class="reference internal" href="#wie-startet-embedded-linux-von-u-boot-bis-init-prozess" id="id110">15.10&nbsp;&nbsp;&nbsp;Wie startet Embedded Linux? (von U-Boot bis init Prozess)</a></li>
-<li><a class="reference internal" href="#welche-arten-von-flash-speicher-gibt-es" id="id111">15.11&nbsp;&nbsp;&nbsp;Welche Arten von Flash Speicher gibt es?</a></li>
-<li><a class="reference internal" href="#in-welche-regionen-ist-der-flash-speicher-bei-linux-in-der-regel-aufgeteilt" id="id112">15.12&nbsp;&nbsp;&nbsp;In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?</a></li>
-<li><a class="reference internal" href="#wie-sieht-grob-die-memory-map-des-gesamten-rechners-aus" id="id113">15.13&nbsp;&nbsp;&nbsp;Wie sieht grob die memory map des gesamten Rechners aus?</a></li>
-<li><a class="reference internal" href="#was-macht-die-mmu-und-wo-ist-sie-eingebaut" id="id114">15.14&nbsp;&nbsp;&nbsp;Was macht die MMU und wo ist sie eingebaut?</a></li>
-<li><a class="reference internal" href="#wie-nennt-man-die-nicht-native-kompilierung-auch" id="id115">15.15&nbsp;&nbsp;&nbsp;Wie nennt man die nicht-native Kompilierung auch?</a></li>
-<li><a class="reference internal" href="#was-ist-native-kompilierung-ab-welcher-rechenleistung-macht-sie-sinn" id="id116">15.16&nbsp;&nbsp;&nbsp;Was ist native Kompilierung? Ab welcher Rechenleistung macht sie Sinn?</a></li>
-<li><a class="reference internal" href="#was-ist-eine-embedded-linux-distribution" id="id117">15.17&nbsp;&nbsp;&nbsp;Was ist eine Embedded Linux Distribution?</a></li>
-<li><a class="reference internal" href="#aus-wie-vielen-paketen-besteht-eine-distribution-ungefahr" id="id118">15.18&nbsp;&nbsp;&nbsp;Aus wie vielen Paketen besteht eine Distribution ungefähr?</a></li>
-<li><a class="reference internal" href="#welche-anderen-cpus-unterstutzt-linux-neben-dem-x86" id="id119">15.19&nbsp;&nbsp;&nbsp;Welche anderen CPUs unterstützt Linux neben dem x86?</a></li>
-<li><a class="reference internal" href="#was-ist-ein-monolithischer-kern" id="id120">15.20&nbsp;&nbsp;&nbsp;Was ist ein monolithischer Kern?</a></li>
-<li><a class="reference internal" href="#warum-lasst-sich-linux-einfach-auf-fast-beliebige-prozessoren-portieren" id="id121">15.21&nbsp;&nbsp;&nbsp;Warum lässt sich Linux einfach auf fast beliebige Prozessoren portieren?</a></li>
-<li><a class="reference internal" href="#wie-unterscheiden-sich-die-befehlssatze-der-prozessorfamilien" id="id122">15.22&nbsp;&nbsp;&nbsp;Wie unterscheiden sich die Befehlssätze der Prozessorfamilien?</a></li>
-<li><a class="reference internal" href="#virtual-memory-management" id="id123">15.23&nbsp;&nbsp;&nbsp;Virtual Memory Management</a></li>
-<li><a class="reference internal" href="#wie-heisst-die-linux-variante-die-ohne-diese-hardware-komponente-auskommt" id="id124">15.24&nbsp;&nbsp;&nbsp;Wie heisst die Linux Variante, die ohne diese Hardware-Komponente auskommt?</a></li>
-<li><a class="reference internal" href="#was-ist-ein-system-on-chip-soc" id="id125">15.25&nbsp;&nbsp;&nbsp;Was ist ein “System on Chip” (SoC)?</a></li>
-<li><a class="reference internal" href="#wie-sieht-die-schichtung-der-software-eines-embedded-linux-systems-in-etwa-aus" id="id126">15.26&nbsp;&nbsp;&nbsp;Wie sieht die Schichtung der Software eines Embedded Linux Systems in etwa aus?</a></li>
-<li><a class="reference internal" href="#welches-dateisystem-wird-bei-flash-speicher-haufig-verwendet" id="id127">15.27&nbsp;&nbsp;&nbsp;Welches Dateisystem wird bei Flash Speicher häufig verwendet?</a></li>
-<li><a class="reference internal" href="#welche-sprachen-werden-zur-programmierung-verwendet" id="id128">15.28&nbsp;&nbsp;&nbsp;Welche Sprachen werden zur Programmierung verwendet?</a></li>
-<li><a class="reference internal" href="#welche-bootloader-werden-bei-embedded-linux-verwendet-ist-grub-auch-eine-option" id="id129">15.29&nbsp;&nbsp;&nbsp;Welche Bootloader werden bei Embedded Linux verwendet? Ist grub auch eine Option?</a></li>
+<li><a class="reference internal" href="#linux-auf-eingebetteten-systemen" id="id128">15&nbsp;&nbsp;&nbsp;Linux auf eingebetteten Systemen</a><ul class="auto-toc">
+<li><a class="reference internal" href="#was-erwartet-sie-hinsichtlich-der-lizenzen-wenn-sie-linux-wahlen" id="id129">15.1&nbsp;&nbsp;&nbsp;Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?</a></li>
+<li><a class="reference internal" href="#warum-linux-6-grunde" id="id130">15.2&nbsp;&nbsp;&nbsp;Warum Linux? (6 Gründe)</a></li>
+<li><a class="reference internal" href="#was-bedeutet-gpl" id="id131">15.3&nbsp;&nbsp;&nbsp;Was bedeutet “GPL”?</a></li>
+<li><a class="reference internal" href="#was-ist-open-source" id="id132">15.4&nbsp;&nbsp;&nbsp;Was ist “Open Source”?</a></li>
+<li><a class="reference internal" href="#was-verstehen-sie-unter-linux-standard-base" id="id133">15.5&nbsp;&nbsp;&nbsp;Was verstehen Sie unter “Linux Standard Base”?</a></li>
+<li><a class="reference internal" href="#was-zeichnet-embedded-systems-aus" id="id134">15.6&nbsp;&nbsp;&nbsp;Was zeichnet Embedded Systems aus?</a></li>
+<li><a class="reference internal" href="#vergleichen-sie-bios-und-bootloader" id="id135">15.7&nbsp;&nbsp;&nbsp;Vergleichen Sie BIOS und Bootloader.</a></li>
+<li><a class="reference internal" href="#aus-welchen-wesentlichen-funktionsblocken-bestehen-embedded-systems" id="id136">15.8&nbsp;&nbsp;&nbsp;Aus welchen wesentlichen Funktionsblöcken bestehen Embedded Systems?</a></li>
+<li><a class="reference internal" href="#aus-welcher-hardware-besteht-die-entwicklungsumgebung" id="id137">15.9&nbsp;&nbsp;&nbsp;Aus welcher Hardware besteht die Entwicklungsumgebung?</a></li>
+<li><a class="reference internal" href="#wie-startet-embedded-linux-von-u-boot-bis-init-prozess" id="id138">15.10&nbsp;&nbsp;&nbsp;Wie startet Embedded Linux? (von U-Boot bis init Prozess)</a></li>
+<li><a class="reference internal" href="#welche-arten-von-flash-speicher-gibt-es" id="id139">15.11&nbsp;&nbsp;&nbsp;Welche Arten von Flash Speicher gibt es?</a></li>
+<li><a class="reference internal" href="#in-welche-regionen-ist-der-flash-speicher-bei-linux-in-der-regel-aufgeteilt" id="id140">15.12&nbsp;&nbsp;&nbsp;In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?</a></li>
+<li><a class="reference internal" href="#wie-sieht-grob-die-memory-map-des-gesamten-rechners-aus" id="id141">15.13&nbsp;&nbsp;&nbsp;Wie sieht grob die memory map des gesamten Rechners aus?</a></li>
+<li><a class="reference internal" href="#was-macht-die-mmu-und-wo-ist-sie-eingebaut" id="id142">15.14&nbsp;&nbsp;&nbsp;Was macht die MMU und wo ist sie eingebaut?</a></li>
+<li><a class="reference internal" href="#wie-nennt-man-die-nicht-native-kompilierung-auch" id="id143">15.15&nbsp;&nbsp;&nbsp;Wie nennt man die nicht-native Kompilierung auch?</a></li>
+<li><a class="reference internal" href="#was-ist-native-kompilierung-ab-welcher-rechenleistung-macht-sie-sinn" id="id144">15.16&nbsp;&nbsp;&nbsp;Was ist native Kompilierung? Ab welcher Rechenleistung macht sie Sinn?</a></li>
+<li><a class="reference internal" href="#was-ist-eine-embedded-linux-distribution" id="id145">15.17&nbsp;&nbsp;&nbsp;Was ist eine Embedded Linux Distribution?</a></li>
+<li><a class="reference internal" href="#aus-wie-vielen-paketen-besteht-eine-distribution-ungefahr" id="id146">15.18&nbsp;&nbsp;&nbsp;Aus wie vielen Paketen besteht eine Distribution ungefähr?</a></li>
+<li><a class="reference internal" href="#welche-anderen-cpus-unterstutzt-linux-neben-dem-x86" id="id147">15.19&nbsp;&nbsp;&nbsp;Welche anderen CPUs unterstützt Linux neben dem x86?</a></li>
+<li><a class="reference internal" href="#was-ist-ein-monolithischer-kern" id="id148">15.20&nbsp;&nbsp;&nbsp;Was ist ein monolithischer Kern?</a></li>
+<li><a class="reference internal" href="#warum-lasst-sich-linux-einfach-auf-fast-beliebige-prozessoren-portieren" id="id149">15.21&nbsp;&nbsp;&nbsp;Warum lässt sich Linux einfach auf fast beliebige Prozessoren portieren?</a></li>
+<li><a class="reference internal" href="#wie-unterscheiden-sich-die-befehlssatze-der-prozessorfamilien" id="id150">15.22&nbsp;&nbsp;&nbsp;Wie unterscheiden sich die Befehlssätze der Prozessorfamilien?</a></li>
+<li><a class="reference internal" href="#virtual-memory-management" id="id151">15.23&nbsp;&nbsp;&nbsp;Virtual Memory Management</a></li>
+<li><a class="reference internal" href="#wie-heisst-die-linux-variante-die-ohne-diese-hardware-komponente-auskommt" id="id152">15.24&nbsp;&nbsp;&nbsp;Wie heisst die Linux Variante, die ohne diese Hardware-Komponente auskommt?</a></li>
+<li><a class="reference internal" href="#was-ist-ein-system-on-chip-soc" id="id153">15.25&nbsp;&nbsp;&nbsp;Was ist ein “System on Chip” (SoC)?</a></li>
+<li><a class="reference internal" href="#wie-sieht-die-schichtung-der-software-eines-embedded-linux-systems-in-etwa-aus" id="id154">15.26&nbsp;&nbsp;&nbsp;Wie sieht die Schichtung der Software eines Embedded Linux Systems in etwa aus?</a></li>
+<li><a class="reference internal" href="#welches-dateisystem-wird-bei-flash-speicher-haufig-verwendet" id="id155">15.27&nbsp;&nbsp;&nbsp;Welches Dateisystem wird bei Flash Speicher häufig verwendet?</a></li>
+<li><a class="reference internal" href="#welche-sprachen-werden-zur-programmierung-verwendet" id="id156">15.28&nbsp;&nbsp;&nbsp;Welche Sprachen werden zur Programmierung verwendet?</a></li>
+<li><a class="reference internal" href="#welche-bootloader-werden-bei-embedded-linux-verwendet-ist-grub-auch-eine-option" id="id157">15.29&nbsp;&nbsp;&nbsp;Welche Bootloader werden bei Embedded Linux verwendet? Ist grub auch eine Option?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#der-entwicklungsrechner" id="id130">16&nbsp;&nbsp;&nbsp;Der Entwicklungsrechner</a><ul class="auto-toc">
-<li><a class="reference internal" href="#fur-welche-aufgaben-wird-der-hostrechner-entwicklungsrechner-verwendet" id="id131">16.1&nbsp;&nbsp;&nbsp;Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?</a></li>
-<li><a class="reference internal" href="#lernen-sie-die-bedienung-ihres-linux-rechners-ausschliesslich-uber-die-kommandozeile" id="id132">16.2&nbsp;&nbsp;&nbsp;Lernen Sie die Bedienung Ihres Linux Rechners ausschliesslich über die Kommandozeile.</a></li>
-<li><a class="reference internal" href="#wie-arbeitet-man-mit-folgenden-programmen-ssh-scp-ftp-ncftp" id="id133">16.3&nbsp;&nbsp;&nbsp;Wie arbeitet man mit folgenden Programmen: ssh, scp, ftp (ncftp)?</a><ul class="auto-toc">
-<li><a class="reference internal" href="#ssh" id="id134">16.3.1&nbsp;&nbsp;&nbsp;ssh</a></li>
-<li><a class="reference internal" href="#scp" id="id135">16.3.2&nbsp;&nbsp;&nbsp;scp</a></li>
-<li><a class="reference internal" href="#ftp" id="id136">16.3.3&nbsp;&nbsp;&nbsp;ftp</a></li>
-<li><a class="reference internal" href="#ncftp" id="id137">16.3.4&nbsp;&nbsp;&nbsp;ncftp</a></li>
+<li><a class="reference internal" href="#der-entwicklungsrechner" id="id158">16&nbsp;&nbsp;&nbsp;Der Entwicklungsrechner</a><ul class="auto-toc">
+<li><a class="reference internal" href="#fur-welche-aufgaben-wird-der-hostrechner-entwicklungsrechner-verwendet" id="id159">16.1&nbsp;&nbsp;&nbsp;Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?</a></li>
+<li><a class="reference internal" href="#lernen-sie-die-bedienung-ihres-linux-rechners-ausschliesslich-uber-die-kommandozeile" id="id160">16.2&nbsp;&nbsp;&nbsp;Lernen Sie die Bedienung Ihres Linux Rechners ausschliesslich über die Kommandozeile.</a></li>
+<li><a class="reference internal" href="#wie-arbeitet-man-mit-folgenden-programmen-ssh-scp-ftp-ncftp" id="id161">16.3&nbsp;&nbsp;&nbsp;Wie arbeitet man mit folgenden Programmen: ssh, scp, ftp (ncftp)?</a><ul class="auto-toc">
+<li><a class="reference internal" href="#ssh" id="id162">16.3.1&nbsp;&nbsp;&nbsp;ssh</a></li>
+<li><a class="reference internal" href="#scp" id="id163">16.3.2&nbsp;&nbsp;&nbsp;scp</a></li>
+<li><a class="reference internal" href="#ftp" id="id164">16.3.3&nbsp;&nbsp;&nbsp;ftp</a></li>
+<li><a class="reference internal" href="#ncftp" id="id165">16.3.4&nbsp;&nbsp;&nbsp;ncftp</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#installieren-sie-den-quelltext-des-linux-kernels-auf-dem-hostrechner-und-kompilieren-sie-ihn" id="id138">16.4&nbsp;&nbsp;&nbsp;Installieren Sie den Quelltext des Linux Kernels auf dem Hostrechner und kompilieren Sie ihn.</a></li>
-<li><a class="reference internal" href="#installieren-sie-auf-ihrem-entwicklungsrechner-eine-toolchain-fur-die-armv5-architektur-eldk-oder-debian" id="id139">16.5&nbsp;&nbsp;&nbsp;Installieren Sie auf Ihrem Entwicklungsrechner eine Toolchain für die ARMv5 Architektur (ELDK oder Debian).</a></li>
-<li><a class="reference internal" href="#wie-richtet-man-auf-dem-host-einen-nfs-server-ein" id="id140">16.6&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen NFS Server ein?</a></li>
-<li><a class="reference internal" href="#wie-richtet-man-auf-dem-host-einen-tftp-server-ein" id="id141">16.7&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen TFTP Server ein?</a></li>
+<li><a class="reference internal" href="#installieren-sie-den-quelltext-des-linux-kernels-auf-dem-hostrechner-und-kompilieren-sie-ihn" id="id166">16.4&nbsp;&nbsp;&nbsp;Installieren Sie den Quelltext des Linux Kernels auf dem Hostrechner und kompilieren Sie ihn.</a></li>
+<li><a class="reference internal" href="#installieren-sie-auf-ihrem-entwicklungsrechner-eine-toolchain-fur-die-armv5-architektur-eldk-oder-debian" id="id167">16.5&nbsp;&nbsp;&nbsp;Installieren Sie auf Ihrem Entwicklungsrechner eine Toolchain für die ARMv5 Architektur (ELDK oder Debian).</a></li>
+<li><a class="reference internal" href="#wie-richtet-man-auf-dem-host-einen-nfs-server-ein" id="id168">16.6&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen NFS Server ein?</a></li>
+<li><a class="reference internal" href="#wie-richtet-man-auf-dem-host-einen-tftp-server-ein" id="id169">16.7&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen TFTP Server ein?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id142">17&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
+<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id170">17&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
 </ul>
 </div>
 <div class="section" id="leseliste-fur-die-klausur">
-<h1><a class="toc-backref" href="#id27">1&nbsp;&nbsp;&nbsp;Leseliste für die Klausur</a></h1>
+<h1><a class="toc-backref" href="#id55">1&nbsp;&nbsp;&nbsp;Leseliste für die Klausur</a></h1>
 </div>
 <div class="section" id="a-typical-embedded-system">
-<h1><a class="toc-backref" href="#id28">2&nbsp;&nbsp;&nbsp;A Typical Embedded System</a></h1>
-<p><a class="citation-reference" href="#ates" id="id1">[ATES]</a></p>
+<h1><a class="toc-backref" href="#id56">2&nbsp;&nbsp;&nbsp;A Typical Embedded System</a></h1>
 <div class="section" id="wie-bootet-ein-embedded-linux-rechner">
-<h2><a class="toc-backref" href="#id29">2.1&nbsp;&nbsp;&nbsp;Wie bootet ein Embedded Linux Rechner?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id2">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id57">2.1&nbsp;&nbsp;&nbsp;Wie bootet ein Embedded Linux Rechner?</a></h2>
+<div class="figure align-center">
+<img alt="img/bootloader.jpg" src="img/bootloader.jpg" />
+</div>
+<p><a class="citation-reference" href="#ates" id="id1">[ATES]</a></p>
 </div>
 <div class="section" id="welche-aufgaben-hat-der-bootloader">
-<h2><a class="toc-backref" href="#id30">2.2&nbsp;&nbsp;&nbsp;Welche Aufgaben hat der Bootloader?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id3">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id58">2.2&nbsp;&nbsp;&nbsp;Welche Aufgaben hat der Bootloader?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id2">[ATES]</a></p>
 </div>
 <div class="section" id="welche-besonderen-filesysteme-gibt-es-fur-embedded-linux">
-<h2><a class="toc-backref" href="#id31">2.3&nbsp;&nbsp;&nbsp;Welche besonderen Filesysteme gibt es für Embedded Linux?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id4">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id59">2.3&nbsp;&nbsp;&nbsp;Welche besonderen Filesysteme gibt es für Embedded Linux?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id3">[ATES]</a></p>
 </div>
 <div class="section" id="welche-unterschiede-gibt-es-beim-kernel-im-vergleich-zum-pc">
-<h2><a class="toc-backref" href="#id32">2.4&nbsp;&nbsp;&nbsp;Welche Unterschiede gibt es beim Kernel im Vergleich zum PC?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id5">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id60">2.4&nbsp;&nbsp;&nbsp;Welche Unterschiede gibt es beim Kernel im Vergleich zum PC?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id4">[ATES]</a></p>
 </div>
 <div class="section" id="welche-bedeutung-hat-die-c-bibliothek">
-<h2><a class="toc-backref" href="#id33">2.5&nbsp;&nbsp;&nbsp;Welche Bedeutung hat die C Bibliothek?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id6">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id61">2.5&nbsp;&nbsp;&nbsp;Welche Bedeutung hat die C Bibliothek?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id5">[ATES]</a></p>
 </div>
 <div class="section" id="was-ist-die-busybox">
-<h2><a class="toc-backref" href="#id34">2.6&nbsp;&nbsp;&nbsp;Was ist die “Busybox”?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id7">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id62">2.6&nbsp;&nbsp;&nbsp;Was ist die “Busybox”?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id6">[ATES]</a></p>
 </div>
 <div class="section" id="wie-funktioniert-cross-kompilierung">
-<h2><a class="toc-backref" href="#id35">2.7&nbsp;&nbsp;&nbsp;Wie funktioniert Cross-Kompilierung?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id8">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id63">2.7&nbsp;&nbsp;&nbsp;Wie funktioniert Cross-Kompilierung?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id7">[ATES]</a></p>
 </div>
 <div class="section" id="welche-distribution-fur-embedded-linux-werden-erwahnt">
-<h2><a class="toc-backref" href="#id36">2.8&nbsp;&nbsp;&nbsp;Welche Distribution für Embedded Linux werden erwähnt?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id9">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id64">2.8&nbsp;&nbsp;&nbsp;Welche Distribution für Embedded Linux werden erwähnt?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id8">[ATES]</a></p>
 </div>
 <div class="section" id="ist-der-apache-webserver-eine-gute-wahl-welche-anderen-webserver-gibt-es-noch">
-<h2><a class="toc-backref" href="#id37">2.9&nbsp;&nbsp;&nbsp;Ist der Apache Webserver eine gute Wahl? Welche anderen Webserver gibt es noch?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id10">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id65">2.9&nbsp;&nbsp;&nbsp;Ist der Apache Webserver eine gute Wahl? Welche anderen Webserver gibt es noch?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id9">[ATES]</a></p>
 </div>
 <div class="section" id="welche-werkzeuge-gibt-es-zur-programmierung-grafischer-oberflachen">
-<h2><a class="toc-backref" href="#id38">2.10&nbsp;&nbsp;&nbsp;Welche Werkzeuge gibt es zur Programmierung grafischer Oberflächen?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id11">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id66">2.10&nbsp;&nbsp;&nbsp;Welche Werkzeuge gibt es zur Programmierung grafischer Oberflächen?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id10">[ATES]</a></p>
 </div>
 <div class="section" id="fazit-was-ist-der-unterschied-zwischen-embedded-linux-und-gewohnlichem-linux">
-<h2><a class="toc-backref" href="#id39">2.11&nbsp;&nbsp;&nbsp;Fazit: Was ist der Unterschied zwischen Embedded Linux und “gewöhnlichem” Linux?</a></h2>
-<p><a class="citation-reference" href="#ates" id="id12">[ATES]</a></p>
+<h2><a class="toc-backref" href="#id67">2.11&nbsp;&nbsp;&nbsp;Fazit: Was ist der Unterschied zwischen Embedded Linux und “gewöhnlichem” Linux?</a></h2>
+<p><a class="citation-reference" href="#ates" id="id11">[ATES]</a></p>
 </div>
 </div>
 <div class="section" id="tips-for-planning-an-embedded-linux-project">
-<h1><a class="toc-backref" href="#id40">3&nbsp;&nbsp;&nbsp;Tips for planning an embedded Linux project</a></h1>
-<p><a class="citation-reference" href="#tpel" id="id13">[TPEL]</a></p>
+<h1><a class="toc-backref" href="#id68">3&nbsp;&nbsp;&nbsp;Tips for planning an embedded Linux project</a></h1>
+<p><a class="citation-reference" href="#tpel" id="id12">[TPEL]</a></p>
 <div class="section" id="welche-anforderungen-sprechen-fur-linux-5-stuck">
-<h2><a class="toc-backref" href="#id41">3.1&nbsp;&nbsp;&nbsp;Welche Anforderungen sprechen für Linux? (5 Stück)</a></h2>
+<h2><a class="toc-backref" href="#id69">3.1&nbsp;&nbsp;&nbsp;Welche Anforderungen sprechen für Linux? (5 Stück)</a></h2>
+<p><a class="citation-reference" href="#tpel" id="id13">[TPEL]</a></p>
 </div>
 <div class="section" id="wie-bezahlt-man-die-vorteile-von-linux">
-<h2><a class="toc-backref" href="#id42">3.2&nbsp;&nbsp;&nbsp;Wie “bezahlt” man die Vorteile von Linux?</a></h2>
+<h2><a class="toc-backref" href="#id70">3.2&nbsp;&nbsp;&nbsp;Wie “bezahlt” man die Vorteile von Linux?</a></h2>
+<p><a class="citation-reference" href="#tpel" id="id14">[TPEL]</a></p>
 </div>
 <div class="section" id="aus-welchen-einzelteilen-besteht-embedded-linux-6-stuck">
-<h2><a class="toc-backref" href="#id43">3.3&nbsp;&nbsp;&nbsp;Aus welchen Einzelteilen besteht Embedded Linux? (6 Stück)</a></h2>
+<h2><a class="toc-backref" href="#id71">3.3&nbsp;&nbsp;&nbsp;Aus welchen Einzelteilen besteht Embedded Linux? (6 Stück)</a></h2>
+<p><a class="citation-reference" href="#tpel" id="id15">[TPEL]</a></p>
 </div>
 <div class="section" id="welche-fahigkeiten-braucht-man-um-einen-rechner-mit-embedded-linux-auszustatten-und-zu-programmieren">
-<h2><a class="toc-backref" href="#id44">3.4&nbsp;&nbsp;&nbsp;Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatten und zu programmieren?</a></h2>
+<h2><a class="toc-backref" href="#id72">3.4&nbsp;&nbsp;&nbsp;Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatten und zu programmieren?</a></h2>
+<p><a class="citation-reference" href="#tpel" id="id16">[TPEL]</a></p>
 </div>
 <div class="section" id="welche-kosten-sind-zu-erwarten">
-<h2><a class="toc-backref" href="#id45">3.5&nbsp;&nbsp;&nbsp;Welche Kosten sind zu erwarten?</a></h2>
+<h2><a class="toc-backref" href="#id73">3.5&nbsp;&nbsp;&nbsp;Welche Kosten sind zu erwarten?</a></h2>
+<p><a class="citation-reference" href="#tpel" id="id17">[TPEL]</a></p>
 </div>
 <div class="section" id="welche-risiken-gibt-es">
-<h2><a class="toc-backref" href="#id46">3.6&nbsp;&nbsp;&nbsp;Welche Risiken gibt es?</a></h2>
+<h2><a class="toc-backref" href="#id74">3.6&nbsp;&nbsp;&nbsp;Welche Risiken gibt es?</a></h2>
+<p><a class="citation-reference" href="#tpel" id="id18">[TPEL]</a></p>
 </div>
 <div class="section" id="was-umfasst-der-lebenszyklus-des-produktes">
-<h2><a class="toc-backref" href="#id47">3.7&nbsp;&nbsp;&nbsp;Was umfasst der Lebenszyklus des Produktes?</a></h2>
+<h2><a class="toc-backref" href="#id75">3.7&nbsp;&nbsp;&nbsp;Was umfasst der Lebenszyklus des Produktes?</a></h2>
+<p><a class="citation-reference" href="#tpel" id="id19">[TPEL]</a></p>
 </div>
 </div>
 <div class="section" id="speichertechnologien-und-filesystems">
-<h1><a class="toc-backref" href="#id48">4&nbsp;&nbsp;&nbsp;Speichertechnologien und Filesystems</a></h1>
-<p><a class="citation-reference" href="#stfs" id="id14">[STFS]</a></p>
+<h1><a class="toc-backref" href="#id76">4&nbsp;&nbsp;&nbsp;Speichertechnologien und Filesystems</a></h1>
 <div class="section" id="wie-funktioniert-flash-speicher">
-<h2><a class="toc-backref" href="#id49">4.1&nbsp;&nbsp;&nbsp;Wie funktioniert Flash Speicher?</a></h2>
+<h2><a class="toc-backref" href="#id77">4.1&nbsp;&nbsp;&nbsp;Wie funktioniert Flash Speicher?</a></h2>
+<p><a class="citation-reference" href="#stfs" id="id20">[STFS]</a></p>
 </div>
 <div class="section" id="welche-grundsatzlichen-bausteintypen-gibt-es">
-<h2><a class="toc-backref" href="#id50">4.2&nbsp;&nbsp;&nbsp;Welche grundsätzlichen Bausteintypen gibt es?</a></h2>
+<h2><a class="toc-backref" href="#id78">4.2&nbsp;&nbsp;&nbsp;Welche grundsätzlichen Bausteintypen gibt es?</a></h2>
+<p><a class="citation-reference" href="#stfs" id="id21">[STFS]</a></p>
 </div>
 <div class="section" id="was-verstehen-sie-unter-dem-kurzel-mtd">
-<h2><a class="toc-backref" href="#id51">4.3&nbsp;&nbsp;&nbsp;Was verstehen Sie unter dem Kürzel “MTD”?</a></h2>
+<h2><a class="toc-backref" href="#id79">4.3&nbsp;&nbsp;&nbsp;Was verstehen Sie unter dem Kürzel “MTD”?</a></h2>
+<p><a class="citation-reference" href="#stfs" id="id22">[STFS]</a></p>
 </div>
 <div class="section" id="was-ist-cramfs">
-<h2><a class="toc-backref" href="#id52">4.4&nbsp;&nbsp;&nbsp;Was ist CRAMFS?</a></h2>
+<h2><a class="toc-backref" href="#id80">4.4&nbsp;&nbsp;&nbsp;Was ist CRAMFS?</a></h2>
+<p><a class="citation-reference" href="#stfs" id="id23">[STFS]</a></p>
 </div>
 <div class="section" id="was-ist-squashfs">
-<h2><a class="toc-backref" href="#id53">4.5&nbsp;&nbsp;&nbsp;Was ist SQUASHFS?</a></h2>
+<h2><a class="toc-backref" href="#id81">4.5&nbsp;&nbsp;&nbsp;Was ist SQUASHFS?</a></h2>
+<p><a class="citation-reference" href="#stfs" id="id24">[STFS]</a></p>
 </div>
 <div class="section" id="was-ist-jffs2">
-<h2><a class="toc-backref" href="#id54">4.6&nbsp;&nbsp;&nbsp;Was ist JFFS2?</a></h2>
+<h2><a class="toc-backref" href="#id82">4.6&nbsp;&nbsp;&nbsp;Was ist JFFS2?</a></h2>
+<p><a class="citation-reference" href="#stfs" id="id25">[STFS]</a></p>
 </div>
 <div class="section" id="was-ist-yaffs">
-<h2><a class="toc-backref" href="#id55">4.7&nbsp;&nbsp;&nbsp;Was ist YAFFS?</a></h2>
+<h2><a class="toc-backref" href="#id83">4.7&nbsp;&nbsp;&nbsp;Was ist YAFFS?</a></h2>
+<p><a class="citation-reference" href="#stfs" id="id26">[STFS]</a></p>
 </div>
 </div>
 <div class="section" id="anatomy-of-flash-filesystems">
-<h1><a class="toc-backref" href="#id56">5&nbsp;&nbsp;&nbsp;Anatomy of Flash Filesystems</a></h1>
-<p><a class="citation-reference" href="#affs" id="id15">[AFFS]</a></p>
+<h1><a class="toc-backref" href="#id84">5&nbsp;&nbsp;&nbsp;Anatomy of Flash Filesystems</a></h1>
 <div class="section" id="was-ist-das-virtual-file-system-vfs">
-<h2><a class="toc-backref" href="#id57">5.1&nbsp;&nbsp;&nbsp;Was ist das Virtual File System VFS?</a></h2>
+<h2><a class="toc-backref" href="#id85">5.1&nbsp;&nbsp;&nbsp;Was ist das Virtual File System VFS?</a></h2>
+<p><a class="citation-reference" href="#affs" id="id27">[AFFS]</a></p>
 </div>
 <div class="section" id="was-sind-bad-blocks-und-wear-leveling">
-<h2><a class="toc-backref" href="#id58">5.2&nbsp;&nbsp;&nbsp;Was sind “bad blocks” und “wear leveling”?</a></h2>
+<h2><a class="toc-backref" href="#id86">5.2&nbsp;&nbsp;&nbsp;Was sind “bad blocks” und “wear leveling”?</a></h2>
+<p><a class="citation-reference" href="#affs" id="id28">[AFFS]</a></p>
 </div>
 <div class="section" id="was-kann-man-uber-die-mount-zeit-von-verschiedenen-flash-filesystemen-sagen">
-<h2><a class="toc-backref" href="#id59">5.3&nbsp;&nbsp;&nbsp;Was kann man über die Mount-Zeit von verschiedenen Flash Filesystemen sagen?</a></h2>
+<h2><a class="toc-backref" href="#id87">5.3&nbsp;&nbsp;&nbsp;Was kann man über die Mount-Zeit von verschiedenen Flash Filesystemen sagen?</a></h2>
+<p><a class="citation-reference" href="#affs" id="id29">[AFFS]</a></p>
 </div>
 </div>
 <div class="section" id="embedded-linux-primer-bootloader">
-<h1><a class="toc-backref" href="#id60">6&nbsp;&nbsp;&nbsp;Embedded Linux Primer (Bootloader)</a></h1>
-<p><a class="citation-reference" href="#elpb" id="id16">[ELPB]</a></p>
+<h1><a class="toc-backref" href="#id88">6&nbsp;&nbsp;&nbsp;Embedded Linux Primer (Bootloader)</a></h1>
 <div class="section" id="wozu-braucht-man-einen-bootloader">
-<h2><a class="toc-backref" href="#id61">6.1&nbsp;&nbsp;&nbsp;Wozu braucht man einen Bootloader?</a></h2>
+<h2><a class="toc-backref" href="#id89">6.1&nbsp;&nbsp;&nbsp;Wozu braucht man einen Bootloader?</a></h2>
+<p><a class="citation-reference" href="#elpb" id="id30">[ELPB]</a></p>
 </div>
 <div class="section" id="wieso-kann-der-first-level-bootloader-im-mikrocontroller-im-allgemeinen-nicht-den-allgemeinen-bootvorgang-des-linux-kernels-einleiten">
-<h2><a class="toc-backref" href="#id62">6.2&nbsp;&nbsp;&nbsp;Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?</a></h2>
+<h2><a class="toc-backref" href="#id90">6.2&nbsp;&nbsp;&nbsp;Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?</a></h2>
+<p><a class="citation-reference" href="#elpb" id="id31">[ELPB]</a></p>
 </div>
 <div class="section" id="wie-gross-sind-typische-bootloader-wie-z-b-u-boot-und-apex">
-<h2><a class="toc-backref" href="#id63">6.3&nbsp;&nbsp;&nbsp;Wie gross sind typische Bootloader wie z.B. U-Boot und Apex?</a></h2>
+<h2><a class="toc-backref" href="#id91">6.3&nbsp;&nbsp;&nbsp;Wie gross sind typische Bootloader wie z.B. U-Boot und Apex?</a></h2>
+<p><a class="citation-reference" href="#elpb" id="id32">[ELPB]</a></p>
 </div>
 <div class="section" id="welchen-funktionsumfang-hat-der-u-boot-bootloader">
-<h2><a class="toc-backref" href="#id64">6.4&nbsp;&nbsp;&nbsp;Welchen Funktionsumfang hat der U-Boot Bootloader?</a></h2>
+<h2><a class="toc-backref" href="#id92">6.4&nbsp;&nbsp;&nbsp;Welchen Funktionsumfang hat der U-Boot Bootloader?</a></h2>
+<p><a class="citation-reference" href="#elpb" id="id33">[ELPB]</a></p>
 </div>
 </div>
 <div class="section" id="fast-startup-linux">
-<h1><a class="toc-backref" href="#id65">7&nbsp;&nbsp;&nbsp;Fast Startup Linux</a></h1>
-<p><a class="citation-reference" href="#fstl" id="id17">[FSTL]</a></p>
+<h1><a class="toc-backref" href="#id93">7&nbsp;&nbsp;&nbsp;Fast Startup Linux</a></h1>
 <div class="section" id="welche-moglichkeiten-gibt-es-die-bootzeit-zu-reduzieren">
-<h2><a class="toc-backref" href="#id66">7.1&nbsp;&nbsp;&nbsp;Welche Möglichkeiten gibt es, die Bootzeit zu reduzieren?</a></h2>
+<h2><a class="toc-backref" href="#id94">7.1&nbsp;&nbsp;&nbsp;Welche Möglichkeiten gibt es, die Bootzeit zu reduzieren?</a></h2>
+<p><a class="citation-reference" href="#fstl" id="id34">[FSTL]</a></p>
 </div>
 </div>
 <div class="section" id="linux-kernel-module">
-<h1><a class="toc-backref" href="#id67">8&nbsp;&nbsp;&nbsp;Linux Kernel Module</a></h1>
-<p><a class="citation-reference" href="#lkms" id="id18">[LKMS]</a></p>
+<h1><a class="toc-backref" href="#id95">8&nbsp;&nbsp;&nbsp;Linux Kernel Module</a></h1>
 <div class="section" id="kann-man-in-einem-kernelmodul-auf-die-c-bibliothek-zugreifen">
-<h2><a class="toc-backref" href="#id68">8.1&nbsp;&nbsp;&nbsp;Kann man in einem Kernelmodul auf die C Bibliothek zugreifen?</a></h2>
+<h2><a class="toc-backref" href="#id96">8.1&nbsp;&nbsp;&nbsp;Kann man in einem Kernelmodul auf die C Bibliothek zugreifen?</a></h2>
+<p><a class="citation-reference" href="#lkms" id="id35">[LKMS]</a></p>
 </div>
 <div class="section" id="beschreiben-sie-wie-man-ein-einfaches-kernelmodul-nativ-als-auch-cross-kompiliert">
-<h2><a class="toc-backref" href="#id69">8.2&nbsp;&nbsp;&nbsp;Beschreiben Sie, wie man ein einfaches Kernelmodul nativ als auch cross-kompiliert.</a></h2>
+<h2><a class="toc-backref" href="#id97">8.2&nbsp;&nbsp;&nbsp;Beschreiben Sie, wie man ein einfaches Kernelmodul nativ als auch cross-kompiliert.</a></h2>
+<p><a class="citation-reference" href="#lkms" id="id36">[LKMS]</a></p>
 </div>
 <div class="section" id="wie-ladt-man-ein-kernelmodul-in-den-kernel">
-<h2><a class="toc-backref" href="#id70">8.3&nbsp;&nbsp;&nbsp;Wie lädt man ein Kernelmodul in den Kernel?</a></h2>
+<h2><a class="toc-backref" href="#id98">8.3&nbsp;&nbsp;&nbsp;Wie lädt man ein Kernelmodul in den Kernel?</a></h2>
+<p><a class="citation-reference" href="#lkms" id="id37">[LKMS]</a></p>
 </div>
 <div class="section" id="was-sind-geratenummern">
-<h2><a class="toc-backref" href="#id71">8.4&nbsp;&nbsp;&nbsp;Was sind Gerätenummern?</a></h2>
+<h2><a class="toc-backref" href="#id99">8.4&nbsp;&nbsp;&nbsp;Was sind Gerätenummern?</a></h2>
+<p><a class="citation-reference" href="#lkms" id="id38">[LKMS]</a></p>
 </div>
 <div class="section" id="wie-legt-man-geratedateien-an">
-<h2><a class="toc-backref" href="#id72">8.5&nbsp;&nbsp;&nbsp;Wie legt man Gerätedateien an?</a></h2>
+<h2><a class="toc-backref" href="#id100">8.5&nbsp;&nbsp;&nbsp;Wie legt man Gerätedateien an?</a></h2>
+<p><a class="citation-reference" href="#lkms" id="id39">[LKMS]</a></p>
 </div>
 <div class="section" id="was-sind-zeichenorientierte-treiber-character-driver">
-<h2><a class="toc-backref" href="#id73">8.6&nbsp;&nbsp;&nbsp;Was sind zeichenorientierte Treiber (character driver)?</a></h2>
+<h2><a class="toc-backref" href="#id101">8.6&nbsp;&nbsp;&nbsp;Was sind zeichenorientierte Treiber (character driver)?</a></h2>
+<p><a class="citation-reference" href="#lkms" id="id40">[LKMS]</a></p>
 </div>
 </div>
 <div class="section" id="standard-unix-wird-echtzeitfahig">
-<h1><a class="toc-backref" href="#id74">9&nbsp;&nbsp;&nbsp;Standard UNIX wird echtzeitfähig</a></h1>
-<p><a class="citation-reference" href="#surt" id="id19">[SURT]</a></p>
+<h1><a class="toc-backref" href="#id102">9&nbsp;&nbsp;&nbsp;Standard UNIX wird echtzeitfähig</a></h1>
 <div class="section" id="nennen-sie-anwendungsgebiete-die-es-notwendig-machen-dem-linux-kern-echtzeit-fahigkeit-zu-geben">
-<h2><a class="toc-backref" href="#id75">9.1&nbsp;&nbsp;&nbsp;Nennen Sie Anwendungsgebiete, die es notwendig machen, dem Linux Kern Echtzeit-Fähigkeit zu geben.</a></h2>
+<h2><a class="toc-backref" href="#id103">9.1&nbsp;&nbsp;&nbsp;Nennen Sie Anwendungsgebiete, die es notwendig machen, dem Linux Kern Echtzeit-Fähigkeit zu geben.</a></h2>
+<p><a class="citation-reference" href="#surt" id="id41">[SURT]</a></p>
 </div>
 <div class="section" id="beschreiben-sie-die-wichtigsten-komponenten-des-realtime-preempt-patches">
-<h2><a class="toc-backref" href="#id76">9.2&nbsp;&nbsp;&nbsp;Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.</a></h2>
+<h2><a class="toc-backref" href="#id104">9.2&nbsp;&nbsp;&nbsp;Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.</a></h2>
+<p><a class="citation-reference" href="#surt" id="id42">[SURT]</a></p>
 </div>
 <div class="section" id="welche-funktion-hat-die-organisation-osadl">
-<h2><a class="toc-backref" href="#id77">9.3&nbsp;&nbsp;&nbsp;Welche Funktion hat die Organisation OSADL?</a></h2>
+<h2><a class="toc-backref" href="#id105">9.3&nbsp;&nbsp;&nbsp;Welche Funktion hat die Organisation OSADL?</a></h2>
+<p><a class="citation-reference" href="#surt" id="id43">[SURT]</a></p>
 </div>
 <div class="section" id="wie-kann-man-das-scheduling-von-prozessen-im-anwendungsprogramm-setzen">
-<h2><a class="toc-backref" href="#id78">9.4&nbsp;&nbsp;&nbsp;Wie kann man das Scheduling von Prozessen im Anwendungsprogramm setzen?</a></h2>
+<h2><a class="toc-backref" href="#id106">9.4&nbsp;&nbsp;&nbsp;Wie kann man das Scheduling von Prozessen im Anwendungsprogramm setzen?</a></h2>
+<p><a class="citation-reference" href="#surt" id="id44">[SURT]</a></p>
 </div>
 </div>
 <div class="section" id="linuxtronix-echtzeit-prinzipielle-ansatze">
-<h1><a class="toc-backref" href="#id79">10&nbsp;&nbsp;&nbsp;Linuxtronix, Echtzeit - prinzipielle Ansätze</a></h1>
-<p><a class="citation-reference" href="#ltrt" id="id20">[LTRT]</a></p>
+<h1><a class="toc-backref" href="#id107">10&nbsp;&nbsp;&nbsp;Linuxtronix, Echtzeit - prinzipielle Ansätze</a></h1>
 <div class="section" id="welche-prinzipiellen-losungsansatze-gibt-es-um-linux-mit-echtzeit-eigenschaften-auszustatten">
-<h2><a class="toc-backref" href="#id80">10.1&nbsp;&nbsp;&nbsp;Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?</a></h2>
+<h2><a class="toc-backref" href="#id108">10.1&nbsp;&nbsp;&nbsp;Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?</a></h2>
+<p><a class="citation-reference" href="#ltrt" id="id45">[LTRT]</a></p>
 </div>
 <div class="section" id="wie-heissen-die-seit-jahren-etablierten-praktischen-implementierungen-der-prinzipiellen-losungsansatze">
-<h2><a class="toc-backref" href="#id81">10.2&nbsp;&nbsp;&nbsp;Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?</a></h2>
+<h2><a class="toc-backref" href="#id109">10.2&nbsp;&nbsp;&nbsp;Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?</a></h2>
+<p><a class="citation-reference" href="#ltrt" id="id46">[LTRT]</a></p>
 </div>
 <div class="section" id="welchen-vorteil-hat-der-preempt-rt-ansatz-auch-wenn-er-nicht-fur-harte-echtzeit-geeignet-ist">
-<h2><a class="toc-backref" href="#id82">10.3&nbsp;&nbsp;&nbsp;Welchen Vorteil hat der “Preempt-RT” Ansatz, auch wenn er nicht für “harte” Echtzeit geeignet ist.</a></h2>
+<h2><a class="toc-backref" href="#id110">10.3&nbsp;&nbsp;&nbsp;Welchen Vorteil hat der “Preempt-RT” Ansatz, auch wenn er nicht für “harte” Echtzeit geeignet ist.</a></h2>
+<p><a class="citation-reference" href="#ltrt" id="id47">[LTRT]</a></p>
 </div>
 </div>
 <div class="section" id="echtzeitsysteme-mit-linux">
-<h1><a class="toc-backref" href="#id83">11&nbsp;&nbsp;&nbsp;Echtzeitsysteme mit Linux</a></h1>
-<p><a class="citation-reference" href="#grtl" id="id21">[GRTL]</a></p>
+<h1><a class="toc-backref" href="#id111">11&nbsp;&nbsp;&nbsp;Echtzeitsysteme mit Linux</a></h1>
 <div class="section" id="was-versteht-man-unter-interrupt-latenzzeiten">
-<h2><a class="toc-backref" href="#id84">11.1&nbsp;&nbsp;&nbsp;Was versteht man unter “Interrupt Latenzzeiten”?</a></h2>
+<h2><a class="toc-backref" href="#id112">11.1&nbsp;&nbsp;&nbsp;Was versteht man unter “Interrupt Latenzzeiten”?</a></h2>
+<p><a class="citation-reference" href="#grtl" id="id48">[GRTL]</a></p>
 </div>
 <div class="section" id="wie-werden-im-kernel-kritische-abschnitte-geschutzt">
-<h2><a class="toc-backref" href="#id85">11.2&nbsp;&nbsp;&nbsp;Wie werden im Kernel kritische Abschnitte geschützt?</a></h2>
+<h2><a class="toc-backref" href="#id113">11.2&nbsp;&nbsp;&nbsp;Wie werden im Kernel kritische Abschnitte geschützt?</a></h2>
+<p><a class="citation-reference" href="#grtl" id="id49">[GRTL]</a></p>
 </div>
 </div>
 <div class="section" id="linux-debugging">
-<h1><a class="toc-backref" href="#id86">12&nbsp;&nbsp;&nbsp;Linux Debugging</a></h1>
-<p><a class="citation-reference" href="#tsld" id="id22">[TSLD]</a></p>
+<h1><a class="toc-backref" href="#id114">12&nbsp;&nbsp;&nbsp;Linux Debugging</a></h1>
 <div class="section" id="beschreiben-sie-kurz-den-zweck-von-strace-lttng-und-systemtap">
-<h2><a class="toc-backref" href="#id87">12.1&nbsp;&nbsp;&nbsp;Beschreiben Sie kurz den Zweck von Strace, LTTng und Systemtap.</a></h2>
+<h2><a class="toc-backref" href="#id115">12.1&nbsp;&nbsp;&nbsp;Beschreiben Sie kurz den Zweck von Strace, LTTng und Systemtap.</a></h2>
+<p><a class="citation-reference" href="#tsld" id="id50">[TSLD]</a></p>
 </div>
 </div>
 <div class="section" id="embedded-debugging">
-<h1><a class="toc-backref" href="#id88">13&nbsp;&nbsp;&nbsp;Embedded Debugging</a></h1>
-<p><a class="citation-reference" href="#emdb" id="id23">[EMDB]</a></p>
+<h1><a class="toc-backref" href="#id116">13&nbsp;&nbsp;&nbsp;Embedded Debugging</a></h1>
+<p><a class="citation-reference" href="#emdb" id="id51">[EMDB]</a></p>
 </div>
 <div class="section" id="freie-offene-software">
-<h1><a class="toc-backref" href="#id89">14&nbsp;&nbsp;&nbsp;Freie / offene Software</a></h1>
+<h1><a class="toc-backref" href="#id117">14&nbsp;&nbsp;&nbsp;Freie / offene Software</a></h1>
 <p><a class="reference external" href="http://de.wikipedia.org/wiki/Freie_Software">Freie_Software</a></p>
 <div class="figure align-center">
 <img alt="img/800px-Konzept-karte_der_Freien_Software.svg.png" src="img/800px-Konzept-karte_der_Freien_Software.svg.png" />
 </div>
-<p><a class="citation-reference" href="#wiki" id="id24">[WIKI]</a></p>
+<p><a class="citation-reference" href="#wiki" id="id52">[WIKI]</a></p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="71%" />
@@ -854,11 +885,11 @@ Zusammenfassung
 </tbody>
 </table>
 <div class="section" id="erlautern-sie-das-prinzip-des-copyleft">
-<h2><a class="toc-backref" href="#id90">14.1&nbsp;&nbsp;&nbsp;Erläutern Sie das Prinzip des Copyleft.</a></h2>
+<h2><a class="toc-backref" href="#id118">14.1&nbsp;&nbsp;&nbsp;Erläutern Sie das Prinzip des Copyleft.</a></h2>
 <p>Das Copyleft-Prinzip besagt, dass Software, die auf unter der GNU General Public License (<a class="reference external" href="http://www.gnu.org/licenses/quick-guide-gplv3.html">GPL</a>) veröffentlichten Software basiert nur mit den gleichen Freiheiten veröffentlicht werden darf. Dies stellt sicher, das freie Software für alle zugänglich und frei bleibt.</p>
 </div>
 <div class="section" id="welche-vier-freiheiten-gewahrt-die-gpl">
-<h2><a class="toc-backref" href="#id91">14.2&nbsp;&nbsp;&nbsp;Welche vier Freiheiten gewährt die GPL?</a></h2>
+<h2><a class="toc-backref" href="#id119">14.2&nbsp;&nbsp;&nbsp;Welche vier Freiheiten gewährt die GPL?</a></h2>
 <p>Niemand sollte von der Software, die er verwendet eingeschränkt werden. Es gibt vier Freiheiten, die jeder Benutzer haben sollte.</p>
 <blockquote>
 <ul class="simple">
@@ -871,24 +902,24 @@ Zusammenfassung
 <p>Erfüllt ein Programm diese Kriterien kann es als freie Software bezeichnet werden.</p>
 </div>
 <div class="section" id="wie-unterscheidet-sich-die-lgpl-von-der-gpl">
-<h2><a class="toc-backref" href="#id92">14.3&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die LGPL von der GPL?</a></h2>
+<h2><a class="toc-backref" href="#id120">14.3&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die LGPL von der GPL?</a></h2>
 <p>Die Lesser GNU Public License (<a class="reference external" href="http://www.gnu.org/licenses/why-not-lgpl.html">LGPL</a>) unterscheidet sich von der GNU Public License (<a class="reference external" href="http://www.gnu.org/licenses/quick-guide-gplv3.html">GPL</a>) in der Copyleft Regelung während bei der GPL alle von der Software abgeleiteten Programme ebenfalls unter der selben Lizenz veröffentlicht werden müssen kann aus unter der LGPL veröffentlichten Quellen auch proprietäre Software geschrieben werden.</p>
 </div>
 <div class="section" id="wie-unterscheidet-sich-die-bsd-lizenz-von-der-gpl">
-<h2><a class="toc-backref" href="#id93">14.4&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die BSD Lizenz von der GPL?</a></h2>
+<h2><a class="toc-backref" href="#id121">14.4&nbsp;&nbsp;&nbsp;Wie unterscheidet sich die BSD Lizenz von der GPL?</a></h2>
 <p>Die <a class="reference external" href="http://opensource.org/licenses/BSD-2-Clause">BSD_Licence</a> verlangt, dass nach einer Änderung der Urheber entsprechende des Musters &quot;Copyright (c) &lt;YEAR&gt;, &lt;OWNER&gt;&quot; auch in der geänderten Version bekannt gegeben wird.</p>
 </div>
 <div class="section" id="was-sind-duale-lizenzen-nennen-sie-ein-beispiel">
-<h2><a class="toc-backref" href="#id94">14.5&nbsp;&nbsp;&nbsp;Was sind Duale Lizenzen? Nennen Sie ein Beispiel.</a></h2>
+<h2><a class="toc-backref" href="#id122">14.5&nbsp;&nbsp;&nbsp;Was sind Duale Lizenzen? Nennen Sie ein Beispiel.</a></h2>
 <p><a class="reference external" href="http://de.wikipedia.org/wiki/Mehrfachlizenzierung">Mehrfach_Lizenzen</a> erlauben es</p>
 <p>Beispiele: Qt, MySQL, Asterisk, Sendmail und Perl</p>
 <div class="section" id="vorteile">
-<h3><a class="toc-backref" href="#id95">14.5.1&nbsp;&nbsp;&nbsp;Vorteile</a></h3>
+<h3><a class="toc-backref" href="#id123">14.5.1&nbsp;&nbsp;&nbsp;Vorteile</a></h3>
 <p>Mit diesem Lizenzierungsprinzip können Unternehmen eigene Anwendungen entwickeln, ohne diese selbst wieder der Open-Source-Lizenz unterwerfen zu müssen. So ist es einerseits möglich, das Open-Source-Modell zur Entwicklung und Distribution von Software zu fördern, und andererseits ein professionelles Geschäftsmodell zu etablieren, bei dem Softwarelizenzen ohne Einschränkungen verkauft werden können. Für eine Mehrfachlizenzierung spricht des Weiteren die Möglichkeit, die Software mit proprietären Erweiterungen zu versehen.</p>
 <p>Käufer einer mehrfach lizenzierten Software sind darüber hinaus nicht an die teils sehr restriktiven Vorgaben zur Weitergabe von Software unter einer freien Lizenz gebunden. Die Entwicklung freier Software wird gefördert, ohne auf Spenden angewiesen zu sein.</p>
 </div>
 <div class="section" id="nachteile">
-<h3><a class="toc-backref" href="#id96">14.5.2&nbsp;&nbsp;&nbsp;Nachteile</a></h3>
+<h3><a class="toc-backref" href="#id124">14.5.2&nbsp;&nbsp;&nbsp;Nachteile</a></h3>
 <p>Gegen eine Mehrfachlizenzierung spricht, dass das lizenzierende Unternehmen die Arbeit der Open-Source-Entwickler ausnutzen könnte. Darüber hinaus könnte das entwickelnde Unternehmen es sich vorbehalten, irgendwann die Weiterentwicklung der offenen Version zu stoppen.</p>
 <p>Umstritten und selten erwähnt ist jedoch die Tatsache, dass bei einigen Open-Source-Lizenzen die Kontrolle über die Entwicklung der Software leicht an die Community oder an finanziell überlegene Unternehmen gehen kann. Ein Entwicklungsstopp einer unter GPL lizenzierten Software besagt noch lange nicht, dass die Software nicht mehr weiterentwickelt wird. Die GPL räumt jedem Nutzer das Recht ein, die Software beliebig zu modifizieren, also auch weiterzuentwickeln.</p>
 <p>Heftig umstritten ist, ob der Initiator eines Open-Source-Projektes, welcher seine Software unter einer dualen Lizenz auf den Markt bringt, die Weiterentwicklungen der Community in sein Produkt einfließen lassen kann, um diese unter einer anderen Lizenz als der GPL zu vertreiben.</p>
@@ -896,133 +927,133 @@ Zusammenfassung
 </div>
 </div>
 <div class="section" id="darf-man-programme-im-linux-userspace-unter-einer-proprietaren-lizenz-vertreiben">
-<h2><a class="toc-backref" href="#id97">14.6&nbsp;&nbsp;&nbsp;Darf man Programme im Linux Userspace unter einer proprietären Lizenz vertreiben?</a></h2>
+<h2><a class="toc-backref" href="#id125">14.6&nbsp;&nbsp;&nbsp;Darf man Programme im Linux Userspace unter einer proprietären Lizenz vertreiben?</a></h2>
 </div>
 <div class="section" id="darf-man-mit-dem-freien-gnu-c-compiler-kommerzielle-geschlossene-programme-schreiben">
-<h2><a class="toc-backref" href="#id98">14.7&nbsp;&nbsp;&nbsp;Darf man mit dem freien GNU C Compiler kommerzielle geschlossene Programme schreiben?</a></h2>
+<h2><a class="toc-backref" href="#id126">14.7&nbsp;&nbsp;&nbsp;Darf man mit dem freien GNU C Compiler kommerzielle geschlossene Programme schreiben?</a></h2>
 </div>
 <div class="section" id="was-halten-sie-von-geschlossenen-kernelmodulen">
-<h2><a class="toc-backref" href="#id99">14.8&nbsp;&nbsp;&nbsp;Was halten Sie von geschlossenen Kernelmodulen?</a></h2>
+<h2><a class="toc-backref" href="#id127">14.8&nbsp;&nbsp;&nbsp;Was halten Sie von geschlossenen Kernelmodulen?</a></h2>
 </div>
 </div>
 <div class="section" id="linux-auf-eingebetteten-systemen">
-<h1><a class="toc-backref" href="#id100">15&nbsp;&nbsp;&nbsp;Linux auf eingebetteten Systemen</a></h1>
+<h1><a class="toc-backref" href="#id128">15&nbsp;&nbsp;&nbsp;Linux auf eingebetteten Systemen</a></h1>
 <p>Suchen Sie Geräte, die unter Linux laufen. Sie haben sicher schon selber welche entdeckt. Sie können sich aber auch von folgenden Seiten inspirieren lassen:</p>
 <p><a class="reference external" href="http://linuxgizmos.com">linuxgizmos</a>
 <a class="reference external" href="http://elinux.org">elinux</a>
 <a class="reference external" href="http://www.linuxfordevices.com">linuxfordevices</a></p>
 <div class="section" id="was-erwartet-sie-hinsichtlich-der-lizenzen-wenn-sie-linux-wahlen">
-<h2><a class="toc-backref" href="#id101">15.1&nbsp;&nbsp;&nbsp;Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?</a></h2>
-<p><a class="citation-reference" href="#tbp" id="id25">[TBP]</a></p>
+<h2><a class="toc-backref" href="#id129">15.1&nbsp;&nbsp;&nbsp;Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?</a></h2>
+<p><a class="citation-reference" href="#tbp" id="id53">[TBP]</a></p>
 </div>
 <div class="section" id="warum-linux-6-grunde">
-<h2><a class="toc-backref" href="#id102">15.2&nbsp;&nbsp;&nbsp;Warum Linux? (6 Gründe)</a></h2>
+<h2><a class="toc-backref" href="#id130">15.2&nbsp;&nbsp;&nbsp;Warum Linux? (6 Gründe)</a></h2>
 </div>
 <div class="section" id="was-bedeutet-gpl">
-<h2><a class="toc-backref" href="#id103">15.3&nbsp;&nbsp;&nbsp;Was bedeutet “GPL”?</a></h2>
+<h2><a class="toc-backref" href="#id131">15.3&nbsp;&nbsp;&nbsp;Was bedeutet “GPL”?</a></h2>
 </div>
 <div class="section" id="was-ist-open-source">
-<h2><a class="toc-backref" href="#id104">15.4&nbsp;&nbsp;&nbsp;Was ist “Open Source”?</a></h2>
+<h2><a class="toc-backref" href="#id132">15.4&nbsp;&nbsp;&nbsp;Was ist “Open Source”?</a></h2>
 </div>
 <div class="section" id="was-verstehen-sie-unter-linux-standard-base">
-<h2><a class="toc-backref" href="#id105">15.5&nbsp;&nbsp;&nbsp;Was verstehen Sie unter “Linux Standard Base”?</a></h2>
-<p><a class="citation-reference" href="#tbp" id="id26">[TBP]</a></p>
+<h2><a class="toc-backref" href="#id133">15.5&nbsp;&nbsp;&nbsp;Was verstehen Sie unter “Linux Standard Base”?</a></h2>
+<p><a class="citation-reference" href="#tbp" id="id54">[TBP]</a></p>
 </div>
 <div class="section" id="was-zeichnet-embedded-systems-aus">
-<h2><a class="toc-backref" href="#id106">15.6&nbsp;&nbsp;&nbsp;Was zeichnet Embedded Systems aus?</a></h2>
+<h2><a class="toc-backref" href="#id134">15.6&nbsp;&nbsp;&nbsp;Was zeichnet Embedded Systems aus?</a></h2>
 </div>
 <div class="section" id="vergleichen-sie-bios-und-bootloader">
-<h2><a class="toc-backref" href="#id107">15.7&nbsp;&nbsp;&nbsp;Vergleichen Sie BIOS und Bootloader.</a></h2>
+<h2><a class="toc-backref" href="#id135">15.7&nbsp;&nbsp;&nbsp;Vergleichen Sie BIOS und Bootloader.</a></h2>
 </div>
 <div class="section" id="aus-welchen-wesentlichen-funktionsblocken-bestehen-embedded-systems">
-<h2><a class="toc-backref" href="#id108">15.8&nbsp;&nbsp;&nbsp;Aus welchen wesentlichen Funktionsblöcken bestehen Embedded Systems?</a></h2>
+<h2><a class="toc-backref" href="#id136">15.8&nbsp;&nbsp;&nbsp;Aus welchen wesentlichen Funktionsblöcken bestehen Embedded Systems?</a></h2>
 </div>
 <div class="section" id="aus-welcher-hardware-besteht-die-entwicklungsumgebung">
-<h2><a class="toc-backref" href="#id109">15.9&nbsp;&nbsp;&nbsp;Aus welcher Hardware besteht die Entwicklungsumgebung?</a></h2>
+<h2><a class="toc-backref" href="#id137">15.9&nbsp;&nbsp;&nbsp;Aus welcher Hardware besteht die Entwicklungsumgebung?</a></h2>
 </div>
 <div class="section" id="wie-startet-embedded-linux-von-u-boot-bis-init-prozess">
-<h2><a class="toc-backref" href="#id110">15.10&nbsp;&nbsp;&nbsp;Wie startet Embedded Linux? (von U-Boot bis init Prozess)</a></h2>
+<h2><a class="toc-backref" href="#id138">15.10&nbsp;&nbsp;&nbsp;Wie startet Embedded Linux? (von U-Boot bis init Prozess)</a></h2>
 </div>
 <div class="section" id="welche-arten-von-flash-speicher-gibt-es">
-<h2><a class="toc-backref" href="#id111">15.11&nbsp;&nbsp;&nbsp;Welche Arten von Flash Speicher gibt es?</a></h2>
+<h2><a class="toc-backref" href="#id139">15.11&nbsp;&nbsp;&nbsp;Welche Arten von Flash Speicher gibt es?</a></h2>
 </div>
 <div class="section" id="in-welche-regionen-ist-der-flash-speicher-bei-linux-in-der-regel-aufgeteilt">
-<h2><a class="toc-backref" href="#id112">15.12&nbsp;&nbsp;&nbsp;In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?</a></h2>
+<h2><a class="toc-backref" href="#id140">15.12&nbsp;&nbsp;&nbsp;In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?</a></h2>
 </div>
 <div class="section" id="wie-sieht-grob-die-memory-map-des-gesamten-rechners-aus">
-<h2><a class="toc-backref" href="#id113">15.13&nbsp;&nbsp;&nbsp;Wie sieht grob die memory map des gesamten Rechners aus?</a></h2>
+<h2><a class="toc-backref" href="#id141">15.13&nbsp;&nbsp;&nbsp;Wie sieht grob die memory map des gesamten Rechners aus?</a></h2>
 <p>Beschreiben Sie den Ausführungskontext mit Applikation, C Bibliothek, Kernel und Gerätetreibern. Was läuft im Kernel-Kontext, was im User-Kontext?</p>
 </div>
 <div class="section" id="was-macht-die-mmu-und-wo-ist-sie-eingebaut">
-<h2><a class="toc-backref" href="#id114">15.14&nbsp;&nbsp;&nbsp;Was macht die MMU und wo ist sie eingebaut?</a></h2>
+<h2><a class="toc-backref" href="#id142">15.14&nbsp;&nbsp;&nbsp;Was macht die MMU und wo ist sie eingebaut?</a></h2>
 </div>
 <div class="section" id="wie-nennt-man-die-nicht-native-kompilierung-auch">
-<h2><a class="toc-backref" href="#id115">15.15&nbsp;&nbsp;&nbsp;Wie nennt man die nicht-native Kompilierung auch?</a></h2>
+<h2><a class="toc-backref" href="#id143">15.15&nbsp;&nbsp;&nbsp;Wie nennt man die nicht-native Kompilierung auch?</a></h2>
 <p>&quot;Cross-Kompilierung&quot; - Das kompilieren von nativer Software auf einem Hostrechner für ein spezifisches Target mit Hilfe von Cross-Kompilierungs Toolchain und im Terminal gesetzten Variablen wie z.B. &quot;$ARCH&quot;, &quot;$CC&quot;, etc.</p>
 </div>
 <div class="section" id="was-ist-native-kompilierung-ab-welcher-rechenleistung-macht-sie-sinn">
-<h2><a class="toc-backref" href="#id116">15.16&nbsp;&nbsp;&nbsp;Was ist native Kompilierung? Ab welcher Rechenleistung macht sie Sinn?</a></h2>
+<h2><a class="toc-backref" href="#id144">15.16&nbsp;&nbsp;&nbsp;Was ist native Kompilierung? Ab welcher Rechenleistung macht sie Sinn?</a></h2>
 </div>
 <div class="section" id="was-ist-eine-embedded-linux-distribution">
-<h2><a class="toc-backref" href="#id117">15.17&nbsp;&nbsp;&nbsp;Was ist eine Embedded Linux Distribution?</a></h2>
+<h2><a class="toc-backref" href="#id145">15.17&nbsp;&nbsp;&nbsp;Was ist eine Embedded Linux Distribution?</a></h2>
 </div>
 <div class="section" id="aus-wie-vielen-paketen-besteht-eine-distribution-ungefahr">
-<h2><a class="toc-backref" href="#id118">15.18&nbsp;&nbsp;&nbsp;Aus wie vielen Paketen besteht eine Distribution ungefähr?</a></h2>
+<h2><a class="toc-backref" href="#id146">15.18&nbsp;&nbsp;&nbsp;Aus wie vielen Paketen besteht eine Distribution ungefähr?</a></h2>
 <!-- Beantworten Sie folgende Fragen: -->
 </div>
 <div class="section" id="welche-anderen-cpus-unterstutzt-linux-neben-dem-x86">
-<h2><a class="toc-backref" href="#id119">15.19&nbsp;&nbsp;&nbsp;Welche anderen CPUs unterstützt Linux neben dem x86?</a></h2>
+<h2><a class="toc-backref" href="#id147">15.19&nbsp;&nbsp;&nbsp;Welche anderen CPUs unterstützt Linux neben dem x86?</a></h2>
 </div>
 <div class="section" id="was-ist-ein-monolithischer-kern">
-<h2><a class="toc-backref" href="#id120">15.20&nbsp;&nbsp;&nbsp;Was ist ein monolithischer Kern?</a></h2>
+<h2><a class="toc-backref" href="#id148">15.20&nbsp;&nbsp;&nbsp;Was ist ein monolithischer Kern?</a></h2>
 </div>
 <div class="section" id="warum-lasst-sich-linux-einfach-auf-fast-beliebige-prozessoren-portieren">
-<h2><a class="toc-backref" href="#id121">15.21&nbsp;&nbsp;&nbsp;Warum lässt sich Linux einfach auf fast beliebige Prozessoren portieren?</a></h2>
+<h2><a class="toc-backref" href="#id149">15.21&nbsp;&nbsp;&nbsp;Warum lässt sich Linux einfach auf fast beliebige Prozessoren portieren?</a></h2>
 </div>
 <div class="section" id="wie-unterscheiden-sich-die-befehlssatze-der-prozessorfamilien">
-<h2><a class="toc-backref" href="#id122">15.22&nbsp;&nbsp;&nbsp;Wie unterscheiden sich die Befehlssätze der Prozessorfamilien?</a></h2>
+<h2><a class="toc-backref" href="#id150">15.22&nbsp;&nbsp;&nbsp;Wie unterscheiden sich die Befehlssätze der Prozessorfamilien?</a></h2>
 </div>
 <div class="section" id="virtual-memory-management">
-<h2><a class="toc-backref" href="#id123">15.23&nbsp;&nbsp;&nbsp;Virtual Memory Management</a></h2>
+<h2><a class="toc-backref" href="#id151">15.23&nbsp;&nbsp;&nbsp;Virtual Memory Management</a></h2>
 <!-- Damit die Linux Speicherverwaltung (virtual memory) funktioniert, muss der Mikrocontroller eine bestimmte Hardware-Komponente haben. Wie heisst diese? -->
 </div>
 <div class="section" id="wie-heisst-die-linux-variante-die-ohne-diese-hardware-komponente-auskommt">
-<h2><a class="toc-backref" href="#id124">15.24&nbsp;&nbsp;&nbsp;Wie heisst die Linux Variante, die ohne diese Hardware-Komponente auskommt?</a></h2>
+<h2><a class="toc-backref" href="#id152">15.24&nbsp;&nbsp;&nbsp;Wie heisst die Linux Variante, die ohne diese Hardware-Komponente auskommt?</a></h2>
 </div>
 <div class="section" id="was-ist-ein-system-on-chip-soc">
-<h2><a class="toc-backref" href="#id125">15.25&nbsp;&nbsp;&nbsp;Was ist ein “System on Chip” (SoC)?</a></h2>
+<h2><a class="toc-backref" href="#id153">15.25&nbsp;&nbsp;&nbsp;Was ist ein “System on Chip” (SoC)?</a></h2>
 </div>
 <div class="section" id="wie-sieht-die-schichtung-der-software-eines-embedded-linux-systems-in-etwa-aus">
-<h2><a class="toc-backref" href="#id126">15.26&nbsp;&nbsp;&nbsp;Wie sieht die Schichtung der Software eines Embedded Linux Systems in etwa aus?</a></h2>
+<h2><a class="toc-backref" href="#id154">15.26&nbsp;&nbsp;&nbsp;Wie sieht die Schichtung der Software eines Embedded Linux Systems in etwa aus?</a></h2>
 </div>
 <div class="section" id="welches-dateisystem-wird-bei-flash-speicher-haufig-verwendet">
-<h2><a class="toc-backref" href="#id127">15.27&nbsp;&nbsp;&nbsp;Welches Dateisystem wird bei Flash Speicher häufig verwendet?</a></h2>
+<h2><a class="toc-backref" href="#id155">15.27&nbsp;&nbsp;&nbsp;Welches Dateisystem wird bei Flash Speicher häufig verwendet?</a></h2>
 </div>
 <div class="section" id="welche-sprachen-werden-zur-programmierung-verwendet">
-<h2><a class="toc-backref" href="#id128">15.28&nbsp;&nbsp;&nbsp;Welche Sprachen werden zur Programmierung verwendet?</a></h2>
+<h2><a class="toc-backref" href="#id156">15.28&nbsp;&nbsp;&nbsp;Welche Sprachen werden zur Programmierung verwendet?</a></h2>
 </div>
 <div class="section" id="welche-bootloader-werden-bei-embedded-linux-verwendet-ist-grub-auch-eine-option">
-<h2><a class="toc-backref" href="#id129">15.29&nbsp;&nbsp;&nbsp;Welche Bootloader werden bei Embedded Linux verwendet? Ist grub auch eine Option?</a></h2>
+<h2><a class="toc-backref" href="#id157">15.29&nbsp;&nbsp;&nbsp;Welche Bootloader werden bei Embedded Linux verwendet? Ist grub auch eine Option?</a></h2>
 </div>
 </div>
 <div class="section" id="der-entwicklungsrechner">
-<h1><a class="toc-backref" href="#id130">16&nbsp;&nbsp;&nbsp;Der Entwicklungsrechner</a></h1>
+<h1><a class="toc-backref" href="#id158">16&nbsp;&nbsp;&nbsp;Der Entwicklungsrechner</a></h1>
 <p>Installieren Sie Linux auf Ihrem Hostrechner, entweder in einer eigenen Partition oder in einer virtuelle Maschine wie z.B. <a class="reference external" href="https://www.virtualbox.org">VirtualBox</a>.</p>
 <p>Sehen Sie sich auf Ihrem GNU/Linux Desktop PC oder Laptop den Kernel und das Root Filesystem an. Wie viel Platz beanspruchen die einzelnen Teile?</p>
 <div class="section" id="fur-welche-aufgaben-wird-der-hostrechner-entwicklungsrechner-verwendet">
-<h2><a class="toc-backref" href="#id131">16.1&nbsp;&nbsp;&nbsp;Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?</a></h2>
+<h2><a class="toc-backref" href="#id159">16.1&nbsp;&nbsp;&nbsp;Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?</a></h2>
 <p>Im Skript steht eine Liste von Werkzeugen für den Entwicklungsrechner. Was macht jedes einzelne dieser Werkzeuge?.</p>
 </div>
 <div class="section" id="lernen-sie-die-bedienung-ihres-linux-rechners-ausschliesslich-uber-die-kommandozeile">
-<h2><a class="toc-backref" href="#id132">16.2&nbsp;&nbsp;&nbsp;Lernen Sie die Bedienung Ihres Linux Rechners ausschliesslich über die Kommandozeile.</a></h2>
+<h2><a class="toc-backref" href="#id160">16.2&nbsp;&nbsp;&nbsp;Lernen Sie die Bedienung Ihres Linux Rechners ausschliesslich über die Kommandozeile.</a></h2>
 <p>Installieren Sie einen Teminal Multiplexer, z.B. <a class="reference external" href="http://www.gnu.org/software/screen">screen</a> oder <a class="reference external" href="http://sourceforge.net/projects/tmux">tmux</a>. Auch auf dem Zielrechner ist so ein Werkzeug sehr praktisch.</p>
 <p>Welche Terminalprogramme gibt es unter Linux, um auf die Konsole über die serielle Schnittstelle zu gehen? Wie lauten die üblichen Einstellungen?</p>
 <p>Wie kann man Daten im Terminalprogramm mit dem Protokoll X/Y/Z-Modem übertragen? Warum sollten nur kleinere Dateien bis zu ein paar 100 KByte übertragen werden?</p>
 </div>
 <div class="section" id="wie-arbeitet-man-mit-folgenden-programmen-ssh-scp-ftp-ncftp">
-<h2><a class="toc-backref" href="#id133">16.3&nbsp;&nbsp;&nbsp;Wie arbeitet man mit folgenden Programmen: ssh, scp, ftp (ncftp)?</a></h2>
+<h2><a class="toc-backref" href="#id161">16.3&nbsp;&nbsp;&nbsp;Wie arbeitet man mit folgenden Programmen: ssh, scp, ftp (ncftp)?</a></h2>
 <div class="section" id="ssh">
-<h3><a class="toc-backref" href="#id134">16.3.1&nbsp;&nbsp;&nbsp;ssh</a></h3>
+<h3><a class="toc-backref" href="#id162">16.3.1&nbsp;&nbsp;&nbsp;ssh</a></h3>
 <p>Ssh bietet die Möglichkeit sich auf entfernten Geräten anzumelden hierfür benötigt man eine Netzwerkverbindung (IP-Adresse), einen laufenden ssh-server / service und eingerichtete &quot;rsa-Fingerprints&quot;. Sind diese richtig eingerichtet kann man sich über das einfache Muster:</p>
 <pre class="code bash literal-block">
 ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
@@ -1031,32 +1062,32 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 </pre>
 </div>
 <div class="section" id="scp">
-<h3><a class="toc-backref" href="#id135">16.3.2&nbsp;&nbsp;&nbsp;scp</a></h3>
+<h3><a class="toc-backref" href="#id163">16.3.2&nbsp;&nbsp;&nbsp;scp</a></h3>
 </div>
 <div class="section" id="ftp">
-<h3><a class="toc-backref" href="#id136">16.3.3&nbsp;&nbsp;&nbsp;ftp</a></h3>
+<h3><a class="toc-backref" href="#id164">16.3.3&nbsp;&nbsp;&nbsp;ftp</a></h3>
 </div>
 <div class="section" id="ncftp">
-<h3><a class="toc-backref" href="#id137">16.3.4&nbsp;&nbsp;&nbsp;ncftp</a></h3>
+<h3><a class="toc-backref" href="#id165">16.3.4&nbsp;&nbsp;&nbsp;ncftp</a></h3>
 <p>Wie ändert man die Netzwerkeinstellungen für die Schnittstellen eth0 und eth1 mit den Werkzeugen ifconfig, route, ethtool und iptables.</p>
 <p>Wie richtet man auf dem Host eine zweite Ethernet-Schnittstelle ein, um ein Netzwerkkabel mit dem Target zu verbinden? Wie lauten die Einstellungen auf dem Target und auf dem Host?</p>
 </div>
 </div>
 <div class="section" id="installieren-sie-den-quelltext-des-linux-kernels-auf-dem-hostrechner-und-kompilieren-sie-ihn">
-<h2><a class="toc-backref" href="#id138">16.4&nbsp;&nbsp;&nbsp;Installieren Sie den Quelltext des Linux Kernels auf dem Hostrechner und kompilieren Sie ihn.</a></h2>
+<h2><a class="toc-backref" href="#id166">16.4&nbsp;&nbsp;&nbsp;Installieren Sie den Quelltext des Linux Kernels auf dem Hostrechner und kompilieren Sie ihn.</a></h2>
 </div>
 <div class="section" id="installieren-sie-auf-ihrem-entwicklungsrechner-eine-toolchain-fur-die-armv5-architektur-eldk-oder-debian">
-<h2><a class="toc-backref" href="#id139">16.5&nbsp;&nbsp;&nbsp;Installieren Sie auf Ihrem Entwicklungsrechner eine Toolchain für die ARMv5 Architektur (ELDK oder Debian).</a></h2>
+<h2><a class="toc-backref" href="#id167">16.5&nbsp;&nbsp;&nbsp;Installieren Sie auf Ihrem Entwicklungsrechner eine Toolchain für die ARMv5 Architektur (ELDK oder Debian).</a></h2>
 </div>
 <div class="section" id="wie-richtet-man-auf-dem-host-einen-nfs-server-ein">
-<h2><a class="toc-backref" href="#id140">16.6&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen NFS Server ein?</a></h2>
+<h2><a class="toc-backref" href="#id168">16.6&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen NFS Server ein?</a></h2>
 </div>
 <div class="section" id="wie-richtet-man-auf-dem-host-einen-tftp-server-ein">
-<h2><a class="toc-backref" href="#id141">16.7&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen TFTP Server ein?</a></h2>
+<h2><a class="toc-backref" href="#id169">16.7&nbsp;&nbsp;&nbsp;Wie richtet man auf dem Host einen TFTP Server ein?</a></h2>
 </div>
 </div>
 <div class="section" id="literatur-und-sonstige-quellen">
-<h1><a class="toc-backref" href="#id142">17&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
+<h1><a class="toc-backref" href="#id170">17&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
 <table class="docutils citation" frame="void" id="aels" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -1068,7 +1099,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="ates" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[ATES]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>, <a class="fn-backref" href="#id3">3</a>, <a class="fn-backref" href="#id4">4</a>, <a class="fn-backref" href="#id5">5</a>, <a class="fn-backref" href="#id6">6</a>, <a class="fn-backref" href="#id7">7</a>, <a class="fn-backref" href="#id8">8</a>, <a class="fn-backref" href="#id9">9</a>, <a class="fn-backref" href="#id10">10</a>, <a class="fn-backref" href="#id11">11</a>, <a class="fn-backref" href="#id12">12</a>)</em> <p>Johan Thelin, Introduction: A Typical Embedded System, 12/2009</p>
+<tr><td class="label">[ATES]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>, <a class="fn-backref" href="#id3">3</a>, <a class="fn-backref" href="#id4">4</a>, <a class="fn-backref" href="#id5">5</a>, <a class="fn-backref" href="#id6">6</a>, <a class="fn-backref" href="#id7">7</a>, <a class="fn-backref" href="#id8">8</a>, <a class="fn-backref" href="#id9">9</a>, <a class="fn-backref" href="#id10">10</a>, <a class="fn-backref" href="#id11">11</a>)</em> <p>Johan Thelin, Introduction: A Typical Embedded System, 12/2009</p>
 <p><a class="reference external" href="http://www.linuxjournal.com/article/10565">http://www.linuxjournal.com/article/10565</a></p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/intro/thelin/">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/intro/thelin/</a></p>
 </td></tr>
@@ -1077,7 +1108,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="affs" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id15">[AFFS]</a></td><td><ol class="first upperalpha simple" start="13">
+<tr><td class="label">[AFFS]</td><td><em>(<a class="fn-backref" href="#id27">1</a>, <a class="fn-backref" href="#id28">2</a>, <a class="fn-backref" href="#id29">3</a>)</em> <ol class="upperalpha simple" start="13">
 <li>Tim Jones, Anatomy of Flash Filesystems, 2008</li>
 </ol>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/speicher/l-flash-filesystems-pdf.pdf">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/speicher/l-flash-filesystems-pdf.pdf</a></p>
@@ -1093,7 +1124,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="elpb" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id16">[ELPB]</a></td><td><p class="first">Hallinan, Kap. 7 (Bootloader)</p>
+<tr><td class="label">[ELPB]</td><td><em>(<a class="fn-backref" href="#id30">1</a>, <a class="fn-backref" href="#id31">2</a>, <a class="fn-backref" href="#id32">3</a>, <a class="fn-backref" href="#id33">4</a>)</em> <p>Hallinan, Kap. 7 (Bootloader)</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/boot/hallinan_embedded_linux_primer_chap_7_bootloaders.pdf">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/boot/hallinan_embedded_linux_primer_chap_7_bootloaders.pdf</a></p>
 </td></tr>
 </tbody>
@@ -1101,7 +1132,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="emdb" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id23">[EMDB]</a></td><td><p class="first">Anselm Busse, Jan Richling, Embedded Debugging. Linux Magazin, 9/2013.</p>
+<tr><td class="label"><a class="fn-backref" href="#id51">[EMDB]</a></td><td><p class="first">Anselm Busse, Jan Richling, Embedded Debugging. Linux Magazin, 9/2013.</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/debug/lm-9-2013-debug/">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/debug/lm-9-2013-debug/</a></p>
 </td></tr>
 </tbody>
@@ -1109,7 +1140,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="fstl" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id17">[FSTL]</a></td><td><p class="first">Fast Startup Linux</p>
+<tr><td class="label"><a class="fn-backref" href="#id34">[FSTL]</a></td><td><p class="first">Fast Startup Linux</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/boot/637_Fast_Startup_Linux.pdf">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/boot/637_Fast_Startup_Linux.pdf</a></p>
 </td></tr>
 </tbody>
@@ -1117,7 +1148,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="grtl" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id21">[GRTL]</a></td><td><p class="first">Eva-Katharina Kunst, Jürgen Quade, Grundlagen: Echtzeitsysteme mit Linux, 2008</p>
+<tr><td class="label">[GRTL]</td><td><em>(<a class="fn-backref" href="#id48">1</a>, <a class="fn-backref" href="#id49">2</a>)</em> <p>Eva-Katharina Kunst, Jürgen Quade, Grundlagen: Echtzeitsysteme mit Linux, 2008</p>
 <p class="last"><a class="reference external" href="http://www.linux-magazin.de/Ausgaben/2008/06/Gerade-echtzeitig">http://www.linux-magazin.de/Ausgaben/2008/06/Gerade-echtzeitig</a></p>
 </td></tr>
 </tbody>
@@ -1131,7 +1162,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="lkms" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id18">[LKMS]</a></td><td><p class="first">Boguslaw Sylla, Patrick Schorn, Linux Kernel Module.</p>
+<tr><td class="label">[LKMS]</td><td><em>(<a class="fn-backref" href="#id35">1</a>, <a class="fn-backref" href="#id36">2</a>, <a class="fn-backref" href="#id37">3</a>, <a class="fn-backref" href="#id38">4</a>, <a class="fn-backref" href="#id39">5</a>, <a class="fn-backref" href="#id40">6</a>)</em> <p>Boguslaw Sylla, Patrick Schorn, Linux Kernel Module.</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/kernel/linuxkernel.pdf">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/kernel/linuxkernel.pdf</a></p>
 </td></tr>
 </tbody>
@@ -1139,7 +1170,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="ltrt" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id20">[LTRT]</a></td><td><p class="first">Linuxtronix, Echtzeit - prinzipielle Ansätze</p>
+<tr><td class="label">[LTRT]</td><td><em>(<a class="fn-backref" href="#id45">1</a>, <a class="fn-backref" href="#id46">2</a>, <a class="fn-backref" href="#id47">3</a>)</em> <p>Linuxtronix, Echtzeit - prinzipielle Ansätze</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/rt/WP_2011_Linux_+_Echtzeit_prinzipielle_Ansaetze_V1_0.pdf">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/rt/WP_2011_Linux_+_Echtzeit_prinzipielle_Ansaetze_V1_0.pdf</a></p>
 </td></tr>
 </tbody>
@@ -1147,7 +1178,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="stfs" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id14">[STFS]</a></td><td><p class="first">Plattner/Schnepp Speichertechnologien und Filesystems</p>
+<tr><td class="label">[STFS]</td><td><em>(<a class="fn-backref" href="#id20">1</a>, <a class="fn-backref" href="#id21">2</a>, <a class="fn-backref" href="#id22">3</a>, <a class="fn-backref" href="#id23">4</a>, <a class="fn-backref" href="#id24">5</a>, <a class="fn-backref" href="#id25">6</a>, <a class="fn-backref" href="#id26">7</a>)</em> <p>Plattner/Schnepp Speichertechnologien und Filesystems</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/speicher/speichertechnologie.pdf">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/speicher/speichertechnologie.pdf</a></p>
 </td></tr>
 </tbody>
@@ -1155,7 +1186,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="surt" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id19">[SURT]</a></td><td><p class="first">Emde, Gleixner, Standard UNIX wird echtzeitfaehig, 2007</p>
+<tr><td class="label">[SURT]</td><td><em>(<a class="fn-backref" href="#id41">1</a>, <a class="fn-backref" href="#id42">2</a>, <a class="fn-backref" href="#id43">3</a>, <a class="fn-backref" href="#id44">4</a>)</em> <p>Emde, Gleixner, Standard UNIX wird echtzeitfaehig, 2007</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/rt/elektronik-2007-03.pdf">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/rt/elektronik-2007-03.pdf</a></p>
 </td></tr>
 </tbody>
@@ -1163,7 +1194,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="tbp" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[TBP]</td><td><em>(<a class="fn-backref" href="#id25">1</a>, <a class="fn-backref" href="#id26">2</a>)</em> <p>The Big Picture, Hallinan</p>
+<tr><td class="label">[TBP]</td><td><em>(<a class="fn-backref" href="#id53">1</a>, <a class="fn-backref" href="#id54">2</a>)</em> <p>The Big Picture, Hallinan</p>
 <p class="last"><a class="reference external" href="http://proquest.tech.safaribooksonline.de/book/operating-systems-and-server-administration/embedded-linux/9780137061129">http://proquest.tech.safaribooksonline.de/book/operating-systems-and-server-administration/embedded-linux/9780137061129</a></p>
 </td></tr>
 </tbody>
@@ -1171,7 +1202,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="tpel" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id13">[TPEL]</a></td><td><p class="first">Tipps for planning an embedded Linux project, Cliff Brake, 2006</p>
+<tr><td class="label">[TPEL]</td><td><em>(<a class="fn-backref" href="#id12">1</a>, <a class="fn-backref" href="#id13">2</a>, <a class="fn-backref" href="#id14">3</a>, <a class="fn-backref" href="#id15">4</a>, <a class="fn-backref" href="#id16">5</a>, <a class="fn-backref" href="#id17">6</a>, <a class="fn-backref" href="#id18">7</a>, <a class="fn-backref" href="#id19">8</a>)</em> <p>Tipps for planning an embedded Linux project, Cliff Brake, 2006</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/cdrom-elinux/planning-tips.txt">http://elk.informatik.fh-augsburg.de/cdrom-elinux/planning-tips.txt</a></p>
 </td></tr>
 </tbody>
@@ -1179,7 +1210,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="tsld" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id22">[TSLD]</a></td><td><p class="first">Tim Schürmann, Linux Debugging, Linux Magazin 1/2013</p>
+<tr><td class="label"><a class="fn-backref" href="#id50">[TSLD]</a></td><td><p class="first">Tim Schürmann, Linux Debugging, Linux Magazin 1/2013</p>
 <p class="last"><a class="reference external" href="http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/debug/lm-1-2013-debug/">http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/debug/lm-1-2013-debug/</a></p>
 </td></tr>
 </tbody>
@@ -1187,7 +1218,7 @@ ssh &lt;USER&gt;&#64;&lt;IP-Adress&gt;
 <table class="docutils citation" frame="void" id="wiki" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id24">[WIKI]</a></td><td>Wikipedia the free Encyclopedia</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id52">[WIKI]</a></td><td>Wikipedia the free Encyclopedia</td></tr>
 </tbody>
 </table>
 <!-- vim: et sw=4 ts=4 -->

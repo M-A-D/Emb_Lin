@@ -454,6 +454,12 @@ Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies 
    :align: center
 
 
+hob und toaster - graphische Oberflächen für die Konfiguration von Yocto
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
 
 Vorbereiten der microSD Karte
 -----------------------------
@@ -803,6 +809,8 @@ Die ersten Schritte nach dem erfolgreichen platzieren des images:
 Accesspoint
 -----------
 
+Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem W-Lan Adapter einen dhcp-server, einen [Apache, lighttpd] und []. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.
+
 .. code:: bash
 
 	# modifizieren der Netzwerk Interfaces
@@ -842,17 +850,17 @@ Accesspoint
 	DAEMON_CONF="/etc/hostapd/hostapd.conf"
 
 	# erstellen der "hostapd.conf" Datei
-	touch /etc/hostapt/hostapd.conf
+	touch /etc/hostapd/hostapd.conf
 
 	# anpassen der "hostapd.conf" Datei
-	vi /etc/hostapt/hostapt.conf
+	vi /etc/hostapd/hostapd.conf
 	
-	### Wireless network name ##
+	### Wireless network ##
 	interface=wlan0
 	### Set your bridge name ###
 	#bridge=br0
 	### driver
-	driver=ath
+	driver=ath9k_htc
 	### Country Code ###
 	country_code=GER
 	### SSID ###
@@ -1051,6 +1059,9 @@ Literatur und sonstige Quellen
 
 .. [BBB-AP] Wifi Accesspoint on a Beaglebone Black
 	https://fleshandmachines.wordpress.com/2012/10/04/wifi-acces-point-on-beaglebone-with-dhcp/
+
+.. [VICS] VI Cheat Sheet
+	http://www.lagmonster.org/docs/vi.html
 
 .. [TODO] Look for comments
 
