@@ -142,7 +142,6 @@ Von Github des Yoctoproject
 .. code:: bash
 	
 	git colone git://git.yoctoproject.org/meta-yocto -b <VERSION>
-
 	# aktuelle Version zum Zeitpunkt des Projektbeginns war Dizzy
     git clone git://git.yoctoproject.org/meta-yocto -b dizzy
 
