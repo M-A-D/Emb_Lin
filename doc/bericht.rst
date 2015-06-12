@@ -4,6 +4,8 @@
 Beschreibung der Hardware
 =========================
 
+
+
 Für das Projekt wird das Beaglebone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.
 
 Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues Beaglebone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
@@ -12,6 +14,7 @@ Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wit
     
     ssh debian@192.168.7.2
     # pwd: temppwd
+
 
 .. figure:: img/ssh-BBB.png
    :align: center
@@ -34,6 +37,7 @@ Es befindet sich bereits eine angepasste Debian Version Linux beaglebone 3.8.13-
 Verbindung
 ----------
 
+
 .. code:: bash
     
     debian@beaglebone:~# ifconfig
@@ -53,6 +57,7 @@ Blockschaltplan Beaglebone Black
 
 Komponenten
 -----------
+
 
 .. figure:: img/BBB-components.png
    :align: center
@@ -110,6 +115,7 @@ Komponenten
 Bau einer eigenen Linuxumgebung mit dem Yoctoproject
 ====================================================
 
+
 Zu Begin soll eine neue angepasste Linuxumgebung für das Beagelbone Black compiliert und auf der MicroSD-Karte platziert werden. Hierzu bedienen wir uns im ersten Teil des Yoctoproject. Bei diesem handelt es sich um eine vereinfachte Version von "". Yocto wurde in den letzten Jahren zu einem wichtigen Standard in der Wirtschaft. Yocto ermöglicht den einfachen Bau von minimale angepasste Linux-distributionen für das eigene Board. Außerdem unterstützt es die Erstellung eines eigenen Paket-servers von dem aus mit dem Paketmanager "smart" updates auf allen Boards durchgeführt werden können. [BBB-YOCTO]_
 
 Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobten Linux Distribution. Wir haben Ubuntu 14.04 LTS-Version für den folgenden Bauversuch verwendet. Bevor mit dem Bauen einer eigenen Linux Distribution begonnen werden konnte mussten noch die folgenden Pakete nachinstalliert werden:
@@ -136,6 +142,7 @@ Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobte
 Herunterladen der Yocto Buildumgebung
 -------------------------------------
 
+
 Von Github des Yoctoproject
 +++++++++++++++++++++++++++
 
@@ -161,6 +168,7 @@ Herunterladen des aktuellen images von der webseite des Yoctoproject
 
 Bauen des Yocto-core-images und des Bootloaders
 -----------------------------------------------
+
 
 Erstellen der Buildumgebung und Überprüfung der Variablen
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -462,7 +470,8 @@ hob und toaster - graphische Oberflächen für die Konfiguration von Yocto
 
 
 Vorbereiten der microSD Karte
------------------------------
+=============================
+
 
 .. code:: bash
 
@@ -518,8 +527,9 @@ Vorbereiten der microSD Karte
 
 	The bootable flag on partition 1 is enabled now.
 
+
 boot formatieren als FAT16 (LBA)
-++++++++++++++++++++++++++++++++
+--------------------------------
 
 .. code:: bash
 
@@ -530,8 +540,9 @@ boot formatieren als FAT16 (LBA)
 	If you have created or modified any DOS 6.x partitions, please see the fdisk documentation for additional information.
 	Changed type of partition 'Linux' to 'W95 FAT16 (LBA)'.
 
+
 root als "Linux" formatieren
-++++++++++++++++++++++++++++
+----------------------------
 
 .. code:: bash
 
@@ -560,7 +571,7 @@ root als "Linux" formatieren
 
 
 Die Änderungen auf der SD Karte anwenden
-++++++++++++++++++++++++++++++++++++++++
+----------------------------------------
 
 .. code:: bash
 
@@ -587,8 +598,12 @@ Die Änderungen auf der SD Karte anwenden
 	└─mmcblk0p2 179:2    0  14,6G  0 part 
 
 
-Formatieren der "boot-Partition"
-++++++++++++++++++++++++++++++++
+Anlegen des Filesystem und der Partitionstabelle
+------------------------------------------------
+
+
+"boot-Partition"
+++++++++++++++++
 
 Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogenannte "bootable" flag gesetzt werden.
 
@@ -598,10 +613,10 @@ Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogen
 
 
 
-Formatieren der "root-Partition"
-++++++++++++++++++++++++++++++++
+"root-Partition"
+++++++++++++++++
 
-Die root-Partition benötigt ein linux kompatibles Filesystem in diesem Beispiel verwenden wir ext3.
+Die root-Partition benötigt ein Linux kompatibles Filesystem in diesem Beispiel verwenden wir ext3.
 
 .. code:: bash
 
@@ -616,6 +631,11 @@ Die root-Partition benötigt ein linux kompatibles Filesystem in diesem Beispiel
 	Inode-Tabellen werden geschrieben: erledigt                        
 	Das Journal (32768 Blöcke) wird angelegt: erledgt
 	Die Superblöcke und die Informationen über die Dateisystemnutzung werden geschrieben: erledigt
+
+
+
+Platzieren der Daten auf der SD-Karte
+=====================================
 
 
 Instalation des Bootloaders
@@ -661,12 +681,12 @@ Kopieren und Entpacken des Filesystems
 	 
 
 
+Das u-boot
+==========
 
-Überprüfung der Instalation
----------------------------
 
 Einstellungen von u-boot überprüfen
-+++++++++++++++++++++++++++++++++++
+-----------------------------------
 
 .. code:: bash
 	
@@ -675,7 +695,6 @@ Einstellungen von u-boot überprüfen
 	loaduimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}
 
 
- 
 .. code:: bash
 
 	strings u-boot.img | grep bootpart
@@ -760,12 +779,14 @@ Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit de
 Netboot test
 ============
 
+
 Im Netboot Teil wurde mangels eines USB auf TTL Adapters kurzerhand zum Raspberry Pi 2 gewechselt. Netzwerkboot bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. permanente kleine schreibende Zugriffe (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints).
 
 
 
 Debian 8.0 für das BeagleBone Black
 ===================================
+
 
 Da sich das arbeiten und entwickeln unter der selbst gebauten Yocto-distribution als zunehmend schwierig herausgestellt hat und wir bereits Erfahrungen mit dem Selbst bauen und kompilieren von Images für unser BBB gesammelt haben wurde beschlossen für die Fertigstellung unseres Projektes auf ein Debian zu wechseln. Vor allem um auf den Komfort eines Paketmanagers zurückgreifen zu können.
 
@@ -806,10 +827,11 @@ Die ersten Schritte nach dem erfolgreichen platzieren des images:
 	sudo apt-get install lighttpd
 
 
-Accesspoint
------------
+Einrichten eines Accesspoint auf dem BeagleBone Black
+=====================================================
 
-Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem W-Lan Adapter einen dhcp-server, einen [Apache, lighttpd] und []. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.
+
+Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem W-Lan Adapter einen dhcp-server, einen http-server, wie zum Beispiel (Apache - im Desktop Bereich oder lighttpd - im ES-Bereich) und einen DNS-Server. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.
 
 .. code:: bash
 
@@ -845,6 +867,11 @@ Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embe
 	          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 
+Konfiguration des hostapd
+-------------------------
+
+.. code:: bash
+
 	vi /etc/default/hostapd
 	# setzen der option
 	DAEMON_CONF="/etc/hostapd/hostapd.conf"
@@ -854,27 +881,37 @@ Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embe
 
 	# anpassen der "hostapd.conf" Datei
 	vi /etc/hostapd/hostapd.conf
+
 	
-	### Wireless network ##
-	interface=wlan0
-	### Set your bridge name ###
-	#bridge=br0
-	### driver
-	driver=ath9k_htc
+In der Datei "hostapd.conf" werden die Standard Parameter für den Wifi-Accesspoint gesetzt. Diese werden bei jedem Startvorgang geladen. In der folgenden Beispiel Datei wurden die Parameter, die unbedingt ersetzt werden müssen durch gekennzeichnete Lables ersetzt. Eine kurze Erklärung der Lables folgt.
+
+
+.. code:: bash
+
+	### wireless network configuration ###
+	### interface ###
+	interface=<YOUR-WIFI-INTERFACE>
+	### bridge name ###
+	#bridge=<YOUR-BRIDGE-NAME>
+	### driver ###
+	driver=<YOUR-WIFI-DRIVER>
 	### Country Code ###
-	country_code=GER
+	country_code=<YOUR-COUNTRY-CODE>
 	### SSID ###
-	ssid=GeoSpotAP
+	ssid=<YOUR-WIFI-NAME>
 	### Channel ###
-	channel=1
+	channel=<YOUR-WIFI-CHANNEL>
 	### HW-Mode ###
 	hw_mode=g
 	### Static WPA2 key configuration ###
+	# chose one of the following options
 	# 1=wpa1, 2=wpa2, 3=both
 	wpa=2
 	### WPA-Passphrase ###
-	wpa_passphrase=geomodap
+	wpa_passphrase=<YOUR-WIFI-PASSWORD>
 	### Key management algorithms ###
+	# chose one of the following options
+	# WEP | WPA2-PSK | WPA2-Enterprise
 	wpa_key_mgmt=WPA-PSK
 	### Set cipher suites (encryption algorithms) ##
 	# TKIP = Temporal Key Integrity Protocol
@@ -887,7 +924,23 @@ Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embe
 	macaddr_acl=0
 
 
-
++----------------+---------------------+------------------------------------------------------------------+
+| Parameter      | Lables              | Funktion                                                         |
++================+=====================+==================================================================+
+| ssid           | YOUR-WIFI-NAME      | der Name des lokalen W-Lan Netzwerkes                            |
++----------------+---------------------+------------------------------------------------------------------+
+| wpa_passphrase | YOUR-WIFI-PASSWORD  | das Passwort für den Zugang zum W-Lan Netzwerk                   |
++----------------+---------------------+------------------------------------------------------------------+
+| interface      | YOUR-WIFI-INTERFACE | der Name des W-Lan Interfaces (gewöhnlich wlan0)                 |
++----------------+---------------------+------------------------------------------------------------------+
+| bridge         | YOUR-BRIDGE-NAME    | Name der lokalen bridge (gewöhnlich br0)                         |
++----------------+---------------------+------------------------------------------------------------------+
+| driver         | YOUR-WIFI-DRIVER    | Name des Treibers für das W-Lan Device                           |
++----------------+---------------------+------------------------------------------------------------------+
+| channel        | YOUR-WIFI-CHANNEL   | der Kanal des W-Lan Netzes (auf lokale Gegebenheiten reagieren!) |
++----------------+---------------------+------------------------------------------------------------------+
+| country_code   | YOUR-COUNTRY-CODE   | Ländercode (GER für Deutschland)                                 |
++----------------+---------------------+------------------------------------------------------------------+
 
 [BBB-AP]_
 
@@ -899,6 +952,7 @@ Tools und Programme
 
 Minicom ein serial Terminal Emulator
 ------------------------------------
+
 
 Installation
 ++++++++++++
@@ -914,18 +968,21 @@ Einstellungen des seriellen Anschlusses
 	
 .. figure:: img/microcom-setup1.png
    :align: center
-	
+
+
 Unter A das richtige Device einrichten
 ++++++++++++++++++++++++++++++++++++++
 
 .. figure:: img/microcom-setup2.png
    :align: center
 
+
 Als default Speichern
 +++++++++++++++++++++
 
 .. figure:: img/microcom-setup3.png
    :align: center
+
 
 Minicom beenden und neu starten
 +++++++++++++++++++++++++++++++
@@ -939,6 +996,7 @@ fdisk partitionierungs tool
 
 "fdisk" ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux instalation vorbereiten.
 
+
 Laufwerk auswählen
 ++++++++++++++++++
 
@@ -947,6 +1005,7 @@ Laufwerk auswählen
 .. code:: bash
 	
 	sudo fdisk /dev/mmcblk0 
+
 
 Laufwerksinformationen ausgeben
 +++++++++++++++++++++++++++++++
@@ -1036,11 +1095,25 @@ Unterschiedliche Formatierungen
 	1e  Verst. W95 FAT1 80  Altes Minix    
 
 
+lighttpd - ein leichtgewichtiger http-server
+--------------------------------------------
+
+[LTPD]_
+
+
+
 Literatur und sonstige Quellen
 ==============================
 
+
+.. [BBB-AP] Wifi Accesspoint on a Beaglebone Black
+	https://fleshandmachines.wordpress.com/2012/10/04/wifi-acces-point-on-beaglebone-with-dhcp/
+
 .. [BBB-BSP] Beaglebone Black Blockschaltpläne
 	http://linuxgizmos.com/beagleboard-x15-features-dual-core-cortex-a15-sitara/
+
+.. [BBB-YOCTO] Yocto Project Beaglebone Black
+	https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone
 
 .. [ELIN-BBB-OS] Beaglebone Black Operating Systems
 	http://elinux.org/BeagleBone_Operating_Systems
@@ -1048,17 +1121,14 @@ Literatur und sonstige Quellen
 .. [ELIN-BBB-Debian] Beaglebone Black Debian
 	http://elinux.org/BeagleBoardDebian
 
-.. [BBB-YOCTO] Yocto Project Beaglebone Black
-	https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone
-
-.. [YOCTO] Yocto Project Build
-	http://android.serverbox.ch/?p=1273
+.. [LTPD] lighttpd
+	http://www.lighttpd.net/
 
 .. [TLWN] Wifi Driver for TL-WN725N V2
 	http://brilliantlyeasy.com/ubuntu-linux-tl-wn725n-tp-link-version-2-wifi-driver-install/
 
-.. [BBB-AP] Wifi Accesspoint on a Beaglebone Black
-	https://fleshandmachines.wordpress.com/2012/10/04/wifi-acces-point-on-beaglebone-with-dhcp/
+.. [YOCTO] Yocto Project Build
+	http://android.serverbox.ch/?p=1273
 
 .. [VICS] VI Cheat Sheet
 	http://www.lagmonster.org/docs/vi.html
