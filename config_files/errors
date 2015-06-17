@@ -1,0 +1,88 @@
+root@arm:~# systemctl status hostapd.service 
+● hostapd.service - LSB: Advanced IEEE 802.11 management daemon
+   Loaded: loaded (/etc/init.d/hostapd)
+   Active: active (exited) since Wed 2015-06-17 18:35:58 UTC; 7min ago
+  Process: 2020 ExecStop=/etc/init.d/hostapd stop (code=exited, status=0/SUCCESS)
+  Process: 2199 ExecStart=/etc/init.d/hostapd start (code=exited, status=0/SUCCESS)
+
+Jun 17 18:35:58 arm hostapd[2199]: Starting advanced IEEE 802.11 management: hostapd failed!
+
+
+
+root@arm:~# journalctl -xn
+-- Logs begin at Wed 2015-06-17 17:45:38 UTC, end at Wed 2015-06-17 18:44:03 UTC. --
+Jun 17 18:41:57 arm dnsmasq-dhcp[524]: Ignoring duplicate dhcp-option 3
+Jun 17 18:42:11 arm dnsmasq-dhcp[524]: DHCPREQUEST(usb0) 192.168.7.1 78:a5:04:ee:b1:15
+Jun 17 18:42:11 arm dnsmasq-dhcp[524]: DHCPACK(usb0) 192.168.7.1 78:a5:04:ee:b1:15 M-A-D-PC
+Jun 17 18:42:11 arm dnsmasq-dhcp[524]: Ignoring duplicate dhcp-option 3
+Jun 17 18:43:00 arm dnsmasq-dhcp[524]: DHCPINFORM(usb0) 192.168.7.1 78:a5:04:ee:b1:15
+Jun 17 18:43:00 arm dnsmasq-dhcp[524]: DHCPACK(usb0) 192.168.7.1 78:a5:04:ee:b1:15 M-A-D-PC
+Jun 17 18:43:00 arm dnsmasq-dhcp[524]: Ignoring duplicate dhcp-option 3
+Jun 17 18:44:03 arm dnsmasq-dhcp[524]: DHCPINFORM(usb0) 192.168.7.1 78:a5:04:ee:b1:15
+Jun 17 18:44:03 arm dnsmasq-dhcp[524]: DHCPACK(usb0) 192.168.7.1 78:a5:04:ee:b1:15 M-A-D-PC
+Jun 17 18:44:03 arm dnsmasq-dhcp[524]: Ignoring duplicate dhcp-option 3
+
+
+
+root@arm:~# hostapd -d /etc/hostapd/hostapd.conf 
+random: Trying to read entropy from /dev/random
+Configuration file: /etc/hostapd/hostapd.conf
+ctrl_interface_group=0
+Line 37: unknown configuration item 'eap_reauth_periodic'
+1 errors found in configuration file '/etc/hostapd/hostapd.conf'
+Failed to set up interface with /etc/hostapd/hostapd.conf
+hostapd_init: free iface 0xb84499f0
+Failed to initialize interface
+root@arm:~# nano /etc/hostapd/hostapd.conf 
+root@arm:~# hostapd -d /etc/hostapd/hostapd.conf 
+random: Trying to read entropy from /dev/random
+Configuration file: /etc/hostapd/hostapd.conf
+ctrl_interface_group=0
+rfkill: initial event: idx=0 type=1 op=0 soft=0 hard=0
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Using driver-based off-channel TX
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: interface wlan0 in phy phy0
+nl80211: Set mode ifindex 5 iftype 3 (AP)
+nl80211: Failed to set interface 5 to mode 3: -16 (Device or resource busy)
+nl80211: Try mode change after setting interface down
+nl80211: Set mode ifindex 5 iftype 3 (AP)
+nl80211: Mode change succeeded while interface is down
+nl80211: Setup AP(wlan0) - device_ap_sme=0 use_monitor=0
+nl80211: Subscribe to mgmt frames with AP handle 0xb7e107e8
+nl80211: Register frame type=0xb0 (WLAN_FC_STYPE_AUTH) nl_handle=0xb7e107e8 match=
+nl80211: Register frame type=0x0 (WLAN_FC_STYPE_ASSOC_REQ) nl_handle=0xb7e107e8 match=
+nl80211: Register frame type=0x20 (WLAN_FC_STYPE_REASSOC_REQ) nl_handle=0xb7e107e8 match=
+nl80211: Register frame type=0xa0 (WLAN_FC_STYPE_DISASSOC) nl_handle=0xb7e107e8 match=
+nl80211: Register frame type=0xc0 (WLAN_FC_STYPE_DEAUTH) nl_handle=0xb7e107e8 match=
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xb7e107e8 match=
+nl80211: Register frame command failed (type=208): ret=-114 (Operation already in progress)
+nl80211: Register frame match - hexdump(len=0): [NULL]
+nl80211: Could not configure driver mode
+nl80211: Remove monitor interface: refcount=0
+nl80211: Remove beacon (ifindex=5)
+netlink: Operstate: ifindex=5 linkmode=0 (kernel-control), operstate=6 (IF_OPER_UP)
+nl80211: Set mode ifindex 5 iftype 2 (STATION)
+nl80211: Failed to set interface 5 to mode 2: -16 (Device or resource busy)
+nl80211: Try mode change after setting interface down
+nl80211: Set mode ifindex 5 iftype 2 (STATION)
+nl80211: Mode change succeeded while interface is down
+nl80211: Teardown AP(wlan0) - device_ap_sme=0 use_monitor=0
+nl80211 driver initialization failed.
+hostapd_interface_deinit_free(0xb7e0d9f0)
+hostapd_interface_deinit_free: num_bss=1 conf->num_bss=1
+hostapd_interface_deinit(0xb7e0d9f0)
+hostapd_bss_deinit: deinit bss wlan0
+hostapd_cleanup(hapd=0xb7e0fcf8 (wlan0))
+hostapd_free_hapd_data: Interface wlan0 wasn't started
+hostapd_interface_deinit_free: driver=(nil) drv_priv=(nil) -> hapd_deinit
+hostapd_interface_free(0xb7e0d9f0)
+hostapd_interface_free: free hapd 0xb7e0fcf8
+hostapd_cleanup_iface(0xb7e0d9f0)
+hostapd_cleanup_iface_partial(0xb7e0d9f0)
+hostapd_cleanup_iface: free iface=0xb7e0d9f0
+
