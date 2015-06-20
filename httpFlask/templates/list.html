@@ -1,0 +1,15 @@
+<!doctype html>
+
+   <a href='/'>Startseite</a>
+   <br/>
+   <a href='/upload'>Datei hochladen</a>
+   <hr/>
+
+    <title> Listenansicht </title>
+    {% for file in files %}
+	
+	<div>
+	    <a href="/static/{{ file }}"> {{file}} </a>
+	</div>
+	
+    {% endfor %}
