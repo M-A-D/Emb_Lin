@@ -540,6 +540,22 @@ Wie startet Embedded Linux? (von U-Boot bis init Prozess)
 Welche Arten von Flash Speicher gibt es?
 ----------------------------------------
 
+1) Permanent
+
+    a) 
+    b) 
+    c) 
+
+2) Non-Permanent
+
+    a) NOR-Flash
+    b) NAND-Flash
+
+        managed
+
+        not managed
+
+
 
 In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?
 ----------------------------------------------------------------------------
@@ -611,6 +627,21 @@ Was ist ein “System on Chip” (SoC)?
 Wie sieht die Schichtung der Software eines Embedded Linux Systems in etwa aus?
 -------------------------------------------------------------------------------
 
++---------------------+---------------+-----------------------------------------------------------------+
+| Komponente          | Beispiel      | Aufgabe                                                         |
++=====================+===============+=================================================================+
+| bootloader          | u-boot        | lädt das u-image                                                |
++---------------------+---------------+-----------------------------------------------------------------+
+| u-image             | uImage        | lädt den Device-Tree-Blob & das Betriebssystem                  |
++---------------------+---------------+-----------------------------------------------------------------+
+| Device-Tree-Blob    | <xyz>.dtb     | Enthält Informationen über die verbauten Komponenten des Boards |
++---------------------+---------------+-----------------------------------------------------------------+
+| Kernel              | vmlinuz       | Der Linux Kernel als Basis des Embedded-Linux                   |
++---------------------+---------------+-----------------------------------------------------------------+
+| System Software     |               | Unterstützung des OS bei seinen Aufgaben                        |
++---------------------+---------------+-----------------------------------------------------------------+
+| User-Space-Software | browser       | System/Benutzer interaktion                                     |
++---------------------+---------------+-----------------------------------------------------------------+
 
 
 Welches Dateisystem wird bei Flash Speicher häufig verwendet?
@@ -685,7 +716,7 @@ Ssh bietet die Möglichkeit sich auf entfernten Geräten anzumelden hierfür ben
 
     ssh <USER>@<IP-Adress>
     # alternativ
-    ssh <USER>@<Netzwerkname>
+    ssh <USER>@<hostname-des-Target>
 
 scp
 +++

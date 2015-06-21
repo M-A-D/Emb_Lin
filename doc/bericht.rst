@@ -122,21 +122,18 @@ Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobte
 
 .. code:: bash
 
-	#
+	# simple-directmedia-layer - Crossplattform Bibliothek
 	sudo apt-get install libsdl1.2-dev
-	#
+	# change-run-path
 	sudo apt-get install chrpath
-	# 
+	# texinfo - gnu Dokumentations System
 	sudo apt-get install texinfo
-	#
+	# GNU - AWaKe
 	sudo apt-get install gawk
-	# 
+	# diffstat - make histogramm
 	sudo apt-get install diffstat 
-	# gnu c++-compiler
+	# GNU C++ - Compiler
 	sudo apt-get install g++
-
-[TODO]_
-.. beschreibung der Funktion der Pakete hinzufügen
 
 
 Herunterladen der Yocto Buildumgebung
@@ -809,22 +806,38 @@ Die ersten Schritte nach dem erfolgreichen platzieren des images:
 
 .. code:: bash
 
-	# aufgrund der Voreinstellungen im image ist es wieder möglich über eine feste ssh-Adresse über den mini-USB zu verbinden
+	# aufgrund der Voreinstellungen im image ist es wieder möglich über die mini-USB Schnittstelle per ssh mit dem Board zu verbinden
 	ssh debian@192.168.7.2
 	passwd: temppwd
+	
+	# oder
+	ssh debian@arm 
+	passwd: temppwd 
 
 	# image der größe der SD-Karten anpassen
 	sudo sh /opt/scripts/tools/growpartition.sh
+
+	# danach sollte das Betriebssystem neu gestartet werden um die durchgeführten Änderungen abzuschließen
+	sudo reboot
 
 	# richtige Zeitzone angeben
 	echo "Europe/Berlin" > /etc/timezone
 	dpkg-reconfigure -f noninteractive tzdata
 
-	# installieren von "build-essentials"
+	# Installieren von "build-essentials"
 	sudo apt-get install build-essentials
 
-	# installieren von "lighttpd"
+	# Installieren von "lighttpd"
 	sudo apt-get install lighttpd
+
+	# Installation von "hostapd"
+	sudo apt-get install hostapd
+
+	# Installation von "dnsmasq"
+	sudo apt-get install dnsmasq
+
+	# Installation von "isc-dhcp-server"
+	sudo apt-get install isc-dhcp-server
 
 
 Einrichten eines Accesspoint auf dem BeagleBone Black
@@ -833,6 +846,46 @@ Einrichten eines Accesspoint auf dem BeagleBone Black
 
 Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem W-Lan Adapter einen dhcp-server, einen http-server, wie zum Beispiel (Apache - im Desktop Bereich oder lighttpd - im ES-Bereich) und einen DNS-Server. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.
 
+Um die Anleitung möglichst allgemein zu halten werden in der folgenden Erklärung die eigentlichen Werte durch die Lables in der Tabelle ersetzt die von uns verwendeten Konfigurationen wurden in den Dateien unter "../config-files/" abgelegt.
+
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| Name            | Lable                       | Value in unserer Konfiguration | Funktion                                                         |
++=================+=============================+================================+==================================================================+
+| ssid            | <Your-SSID>                 | GeoSpotAp                      | der Name des lokalen W-Lan Netzwerkes                            |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| wpa_passphrase  | <Your-Passphrase>           | geospotap                      | das Passwort für den Zugang zum W-Lan                            |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| interface       | <YOUR-WIFI-INTERFACE>       | wlan0                          | der Name des W-Lan Interfaces (gewöhnlich wlan0)                 |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| bridge          | <YOUR-BRIDGE-NAME>          |                                | Name der lokalen bridge (gewöhnlich br0)                         |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| driver          | <GENERIC-DRIVER-IF>         |                                | Treiber Interface für "hostapd"                                  |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| channel         | <YOUR-WIFI-CHANNEL>         | 09                             | der Kanal des W-Lan Netzes (auf lokale Gegebenheiten reagieren!) |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| country_code    | <YOUR-COUNTRY-CODE>         | Ländercode (GER = Deutschland) |                                                                  |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| subnet          | <YOUR-SUBNET>               | 192.168.4.0                    |                                                                  |
+|                 | <x>.<y>.<z>.0               |                                |                                                                  |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| range           | <FIRST-FREE-IP>             | 192.168.4.4                    |                                                                  |
++                 +-----------------------------+--------------------------------+                                                                  +
+|                 | <LAST-FREE-IP>              | 192.168.4.64                   |                                                                  |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| adress          | <x>.<y>.<z>.<BASE-ADRESS>   | 192.168.4.1                    | Basis Adresse des w-lan Moduls                                   |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| netmask         | <YOUR-NETMASK>              | 191 (= 255 - 64)               | Zum ausmaskieren von Werten z.B. 255.255.255.<#-of-free-ips>     |
+|                 |                             |                                | oder 255.255.255.0                                               |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+| Router          | <YOUR-ROUTER>               | 192.168.2.1                    | die IP-Adresse des lokalen Routers                               |
++-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
+    
+
+
+Einrichten des W-Lan Interfaces
+-------------------------------
+
+
 .. code:: bash
 
 	# modifizieren der Netzwerk Interfaces
@@ -840,31 +893,38 @@ Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embe
 
 	# folgende Zeilen sind nur ein beispiel, aber ähnliches sollte hinzugefügt werden:
 	auto wlan0
-		iface wlan0 inet dhcp
-        address 192.168.3.1
-        network 192.168.3.0
-        netmask 255.255.255.0
-        broadcast 192.168.3.255
+		iface <YOUR-WIFI-INTERFACE> inet dhcp
+        address   <YOUR-SUBNET>.1
+        network   <YOUR-SUBNET>.0
+        netmask   <YOUR-NETMASK>
+        broadcast <YOUR-SUBNET>.<LAST-FREE-IP>
 
 	# den Netzwerk Service reseten
 	/etc/init.d/networking restart
 
-	# ruft man nun ifconfig auf sollte das Interface wlan0 sichtbar sein
-	usb0      Link encap:Ethernet  HWaddr ce:24:9f:01:71:88  
-          inet addr:192.168.7.2  Bcast:192.168.7.3  Mask:255.255.255.252
-          inet6 addr: fe80::cc24:9fff:fe01:7188/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:1075 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:725 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:87654 (85.5 KiB)  TX bytes:86496 (84.4 KiB)
+	# das wifi device starten
+	rfkill unblock <DEVICE>
+	# in unserem Beispiel
+	rfkilll unblock wlan0
+	# oder
+	iwconfig <YOUR-WIFI-INTERFACE> txpower on 
 
-	wlan0     Link encap:Ethernet  HWaddr e0:46:9a:0d:61:a3  
-	          UP BROADCAST MULTICAST  MTU:1500  Metric:1
-	          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-	          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-	          collisions:0 txqueuelen:1000 
-	          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+	# ruft man nun ifconfig auf sollte das Interface wlan0 sichtbar sein
+	usb0    Link encap:Ethernet  HWaddr ce:24:9f:01:71:88  
+            inet addr:192.168.7.2  Bcast:192.168.7.3  Mask:255.255.255.252
+            inet6 addr: fe80::cc24:9fff:fe01:7188/64 Scope:Link
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:1075 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:725 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000 
+            RX bytes:87654 (85.5 KiB)  TX bytes:86496 (84.4 KiB)
+
+	wlan0   Link encap:Ethernet  HWaddr e0:46:9a:0d:61:a3  
+	        UP BROADCAST MULTICAST  MTU:1500  Metric:1
+	        RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+	        TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+	        collisions:0 txqueuelen:1000 
+	        RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 
 Konfiguration des hostapd
@@ -917,30 +977,56 @@ In der Datei "hostapd.conf" werden die Standard Parameter für den Wifi-Accesspo
 	# TKIP = Temporal Key Integrity Protocol
 	# CCMP = AES in Counter mode with CBC-MAC
 	wpa_pairwise=TKIP
-	# rsn_pairwise=CCMP
+	rsn_pairwise=CCMP
 	### Shared Key Authentication ###
 	auth_algs=1
 	### Accept all MAC address ###
 	macaddr_acl=0
 
 
-+----------------+---------------------+------------------------------------------------------------------+
-| Parameter      | Lables              | Funktion                                                         |
-+================+=====================+==================================================================+
-| ssid           | YOUR-WIFI-NAME      | der Name des lokalen W-Lan Netzwerkes                            |
-+----------------+---------------------+------------------------------------------------------------------+
-| wpa_passphrase | YOUR-WIFI-PASSWORD  | das Passwort für den Zugang zum W-Lan Netzwerk                   |
-+----------------+---------------------+------------------------------------------------------------------+
-| interface      | YOUR-WIFI-INTERFACE | der Name des W-Lan Interfaces (gewöhnlich wlan0)                 |
-+----------------+---------------------+------------------------------------------------------------------+
-| bridge         | YOUR-BRIDGE-NAME    | Name der lokalen bridge (gewöhnlich br0)                         |
-+----------------+---------------------+------------------------------------------------------------------+
-| driver         | YOUR-WIFI-DRIVER    | Name des Treibers für das W-Lan Device                           |
-+----------------+---------------------+------------------------------------------------------------------+
-| channel        | YOUR-WIFI-CHANNEL   | der Kanal des W-Lan Netzes (auf lokale Gegebenheiten reagieren!) |
-+----------------+---------------------+------------------------------------------------------------------+
-| country_code   | YOUR-COUNTRY-CODE   | Ländercode (GER für Deutschland)                                 |
-+----------------+---------------------+------------------------------------------------------------------+
+
+Konfiguration des isc-dhcp-servers
+----------------------------------
+
+
+Da das BeagleBone Black später als selbstständiger DHCP-Server fungieren soll muss ein Subnetz deklariert werden. Mit der Konfigurations-Datei bestimmt man, welche IP-Adressen der DHCP-Server vergeben kann und somit auch die maximale Anzahl der möglichen Verbindungen. Hierzu wird die Datei unter "/etc/dhcp/dchpd.conf" entsprechend dem folgenden Muster Ergänzt.
+
+
+.. code:: bash
+
+	subnet <YOUR-SUBNET>.0 netmask <YOUR-NETMASK> {
+	range <FIRST-FREE-IP> <LAST-FREE-IP>;
+	option domain-name-servers 8.8.4.4;
+	# alternativ: option domain-name-servers 8.8.8.8;
+	option routers <YOUR-ROUTER>;
+	interface <YOUR-WIFI-INTERFACE>;
+	}
+
+
+Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung
+-------------------------------------------------------------------------------
+
+Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespecherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter "../dnsmasq/dnsmasq.conf" um die folgenden Einstellungen ergänzt.
+
+
+.. code:: bash
+
+	### wifi-interface-name ###
+	interface=<YOUR-WIFI-INTERFACE>
+	### dhcp-option ###
+	## mode, wifi-adress
+	# mode 3 := router
+	dhcp-option=3,<YOUR-SUBNET>.1
+	### dhcp-range ###
+	## first free adress, last free adress, netmask, time the ip is locked for
+	# typically
+	# first free ip adress: <x>.<y>.<z>.3
+	# last free ip adress:  <x>.<y>.<z>.254
+	# broadcast adress:     <x>.<y>.<z>.255 (last adress of the adress space)
+	# this means we have up to 251 possible divice ips @ the subnet <x>.<y>.<z>
+	dhcp-range=<FIRST-FREE-IP>,<LAST-FREE-Ip>,<actual time the ip is reserved>
+
+
 
 [BBB-AP]_
 
