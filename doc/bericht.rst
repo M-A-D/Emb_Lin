@@ -1031,6 +1031,64 @@ Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine D
 [BBB-AP]_
 
 
+GPIO
+====
+
+.. figure:: img/BBB-pin-out.png
+	:align: center
+
+[BBB-PIN-OUT]_
+
+.. figure:: img/GPIO-tester.jpg
+	:align: center
+
+
++------------------------------------------------------+
+| P9                                                   |
++=======+==========+================+=======+==========+ 
+| PIN   | LABLE    | Verbunden mit  | PIN   | LABLE    |
++-------+----------+----------------+-------+----------+
+| P9_01 | GND      | PIN_2 (GND)    | P9_02 | GND      |
++-------+----------+----------------+-------+----------+
+| P0_03 | 3,3V     | PIN_1 (3,3V)   | P9_04 | 3,3V     |
++-------+----------+----------------+-------+----------+
+| P9_05 | 5V RAW   |                | P9_06 | 5V RAW   |
++-------+----------+----------------+-------+----------+
+| P9_07 | 5V       |                | P9_08 | 5V       |
++-------+----------+----------------+-------+----------+
+| P9_09 |          |                | P9_10 |          |
++-------+----------+----------------+-------+----------+
+| P9_11 | GPIO0_30 | PIN_4 (Taster) | P9_12 | GPIO1_28 |
++-------+----------+----------------+-------+----------+
+| P9_13 | GPIO0_31 | PIN_3 (LED)    | P9_14 | GPIO1_18 |
++-------+----------+----------------+-------+----------+
+| ...   |          |                | ...   |          |
++-------+----------+----------------+-------+----------+
+
+Verwendung des sogenannten "sysfs"
+----------------------------------
+
+.. code:: bash
+
+	# Anlegen eines Deskriptors für den gewünschten Pin
+	root@arm:~# echo <PIN#> > /sys/class/gpio/export
+	
+	# im GPIO Verzeichnis erscheint ein Verzeichnis für den Pin
+	root@arm:~# ls /sys/class/gpio/
+	export	gpio<PIN#>  gpiochip0  gpiochip32  gpiochip64  gpiochip96  unexport
+
+	# für einen Test mit einer LED wird ein Ausgang benötigt
+	root@arm:~# echo out > /sys/class/gpio/gpio<PIN#>/direction
+
+	# Zuweisen einer logischen 1 am Pin führt dazu, das am Ausgang eine Spannung angelegt wird, nun sollte die LED leuchten
+	root@arm:~# echo 1 > /sys/class/gpio/gpio<PIN#>/value
+
+	# Zum Ausschalten können nun die folgenden Befehle verwendet werden
+	echo 0 > /sys/class/gpio/gpio<PIN#>/value
+	echo <PIN#> > /sys/class/gpio/unexport  
+
+
+
 
 Tools und Programme
 ===================
@@ -1206,6 +1264,9 @@ Literatur und sonstige Quellen
 
 .. [ELIN-BBB-Debian] Beaglebone Black Debian
 	http://elinux.org/BeagleBoardDebian
+
+.. [BBB-PIN-OUT] Pin-Out des Beaglebone Black
+	http://cholla.mmto.org/computers/beagle/hardware/pinout1-1024x585.png
 
 .. [LTPD] lighttpd
 	http://www.lighttpd.net/
