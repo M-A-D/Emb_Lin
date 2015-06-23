@@ -1,8 +1,8 @@
 /********************************************************************************************************
- * @file gpio.h
- * @brief definitions of gpio operations on the BBB
- * @author m-a-d
- * @date 20.06.2015
+ * @file gpio.h                                                                                         *
+ * @brief definitions of gpio operations on the BBB                                                     *
+ * @author m-a-d                                                                                        *
+ * @date 20.06.2015                                                                                     *
  ********************************************************************************************************/
 
 # ifndef GPIO_H_
@@ -15,8 +15,8 @@
 # define SYS_FS_DIR "/sys/class/gpio"
 # define POLL_TIMEOUT (3 * 1000) /* 3 seconds */
 # define MAX_BUF 64
-# define LED        "GPIO05"
-# define TASTER     "GPIO04"
+# define LED        "GPIO30"
+# define TASTER     "GPIO31"
 
 /**
  * enumerations and structs
