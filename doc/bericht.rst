@@ -6,9 +6,9 @@ Beschreibung der Hardware
 
 
 
-Für das Projekt wird das Beaglebone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.
+Für das Projekt wird das BeagleBone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.
 
-Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues Beaglebone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
+Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
 
 .. code:: bash
     
@@ -635,8 +635,8 @@ Platzieren der Daten auf der SD-Karte
 =====================================
 
 
-Instalation des Bootloaders
----------------------------
+Installation des Bootloaders
+----------------------------
 
 .. code:: bash
 
@@ -882,9 +882,93 @@ Um die Anleitung möglichst allgemein zu halten werden in der folgenden Erkläru
     
 
 
+Finden und identifizieren des W-Lan Devices
+-------------------------------------------
+
+Da es sich bei Boards wie dem BeagleBone Black oder dem Raspberry Pi eigentlich ausschließlich um USB W-Lan Sticks handelt sollte es möglich sein mit dem Befehl "lsusb" die verfügbaren USB-Schnittstellen auf angeschlossene Geräte zu überprüfen. Hat man also seinen W-Lan Stick mit dem Board verbunden sollte man zunächst folgendes versuchen:
+
+.. code:: bash
+
+	root@arm:~# lsusb
+    # sollte eine ähnliche Ausgabe erzeugen
+    Bus 001 Device 002: ID 0846:9030 NetGear, Inc. WNA1100 Wireless-N 150 [Atheros AR9271]
+    Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+
+Auf "Bus 001 Device 002" befindet sich unser W-Lan stick mit dem Chipsatz "Atheros AR9271", nun kann überprüft werden ob dieser bereits im Kernel angemeldet ist.
+
+.. code:: bash
+
+	root@arm:~# dmesg | grep AR9271
+    [   19.484197] ieee80211 phy0: Atheros AR9271 Rev:1
+
+
+Diese meldung zeigt uns, dass der Stick bereits als W-Lan Device erkannt wurde und auch, dass sein Treiber bereits vorhanden ist. Das vorangestellte "ieee80211" verweist auf den IEEE Standart für W-Lan Geräte. Ist dies nicht der Fall hilft eine kurze Recherche meist weiter. Die meisten Hersteller bieten Firmware Pakete an, die über den "apt-get Mechanismus" heruntergeladen werden können. Anschließend sollte ein Neustart des Gerätes dazu führen das der W-Lan Stick betriebsbereit ist.
+
+
+Finden, identifizieren und laden des Treibers
+---------------------------------------------
+
+Unter Linux gibt es eigentlich keine Treiber sondern Kernelmodule oder kurz lkms (loadable-kernel-modules).
+
+.. code:: bash
+
+    root@arm:~# lsmod 
+    
+    # sollte eine ähnliche Ausgabe wie die Folgende erzeugen:
+    
+    Module                  Size  Used by
+    arc4                    1586  2 
+    8021q                  19046  0 
+    garp                    4872  1 8021q
+    stp                     1316  1 garp
+    mrp                     6444  1 8021q
+    llc                     3179  2 stp,garp
+    
+    # [!] hier folgen die Treiber für unser W-lan Modul
+    
+    ath9k_htc              53619  0 
+    ath9k_common            1644  1 ath9k_htc
+    ath9k_hw              380797  2 ath9k_common,ath9k_htc
+    ath                    17798  3 ath9k_common,ath9k_htc,ath9k_hw
+    mac80211              442829  1 ath9k_htc
+    cfg80211              381814  3 ath,mac80211,ath9k_htc
+    
+    bnep                   11802  2 
+    pruss_remoteproc       12796  0 
+    c_can_platform          5951  0 
+    c_can                   9427  1 c_can_platform
+    can_dev                 7532  1 c_can
+    usb_f_ecm               7909  1 
+    g_ether                 1802  0 
+    usb_f_rndis            17823  2 g_ether
+    u_ether                 9444  3 usb_f_ecm,usb_f_rndis,g_ether
+    libcomposite           38891  3 usb_f_ecm,usb_f_rndis,g_ether
+    bluetooth             315943  7 bnep
+    6lowpan_iphc           10090  1 bluetooth
+    rfkill                 14657  3 cfg80211,bluetooth
+    uio_pdrv_genirq         2824  0 
+    uio                     7008  1 uio_pdrv_genirq
+
+
+Sollte das Modul, welches für ein Gerät benötigt wird zwar auf dem Gerät verfügbar aber nicht geladen sein ist es möglich dies mit dem Befehl "modprobe" nachzuholen.
+
+.. code:: bash
+
+	root@arm:~# modprobe <DIRECTORY/SOMETHING.ko>
+
+
+Ist der richtige Treiber für das W-Lan Modul geladen ist es außerdem nötig zu überprüfen, ob das Modul auch die nötigen Funktionen unterstützt, die für einen Wifi-Accesspoint nötig sind.
+
+.. code:: bash
+
+    root@arm:~# modinfo ath9k_htc
+    ...
+
+
+
 Einrichten des W-Lan Interfaces
 -------------------------------
-
 
 .. code:: bash
 
@@ -925,6 +1009,41 @@ Einrichten des W-Lan Interfaces
 	        TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
 	        collisions:0 txqueuelen:1000 
 	        RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+
+Die Ausgabe von "iwconfig" zeigt, dass dem Interface "wlan0" eine Hardwareadresse hinzugefügt wurde, nun kann man überprüfen ob das W-Lan Device auch den "AP-Mode" unterstützt. Dieser Modus ist unbedingt nötig um mit seinem Board einen Wifi-Accesspoint aufbauen zu können.
+
+.. code:: bash
+
+	root@arm iw list
+	    
+	# hier folgt nun eine relativ lange auflistung für die Gesuchte Option sind vor allem die folgenden Zeilen interessant
+	# ...
+	Supported RX frame types:
+		 * IBSS: 0x40 0xb0 0xc0 0xd0
+		 * managed: 0x40 0xd0
+		 * AP: 0x00 0x20 0x40 0xa0 0xb0 0xc0 0xd0
+		 * AP/VLAN: 0x00 0x20 0x40 0xa0 0xb0 0xc0 0xd0
+		 * mesh point: 0xb0 0xc0 0xd0
+		 * P2P-client: 0x40 0xd0
+		 * P2P-GO: 0x00 0x20 0x40 0xa0 0xb0 0xc0 0xd0
+		 * P2P-device: 0x40 0xd0
+		
+	software interface modes (can always be added):
+		 * AP/VLAN
+		 * monitor
+	valid interface combinations:
+		 * #{ managed, P2P-client } <= 2, #{ AP, mesh point, P2P-GO } <= 2,
+		   total <= 2, #channels <= 1
+	HT Capability overrides:
+		 * MCS: ff ff ff ff ff ff ff ff ff ff
+		 * maximum A-MSDU length
+		 * supported channel width
+		 * short GI for 40 MHz
+		 * max A-MPDU length exponent
+		 * min MPDU start spacing
+	Device supports TX status socket option.
+	# ...
 
 
 Konfiguration des hostapd
@@ -1144,7 +1263,7 @@ Minicom beenden und neu starten
 fdisk partitionierungs tool 
 ---------------------------
 
-"fdisk" ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux instalation vorbereiten.
+"fdisk" ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux installation vorbereiten.
 
 
 Laufwerk auswählen
@@ -1256,22 +1375,22 @@ Literatur und sonstige Quellen
 ==============================
 
 
-.. [BBB-AP] Wifi Accesspoint on a Beaglebone Black
+.. [BBB-AP] Wifi Accesspoint on a BeagleBone Black
 	https://fleshandmachines.wordpress.com/2012/10/04/wifi-acces-point-on-beaglebone-with-dhcp/
 
-.. [BBB-BSP] Beaglebone Black Blockschaltpläne
+.. [BBB-BSP] BeagleBone Black Blockschaltpläne
 	http://linuxgizmos.com/beagleboard-x15-features-dual-core-cortex-a15-sitara/
 
-.. [BBB-YOCTO] Yocto Project Beaglebone Black
+.. [BBB-YOCTO] Yocto Project BeagleBone Black
 	https://www.yoctoproject.org/downloads/bsps/daisy16/beaglebone
 
-.. [ELIN-BBB-OS] Beaglebone Black Operating Systems
+.. [ELIN-BBB-OS] BeagleBone Black Operating Systems
 	http://elinux.org/BeagleBone_Operating_Systems
 
-.. [ELIN-BBB-Debian] Beaglebone Black Debian
+.. [ELIN-BBB-Debian] BeagleBone Black Debian
 	http://elinux.org/BeagleBoardDebian
 
-.. [BBB-PIN-OUT] Pin-Out des Beaglebone Black
+.. [BBB-PIN-OUT] Pin-Out des BeagleBone Black
 	http://cholla.mmto.org/computers/beagle/hardware/pinout1-1024x585.png
 
 .. [LTPD] lighttpd
