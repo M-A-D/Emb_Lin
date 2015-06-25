@@ -909,7 +909,7 @@ Diese meldung zeigt uns, dass der Stick bereits als W-Lan Device erkannt wurde u
 Finden, identifizieren und laden des Treibers
 ---------------------------------------------
 
-Unter Linux gibt es eigentlich keine Treiber sondern Kernelmodule oder kurz lkms (loadable-kernel-modules).
+Unter Linux gibt es eigentlich keine Treiber sondern Kernelmodule oder kurz lkms (linux-kernel-modules).
 
 .. code:: bash
 
@@ -1214,6 +1214,203 @@ Verwendung des sogenannten "sysfs"
 
 
 
+lkms - Linux-Kernel-Module
+==========================
+
+[TLKM]_
+
+Installation der Linux-header
+-----------------------------
+
+.. code:: bash
+
+	debian@arm:~$ sudo apt-get install linux-headers-$(uname -r)
+	Reading package lists... Done
+	Building dependency tree       
+	Reading state information... Done
+	The following NEW packages will be installed:
+	  linux-headers-3.14.43-ti-r67
+	0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+	Need to get 6,520 kB of archives.
+	After this operation, 49.1 MB of additional disk space will be used.
+	Get:1 http://repos.rcn-ee.com/debian/ jessie/main linux-headers-3.14.43-ti-r67 armhf 1jessie [6,520 kB]
+	Fetched 6,520 kB in 4s (1,529 kB/s)                       
+	Selecting previously unselected package linux-headers-3.14.43-ti-r67.
+	(Reading database ... 29972 files and directories currently installed.)
+	Preparing to unpack .../linux-headers-3.14.43-ti-r67_1jessie_armhf.deb ...
+	Unpacking linux-headers-3.14.43-ti-r67 (1jessie) ...
+	Setting up linux-headers-3.14.43-ti-r67 (1jessie) ...
+
+
+Bauen eines eigenen Treibers
+----------------------------
+
+
+Der folgende Abschnitt wurde unter Debian 8.1 mit dem Kernel 3.14.43-ti-r67 ausgeführt und getestet. Im laufe dieses Versuchs sollte ein eigener Dummy-treiber geschrieben und geladen werden. Während dies unter buildroot oder yocto bereits während der Konfiguration der recipes mit einigen wenigen Befehlen möglich ist muss beim selbst schreiben ein wenig mehr Aufwand in Kauf genommen werden.
+
+Ein einfaches Beispiel für eine eigenes Kernelmodul könnte in etwar wie die folgende Datei aussehen:
+
+.. code:: c 
+
+	/**
+	 * @file hello.c
+	 * @brief main file for a simple kernel module example
+	 * @author m-a-d
+	 * @date 22.06.2015
+	 **/
+
+	# include <linux/init.h>
+	# include <linux/module.h>
+	# include <linux/kernel.h>
+
+	/**
+	 * function that is executed during the launch of the kernel module
+	 **/
+	static int __init hello_init(void) {
+	        printk(KERN_ALERT "Hello, world\n");
+	        return 0;
+	}
+
+	/**
+	 * function that is called during the shutdown of the kernel module
+	 **/
+	static void __init hello_exit(void) {
+	        printk(KERN_ALERT "Goodbye, cruel world\n");
+	}
+
+	module_init(hello_init);
+	module_exit(hello_exit);
+
+	/**
+	 * To Remove the licence warning you can specify it like this
+	 * MODULE_LICENSE("<NAME_OF_LICENCE>")
+	 **/
+	MODULE_LICENSE("GPL");
+
+	/**
+	 * You can also specify a driver Author and add a Description like this
+	 * MODULE_AUTHOR("<NAME <e-mail-adress>>")
+	 * MODULE_DESCRIPTION("<YOUR_DESCRITION>")
+	 **/
+	MODULE_AUTHOR("Matthias Pfitzmayer <mail@something.org>");
+	MODULE_DESCRIPTION("Just a simple basic kernel module that basically does nothing");
+
+	/**
+	 * With the MODULE_SUPPORTED_DEVICE(<DEVICE_NAME>) you can specify a device the module is
+	 * used for. Right now it is not used it only adds a line more to the kernel module documentation
+	 **/
+	MODULE_SUPPORTED_DEVICE("testdevice");
+	
+
+Die einfachste Möglichkeit um ein eigenes Kernelmodul zu bauen ist es eine eigene Makefile zu schreiben. Meine Makefile enthielt folgende Zeilen:
+
+.. code:: make
+
+	# @file Makefile
+	# @brief makefile for a simple test kernel module
+	# @author m-a-d
+	# @date 22.06.2015
+
+	obj-m += hello.o
+
+	all:
+	        make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+	clean:
+	        make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	        rm -rf *~ *.o
+
+Nach dem anlegen der Dateien kann der Buildprozess in der Konsole angestoßen, das Modul überprüft und geladen werden.
+
+.. code:: bash
+
+	# der build Vorgang
+	debian@arm:~/workspace/hello_kernel_module$ make all 
+	make -C /lib/modules/3.14.43-ti-r67/build M=/home/debian/workspace/hello_kernel_module modules
+	make[1]: Entering directory '/usr/src/linux-headers-3.14.43-ti-r67'
+	  Building modules, stage 2.
+	  MODPOST 1 modules
+	make[1]: Leaving directory '/usr/src/linux-headers-3.14.43-ti-r67'
+
+	# directory nach dem Compiliervorgang
+	debian@arm:~/workspace/hello_kernel_module$ ls -l
+	total 28
+	-rw-r--r-- 1 debian debian 1263 Jun 25 17:09 hello.c
+	-rw-r--r-- 1 debian debian 2772 Jun 25 17:09 hello.ko
+	-rw-r--r-- 1 debian debian  660 Jun 25 17:09 hello.mod.c
+	-rw-r--r-- 1 debian debian 1860 Jun 25 17:09 hello.mod.o
+	-rw-r--r-- 1 debian debian 1608 Jun 25 17:09 hello.o
+	-rw-r--r-- 1 debian debian  274 Jun 25 15:58 Makefile
+	-rw-r--r-- 1 debian debian   59 Jun 25 17:19 modules.order
+	-rw-r--r-- 1 debian debian    0 Jun 25 17:09 Module.symvers
+
+	# Informationen über das Modul
+	debian@arm:~/workspace/hello_kernel_module$ sudo modinfo hello.ko
+	filename:       /home/debian/workspace/hello_kernel_module/hello.ko
+	description:    Just a simple basic kernel module that basically does nothing
+	author:         Matthias Pfitzmayer <mail@something.org>
+	license:        GPL
+	depends:        
+	vermagic:       3.14.43-ti-r67 SMP preempt mod_unload modversions ARMv7 p2v8
+
+
+
+Laden des selbst compilierten Treibers
+--------------------------------------
+
+.. code:: bash
+
+	# Laden des Moduls
+	debian@arm:~/workspace/hello_kernel_module/ sudo insmod hello.ko
+
+	debian@arm:~/workspace/hello_kernel_module$ lsmod 
+	Module                  Size  Used by
+	hello                    473  0 
+	8021q                  19046  0 
+	garp                    4872  1 8021q
+	stp                     1316  1 garp
+	mrp                     6444  1 8021q
+	llc                     3179  2 stp,garp
+	bnep                   11802  2 
+	pruss_remoteproc       12796  0 
+	c_can_platform          5951  0 
+	c_can                   9427  1 c_can_platform
+	can_dev                 7532  1 c_can
+	usb_f_ecm               7909  1 
+	g_ether                 1802  0 
+	usb_f_rndis            17823  2 g_ether
+	u_ether                 9444  3 usb_f_ecm,usb_f_rndis,g_ether
+	libcomposite           38891  3 usb_f_ecm,usb_f_rndis,g_ether
+	bluetooth             315943  7 bnep
+	cfg80211              381814  0 
+	6lowpan_iphc           10090  1 bluetooth
+	rfkill                 14657  3 cfg80211,bluetooth
+	uio_pdrv_genirq         2824  0 
+	uio                     7008  1 uio_pdrv_genirq
+
+
+Entfernen des eigenen Kernelmoduls
+----------------------------------
+
+.. code:: bash
+
+	debian@arm:~/workspace/hello_kernel_module$ sudo rmmod -f hello
+
+	debian@arm:~/workspace/hello_kernel_module$ make clean 
+	make -C /lib/modules/3.14.43-ti-r67/build M=/home/debian/workspace/hello_kernel_module clean
+	make[1]: Entering directory '/usr/src/linux-headers-3.14.43-ti-r67'
+	  CLEAN   /home/debian/workspace/hello_kernel_module/.tmp_versions
+	  CLEAN   /home/debian/workspace/hello_kernel_module/Module.symvers
+	make[1]: Leaving directory '/usr/src/linux-headers-3.14.43-ti-r67'
+	rm -rf *~ *.o
+
+
+
+
+
+
+
+
 
 Tools und Programme
 ===================
@@ -1395,6 +1592,9 @@ Literatur und sonstige Quellen
 
 .. [LTPD] lighttpd
 	http://www.lighttpd.net/
+
+.. [TLKM] The Linux Kernel Modul Guide
+	http://www.tldp.org/LDP/lkmpg/2.6/html/c119.html
 
 .. [TLWN] Wifi Driver for TL-WN725N V2
 	http://brilliantlyeasy.com/ubuntu-linux-tl-wn725n-tp-link-version-2-wifi-driver-install/
