@@ -1,5 +1,554 @@
 .. include:: etc/kopf.rst
 
+Klausurvorbereitung Fragen
+==========================
+
+The Big Picture
+---------------
+
+.. Aus Kapitel 1 
+
+[TBP]_
+
+
+Warum Linux?
+++++++++++++
+
+[TBP]_
+
+.. 6 Punkte
+
+
+Was bedeutet die "GPL"?
++++++++++++++++++++++++
+
+[TBP]_
+
+.. 4 Punkte
+
+
+Was ist "Open Source"?
+++++++++++++++++++++++
+
+[TBP]_
+
+.. 2 Punkte
+
+
+Was verstehen Sie unter "Linux Standard Base"?
+++++++++++++++++++++++++++++++++++++++++++++++
+
+[TBP]_
+
+.. 2 Punkte
+
+
+Tipps for planning an embedded Linux project
+--------------------------------------------
+
+.. 16 Punkte
+
+[TPEL]_
+
+
+Welche Anforderungen sprechen für Linux?
+++++++++++++++++++++++++++++++++++++++++
+
+.. (5 Stück)
+
+[TPEL]_
+
+
+Wie "bezahlt" man die Vorteile von Linux?
++++++++++++++++++++++++++++++++++++++++++
+
+[TPEL]_
+
+
+Aus welchen Einzelteilen besteht Embedded Linux?
+++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 6 Punkte
+
+[TPEL]_
+
+
+Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatten und zu programmieren?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+[TPEL]_
+
+
+Welche Kosten sind zu erwarten?
++++++++++++++++++++++++++++++++
+
+[TPEL]_
+
+
+Welche Risiken gibt es?
++++++++++++++++++++++++
+
+
+[TPEL]_
+
+
+Was umfasst der Lebenszyklus des Produktes?
++++++++++++++++++++++++++++++++++++++++++++
+
+
+[TPEL]_
+
+
+Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+[TPEL]_
+
+
+BeagleBone Black
+----------------
+
+.. Beschreiben Sie knapp die technischen Eigenschaften des Embedded Linux Boards, das Sie in Ihrem Projekt verwendet haben. Denken Sie an folgende Punkte: [8 Punkte, je 2]
+
+
+Mikrocontroller (Taktfrequenz, CPU-Typ)
++++++++++++++++++++++++++++++++++++++++
+
+Sitara AM3358BZCZ100 ARM® Cortex-A8 @ 1 GHz
+
+
+Nicht-flüchtige Speicher
+++++++++++++++++++++++++
+
+.. ROM oder Festspeicher
+
+4 GB eMMC (NAND-Flash)
+
+
+Arbeitsspeicher
++++++++++++++++
+
+512 MB DDR3L @ 800 MHz
+
+
+Ungefähre Leistungsaufnahme
++++++++++++++++++++++++++++
+
+.. Leistungsaufnahme nachschlagen
+
+[TODO]_
+
+
+
+Fragen zum Entwicklungsrechner
+------------------------------
+
+
+Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 4 Punkte
+
+
+Welche Programme installieren Sie darauf?
++++++++++++++++++++++++++++++++++++++++++
+
+.. 4 Punkte
+
+
+
+Nennen Sie zwei Terminalprogramme und geben Sie die üblichen Aufrufparameter an.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 4 Punkte
+
+
+Was ist ein Terminal Multiplexer und warum ist er auf dem Targetrechner (und auf dem Hostrechner) sehr praktisch?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 4 Punkte
+
+
+
+Fragen zur Speichertechnik
+--------------------------
+
+
+NAND Flash Bausteine
+++++++++++++++++++++
+
+.. 12 Punkte
+
+Was steckt in einer MicroSD Karte?
+**********************************
+
+* Specher-controller
+* serial NAND-Flash
+* 7 Pins und drei weitere Datenports über einen zusätzlichen Pin
+
+
+Welche Filesysteme verwendet man meist bei MicoSD Karten?
+*********************************************************
+
+
+Wann verwendet man das "MTD" Subsystem?
+***************************************
+
+
+Was ist JFFS2 und wozu braucht man es?
+**************************************
+
+
+Welche Vorteile hat das YAFFS im Vergleich zu JFFS2?
+****************************************************
+
+
+
+Was ist das CRAMFS?
+*******************
+
+
+Was bedeutet "XIP"?
++++++++++++++++++++
+
+.. 2 Punkte
+
+
+Hauptspeicher
++++++++++++++
+
+.. 4 Punkte
+
+
+In welcher Speichertechnologie ist der Hauptspeicher des Embedded Linux Rechners realisiert?
+********************************************************************************************
+
+
+
+Minimale Grösse des Hauptspeichers, damit man aktuelle Distributionen ohne GUI verwenden kann?
+**********************************************************************************************
+
+
+
+Fragen zum Bootloader
+---------------------
+
+
+Wozu braucht man einen Bootloader?
+++++++++++++++++++++++++++++++++++
+
+
+
+Nennen Sie zwei gebräuchliche Bootloader.
++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Wozu dient die folgende U-Boot Kommandosequenz:
++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+    set bootargs root=/dev/nfs nfsroot=192.168.1.1:/srv/rootfs \
+    ip=192.168.1.2:192.168.1.1::255.255.255.0::eth0:none
+    nfs 0x10400000 /srv/rootfs/boot/uImage
+    bootm
+
+
+Welche Möglichkeiten gibt es, die Bootzeiten zu reduzieren? [6 Punkte]
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+Fragen zum Kernel
+-----------------
+
+.. 10 Punkte
+
+Auf der Tafel hatten wir ein Diagramm gezeichnet mit den wichtigsten Bereichen, mit denen man beim Kernel zu tun hat. Zeichnen Sie es hin.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        (siehe Tafel von 2014)
+
+
+
+Wieso ist es wünschenswert, dass ein Embedded Linux Board im Mainline Kernel unterstützt wird?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Geben Sie die Kommandozeilen an, um einen Kernel mit einem Cross-Kompiler zu kompilieren
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Konfiguration erstellen
+***********************
+
+
+
+Kernel und Module bauen
+************************
+
+
+
+Installation
+************
+
+
+
+Wieso kann es wichtig sein, dass man bei einem Embedded System den Kernel auf eine neuere Version updaten kann?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Gibt es im Kernel Quelltext auch eine Dokumentation?
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Ansteuerung von Peripherie
+--------------------------
+
+.. 10 Punkte
+
+
+Nennen Sie fünf verschiedene Arten, wie Sie Hardware-Erweiterungen an Ihr Embedded Linux Board elektrisch anschliessen könnten.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 5 Punkte
+
+
+
+Welche alternativen Möglichkeiten gibt es zur programmiertechnischen Ansteuerung von Hardware-Erweiterungen aus dem Userspace?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 5 Punkte
+
+
+
+Fragen zur Echtzeit mit Embedded Linux
+--------------------------------------
+
+.. 6 Punkte
+
+
+Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Welchen Vorteil hat der "Preempt-RT" Ansatz, auch wenn er nicht für harte Echtzeit geeignet ist.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+Beschreiben Sie, wie das Debuggen über die JTAG-Schnittstelle des Mikroprozessors funktioniert [8 Punkte]
+---------------------------------------------------------------------------------------------------------
+
+
+In welchem Fall ist diese Debug-Art unbedingt notwendig?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Wie sieht die Verschaltung der nötigen Einzelteile aus?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Open-Source Programme und Schnittstellen für JTAG-Debugging
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. Welches freie Programm wird auf dem Hostrechner benötigt, so dass man mit dem GNU Debugger gdb über JTAG debuggen kann? Welche Schnittstellen stellt das Programm bereit (Diagramm)?
+
+
+
+Neben dem Debuggen gibt es eine weitere wichtige Funktion, die häufig über JTAG erledigt wird. Denken Sie an frisch aus der Fertigung kommende Boards.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Fragen zum Artikel Linux Debugging von Tim Schürmann aus der Leseliste
+----------------------------------------------------------------------
+
+.. 8 Punkte
+
+
+In welchen unterschiedlichen Varianten kann man mit dem GDB Programme auf dem Zielrechner debuggen?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 2 Punkte
+
+
+
+Wozu dient das Programm strace?
++++++++++++++++++++++++++++++++
+
+.. 2 Punkte
+
+
+Wozu dient das Programm LTTng?
+++++++++++++++++++++++++++++++
+
+.. 2 Punkte
+
+
+
+Wozu dient das Programm systemtap?
+++++++++++++++++++++++++++++++++++
+
+.. 2 Punkte
+
+
+
+Linux "normal"/embedded
+=======================
+
+
+Markieren Sie von folgenden Begriffen diejenigen, die meist nur bei Embedded Linux relevant sind:
+-------------------------------------------------------------------------------------------------
+
++------------------------------------------------+-----+-----+
+| Begriff                                        | ES  | PC  |
++================================================+=====+=====+
+| Netzwerk                                       |     |     |
++------------------------------------------------+-----+-----+
+| U-Boot                                         |  x  |     |
++------------------------------------------------+-----+-----+
+| JFFS                                           |  x  |     |
++------------------------------------------------+-----+-----+
+| Systemprogrammierung                           |     |     |
++------------------------------------------------+-----+-----+
+| Bootzeit                                       |     |     |
++------------------------------------------------+-----+-----+
+| Shellprogrammierung                            |     |     |
++------------------------------------------------+-----+-----+
+| Interrupts                                     |     |     |
++------------------------------------------------+-----+-----+
+| Kernel-Module                                  |     |     |
++------------------------------------------------+-----+-----+
+| Stromverbrauch                                 |  x  |     |
++------------------------------------------------+-----+-----+
+| Buildroot                                      |  x  |     |
++------------------------------------------------+-----+-----+
+| Watchdog/Ausfallschutz                         |     |     |
++------------------------------------------------+-----+-----+
+| Hardware-Schnittstellen SPI/I2C/GPIO/UART      |  x  |     |
++------------------------------------------------+-----+-----+
+| Kernel-Konfiguration                           |     |     |
++------------------------------------------------+-----+-----+
+| Echtzeit                                       |     |     |
++------------------------------------------------+-----+-----+
+| JTAG Debugger                                  |  x  |     |
++------------------------------------------------+-----+-----+
+| Fernwartung                                    |     |     |
++------------------------------------------------+-----+-----+
+| glibc                                          |     |  x  |
++------------------------------------------------+-----+-----+
+| Kommandozeile                                  |     |     |
++------------------------------------------------+-----+-----+
+| System-V init                                  |     |     |
++------------------------------------------------+-----+-----+
+| uClibc                                         |  x  |     |
++------------------------------------------------+-----+-----+
+
+.. nochmals kontrollieren
+
+[TODO]_
+
+Kernel
+------
+
+
+Wie kompiliert man den Kernel auf der Kommandozeile?
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Wo stehen die Namen der make targets?
+*************************************
+  
+.. README
+.. makefile.am
+.. make help
+
+
+.. code:: bash 
+
+    make ARCH=arm CROSS_COMPILE=... menuconfig <PATH_TO_COMPILER>
+    make ARCH=arm CROSS_COMPILE=... zImage
+    make ARCH=arm CROSS_COMPILE=... modules
+    make modules_install INSTALL_MOD_PATH=<your-module-path>
+
+
+Sie möchten einen Linux Kernel kompilieren für ein Board auf dem bereits Linux läuft, haben aber keine .config Datei. Welche Möglichkeiten gibt es?
+***************************************************************************************************************************************************
+
+/prog/
+
+
+Was macht das Kommando dmesg?
++++++++++++++++++++++++++++++
+
+
+
+Wie sehen Sie sich im laufenden Linux die Kernel Kommandozeile an?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Was ist ein uImage und wie erzeugt man es?
+++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Wie kann man das Embedded Linux Board booten, obwohl nur das U-Boot im Flash Speicher vorhanden ist? Das Board verfügt über eine Netzwerkschnittstelle.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Tools
+-----
+
+
+Cross-Kompilierung für ARM mit configure, make und make install
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. Sie haben die Sourcen eines Programmes, das man wie üblich mit configure, make, make install installieren kann. Sie möchten das Programm nun auf dem PC crosskompilieren für ARM. Was müssen Sie beim Konfigurieren angeben?
+
+
+
+
+Wie kann man sich den Hexdump einer Binärdatei ausgeben?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Root Filesystem
+---------------
+
+Welche Komponenten brauchen Sie für ein minimales RootFS, das in vier Megabyte Flash-Speicher passt?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Welche Baukästen für Root Filesysteme kennen Sie, die auch für Embedded Boards geeignet sind?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
 
 Leseliste für die Klausur
 =========================
@@ -16,12 +565,18 @@ Wie bootet ein Embedded Linux Rechner?
   :align: center
 
 
+Der Prozessor springt zu einer spezifischen Adresse, an dieser erwartet er den bootloader zu finden. Deshalb benötigen unterschiedliche Prozessoren unterschiedliche Konfigurationen und Formatierungen beim Festspeicher (eMMC / SD). Der Prozessor beginnt nun den Code an der Stelle auszuführen.
+Nachdem der Bootloader geladen und konfiguriert wurde werden alle Treiber und Geräte initialisiert und die Dateisysteme gemountet. Der Kernel wird geladen und die Userspace Programme werden geladen.
 
 [ATES]_
 
 
 Welche Aufgaben hat der Bootloader?
 -----------------------------------
+
+Initialisieren des Systems
+
+Laden des Kernels
 
 
 [ATES]_
@@ -879,5 +1434,8 @@ Literatur und sonstige Quellen
 .. _screen: http://www.gnu.org/software/screen
 
 ..  _tmux: http://sourceforge.net/projects/tmux
+
+.. [TODO] Still things to do 
+    Kommentare beachten
 
 .. vim: et sw=4 ts=4

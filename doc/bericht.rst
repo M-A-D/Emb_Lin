@@ -1017,7 +1017,7 @@ Die Ausgabe von "iwconfig" zeigt, dass dem Interface "wlan0" eine Hardwareadress
 
 	root@arm iw list
 	    
-	# hier folgt nun eine relativ lange auflistung für die Gesuchte Option sind vor allem die folgenden Zeilen interessant
+	# hier folgt nun eine relativ lange Auflistung für die gewünschte Funktion sind vor allem die folgenden Zeilen interessant
 	# ...
 	Supported RX frame types:
 		 * IBSS: 0x40 0xb0 0xc0 0xd0
@@ -1403,11 +1403,6 @@ Entfernen des eigenen Kernelmoduls
 	  CLEAN   /home/debian/workspace/hello_kernel_module/Module.symvers
 	make[1]: Leaving directory '/usr/src/linux-headers-3.14.43-ti-r67'
 	rm -rf *~ *.o
-
-
-
-
-
 
 
 
