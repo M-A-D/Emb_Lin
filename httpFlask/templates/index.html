@@ -1,0 +1,11 @@
+<!doctype html>
+    <h2> Startseite </h2>
+    {% if enabled_upload %}
+    <hr/>
+    <title> This is Sparta! </title>
+    <a href='/list'>Listenansicht</a>
+    <br/>
+    <a href='/upload'>Datei hochladen</a>
+    {% endif %}
+    <hr/>
+    {{hint}}
