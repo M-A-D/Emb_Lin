@@ -58,7 +58,7 @@ Was verstehen Sie unter "Linux Standard Base"?
 
 Linux Standard Base (kurz LSB_) ist einer der relevantesten Linux Standards. Er spezifiziert allgemeine Attribute einer Linuxdistribution, wie die Verzeichnisstruktur, Binärschnittstellen, Programmbibliotheken und andere Betriebssystem Bestandteile mit dem Ziel die Kompatiblität zwischen unterschiedlichen Linux Distributionen im Hinblick auf Lauffähigkeit von Programmen zu verbessern. An vielen Stellen sind diese Standards aber noch nicht ausreichend und es halten sich bei weitem nicht alle Distributionen an diese Standards.
 
-[ELMP]_
+[EMLP]_
 
 .. 2 Punkte
 
@@ -1550,9 +1550,11 @@ Literatur und sonstige Quellen
 
 .. _XIP: https://en.wikipedia.org/wiki/Execute_in_place
 
+
 .. [YVSJ]: Comparision between YAFFS2 and JFFS2, Charles F Johnson, 2007
 
 	http://www.yaffs.net/comparison-yaffs-vs-jffs
+
 
 .. [TODO] Still things to do 
     Kommentare beachten
