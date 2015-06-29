@@ -3,25 +3,22 @@
 Klausurvorbereitung Fragen
 ==========================
 
-The Big Picture
----------------
 
-.. Aus Kapitel 1 
-
-[TBP]_
+Embedded Linux Primer - A Practical, Real-World Approach
+--------------------------------------------------------
 
 
 Warum Linux?
 ++++++++++++
 
-* Linux unterstützt eine enorme Vielfalt an Hardwaregeräten
-* Linux unterstütut eine riesige Zahl von Anwendungen und Netzwerk-Protokollen
-* Linux ist skalierbar, vom kleinen verbraucherorientierten  Geräten, bis hin zu Hochgeschwindigkeits-Routern
-* Linux kann ohne die von herkömmlichen, proprietären Embedded-Betriebssystemen erforderlichen, Lizenzgebühren eingesetzt werden
-* Linux hat eine große Anzahl von aktiven Entwicklern angezogen, wodurch eine schnelle Unterstützung neuer Hardware-Architekturen, Plattformen und Geräte gewährleistet wird
-* Eine zunehmende Anzahl von Hardware- und Softwareherstellern, darunter nahezu alle Top-Tier-Hersteller und ISVs, unterstützen jetzt Linux
+* Linux hat sich zu einer ausgereiften, hoch performanten und stabilen alternative zu üblichen proprietären Embedded-Betriebssystemen entwickelt
+* Linux unterstützt eine große Bandbreite an Anwendungen und Netzwerkprotokollen
+* Linux ist gut skalierbar, angefangen bei kleinen Konsumentenorientierten Geräten, bis hin zu großen Switches und Routern
+* Linux kann ohne die nötigen lizensierungs Gebühren die für proprietäre Embedded-Betriebssystemen nötig sind eingesetzt werden
+* Linux hat eine große Anzahl an Entwicklern angezogen, dies ermöglicht eine schnelle Unterstützung neuer Hardware-Architekturen, Plattformen und Geräten
+* Eine steigende Anzahl an Hardware- und Software Herstellern, nahezu alle Marktführern und Unabhängige Softwarehersteller eingeschlossen unterstützen Linux
 
-[TBP]_
+[EMLP]_
 
 .. 6 Punkte
 
@@ -29,7 +26,20 @@ Warum Linux?
 Was bedeutet die "GPL"?
 +++++++++++++++++++++++
 
-[TBP]_
+GPL - GNU Public License ist eine form der Softwarelizensierung und einer der Grundpfeiler der Open-Source Bewegung. Bei Freier Software bezieht sich das "frei" die Freiheiten und nicht auf den Preis. Die Grundpfeiler der GPL sind hierbei das sogenannte Copyleft-Prinzip und die vier Freiheiten der GPL. 
+
+Das Copyleft-Prinzip besagt, dass Software, die auf unter der GNU General Public License (GPL_) veröffentlichten Software basiert nur mit den gleichen Freiheiten veröffentlicht werden darf. Dies stellt sicher, das freie Software für alle zugänglich und frei bleibt.
+
+Niemand sollte von der Software, die er verwendet eingeschränkt werden. Es gibt vier Freiheiten, die jeder Benutzer haben sollte.
+
+    * die Freiheit die Software für jeden Zweck zu verwenden
+    * die Freiheit die Software an die eigenen Bedürfnisse anzupassen
+    * die Freiheit die Software mit Freunden und Nachbarn zu teilen
+    * die Freiheit die eigenen Änderungen zu teilen
+
+Erfüllt ein Programm diese Kriterien kann es als freie Software bezeichnet werden.
+
+[EMLP]_
 
 .. 4 Punkte
 
@@ -37,7 +47,9 @@ Was bedeutet die "GPL"?
 Was ist "Open Source"?
 ++++++++++++++++++++++
 
-[TBP]_
+Open-Source oder Quelloffene Software bezeichnet Software, die die Definitionen der Open Source Initiative (OSI) erfüllt. Das bedeutet, das die Software einer der Open-Source-Lizenzen unterliegen muss. Außerdem muss der Sourcecode für jeden Benutzer frei zugänglich ist. Im groben Ähneln sich die Ansätze der OSS und FSF, allerdings legt die OSS mehr Wert auf die praktischen Vorteile, wie zum Beispiel eine höhere Entwicklungsgeschwindigkeit durch Open-Source. Die FSF hingegen legt mehr Wert auf den sozialen, politischen und ethnischen Wert Freier Software ("Kontrolle des Nutzers über die Software und nicht umgekehrt").
+
+[EMLP]_
 
 .. 2 Punkte
 
@@ -45,7 +57,9 @@ Was ist "Open Source"?
 Was verstehen Sie unter "Linux Standard Base"?
 ++++++++++++++++++++++++++++++++++++++++++++++
 
-[TBP]_
+Linux Standard Base (kurz LSB_) ist einer der relevantesten Linux Standards. Er spezifiziert allgemeine Attribute einer Linuxdistribution, wie die Verzeichnisstruktur, Binärschnittstellen, Programmbibliotheken und andere Betriebssystem Bestandteile mit dem Ziel die Kompatiblität zwischen unterschiedlichen Linux Distributionen im Hinblick auf Lauffähigkeit von Programmen zu verbessern. An vielen Stellen sind diese Standards aber noch nicht ausreichend und es halten sich bei weitem nicht alle Distributionen an diese Standards.
+
+[EMLP]_
 
 .. 2 Punkte
 
@@ -61,14 +75,15 @@ Tipps for planning an embedded Linux project
 Welche Anforderungen sprechen für Linux?
 ++++++++++++++++++++++++++++++++++++++++
 
-* Erfordern ein hohes Maß an Leistung
-* Erfordern komplexe, auf Standards basierende Anwendungen
-* Nutzung der Standardschnittstellen
-* System ist update- oder erweiterbar
-* System muss skalierbar sein
-.. (5 Stück)
+* Hohe Performance Anforderungen (z.B. Datenraten im Netzwerk)
+* Erfordert komplexe, standartisierte Anwendungen (z.B. GUI, Webserver, etc. )
+* Verwendung standartisierter, aber complexer Interfaces (z.B. USB, Ethernet, erweiterte Speicherverwaltung, etc. )
+* Das System soll erweiterbar sein
+* Das System soll skalierbar sein 
 
 [TPEL]_
+
+.. (5 Stück)
 
 
 Wie "bezahlt" man die Vorteile von Linux?
@@ -96,11 +111,13 @@ Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatte
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Die wichtigste Fähigkeit die man besitzen muss um ein Embedded Linux System zu entwerfen ist es, den Code eines anderen zu verwenden, integrieren und zu debuggen. Weitere nützliche Fähigkeiten sind ein gutes Verständnis von Hardware, Computerarchitektur und Betriebssystemen. Erfahrung und Wissen, mit komplexen modernen eingebetteten Linux-Systemen fertig zu werden ist der Schlüssel zum Erfolg. Außerdem ist es wichtig, in der Lage zu sein den richtigen Personen Fragen zu stellen. Meist kann man diese Personen über Mailinglisten erreichen.
+
 [TPEL]_
 
 
 Welche Kosten sind zu erwarten?
 +++++++++++++++++++++++++++++++
+
 Obwohl Linux und unterstützende Technologien kostenlos in Geräten genutzt werden können, müssen die Kosten für die Implementierung und Wartung einer Lösung berücksichtigt werden. Es gibt viele Wege, um ein System zu implementieren. Wie bei den meisten Projekten, kann man Regalfertige Lösungen kaufen um die Vorlaufkosten zu senken. Mit höheren Volumina(mehr Inhalten????)ist es aber oft sinnvoll, eine kundenspezifische Lösung zu implementieren. Die kosten liegen bei der Zeit die ein Entwickler investieren muss um eine Aufgabe zu erfüllen.
 
 [TPEL]_
@@ -108,6 +125,7 @@ Obwohl Linux und unterstützende Technologien kostenlos in Geräten genutzt werd
 
 Welche Risiken gibt es?
 +++++++++++++++++++++++
+
 * Unterschätzen der Komplexität
 * Start des Projekts mit dem falschen Zeug(???start the project with the wrong stuff)
 * ein Treiber ist für die verwendete Hardware nicht verfügbar
@@ -203,9 +221,10 @@ picocom
 Was ist ein Terminal Multiplexer und warum ist er auf dem Targetrechner (und auf dem Hostrechner) sehr praktisch?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-.. 4 Punkte
 Ein Terminal-Multiplexer ist eine Softwareanwendung die verwendet werden kann, um mehrere virtuelle Konsolen zu multiplexen. Damit ist der Benutzer in der Lage auf mehrere getrennte Terminalsitzungen in einem einzigen Terminal-Fenster oder einer Remote-Terminal-Sitzung zuzugreifen.
 Es kann auch auf dem Targetrechner sehr nützlich sein, da man mit einem Terminalprogramm meist nur ein Konsolenfenster zur Verfügung hat.
+
+.. 4 Punkte
 
 
 Fragen zur Speichertechnik
@@ -220,41 +239,93 @@ NAND Flash Bausteine
 Was steckt in einer MicroSD Karte?
 **********************************
 
-* Specher-controller
-* serial NAND-Flash
-* 7 Pins und drei weitere Datenports über einen zusätzlichen Pin
+* Serielle NAND-Flash Speicherblöcke
+* Speicher-controller (Memmory-Management-Unit)
+* 8 Pins als Schnittstelle zum Speicher-controller
+  
++-----+-----------+----------------------------------+
+| PIN | Abkürzung | Funktion                         |
++=====+===========+==================================+
+| 1   | DAT2      | Datenleitung 2                   |
++-----+-----------+----------------------------------+
+| 2   | DAT3      | Datenleitung 3 / Card Detect     |
++-----+-----------+----------------------------------+
+| 3   | CMD       | Comand Line                      |
++-----+-----------+----------------------------------+
+| 4   | VDD       | Versorgungsspannung 2,7 - 3,6 V  |
++-----+-----------+----------------------------------+
+| 5   | CLK       | Clock (Takteingang)              |
++-----+-----------+----------------------------------+
+| 6   | GND       | Ground                           |
++-----+-----------+----------------------------------+
+| 7   | DAT0      | Datenleitung 0                   |
++-----+-----------+----------------------------------+
+| 8   | DAT1      | Datenleitung 1                   |
++-----+-----------+----------------------------------+
 
 
 Welche Filesysteme verwendet man meist bei MicoSD Karten?
 *********************************************************
 
+Da MicroSD Karten heute meist über eine relativ große Speicherkapazität verfügen verwendet man meist Desktop Filesysteme wie z.B.
+
+* EXT3
+* EXT4
+* XFS
+* oder REISERFS4
+
 
 Wann verwendet man das "MTD" Subsystem?
 ***************************************
 
-Zum Einsatz kommt MTD primär für Flash-Speicher
+Memory-Technology-Device (MTD) bezeichnet eine Abstraktionsschicht mit einheitlicher Schnittstelle zur Kommunikation mit dem Speicher eines Linux-Systems. Der Benutzer kann somit ohne genaue Kenntnisse der Interna (z.B. des verwendeten Filesystems) mit Hilfe der API auf den Speicher zugreifen, außerdem können die selben Funktionen auch bei einem Wechsel des darunterliegenden Flash-Speichers angewandt werden. Es kommt hautsächlich bei der verwendung von "rohem Flash-Speicher" also Flash-Speicher ohne Memmory-Management-Unit (MMU) zum Einsatz.
 
 
 Was ist JFFS2 und wozu braucht man es?
 **************************************
 
+Journalling-Flash-File-System-Version-2 (JFFS2) ist ein log-Datei basiertes Filesystem mit wear-leveling und wurde ursprünglich entwickelt und die Verwendung von Flash-Speicher bei eingebetteten Systemen zu verbessern. Bis zu seiner Entwicklung wurden Pseudo-filesysteme, die ein standartisiertes Blockspeicher Device emulierten und auf die dan ein normales Filesystem aufgespielt wurden eingesetzt.
 
+wear-leveling := Schutz vor "Abnutzung" von Flash-Speicher durch wiederkehrende Schreiboperationen auf ständig gleichen Blöcken
 
 
 Welche Vorteile hat das YAFFS im Vergleich zu JFFS2?
 ****************************************************
 
+Vorteile:
+
+	* Weniger Hauptspeicher verbrauch um den Status währen der Laufzeit festzuhalten, deshalb eignet es sich auch besser für skalierbare Projekte. Es eignet sich generell besser für die Verwaltung großer NAND-Speicher.
+	* Die "Garbage Collection" ist einfacher und schneller, was typischer Weise für eine Bessere Performance bei vielen Schreibzugriffen sorgt
+	* Als Fausregel lässt sich festhalten für NAND-Speicher > 64 MB eignet sich YAFFS besser als JFFS2
+
+Nachteile:
+
+	* Eignet sich kaum für NOR-Speicher
+	* NOR-Speicher ist meist zu klein um von den Vorzügen von YAFFS zu profitieren
+	* Benutzt eine komplette Page als Header für jede Datei und Unterstützt dabei keine Komprimierung. Das heißt auf kleinen Flash-Speichern, die mit gut komprimierbaren Dateien belegt werden sollen, sollte eher auf JFFS2 ausgewichen werden
+
+[YVSJ]_
 
 
 Was ist das CRAMFS?
 *******************
+
 CRAMFS (Compressed ROM Filesystem) ist ein freies unter der GPL stehendes Read-Only-Dateisystem mit integrierter Datenkompression
+
+Beim Compressed-ROM-File-System handelt es sich um ein einfaches, effizientes Filesystem mit integrierter Datenkompression, das hauptsächlich bei eingebetteten Systemen zum Einsatz kommt. Im Gegensatz zu komprimierten herkömmlichen Dateisystemen muss ein CramFS nicht erst entpackt werden. Die Dateien sind mit der "zlib" komprimiert, nur die Metainformationen liegen in unkomprimierter Form vor. Da ein schreibender Zugriff auf komprimierte Daten schwer realisierbar ist kann auf CramFS-Dateisysteme nur lesend zugegriffen werden.
+
+Einschränkungen:
+
+	* maximale Größe einer Datei 16 MB
+	* maximale Größe eines Datenträgers 256 MB
+
 
 Was bedeutet "XIP"?
 +++++++++++++++++++
 
 Execute in Place (XIP) ist eine Methode bei der man Programme, die auf Speicherkarten gespeichert sind, direkt starten und ausführen kann, ohne diese in den Arbeitsspeicher zu laden. Es ist eine Erweiterung von Shared Memory, bei dem der erforderliche Speicherplatz reduziert wird.
 
+eXecute-In-Place (XIP_) bedeutet das ein Programm direkt vom Festspeicher (ROM) aus ausgeführt und nicht erst in den Hauptspeicher (RAM) gleaden wird. Unter anderem wird dies bei Level 1 Bootloadern eingesetzt, diese werden auf einer speziellen Adresse des ROM abgelegt und von dort aus ausgeführt.
 
 .. 2 Punkte
 
@@ -264,34 +335,72 @@ Hauptspeicher
 
 .. 4 Punkte
 
-
 In welcher Speichertechnologie ist der Hauptspeicher des Embedded Linux Rechners realisiert?
 ********************************************************************************************
 
+Der Hauptspeicher eines Embedded Linux Rechners ist in SDRAM realisiert. Bei neueren oder Leistungsstärkeren Boards (Siehe Raspberry Pi oder BeagleBone Black) wird häufig DDR3L RAM eingesetzt.
 
 
 Minimale Grösse des Hauptspeichers, damit man aktuelle Distributionen ohne GUI verwenden kann?
 **********************************************************************************************
 
+Bereits mit 4 MB lässt sich eine sehr einfache Linuxdistribution auf einem Embedded System betreiben, allerdings lässt sich damit keines der üblichen Paket-Management-Systeme betreiben. Für diese sind mindestens 8 MB RAM nötig. Um das komplette Spektrum an üblichen Funktionen eines minimalen Embedded Systems abzudecken sind 16 MB RAM als mindestvorraussetzung empfohlen.
 
 
 Fragen zum Bootloader
 ---------------------
 
 
+Wie bootet ein Embedded Linux Rechner?
+++++++++++++++++++++++++++++++++++++++
+
+.. als Ergänzung zu den folgenden Fragen eingefügt
+
+.. figure:: img/bootloader.jpg
+  :align: center
+
+
+Der Prozessor springt zu einer spezifischen Adresse, an dieser erwartet er den bootloader zu finden. Deshalb benötigen unterschiedliche Prozessoren unterschiedliche Konfigurationen und Formatierungen beim Festspeicher (eMMC / SD). Der Prozessor beginnt nun den Code an der Stelle auszuführen.
+Nachdem der Bootloader geladen und konfiguriert wurde werden alle Treiber und Geräte initialisiert und die Dateisysteme gemountet. Der Kernel wird geladen und die Userspace Programme werden geladen.
+
+[ATES]_
+
+
 Wozu braucht man einen Bootloader?
 ++++++++++++++++++++++++++++++++++
 
 
+Initialisieren des Systems
+**************************
 
-Nennen Sie zwei gebräuchliche Bootloader.
-+++++++++++++++++++++++++++++++++++++++++
+Hierbei kann unter anderem auch eine UART-Schnittstelle als serielle Debug-Konsole gestartet werden (z.B. BeagleBone Black interaktion mit u-boot). Außerdem wird dabei der Memmory-Controller des Systems initialisiert so das sowohl auf den Haupt- als auch auf den Festspeicher entsprechend seiner Eigenschaften zugegriffen werden kann. Während der Initialisierung kann der Bootvorgang unterbrochen werden und man kann mit Hilfe der seriellen Konsole Boot-Befehle (engl. bootargs) absetzen.
 
+
+Laden des Kernels
+*****************
+
+Erst nach der Initialisierung des Memmory-Controllers ist es überhaupt möglich gezielt auf den Festspecher zuzugreifen und genau darin besteht auch die nächste Aufgabe des Bootloaders. Er muss den häufig System-spezifischen Kernel in den Hauptspeicher des Embedded-Linux Rechners laden. Hierbei werden auch die Informationen des Device-Tree-Blob (einer low-level zusammenfassung der zugrunde liegenden Hardware) verwendet um die nötigen Kernelmodule mit zu laden.
+
+[ATES]_
+
+
+Nennen Sie zwei gebräuchliche Bootloader
+++++++++++++++++++++++++++++++++++++++++
+
+* Das u-boot
+* RedBoot		(RedHat)
+* rrload 		(ARM)
+* FILO 
+* CRL/OHH 
+* PPCBOOT 
+* Alios
+* 
 
 
 Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Weil der first level bootloader nur eine begrenzte Menge an Bytes auf einmal laden kann, deshalb wird normalerweise der second level bootloader zwischengeschoben um den Kernel zu laden.
 
 
 Wozu dient die folgende U-Boot Kommandosequenz:
@@ -303,6 +412,8 @@ Wozu dient die folgende U-Boot Kommandosequenz:
     ip=192.168.1.2:192.168.1.1::255.255.255.0::eth0:none
     nfs 0x10400000 /srv/rootfs/boot/uImage
     bootm
+
+Bei dieser Kommandosequenz handelt es sich um eine netboot Anweisung, bei der das uImage von einem Net-File-System Server (nfs-server) geladen wird. In diesem speziellen Fall wird von der adresse in Zeile 1 (nfsroot=192.168.1.1:/srv/rootfs) über den Ethernetanschluss das uImage geladen. Dies bedeutet, das sich zum Zeitpunkt des Startes nur der Bootloader und die Konfigurationsdatei (z.B. uEnv.txt) auf dem Festspeicher des Systems befindet.
 
 
 Welche Möglichkeiten gibt es, die Bootzeiten zu reduzieren? [6 Punkte]
@@ -323,29 +434,40 @@ Auf der Tafel hatten wir ein Diagramm gezeichnet mit den wichtigsten Bereichen, 
         (siehe Tafel von 2014)
 
 
-
 Wieso ist es wünschenswert, dass ein Embedded Linux Board im Mainline Kernel unterstützt wird?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Durch den Mainline-Support eines Embedded Linux Boards ist die kontinuierliche Unterstützung in späteren Versionen des Mainline Kernels gewährleistet.
 
+
 Geben Sie die Kommandozeilen an, um einen Kernel mit einem Cross-Kompiler zu kompilieren
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
 Konfiguration erstellen
 ***********************
-export CCPREFIX=/path/to/your/compiler/binary/prefix-of-binary-
-make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> menuconfig
+
+.. code:: bash
+
+    export CCPREFIX=/path/to/your/compiler/binary/prefix-of-binary-
+    make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> menuconfig
 
 
 Kernel und Module bauen
 ************************
-make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX>
-make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> modules 
+
+.. code:: bash
+
+    make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX>
+    make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> modules 
+
 
 Installation
 ************
-sudo INSTALL_MOD_PATH=/media/rootfs make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
+
+.. code:: bash
+
+    sudo INSTALL_MOD_PATH=/media/rootfs make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
 
 
 Wieso kann es wichtig sein, dass man bei einem Embedded System den Kernel auf eine neuere Version updaten kann?
@@ -392,17 +514,20 @@ Fragen zur Echtzeit mit Embedded Linux
 
 Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Verwendung eines getrennten Echtzeit-Kernels der den Linux-Kernel kontrolliert, dies ist der so genannte DualKernel-Ansatz(z.B. RTAI).
 Bereitstellung von Patches, mit denen der Linux-Kernel selbst Echtzeit-Fähigkeit erhält(RealtimePreempt-Patch).
 
 
 Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 RealtimePreempt-Patch,  RTAI
 
 
-Welchen Vorteil hat der "Preempt-RT" Ansatz, auch wenn er nicht für harte Echtzeit geeignet ist.
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Welchen Vorteil hat der "Preempt-RT" Ansatz, auch wenn er nicht für harte Echtzeit geeignet ist
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 kein “co-kernel” notwendig; gleiches Programmiermodell wie bei normalem Kernel
 
 
@@ -465,8 +590,8 @@ Wozu dient das Programm systemtap?
 
 
 
-Linux "normal"/embedded
-=======================
+Unterschiede zwischen "Linux" und "Embedded-Linux"
+==================================================
 
 
 Markieren Sie von folgenden Begriffen diejenigen, die meist nur bei Embedded Linux relevant sind:
@@ -501,7 +626,7 @@ Markieren Sie von folgenden Begriffen diejenigen, die meist nur bei Embedded Lin
 +------------------------------------------------+-----+-----+
 | Kernel-Konfiguration                           |     |     |
 +------------------------------------------------+-----+-----+
-| Echtzeit                                       |     |     |
+| Echtzeit                                       |  x  |     |
 +------------------------------------------------+-----+-----+
 | JTAG Debugger                                  |  x  |     |
 +------------------------------------------------+-----+-----+
@@ -516,9 +641,6 @@ Markieren Sie von folgenden Begriffen diejenigen, die meist nur bei Embedded Lin
 | uClibc                                         |  x  |     |
 +------------------------------------------------+-----+-----+
 
-.. nochmals kontrollieren
-
-[TODO]_
 
 Kernel
 ------
@@ -539,8 +661,11 @@ Wo stehen die Namen der make targets?
 .. code:: bash 
 
     make ARCH=arm CROSS_COMPILE=... menuconfig <PATH_TO_COMPILER>
+    
     make ARCH=arm CROSS_COMPILE=... zImage
+    
     make ARCH=arm CROSS_COMPILE=... modules
+    
     make modules_install INSTALL_MOD_PATH=<your-module-path>
 
 
@@ -568,6 +693,17 @@ Was ist ein uImage und wie erzeugt man es?
 Wie kann man das Embedded Linux Board booten, obwohl nur das U-Boot im Flash Speicher vorhanden ist? Das Board verfügt über eine Netzwerkschnittstelle.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+U-Boot ermöglicht es ein RootFS über das Netz zu booten, Hierfür benötigt man lediglich einen ftp-server, der nfs Unterstützung bietet.
+
+.. code:: bash
+
+	# from file env.txt
+
+	tftpboot <file> [<load_addr>]
+	...
+	netboot=tftp ${image}; run addip;bootm
+
+
 
 
 Tools
@@ -579,12 +715,48 @@ Cross-Kompilierung für ARM mit configure, make und make install
 
 .. Sie haben die Sourcen eines Programmes, das man wie üblich mit configure, make, make install installieren kann. Sie möchten das Programm nun auf dem PC crosskompilieren für ARM. Was müssen Sie beim Konfigurieren angeben?
 
+.. code:: bash
 
+	tar xvfj linux-$ver.tar.bz2
+	cd linux-$ver
+	mkdir -p $DESTDIR/usr/include/asm
+	make ARCH=arm INSTALL_HDR_PATH=$DESTDIR/usr headers_install
+	tar xvfj glibc-$ver.tar.bz2
+	cd glibc-$ver
+	mkdir objdir; cd objdir
+	CC=gcc ../configure --host=arm-linux-gnu --prefix=/usr --with-header=$DESTDIR/usr/include
+	make -k cross-compiling=yes DESTDIR=$DESTDIR install-headers
+	touch $DESTDIR/usr/include/gnu/stubs.h
+	 
+	tar xvfj binutils-$ver.tar.bz2
+	cd binutils-$ver
+	./configure --target=arm-linux-gnu --prefix=$TOOLSDIR
+	make; make install
+	tar xvfj gcc-$ver.tar.bz2
+	cd gcc-$ver
+	mkdir objdir; cd objdir
+	../configure --target=arm-linux-gnu --disable-cpp --disable-shared --disable-multilib
+	   --enable-languages="c" --prefix=$TOOLSDIR
+	   --with-headers=$DESTDIR/usr/include
+	make all; make install
+	
+	cd glibc-$ver/objdir
+	../configure --host=arm-linux-gnu --prefix=/usr --with-header=$DESTDIR/usr/include
+	make
+	make DESTDIR=$DESTDIR install
 
+[LMCC]_
+
+[TODO]_
+
+.. bisher nichts brauchbares gefunden
 
 Wie kann man sich den Hexdump einer Binärdatei ausgeben?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+[TODO]_ 
+
+.. hexdump editor finden
 
 Root Filesystem
 ---------------
@@ -592,12 +764,21 @@ Root Filesystem
 Welche Komponenten brauchen Sie für ein minimales RootFS, das in vier Megabyte Flash-Speicher passt?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+* Bootloader
+* Kernel
+* uClibc
+* busybox
 
 
 Welche Baukästen für Root Filesysteme kennen Sie, die auch für Embedded Boards geeignet sind?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+* Buildroot
+* Yocto Project
+* Linux from Scratch (LFS)
+* OpenEmbedded
+* Embedded-Linux-Development-Kit (ELDK)
+* Gentoo Embedded
 
 
 
@@ -608,29 +789,6 @@ Leseliste für die Klausur
 
 A Typical Embedded System
 =========================
-
-Wie bootet ein Embedded Linux Rechner?
---------------------------------------
-
-.. figure:: img/bootloader.jpg
-  :align: center
-
-
-Der Prozessor springt zu einer spezifischen Adresse, an dieser erwartet er den bootloader zu finden. Deshalb benötigen unterschiedliche Prozessoren unterschiedliche Konfigurationen und Formatierungen beim Festspeicher (eMMC / SD). Der Prozessor beginnt nun den Code an der Stelle auszuführen.
-Nachdem der Bootloader geladen und konfiguriert wurde werden alle Treiber und Geräte initialisiert und die Dateisysteme gemountet. Der Kernel wird geladen und die Userspace Programme werden geladen.
-
-[ATES]_
-
-
-Welche Aufgaben hat der Bootloader?
------------------------------------
-
-Initialisieren des Systems
-
-Laden des Kernels
-
-
-[ATES]_
 
 
 Welche besonderen Filesysteme gibt es für Embedded Linux?
@@ -709,19 +867,6 @@ Fazit: Was ist der Unterschied zwischen Embedded Linux und “gewöhnlichem” L
 Tips for planning an embedded Linux project
 ===========================================
 
-[TPEL]_
-
-Welche Anforderungen sprechen für Linux? (5 Stück)
---------------------------------------------------
-
-[TPEL]_
-
-
-Wie “bezahlt” man die Vorteile von Linux?
------------------------------------------
-
-[TPEL]_
-
 
 Aus welchen Einzelteilen besteht Embedded Linux? (6 Stück)
 ----------------------------------------------------------
@@ -769,35 +914,11 @@ Welche grundsätzlichen Bausteintypen gibt es?
 [STFS]_
 
 
-Was verstehen Sie unter dem Kürzel “MTD”?
------------------------------------------
-
-[STFS]_
-
-
-Was ist CRAMFS?
----------------
-
-[STFS]_
-
 
 Was ist SQUASHFS?
 -----------------
 
 [STFS]_
-
-
-Was ist JFFS2?
---------------
-
-[STFS]_
-
-
-Was ist YAFFS?
---------------
-
-[STFS]_
-
 
 
 Anatomy of Flash Filesystems
@@ -1149,24 +1270,6 @@ Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
 [TBP]_
 
 
-Warum Linux? (6 Gründe)
------------------------
-
-
-Was bedeutet “GPL”?
--------------------
-
-
-Was ist “Open Source”?
-----------------------
-
-
-Was verstehen Sie unter “Linux Standard Base”?
-----------------------------------------------
-
-[TBP]_
-
-
 Was zeichnet Embedded Systems aus?
 ----------------------------------
 
@@ -1280,6 +1383,8 @@ Wie sieht die Schichtung der Software eines Embedded Linux Systems in etwa aus?
 +---------------------+---------------+-----------------------------------------------------------------+
 | Komponente          | Beispiel      | Aufgabe                                                         |
 +=====================+===============+=================================================================+
+| CPU                 |               | springt an eine spezifische Stelle im Festspeicher und lädt     |
++---------------------+---------------+-----------------------------------------------------------------+
 | bootloader          | u-boot        | lädt das u-image                                                |
 +---------------------+---------------+-----------------------------------------------------------------+
 | u-image             | uImage        | lädt den Device-Tree-Blob & das Betriebssystem                  |
@@ -1450,6 +1555,14 @@ Literatur und sonstige Quellen
     http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/boot/hallinan_embedded_linux_primer_chap_7_bootloaders.pdf
 
 
+.. [EMLP] Embedded Linux Primer: A Practical, Real-World Approach, Christoper Hallinan, Prentice Hall, 2010
+
+	Chapter 1: Introduction
+	Chapter 7: Bootloaders
+
+	http://proquest.tech.safaribooksonline.de/book/operating-systems-and-server-administration/embedded-linux/9780137061129
+
+
 .. [EMDB] Anselm Busse, Jan Richling, Embedded Debugging. Linux Magazin, 9/2013.
 
     http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/debug/lm-9-2013-debug/
@@ -1477,6 +1590,11 @@ Literatur und sonstige Quellen
 .. [LKMS] Boguslaw Sylla, Patrick Schorn, Linux Kernel Module.
 
     http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/kernel/linuxkernel.pdf
+
+
+.. [LMCC] Linux Magazin, 4/2008 - GNU-Tools mal kreuzweise
+
+	http://www.linux-magazin.de/Ausgaben/2008/04/GNU-Tools-mal-kreuzweise
 
 
 .. [LTRT] Linuxtronix, Echtzeit - prinzipielle Ansätze
@@ -1529,6 +1647,14 @@ Literatur und sonstige Quellen
 .. _screen: http://www.gnu.org/software/screen
 
 ..  _tmux: http://sourceforge.net/projects/tmux
+
+.. _LSB: https://de.wikipedia.org/wiki/Linux_Standard_Base
+
+.. _XIP: https://en.wikipedia.org/wiki/Execute_in_place
+
+.. [YVSJ] Comparision between YAFFS2 and JFFS2, Charles F Johnson, 2007
+
+	http://www.yaffs.net/comparison-yaffs-vs-jffs
 
 .. [TODO] Still things to do 
     Kommentare beachten
