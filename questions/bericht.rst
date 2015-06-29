@@ -14,6 +14,13 @@ The Big Picture
 Warum Linux?
 ++++++++++++
 
+* Linux unterstützt eine enorme Vielfalt an Hardwaregeräten
+* Linux unterstütut eine riesige Zahl von Anwendungen und Netzwerk-Protokollen
+* Linux ist skalierbar, vom kleinen verbraucherorientierten  Geräten, bis hin zu Hochgeschwindigkeits-Routern
+* Linux kann ohne die von herkömmlichen, proprietären Embedded-Betriebssystemen erforderlichen, Lizenzgebühren eingesetzt werden
+* Linux hat eine große Anzahl von aktiven Entwicklern angezogen, wodurch eine schnelle Unterstützung neuer Hardware-Architekturen, Plattformen und Geräte gewährleistet wird
+* Eine zunehmende Anzahl von Hardware- und Softwareherstellern, darunter nahezu alle Top-Tier-Hersteller und ISVs, unterstützen jetzt Linux
+
 [TBP]_
 
 .. 6 Punkte
@@ -54,6 +61,11 @@ Tipps for planning an embedded Linux project
 Welche Anforderungen sprechen für Linux?
 ++++++++++++++++++++++++++++++++++++++++
 
+* Erfordern ein hohes Maß an Leistung
+* Erfordern komplexe, auf Standards basierende Anwendungen
+* Nutzung der Standardschnittstellen
+* System ist update- oder erweiterbar
+* System muss skalierbar sein
 .. (5 Stück)
 
 [TPEL]_
@@ -68,6 +80,13 @@ Wie "bezahlt" man die Vorteile von Linux?
 Aus welchen Einzelteilen besteht Embedded Linux?
 ++++++++++++++++++++++++++++++++++++++++++++++++
 
+* Bootloader - für die Initialisierung der Hardware, das Laden der Linux-Kernel, und System-Updates
+* Linux Kernel - ermöglicht den Zugriff auf Hardware und Standardservices des Betriebssystems
+* Root-Dateisystem - Grunddateisystem und Anwendungen die gebraucht werden, damit Linux läuft. Kann auch grafische Toolkits usw. enthalten
+* Anwendungen - der Teil des Systems, den der Benutzer sieht und der meist für jedes Gerät angepasst ist
+* Tools - Compiler und andere Tools, die erforderlich sind um das System zu Erstellen und Debuggen
+* Wartung - wie wird das Projekt in zukunft Aktualisiert
+
 .. 6 Punkte
 
 [TPEL]_
@@ -76,32 +95,44 @@ Aus welchen Einzelteilen besteht Embedded Linux?
 Welche Fähigkeiten braucht man, um einen Rechner mit Embedded Linux auszustatten und zu programmieren?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Die wichtigste Fähigkeit die man besitzen muss um ein Embedded Linux System zu entwerfen ist es, den Code eines anderen zu verwenden, integrieren und zu debuggen. Weitere nützliche Fähigkeiten sind ein gutes Verständnis von Hardware, Computerarchitektur und Betriebssystemen. Erfahrung und Wissen, mit komplexen modernen eingebetteten Linux-Systemen fertig zu werden ist der Schlüssel zum Erfolg. Außerdem ist es wichtig, in der Lage zu sein den richtigen Personen Fragen zu stellen. Meist kann man diese Personen über Mailinglisten erreichen.
 [TPEL]_
 
 
 Welche Kosten sind zu erwarten?
 +++++++++++++++++++++++++++++++
+Obwohl Linux und unterstützende Technologien kostenlos in Geräten genutzt werden können, müssen die Kosten für die Implementierung und Wartung einer Lösung berücksichtigt werden. Es gibt viele Wege, um ein System zu implementieren. Wie bei den meisten Projekten, kann man Regalfertige Lösungen kaufen um die Vorlaufkosten zu senken. Mit höheren Volumina(mehr Inhalten????)ist es aber oft sinnvoll, eine kundenspezifische Lösung zu implementieren. Die kosten liegen bei der Zeit die ein Entwickler investieren muss um eine Aufgabe zu erfüllen.
 
 [TPEL]_
 
 
 Welche Risiken gibt es?
 +++++++++++++++++++++++
-
+* Unterschätzen der Komplexität
+* Start des Projekts mit dem falschen Zeug(???start the project with the wrong stuff)
+* ein Treiber ist für die verwendete Hardware nicht verfügbar
+* Das Board Support Package (BSP), das für den verwendeten Prozessor zur Verfügung gestellt wird, ist von geringer Qualität oder nicht gut in die Mainstreamquellen integriert
+* Es gibt Probleme die schwer zu debuggen sind
 
 [TPEL]_
 
 
 Was umfasst der Lebenszyklus des Produktes?
 +++++++++++++++++++++++++++++++++++++++++++
-
+* Dauer, wie lange das Produkt verkauft wird
+* Zukünftige Erweiterungen der Funktionalität des Produkt
+* bug fixing und security support
+* Kundenwünsche um dem Produkt eigens Erweiterungen hinzuzufügen oder anpassen wie dieses Produkt verwendet wird
 
 [TPEL]_
 
 
 Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+* Man muss die Quelle zum Linux-Kernel und anderen Anwendungen die unter der GPL lizenziert sind und verwendet werde n, bereitstellen
+* Normalerweise gibt es nichts proprietäres, bei Änderungen, an GPL lizenziertem Code in einem Linux-System.
+* Man kan die Anwendungen proprietär halten. Dadurch wird das Produkt von anderen unterscheiden
+* Man muss sicherstellen, dass der Sourcecode für alle im Produkt verwendeten Open Source Komponenten vorhanden ist
 
 [TPEL]_
 
@@ -154,12 +185,17 @@ Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?
 Welche Programme installieren Sie darauf?
 +++++++++++++++++++++++++++++++++++++++++
 
+minicom, rsync, git, svn, mercurial, gcc, gdb, vim, emacs, screen, mkfs.ext2/3/4, fsck.ext2/3/4 (e2fsprogs), Python, pyexpect, pyserial, TFTP server, NFS server
+
 .. 4 Punkte
 
 
 
 Nennen Sie zwei Terminalprogramme und geben Sie die üblichen Aufrufparameter an.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+minicom
+picocom
 
 .. 4 Punkte
 
@@ -168,7 +204,8 @@ Was ist ein Terminal Multiplexer und warum ist er auf dem Targetrechner (und auf
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. 4 Punkte
-
+Ein Terminal-Multiplexer ist eine Softwareanwendung die verwendet werden kann, um mehrere virtuelle Konsolen zu multiplexen. Damit ist der Benutzer in der Lage auf mehrere getrennte Terminalsitzungen in einem einzigen Terminal-Fenster oder einer Remote-Terminal-Sitzung zuzugreifen.
+Es kann auch auf dem Targetrechner sehr nützlich sein, da man mit einem Terminalprogramm meist nur ein Konsolenfenster zur Verfügung hat.
 
 
 Fragen zur Speichertechnik
@@ -195,9 +232,13 @@ Welche Filesysteme verwendet man meist bei MicoSD Karten?
 Wann verwendet man das "MTD" Subsystem?
 ***************************************
 
+Zum Einsatz kommt MTD primär für Flash-Speicher
+
 
 Was ist JFFS2 und wozu braucht man es?
 **************************************
+
+
 
 
 Welche Vorteile hat das YAFFS im Vergleich zu JFFS2?
@@ -207,10 +248,13 @@ Welche Vorteile hat das YAFFS im Vergleich zu JFFS2?
 
 Was ist das CRAMFS?
 *******************
-
+CRAMFS (Compressed ROM Filesystem) ist ein freies unter der GPL stehendes Read-Only-Dateisystem mit integrierter Datenkompression
 
 Was bedeutet "XIP"?
 +++++++++++++++++++
+
+Execute in Place (XIP) ist eine Methode bei der man Programme, die auf Speicherkarten gespeichert sind, direkt starten und ausführen kann, ohne diese in den Arbeitsspeicher zu laden. Es ist eine Erweiterung von Shared Memory, bei dem der erforderliche Speicherplatz reduziert wird.
+
 
 .. 2 Punkte
 
@@ -283,25 +327,25 @@ Auf der Tafel hatten wir ein Diagramm gezeichnet mit den wichtigsten Bereichen, 
 Wieso ist es wünschenswert, dass ein Embedded Linux Board im Mainline Kernel unterstützt wird?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+Durch den Mainline-Support eines Embedded Linux Boards ist die kontinuierliche Unterstützung in späteren Versionen des Mainline Kernels gewährleistet.
 
 Geben Sie die Kommandozeilen an, um einen Kernel mit einem Cross-Kompiler zu kompilieren
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
 Konfiguration erstellen
 ***********************
-
+export CCPREFIX=/path/to/your/compiler/binary/prefix-of-binary-
+make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> menuconfig
 
 
 Kernel und Module bauen
 ************************
-
-
+make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX>
+make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> modules 
 
 Installation
 ************
-
+sudo INSTALL_MOD_PATH=/media/rootfs make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
 
 
 Wieso kann es wichtig sein, dass man bei einem Embedded System den Kernel auf eine neuere Version updaten kann?
@@ -311,7 +355,7 @@ Wieso kann es wichtig sein, dass man bei einem Embedded System den Kernel auf ei
 
 Gibt es im Kernel Quelltext auch eine Dokumentation?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+Ja, 
 
 
 Ansteuerung von Peripherie
@@ -322,6 +366,12 @@ Ansteuerung von Peripherie
 
 Nennen Sie fünf verschiedene Arten, wie Sie Hardware-Erweiterungen an Ihr Embedded Linux Board elektrisch anschliessen könnten.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+* USB
+* GPIO
+* UART
+* SPI
+* I2C
 
 .. 5 Punkte
 
@@ -342,17 +392,18 @@ Fragen zur Echtzeit mit Embedded Linux
 
 Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+Verwendung eines getrennten Echtzeit-Kernels der den Linux-Kernel kontrolliert, dies ist der so genannte DualKernel-Ansatz(z.B. RTAI).
+Bereitstellung von Patches, mit denen der Linux-Kernel selbst Echtzeit-Fähigkeit erhält(RealtimePreempt-Patch).
 
 
 Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+RealtimePreempt-Patch,  RTAI
 
 
 Welchen Vorteil hat der "Preempt-RT" Ansatz, auch wenn er nicht für harte Echtzeit geeignet ist.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+kein “co-kernel” notwendig; gleiches Programmiermodell wie bei normalem Kernel
 
 
 
@@ -585,6 +636,12 @@ Laden des Kernels
 Welche besonderen Filesysteme gibt es für Embedded Linux?
 ---------------------------------------------------------
 
+- initramfs: Filesystem das in das Kernel Image eingebettet ist und während der Laufzeit im RAM liegt.
+             Alle Änderungen gehen beim Neustart verloren.
+- cramfs/squashfs: Beides gepackte read-only Filesystems. Beide Systeme erlauben es, dass ein gepacktes Image
+                   zur Laufzeit erstellt und dann auch geladen werden kann. Die Dateisysteme können
+                   ausgetauscht werden ohne den Kernel zu berühren
+- jffs2/ubifs:
 
 [ATES]_
 
@@ -592,6 +649,7 @@ Welche besonderen Filesysteme gibt es für Embedded Linux?
 Welche Unterschiede gibt es beim Kernel im Vergleich zum PC?
 ------------------------------------------------------------
 
+Man weiss meist schon vorher welche Hardware verwendet wird, somit können alle Treiber als Teil des Kernels enthalten sein und müssen nicht als Module geladen werden.
 
 [ATES]_
 
@@ -599,6 +657,7 @@ Welche Unterschiede gibt es beim Kernel im Vergleich zum PC?
 Welche Bedeutung hat die C Bibliothek?
 --------------------------------------
 
+Die C-Bibliothek ist die Schlüsselkomponente in jedem Linux-System. Sie stellt die Userspace-Anwendungen mit einer vordefinierten Schnittstelle zur Verfügung, sodass sie zwischen verschiedenen Versionen des Linux-Kernels und auch verschiedenen UNIX dialekten portabel ist.
 
 [ATES]_
 
@@ -606,12 +665,14 @@ Welche Bedeutung hat die C Bibliothek?
 Was ist die “Busybox”?
 ----------------------
 
+Die meisten Standard-Applikationen wie ls, cd, mkdir, ping... teilen eine Menge an Code. Wenn jedes Programm seperat compiliert würde, würden sich Dinge wie Befehlszeilenargumente in jeder Applikation wiederholen. BusyBox löst diese probleme indem es ein einzelnes Programm zur Verfügung stellt, busybox, welche alle Aufgaben der Standard Applikationen verarbeitet, indem Softlinks für alle individuellen Kommandos erzeugt werden und auf die Busybox gerichtet werden.
 
 [ATES]_
 
 
 Wie funktioniert Cross-Kompilierung?
 ------------------------------------
+
 
 
 [ATES]_
@@ -811,6 +872,7 @@ Linux Kernel Module
 Kann man in einem Kernelmodul auf die C Bibliothek zugreifen?
 -------------------------------------------------------------
 
+Bei der Kernel-Modul-Entwicklung nutzt man nur speziell dafür vorgesehene Header, die Standard-Library gehört nicht dazu.
 
 [LKMS]_
 
@@ -825,6 +887,9 @@ Beschreiben Sie, wie man ein einfaches Kernelmodul nativ als auch cross-kompilie
 Wie lädt man ein Kernelmodul in den Kernel?
 -------------------------------------------
 
+- Mit *insmod* werden Kernelmodule eingehängt. Wenn jedoch nichtaufgelöste Symbole referenziert werden bricht *insmod* ab
+- Mit *modprobe* werden ebenfalls Kernelmodule eingehängt, dabei werden nach Modulen mit den fehlenden Symbolen im Standard-Verzeichnis für installierte Kernel-Module sucht und diese, falls gefunden dann auch einhängt
+- Mit *rmmod* kann ein Kernel-Modul, falls es gerade nicht vom Kernel benötigt wird ausgehängt werden.
 
 [LKMS]_
 
@@ -832,6 +897,7 @@ Wie lädt man ein Kernelmodul in den Kernel?
 Was sind Gerätenummern?
 -----------------------
 
+Wenn man im Verzeichnis */dev* ls -l eingibt, werden alle Gerätedateien aufgelistet. Dabei sind die zwei mit einem Komma getrennten Zahlen, welche normalerweise an der Stelle stehen, an der die Größe der Datei steht, die Gerätenummern. Die erste Zahl, ist die Major-Nummer und gibt an welcher Treiber zu diesem Gerät gehört. Die zweite Zahl, ist die Minor-Nummer und wird nur vom durch die Major-Nummer angegebenen Gerätetreiber benutzt. Die Minor-Nummer wird vom Treiber verwendet um Geräte zu unterscheiden.
 
 [LKMS]_
 
@@ -839,12 +905,15 @@ Was sind Gerätenummern?
 Wie legt man Gerätedateien an?
 ------------------------------
 
+Mit dem skript *MAKEDEV* können ganz einfach Gerätedateien erzeugt werden.
 
 [LKMS]_
 
 
 Was sind zeichenorientierte Treiber (character driver)?
 -------------------------------------------------------
+
+Character driver sind Kernel-Module, die mit angeschlossenen Zeichenorientierten Geräten kommunizieren können.
 
 [LKMS]_
 
@@ -856,11 +925,24 @@ Standard UNIX wird echtzeitfähig
 Nennen Sie Anwendungsgebiete, die es notwendig machen, dem Linux Kern Echtzeit-Fähigkeit zu geben.
 --------------------------------------------------------------------------------------------------
 
+- Aufnahme und Wiedergabe von Audiosignalen
+- Embedded-Systeme in der Maschinenindustrie und in militärischen Projekten
+- zeitkritische Anwendungen bei Business-Software, z.B. zuverlässige Zeitstempel bei Datenbank Transaktionen
+- Voice-over-IP und Streaming-Video für den Einsatz bei Telekommunikations-Providern
+
 [SURT]_
 
 
 Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.
 -------------------------------------------------------------------------
+
+- Interrupt-Threading:
+- High-Resolution Timers:
+  Der hrtimer entkoppelt zeitgesteuerte Interaktionen vom periodischen Timer-Interrupt, welcher bei Linux normalerweise alle 4 bzw alle 10 Millisekunden auftritt. Da ein Standardkernel Interrupts nur zu bestimmten Zeitpunkten auslöst, kommt es immer dann zu unerwünschten Latenzzeit-Verlängerungen, wenn der Interrupt nicht zufällig mit dem gewünschten Aufweckzeitpunkt zusammenfällt. Der hrtimer löst dieses Problem. Legt sich ein Prozess für eine definierte Zeitdauer schlafen, sorgt der Timer dafür, dass ihn das System asynchron genau zum gewünschten Zeitpunkt weckt.
+- Priority Inheritance/Realtime-Mutexe:
+  Bei Prioritätsumkehr, erbt ein höher priorisierter Prozess, eine nur einem Prozess zur Verfügung stehende System-Resource, welche von einem niedrip priorisierten Prozess verwendet wird, anstatt die Priorität auf die des niedrig priorisierten Prozesses zu setzen. Durch Realtime-Mutexe wird die Priority Inheritance(Prioritätsvererbung) gewährleistet
+- Vollständige Kernel-Unterbrechbarkeit:
+
 
 [SURT]_
 
@@ -868,11 +950,24 @@ Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.
 Welche Funktion hat die Organisation OSADL?
 -------------------------------------------
 
+Die Entwicklung von Open-Source-Software für den Maschinen- und Anlagenbau und für die Automatisierungsindustrie zu fördern und zu koordinieren.
+
+
 [SURT]_
 
 
 Wie kann man das Scheduling von Prozessen im Anwendungsprogramm setzen?
 -----------------------------------------------------------------------
+
+   Mit der Funktion,
+
+   .. code:: bash
+
+             #include <sched.h>
+             sched_setScheduler(pid_t pid, int policy,
+             const struct sched_param \*p);
+
+   kann die Priorität eines Prozesses eingestellt werden.
 
 
 [SURT]_
