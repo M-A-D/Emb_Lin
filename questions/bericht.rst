@@ -3,18 +3,21 @@
 Klausurvorbereitung Fragen
 ==========================
 
-The Big Picture
----------------
 
-.. Aus Kapitel 1 
-
-[TBP]_
-
+Embedded Linux Primer - A Practical, Real-World Approach
+--------------------------------------------------------
 
 Warum Linux?
 ++++++++++++
 
-[TBP]_
+* Linux hat sich zu einer ausgereiften, hoch performanten und stabilen alternative zu üblichen proprietären Embedded-Betriebssystemen entwickelt
+* Linux unterstützt eine große Bandbreite an Anwendungen und Netzwerkprotokollen
+* Linux ist gut skalierbar, angefangen bei kleinen Konsumentenorientierten Geräten, bis hin zu großen Switches und Routern
+* Linux kann ohne die nötigen lizensierungs Gebühren die für proprietäre Embedded-Betriebssystemen nötig sind eingesetzt werden
+* Linux hat eine große Anzahl an Entwicklern angezogen, dies ermöglicht eine schnelle Unterstützung neuer Hardware-Architekturen, Plattformen und Geräten
+* Eine steigende Anzahl an Hardware- und Software Herstellern, nahezu alle Marktführern und Unabhängige Softwarehersteller eingeschlossen unterstützen Linux
+
+[EMLP]_
 
 .. 6 Punkte
 
@@ -22,7 +25,20 @@ Warum Linux?
 Was bedeutet die "GPL"?
 +++++++++++++++++++++++
 
-[TBP]_
+GPL - GNU Public License ist eine form der Softwarelizensierung und einer der Grundpfeiler der Open-Source Bewegung. Bei Freier Software bezieht sich das "frei" die Freiheiten und nicht auf den Preis. Die Grundpfeiler der GPL sind hierbei das sogenannte Copyleft-Prinzip und die vier Freiheiten der GPL. 
+
+Das Copyleft-Prinzip besagt, dass Software, die auf unter der GNU General Public License (GPL_) veröffentlichten Software basiert nur mit den gleichen Freiheiten veröffentlicht werden darf. Dies stellt sicher, das freie Software für alle zugänglich und frei bleibt.
+
+Niemand sollte von der Software, die er verwendet eingeschränkt werden. Es gibt vier Freiheiten, die jeder Benutzer haben sollte.
+
+    * die Freiheit die Software für jeden Zweck zu verwenden
+    * die Freiheit die Software an die eigenen Bedürfnisse anzupassen
+    * die Freiheit die Software mit Freunden und Nachbarn zu teilen
+    * die Freiheit die eigenen Änderungen zu teilen
+
+Erfüllt ein Programm diese Kriterien kann es als freie Software bezeichnet werden.
+
+[EMLP]_
 
 .. 4 Punkte
 
@@ -30,7 +46,9 @@ Was bedeutet die "GPL"?
 Was ist "Open Source"?
 ++++++++++++++++++++++
 
-[TBP]_
+Open-Source oder Quelloffene Software bezeichnet Software, die die Definitionen der Open Source Initiative (OSI) erfüllt. Das bedeutet, das die Software einer der Open-Source-Lizenzen unterliegen muss. Außerdem muss der Sourcecode für jeden Benutzer frei zugänglich ist. Im groben Ähneln sich die Ansätze der OSS und FSF, allerdings legt die OSS mehr Wert auf die praktischen Vorteile, wie zum Beispiel eine höhere Entwicklungsgeschwindigkeit durch Open-Source. Die FSF hingegen legt mehr Wert auf den sozialen, politischen und ethnischen Wert Freier Software ("Kontrolle des Nutzers über die Software und nicht umgekehrt").
+
+[EMLP]_
 
 .. 2 Punkte
 
@@ -38,7 +56,9 @@ Was ist "Open Source"?
 Was verstehen Sie unter "Linux Standard Base"?
 ++++++++++++++++++++++++++++++++++++++++++++++
 
-[TBP]_
+Linux Standard Base (kurz LSB_) ist einer der relevantesten Linux Standards. Er spezifiziert allgemeine Attribute einer Linuxdistribution, wie die Verzeichnisstruktur, Binärschnittstellen, Programmbibliotheken und andere Betriebssystem Bestandteile mit dem Ziel die Kompatiblität zwischen unterschiedlichen Linux Distributionen im Hinblick auf Lauffähigkeit von Programmen zu verbessern. An vielen Stellen sind diese Standards aber noch nicht ausreichend und es halten sich bei weitem nicht alle Distributionen an diese Standards.
+
+[ELMP]_
 
 .. 2 Punkte
 
@@ -54,9 +74,15 @@ Tipps for planning an embedded Linux project
 Welche Anforderungen sprechen für Linux?
 ++++++++++++++++++++++++++++++++++++++++
 
-.. (5 Stück)
+* Hohe Performance Anforderungen (z.B. Datenraten im Netzwerk)
+* Erfordert komplexe, standartisierte Anwendungen (z.B. GUI, Webserver, etc. )
+* Verwendung standartisierter, aber complexer Interfaces (z.B. USB, Ethernet, erweiterte Speicherverwaltung, etc. )
+* Das System soll erweiterbar sein
+* Das System soll skalierbar sein 
 
 [TPEL]_
+
+.. (5 Stück)
 
 
 Wie "bezahlt" man die Vorteile von Linux?
@@ -517,6 +543,9 @@ Was ist ein uImage und wie erzeugt man es?
 Wie kann man das Embedded Linux Board booten, obwohl nur das U-Boot im Flash Speicher vorhanden ist? Das Board verfügt über eine Netzwerkschnittstelle.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+U-Boot ermöglicht es ein RootFS über das Netz zu booten, Hierfür benötigt man lediglich einen ftp-server, der nfs Unterstützung bietet.
+
+
 
 
 Tools
@@ -528,12 +557,48 @@ Cross-Kompilierung für ARM mit configure, make und make install
 
 .. Sie haben die Sourcen eines Programmes, das man wie üblich mit configure, make, make install installieren kann. Sie möchten das Programm nun auf dem PC crosskompilieren für ARM. Was müssen Sie beim Konfigurieren angeben?
 
+.. code:: bash
 
+	tar xvfj linux-$ver.tar.bz2
+	cd linux-$ver
+	mkdir -p $DESTDIR/usr/include/asm
+	make ARCH=arm INSTALL_HDR_PATH=$DESTDIR/usr headers_install
+	tar xvfj glibc-$ver.tar.bz2
+	cd glibc-$ver
+	mkdir objdir; cd objdir
+	CC=gcc ../configure --host=arm-linux-gnu --prefix=/usr --with-header=$DESTDIR/usr/include
+	make -k cross-compiling=yes DESTDIR=$DESTDIR install-headers
+	touch $DESTDIR/usr/include/gnu/stubs.h
+	 
+	tar xvfj binutils-$ver.tar.bz2
+	cd binutils-$ver
+	./configure --target=arm-linux-gnu --prefix=$TOOLSDIR
+	make; make install
+	tar xvfj gcc-$ver.tar.bz2
+	cd gcc-$ver
+	mkdir objdir; cd objdir
+	../configure --target=arm-linux-gnu --disable-cpp --disable-shared --disable-multilib
+	   --enable-languages="c" --prefix=$TOOLSDIR
+	   --with-headers=$DESTDIR/usr/include
+	make all; make install
+	
+	cd glibc-$ver/objdir
+	../configure --host=arm-linux-gnu --prefix=/usr --with-header=$DESTDIR/usr/include
+	make
+	make DESTDIR=$DESTDIR install
 
+[LMCC]_
+
+[TODO]_
+
+.. bisher nichts brauchbares gefunden
 
 Wie kann man sich den Hexdump einer Binärdatei ausgeben?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+[TODO]_ 
+
+.. hexdump editor finden
 
 Root Filesystem
 ---------------
@@ -541,12 +606,21 @@ Root Filesystem
 Welche Komponenten brauchen Sie für ein minimales RootFS, das in vier Megabyte Flash-Speicher passt?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+* Bootloader
+* Kernel
+* uClibc
+* busybox
 
 
 Welche Baukästen für Root Filesysteme kennen Sie, die auch für Embedded Boards geeignet sind?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+* Buildroot
+* Yocto Project
+* Linux from Scratch (LFS)
+* OpenEmbedded
+* Embedded-Linux-Development-Kit (ELDK)
+* Gentoo Embedded
 
 
 
@@ -1054,24 +1128,6 @@ Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
 [TBP]_
 
 
-Warum Linux? (6 Gründe)
------------------------
-
-
-Was bedeutet “GPL”?
--------------------
-
-
-Was ist “Open Source”?
-----------------------
-
-
-Was verstehen Sie unter “Linux Standard Base”?
-----------------------------------------------
-
-[TBP]_
-
-
 Was zeichnet Embedded Systems aus?
 ----------------------------------
 
@@ -1185,6 +1241,8 @@ Wie sieht die Schichtung der Software eines Embedded Linux Systems in etwa aus?
 +---------------------+---------------+-----------------------------------------------------------------+
 | Komponente          | Beispiel      | Aufgabe                                                         |
 +=====================+===============+=================================================================+
+| CPU                 |               | springt an eine spezifische Stelle im Festspeicher und lädt     |
++---------------------+---------------+-----------------------------------------------------------------+
 | bootloader          | u-boot        | lädt das u-image                                                |
 +---------------------+---------------+-----------------------------------------------------------------+
 | u-image             | uImage        | lädt den Device-Tree-Blob & das Betriebssystem                  |
@@ -1355,6 +1413,14 @@ Literatur und sonstige Quellen
     http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/boot/hallinan_embedded_linux_primer_chap_7_bootloaders.pdf
 
 
+.. [EMLP] Embedded Linux Primer: A Practical, Real-World Approach, Christoper Hallinan, Prentice Hall, 2010
+
+	Chapter 1: Introduction
+	Chapter 7: Bootloaders
+
+	http://proquest.tech.safaribooksonline.de/book/operating-systems-and-server-administration/embedded-linux/9780137061129
+
+
 .. [EMDB] Anselm Busse, Jan Richling, Embedded Debugging. Linux Magazin, 9/2013.
 
     http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/debug/lm-9-2013-debug/
@@ -1382,6 +1448,11 @@ Literatur und sonstige Quellen
 .. [LKMS] Boguslaw Sylla, Patrick Schorn, Linux Kernel Module.
 
     http://elk.informatik.fh-augsburg.de/pub/rtlabor/elinux/kernel/linuxkernel.pdf
+
+
+.. [LMCC] Linux Magazin, 4/2008 - GNU-Tools mal kreuzweise
+
+	http://www.linux-magazin.de/Ausgaben/2008/04/GNU-Tools-mal-kreuzweise
 
 
 .. [LTRT] Linuxtronix, Echtzeit - prinzipielle Ansätze
@@ -1434,6 +1505,8 @@ Literatur und sonstige Quellen
 .. _screen: http://www.gnu.org/software/screen
 
 ..  _tmux: http://sourceforge.net/projects/tmux
+
+.. _LSB: https://de.wikipedia.org/wiki/Linux_Standard_Base
 
 .. [TODO] Still things to do 
     Kommentare beachten
