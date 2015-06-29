@@ -209,34 +209,89 @@ NAND Flash Bausteine
 Was steckt in einer MicroSD Karte?
 **********************************
 
-* Specher-controller
-* serial NAND-Flash
-* 7 Pins und drei weitere Datenports über einen zusätzlichen Pin
+* Serielle NAND-Flash Speicherblöcke
+* Speicher-controller (Memmory-Management-Unit)
+* 8 Pins als Schnittstelle zum Speicher-controller
+  
++-----+-----------+----------------------------------+
+| PIN | Abkürzung | Funktion                         |
++=====+===========+==================================+
+| 1   | DAT2      | Datenleitung 2                   |
++-----+-----------+----------------------------------+
+| 2   | DAT3      | Datenleitung 3 / Card Detect     |
++-----+-----------+----------------------------------+
+| 3   | CMD       | Comand Line                      |
++-----+-----------+----------------------------------+
+| 4   | VDD       | Versorgungsspannung 2,7 - 3,6 V  |
++-----+-----------+----------------------------------+
+| 5   | CLK       | Clock (Takteingang)              |
++-----+-----------+----------------------------------+
+| 6   | GND       | Ground                           |
++-----+-----------+----------------------------------+
+| 7   | DAT0      | Datenleitung 0                   |
++-----+-----------+----------------------------------+
+| 8   | DAT1      | Datenleitung 1                   |
++-----+-----------+----------------------------------+
 
 
 Welche Filesysteme verwendet man meist bei MicoSD Karten?
 *********************************************************
 
+Da MicroSD Karten heute meist über eine relativ große Speicherkapazität verfügen verwendet man meist Desktop Filesysteme wie z.B.
+
+* EXT3
+* EXT4
+* XFS
+* oder REISERFS4
+
 
 Wann verwendet man das "MTD" Subsystem?
 ***************************************
+
+Memory-Technology-Device (MTD) bezeichnet eine Abstraktionsschicht mit einheitlicher Schnittstelle zur Kommunikation mit dem Speicher eines Linux-Systems. Der Benutzer kann somit ohne genaue Kenntnisse der Interna (z.B. des verwendeten Filesystems) mit Hilfe der API auf den Speicher zugreifen, außerdem können die selben Funktionen auch bei einem Wechsel des darunterliegenden Flash-Speichers angewandt werden. Es kommt hautsächlich bei der verwendung von "rohem Flash-Speicher" also Flash-Speicher ohne Memmory-Management-Unit (MMU) zum Einsatz.
 
 
 Was ist JFFS2 und wozu braucht man es?
 **************************************
 
+Journalling-Flash-File-System-Version-2 (JFFS2) ist ein log-Datei basiertes Filesystem mit wear-leveling und wurde ursprünglich entwickelt und die Verwendung von Flash-Speicher bei eingebetteten Systemen zu verbessern. Bis zu seiner Entwicklung wurden Pseudo-filesysteme, die ein standartisiertes Blockspeicher Device emulierten und auf die dan ein normales Filesystem aufgespielt wurden eingesetzt.
+
+wear-leveling := Schutz vor "Abnutzung" von Flash-Speicher durch wiederkehrende Schreiboperationen auf ständig gleichen Blöcken
+
 
 Welche Vorteile hat das YAFFS im Vergleich zu JFFS2?
 ****************************************************
 
+Vorteile:
+
+	* Weniger Hauptspeicher verbrauch um den Status währen der Laufzeit festzuhalten, deshalb eignet es sich auch besser für skalierbare Projekte. Es eignet sich generell besser für die Verwaltung großer NAND-Speicher.
+	* Die "Garbage Collection" ist einfacher und schneller, was typischer Weise für eine Bessere Performance bei vielen Schreibzugriffen sorgt
+	* Als Fausregel lässt sich festhalten für NAND-Speicher > 64 MB eignet sich YAFFS besser als JFFS2
+
+Nachteile:
+
+	* Eignet sich kaum für NOR-Speicher
+	* NOR-Speicher ist meist zu klein um von den Vorzügen von YAFFS zu profitieren
+	* Benutzt eine komplette Page als Header für jede Datei und Unterstützt dabei keine Komprimierung. Das heißt auf kleinen Flash-Speichern, die mit gut komprimierbaren Dateien belegt werden sollen, sollte eher auf JFFS2 ausgewichen werden
+
+[YVSJ]_
 
 
 Was ist das CRAMFS?
 *******************
 
+Beim Compressed-ROM-File-System handelt es sich um ein einfaches, effizientes Filesystem mit integrierter Datenkompression, das hauptsächlich bei eingebetteten Systemen zum Einsatz kommt. Im Gegensatz zu komprimierten herkömmlichen Dateisystemen muss ein CramFS nicht erst entpackt werden. Die Dateien sind mit der "zlib" komprimiert, nur die Metainformationen liegen in unkomprimierter Form vor. Da ein schreibender Zugriff auf komprimierte Daten schwer realisierbar ist kann auf CramFS-Dateisysteme nur lesend zugegriffen werden.
+
+Einschränkungen:
+
+	* maximale Größe einer Datei 16 MB
+	* maximale Größe eines Datenträgers 256 MB
+
 
 Was bedeutet "XIP"?
 +++++++++++++++++++
+
+eXecute-In-Place (XIP_) bedeutet das ein Programm direkt vom Festspeicher (ROM) aus ausgeführt und nicht erst in den Hauptspeicher (RAM) gleaden wird. Unter anderem wird dies bei Level 1 Bootloadern eingesetzt, diese werden auf einer speziellen Adresse des ROM abgelegt und von dort aus ausgeführt.
 
 .. 2 Punkte
 
@@ -246,34 +301,72 @@ Hauptspeicher
 
 .. 4 Punkte
 
-
 In welcher Speichertechnologie ist der Hauptspeicher des Embedded Linux Rechners realisiert?
 ********************************************************************************************
 
+Der Hauptspeicher eines Embedded Linux Rechners ist in SDRAM realisiert. Bei neueren oder Leistungsstärkeren Boards (Siehe Raspberry Pi oder BeagleBone Black) wird häufig DDR3L RAM eingesetzt.
 
 
 Minimale Grösse des Hauptspeichers, damit man aktuelle Distributionen ohne GUI verwenden kann?
 **********************************************************************************************
 
+Bereits mit 4 MB lässt sich eine sehr einfache Linuxdistribution auf einem Embedded System betreiben, allerdings lässt sich damit keines der üblichen Paket-Management-Systeme betreiben. Für diese sind mindestens 8 MB RAM nötig. Um das komplette Spektrum an üblichen Funktionen eines minimalen Embedded Systems abzudecken sind 16 MB RAM als mindestvorraussetzung empfohlen.
 
 
 Fragen zum Bootloader
 ---------------------
 
 
+Wie bootet ein Embedded Linux Rechner?
+++++++++++++++++++++++++++++++++++++++
+
+.. als Ergänzung zu den folgenden Fragen eingefügt
+
+.. figure:: img/bootloader.jpg
+  :align: center
+
+
+Der Prozessor springt zu einer spezifischen Adresse, an dieser erwartet er den bootloader zu finden. Deshalb benötigen unterschiedliche Prozessoren unterschiedliche Konfigurationen und Formatierungen beim Festspeicher (eMMC / SD). Der Prozessor beginnt nun den Code an der Stelle auszuführen.
+Nachdem der Bootloader geladen und konfiguriert wurde werden alle Treiber und Geräte initialisiert und die Dateisysteme gemountet. Der Kernel wird geladen und die Userspace Programme werden geladen.
+
+[ATES]_
+
+
 Wozu braucht man einen Bootloader?
 ++++++++++++++++++++++++++++++++++
 
 
+Initialisieren des Systems
+**************************
 
-Nennen Sie zwei gebräuchliche Bootloader.
-+++++++++++++++++++++++++++++++++++++++++
+Hierbei kann unter anderem auch eine UART-Schnittstelle als serielle Debug-Konsole gestartet werden (z.B. BeagleBone Black interaktion mit u-boot). Außerdem wird dabei der Memmory-Controller des Systems initialisiert so das sowohl auf den Haupt- als auch auf den Festspeicher entsprechend seiner Eigenschaften zugegriffen werden kann. Während der Initialisierung kann der Bootvorgang unterbrochen werden und man kann mit Hilfe der seriellen Konsole Boot-Befehle (engl. bootargs) absetzen.
 
+
+Laden des Kernels
+*****************
+
+Erst nach der Initialisierung des Memmory-Controllers ist es überhaupt möglich gezielt auf den Festspecher zuzugreifen und genau darin besteht auch die nächste Aufgabe des Bootloaders. Er muss den häufig System-spezifischen Kernel in den Hauptspeicher des Embedded-Linux Rechners laden. Hierbei werden auch die Informationen des Device-Tree-Blob (einer low-level zusammenfassung der zugrunde liegenden Hardware) verwendet um die nötigen Kernelmodule mit zu laden.
+
+[ATES]_
+
+
+Nennen Sie zwei gebräuchliche Bootloader
+++++++++++++++++++++++++++++++++++++++++
+
+* Das u-boot
+* RedBoot		(RedHat)
+* rrload 		(ARM)
+* FILO 
+* CRL/OHH 
+* PPCBOOT 
+* Alios
+* 
 
 
 Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Weil der first level bootloader nur eine begrenzte Menge an Bytes auf einmal laden kann, deshalb wird normalerweise der second level bootloader zwischengeschoben um den Kernel zu laden.
 
 
 Wozu dient die folgende U-Boot Kommandosequenz:
@@ -285,6 +378,8 @@ Wozu dient die folgende U-Boot Kommandosequenz:
     ip=192.168.1.2:192.168.1.1::255.255.255.0::eth0:none
     nfs 0x10400000 /srv/rootfs/boot/uImage
     bootm
+
+Bei dieser Kommandosequenz handelt es sich um eine netboot Anweisung, bei der das uImage von einem Net-File-System Server (nfs-server) geladen wird. In diesem speziellen Fall wird von der adresse in Zeile 1 (nfsroot=192.168.1.1:/srv/rootfs) über den Ethernetanschluss das uImage geladen. Dies bedeutet, das sich zum Zeitpunkt des Startes nur der Bootloader und die Konfigurationsdatei (z.B. uEnv.txt) auf dem Festspeicher des Systems befindet.
 
 
 Welche Möglichkeiten gibt es, die Bootzeiten zu reduzieren? [6 Punkte]
@@ -440,8 +535,8 @@ Wozu dient das Programm systemtap?
 
 
 
-Linux "normal"/embedded
-=======================
+Unterschiede zwischen "Linux" und "Embedded-Linux"
+==================================================
 
 
 Markieren Sie von folgenden Begriffen diejenigen, die meist nur bei Embedded Linux relevant sind:
@@ -476,7 +571,7 @@ Markieren Sie von folgenden Begriffen diejenigen, die meist nur bei Embedded Lin
 +------------------------------------------------+-----+-----+
 | Kernel-Konfiguration                           |     |     |
 +------------------------------------------------+-----+-----+
-| Echtzeit                                       |     |     |
+| Echtzeit                                       |  x  |     |
 +------------------------------------------------+-----+-----+
 | JTAG Debugger                                  |  x  |     |
 +------------------------------------------------+-----+-----+
@@ -491,9 +586,6 @@ Markieren Sie von folgenden Begriffen diejenigen, die meist nur bei Embedded Lin
 | uClibc                                         |  x  |     |
 +------------------------------------------------+-----+-----+
 
-.. nochmals kontrollieren
-
-[TODO]_
 
 Kernel
 ------
@@ -544,6 +636,14 @@ Wie kann man das Embedded Linux Board booten, obwohl nur das U-Boot im Flash Spe
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 U-Boot ermöglicht es ein RootFS über das Netz zu booten, Hierfür benötigt man lediglich einen ftp-server, der nfs Unterstützung bietet.
+
+.. code:: bash
+
+	# from file env.txt
+
+	tftpboot <file> [<load_addr>]
+	...
+	netboot=tftp ${image}; run addip;bootm
 
 
 
@@ -632,29 +732,6 @@ Leseliste für die Klausur
 A Typical Embedded System
 =========================
 
-Wie bootet ein Embedded Linux Rechner?
---------------------------------------
-
-.. figure:: img/bootloader.jpg
-  :align: center
-
-
-Der Prozessor springt zu einer spezifischen Adresse, an dieser erwartet er den bootloader zu finden. Deshalb benötigen unterschiedliche Prozessoren unterschiedliche Konfigurationen und Formatierungen beim Festspeicher (eMMC / SD). Der Prozessor beginnt nun den Code an der Stelle auszuführen.
-Nachdem der Bootloader geladen und konfiguriert wurde werden alle Treiber und Geräte initialisiert und die Dateisysteme gemountet. Der Kernel wird geladen und die Userspace Programme werden geladen.
-
-[ATES]_
-
-
-Welche Aufgaben hat der Bootloader?
------------------------------------
-
-Initialisieren des Systems
-
-Laden des Kernels
-
-
-[ATES]_
-
 
 Welche besonderen Filesysteme gibt es für Embedded Linux?
 ---------------------------------------------------------
@@ -722,19 +799,6 @@ Fazit: Was ist der Unterschied zwischen Embedded Linux und “gewöhnlichem” L
 Tips for planning an embedded Linux project
 ===========================================
 
-[TPEL]_
-
-Welche Anforderungen sprechen für Linux? (5 Stück)
---------------------------------------------------
-
-[TPEL]_
-
-
-Wie “bezahlt” man die Vorteile von Linux?
------------------------------------------
-
-[TPEL]_
-
 
 Aus welchen Einzelteilen besteht Embedded Linux? (6 Stück)
 ----------------------------------------------------------
@@ -782,35 +846,11 @@ Welche grundsätzlichen Bausteintypen gibt es?
 [STFS]_
 
 
-Was verstehen Sie unter dem Kürzel “MTD”?
------------------------------------------
-
-[STFS]_
-
-
-Was ist CRAMFS?
----------------
-
-[STFS]_
-
 
 Was ist SQUASHFS?
 -----------------
 
 [STFS]_
-
-
-Was ist JFFS2?
---------------
-
-[STFS]_
-
-
-Was ist YAFFS?
---------------
-
-[STFS]_
-
 
 
 Anatomy of Flash Filesystems
@@ -1507,6 +1547,12 @@ Literatur und sonstige Quellen
 ..  _tmux: http://sourceforge.net/projects/tmux
 
 .. _LSB: https://de.wikipedia.org/wiki/Linux_Standard_Base
+
+.. _XIP: https://en.wikipedia.org/wiki/Execute_in_place
+
+.. [YVSJ]: Comparision between YAFFS2 and JFFS2, Charles F Johnson, 2007
+
+	http://www.yaffs.net/comparison-yaffs-vs-jffs
 
 .. [TODO] Still things to do 
     Kommentare beachten
