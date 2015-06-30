@@ -69,9 +69,6 @@ Tipps for planning an embedded Linux project
 
 .. 16 Punkte
 
-[TPEL]_
-
-
 Welche Anforderungen sprechen für Linux?
 ++++++++++++++++++++++++++++++++++++++++
 
@@ -88,6 +85,9 @@ Welche Anforderungen sprechen für Linux?
 
 Wie "bezahlt" man die Vorteile von Linux?
 +++++++++++++++++++++++++++++++++++++++++
+
+* Für den langfristigen Einsatz eines Produktes empfieht es sich eine eigenständige Distribution spezifisch für diesen Einsatzzweck anzulegen. Deshalb könnte man davon sprechen, dass die nötige Entwicklungszeit für diese angepasste Distribution als Preis für den Einsaz von Linux bezahlt wird.  
+* Außerdem sollte die Beachtet werden, dass die meisten Programme unter Linux mit der GPL_ lizensiert wurden. Diese beinhaltet, dass alle Programme, die auf diesen aufbauen ebenfalls unter der GPL veröffentlicht werden müssen. Deshalb muss auch der Sourcecode des eigenen Projektes veröffentlicht werden. 
 
 [TPEL]_
 
@@ -137,6 +137,7 @@ Welche Risiken gibt es?
 
 Was umfasst der Lebenszyklus des Produktes?
 +++++++++++++++++++++++++++++++++++++++++++
+
 * Dauer, wie lange das Produkt verkauft wird
 * Zukünftige Erweiterungen der Funktionalität des Produkt
 * bug fixing und security support
@@ -147,6 +148,7 @@ Was umfasst der Lebenszyklus des Produktes?
 
 Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 * Man muss die Quelle zum Linux-Kernel und anderen Anwendungen die unter der GPL lizenziert sind und verwendet werde n, bereitstellen
 * Normalerweise gibt es nichts proprietäres, bei Änderungen, an GPL lizenziertem Code in einem Linux-System.
 * Man kan die Anwendungen proprietär halten. Dadurch wird das Produkt von anderen unterscheiden
@@ -184,18 +186,35 @@ Arbeitsspeicher
 Ungefähre Leistungsaufnahme
 +++++++++++++++++++++++++++
 
-.. Leistungsaufnahme nachschlagen
+P = U   * I
 
-[TODO]_
+P[max] = 5 V * 460 mA
 
+P[max] = 5 V * 460 * 10^-3 A
+
+P[max] = 2,3 W
+
+P[min] = 5 V * 210 mA
+
+P[min] = 5 V * 210 * 10^-3 A
+
+P[min] = 1,05 W
 
 
 Fragen zum Entwicklungsrechner
 ------------------------------
 
-
 Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+* Cross kompilieren(Kernel, Module, Rootfs...)
+* Terminal Emulation(picocom, filetransfer, screen...)
+* Hilfswerkzeuge(python, dd, fdisk, automake, ssh...) 
+* Flashen(Bootloader, OpendOCD)
+* Root Baukästen(Buildroot, Yocto)
+* Debuggen(gdb, printf, openocd)
+* Quelltext bearbeiten(git, cscope, ctags, IDE)
+* Internet(www, mailinglisten, ip-forward)
 
 .. 4 Punkte
 
@@ -203,17 +222,39 @@ Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?
 Welche Programme installieren Sie darauf?
 +++++++++++++++++++++++++++++++++++++++++
 
-minicom, rsync, git, svn, mercurial, gcc, gdb, vim, emacs, screen, mkfs.ext2/3/4, fsck.ext2/3/4 (e2fsprogs), Python, pyexpect, pyserial, TFTP server, NFS server
+* picocom, kermit (ckermit), minicom
+* rsync
+* git, stgit
+* mercurial (hg)
+* svn
+* gcc, gdb (nativ)
+* gcc, gdb (cross, für Zielrechner)
+* vim, emacs
+* exuberant ctags
+* screen, tmux
+* mkfs.ext2/3/4, fsck.ext2/3/4 (e2fsprogs)
+* fdisk, cfdisk (util-linux)
+* cscope
+* expect
+* Python, pyexpect, pyserial
+* xinetd
+* TFTP server
+* NFS server
+* wireshark
 
 .. 4 Punkte
-
 
 
 Nennen Sie zwei Terminalprogramme und geben Sie die üblichen Aufrufparameter an.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-minicom
-picocom
+* minicom
+* microcom -t <BAUDRATE> <DEV>
+* picocom -b <BAUDRATE> <DEV>
+
+[TODO]_
+
+.. aufruf Parameter hinzuzufügen
 
 .. 4 Punkte
 
@@ -394,7 +435,7 @@ Nennen Sie zwei gebräuchliche Bootloader
 * CRL/OHH 
 * PPCBOOT 
 * Alios
-* 
+* Apex 			(Gnublin)
 
 
 Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?
@@ -419,8 +460,9 @@ Bei dieser Kommandosequenz handelt es sich um eine netboot Anweisung, bei der da
 Welche Möglichkeiten gibt es, die Bootzeiten zu reduzieren? [6 Punkte]
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+[TODO]_ 
 
-
+.. reduktion der Bootzeit nachschlagen
 
 
 Fragen zum Kernel
@@ -431,7 +473,12 @@ Fragen zum Kernel
 Auf der Tafel hatten wir ein Diagramm gezeichnet mit den wichtigsten Bereichen, mit denen man beim Kernel zu tun hat. Zeichnen Sie es hin.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-        (siehe Tafel von 2014)
+.. figure:: img/Kernel.png
+	:align: center
+
+[TODO]_
+
+.. Diagramm nachbauen
 
 
 Wieso ist es wünschenswert, dass ein Embedded Linux Board im Mainline Kernel unterstützt wird?
@@ -473,10 +520,12 @@ Installation
 Wieso kann es wichtig sein, dass man bei einem Embedded System den Kernel auf eine neuere Version updaten kann?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Es kann wichtig sein, da ein Kernel-Update Bugfixes, Sicherheitsupdates und neue Kernelfeatures(neue Hardwareunterstützung) mit sich bringen kann. 
 
 
 Gibt es im Kernel Quelltext auch eine Dokumentation?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Ja, 
 
 
@@ -501,6 +550,8 @@ Nennen Sie fünf verschiedene Arten, wie Sie Hardware-Erweiterungen an Ihr Embed
 
 Welche alternativen Möglichkeiten gibt es zur programmiertechnischen Ansteuerung von Hardware-Erweiterungen aus dem Userspace?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+[TODO]_ 
 
 .. 5 Punkte
 
@@ -539,11 +590,15 @@ Beschreiben Sie, wie das Debuggen über die JTAG-Schnittstelle des Mikroprozesso
 In welchem Fall ist diese Debug-Art unbedingt notwendig?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Wenn es darum geht einen Microcontroller zu debuggen und auf dem Controller noch kein Betriebssystem läuft.
 
 
 Wie sieht die Verschaltung der nötigen Einzelteile aus?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+.. figure:: img/jtag-verschaltung.jpg
+
+Man benötigt auf dem Hostrechner einen converter, welcher das Remote Serial Protocol(RSP) in die JTAG bitstream commands umwandelt. Alles grau hinterlegte im Bild oben, läuft auf dem Hostrechner.
 
 
 Open-Source Programme und Schnittstellen für JTAG-Debugging
@@ -552,9 +607,16 @@ Open-Source Programme und Schnittstellen für JTAG-Debugging
 .. Welches freie Programm wird auf dem Hostrechner benötigt, so dass man mit dem GNU Debugger gdb über JTAG debuggen kann? Welche Schnittstellen stellt das Programm bereit (Diagramm)?
 
 
+.. figure:: img/openOCD-schnittstellen.jpg
+	:align: center
+
+Um code auf dem target mithilfe des GDB über JTAG debuggen zu können, besteht OpenOCD aus zwei Schnittstellen. Diese können jeweils eine Netzwerkverbindungen öffnen, eine für GDB/RS und eine für Telnet. Der OpenOCD Server und der debugger können somit auf verschiedenen Rechnern laufen.
+
 
 Neben dem Debuggen gibt es eine weitere wichtige Funktion, die häufig über JTAG erledigt wird. Denken Sie an frisch aus der Fertigung kommende Boards.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Eine weitere wichtige Funktion ist das Verfahren des  Boundary Scan Tests. Der Zweck dieses Verfahrens ist es, integrierte Schaltungen (ICs) auf Funktion zu testen, während sie sich bereits in ihrer Arbeitsumgebung befinden, beispielsweise verlötet auf einer Platine
 
 
 Fragen zum Artikel Linux Debugging von Tim Schürmann aus der Leseliste
@@ -566,18 +628,23 @@ Fragen zum Artikel Linux Debugging von Tim Schürmann aus der Leseliste
 In welchen unterschiedlichen Varianten kann man mit dem GDB Programme auf dem Zielrechner debuggen?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-.. 2 Punkte
+avr32-linux-gdb (Host) + eth Verbindung + gdbserver (Target)
 
+.. 2 Punkte
 
 
 Wozu dient das Programm strace?
 +++++++++++++++++++++++++++++++
+
+Wird ein Programm mit strace gestartet, protokolliert Strace alle aufgerufenen Systemfunktionen - einschließlich ihrer Parameter und Rückgabewerte - sowie alle vom Prozess empfangenen Signale, im Standardfehlerkanal(STDERR).
 
 .. 2 Punkte
 
 
 Wozu dient das Programm LTTng?
 ++++++++++++++++++++++++++++++
+
+LTTng trägt Daten zu bestimmten Kernelereignissen zusammen oder meldet das Erreichen von im Kernel enthaltenen Tracepoints
 
 .. 2 Punkte
 
@@ -586,8 +653,9 @@ Wozu dient das Programm LTTng?
 Wozu dient das Programm systemtap?
 ++++++++++++++++++++++++++++++++++
 
-.. 2 Punkte
+Systemtap beobachtet das gesamte Linuxsystem, es klinkt sich in den Kernel ein und protokolliert vom Nutzer ausgewählte Ereignisse oder Systemaufrufe. Es können somit auch komplexe Performanceprobleme oder Fehlfunktionen erkannt werden.
 
+.. 2 Punkte
 
 
 Unterschiede zwischen "Linux" und "Embedded-Linux"
@@ -660,12 +728,20 @@ Wo stehen die Namen der make targets?
 
 .. code:: bash 
 
-    make ARCH=arm CROSS_COMPILE=... menuconfig <PATH_TO_COMPILER>
+	# Path to the cross-compiler could look like:
+	# make ARCH=arm CROSS_COMPILE=${CROSS_TOOLS}/bin/arm-none-linux-gnueabi- menuconfig
+	make ARCH=arm CROSS_COMPILE=... menuconfig
+	# 	targets unter user/src/linux/.config
     
+    # make <#cores> <Path_to_CC> <Image-Name>
+    # make -j5 ARCH=armCROSS_COMPILE=path/to/bin/arm-none-linux-gnueabi- zImage
     make ARCH=arm CROSS_COMPILE=... zImage
+    # 	targets unter arch/<arch>/boot/zImage
     
+    # make -C kernel_build_dir M=`pwd` ARCH=arm CROSS_COMPILE=<...> modules
     make ARCH=arm CROSS_COMPILE=... modules
-    
+    # 	targets unter 
+
     make modules_install INSTALL_MOD_PATH=<your-module-path>
 
 
@@ -678,17 +754,18 @@ Sie möchten einen Linux Kernel kompilieren für ein Board auf dem bereits Linux
 Was macht das Kommando dmesg?
 +++++++++++++++++++++++++++++
 
-
+[TODO]_
 
 Wie sehen Sie sich im laufenden Linux die Kernel Kommandozeile an?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+[TODO]_
 
 
 Was ist ein uImage und wie erzeugt man es?
 ++++++++++++++++++++++++++++++++++++++++++
 
-
+[TODO]_
 
 Wie kann man das Embedded Linux Board booten, obwohl nur das U-Boot im Flash Speicher vorhanden ist? Das Board verfügt über eine Netzwerkschnittstelle.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -796,9 +873,11 @@ Welche besonderen Filesysteme gibt es für Embedded Linux?
 
 - initramfs: Filesystem das in das Kernel Image eingebettet ist und während der Laufzeit im RAM liegt.
              Alle Änderungen gehen beim Neustart verloren.
+
 - cramfs/squashfs: Beides gepackte read-only Filesystems. Beide Systeme erlauben es, dass ein gepacktes Image
                    zur Laufzeit erstellt und dann auch geladen werden kann. Die Dateisysteme können
                    ausgetauscht werden ohne den Kernel zu berühren
+
 - jffs2/ubifs:
 
 [ATES]_
@@ -828,17 +907,11 @@ Die meisten Standard-Applikationen wie ls, cd, mkdir, ping... teilen eine Menge 
 [ATES]_
 
 
-Wie funktioniert Cross-Kompilierung?
-------------------------------------
-
-
-
-[ATES]_
-
-
 Welche Distribution für Embedded Linux werden erwähnt?
 ------------------------------------------------------
 
+* Debian
+* Gentoo
 
 [ATES]_
 
@@ -846,22 +919,10 @@ Welche Distribution für Embedded Linux werden erwähnt?
 Ist der Apache Webserver eine gute Wahl? Welche anderen Webserver gibt es noch?
 -------------------------------------------------------------------------------
 
+Nein, ein Apache Webserver ist für Desktoprechner und Server durchaus geeignet für wesentlich leistungsschwächere Embedded-Linux-Systeme empfiehlt sich z.B. "lighttpd".
 
 [ATES]_
 
-
-Welche Werkzeuge gibt es zur Programmierung grafischer Oberflächen?
--------------------------------------------------------------------
-
-
-[ATES]_
-
-
-Fazit: Was ist der Unterschied zwischen Embedded Linux und “gewöhnlichem” Linux?
---------------------------------------------------------------------------------
-
-
-[ATES]_
 
 
 Tips for planning an embedded Linux project
@@ -911,26 +972,18 @@ Wie funktioniert Flash Speicher?
 Welche grundsätzlichen Bausteintypen gibt es?
 ---------------------------------------------
 
+NOR-Flash
++++++++++
+
+NAND-Flash
+++++++++++
+
 [STFS]_
 
-
-
-Was ist SQUASHFS?
------------------
-
-[STFS]_
 
 
 Anatomy of Flash Filesystems
 ============================
-
-
-Was ist das Virtual File System VFS?
-------------------------------------
-
-
-[AFFS]_
-
 
 
 Was sind “bad blocks” und “wear leveling”?
@@ -947,21 +1000,9 @@ Was kann man über die Mount-Zeit von verschiedenen Flash Filesystemen sagen?
 [AFFS]_
 
 
+
 Embedded Linux Primer (Bootloader)
 ==================================
-
-
-Wozu braucht man einen Bootloader?
-----------------------------------
-
-
-[ELPB]_
-
-
-Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?
---------------------------------------------------------------------------------------------------------------------------------------
-
-[ELPB]_
 
 
 Wie gross sind typische Bootloader wie z.B. U-Boot und Apex?
@@ -972,6 +1013,7 @@ Wie gross sind typische Bootloader wie z.B. U-Boot und Apex?
 
 Welchen Funktionsumfang hat der U-Boot Bootloader?
 --------------------------------------------------
+
 
 [ELPB]_
 
@@ -1001,6 +1043,42 @@ Bei der Kernel-Modul-Entwicklung nutzt man nur speziell dafür vorgesehene Heade
 Beschreiben Sie, wie man ein einfaches Kernelmodul nativ als auch cross-kompiliert.
 -----------------------------------------------------------------------------------
 
+nativ kompiliert
+++++++++++++++++
+
+.. code:: make
+
+	# Makefile
+
+	obj-m += hello.o
+
+	all:
+		make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+	clean:
+		make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+		rm -rf *~ *.o
+	
+
+cross-kompiliert
+++++++++++++++++
+
+.. code:: make
+	
+	# Makefile
+
+	TARGET  := hello
+	WARN    := -W -Wall -Wstrict-prototypes -Wmissing-prototypes
+	INCLUDE := -isystem /lib/modules/`uname -r`/build/include
+	CFLAGS  := -O2 -DMODULE -D__KERNEL__ ${WARN} ${INCLUDE} ${ASM}
+	CC      := ${CROSS_TOOLS}/bin/arm-none-linux-gnueabi-
+
+	${TARGET}.o: ${TARGET}.c
+
+	.PHONY: clean
+
+	clean:
+		rm -rf ${TARGET}.o	
 
 [LKMS]_
 
@@ -1058,10 +1136,13 @@ Beschreiben Sie die wichtigsten Komponenten des Realtime-Preempt Patches.
 -------------------------------------------------------------------------
 
 - Interrupt-Threading:
+
 - High-Resolution Timers:
   Der hrtimer entkoppelt zeitgesteuerte Interaktionen vom periodischen Timer-Interrupt, welcher bei Linux normalerweise alle 4 bzw alle 10 Millisekunden auftritt. Da ein Standardkernel Interrupts nur zu bestimmten Zeitpunkten auslöst, kommt es immer dann zu unerwünschten Latenzzeit-Verlängerungen, wenn der Interrupt nicht zufällig mit dem gewünschten Aufweckzeitpunkt zusammenfällt. Der hrtimer löst dieses Problem. Legt sich ein Prozess für eine definierte Zeitdauer schlafen, sorgt der Timer dafür, dass ihn das System asynchron genau zum gewünschten Zeitpunkt weckt.
+
 - Priority Inheritance/Realtime-Mutexe:
   Bei Prioritätsumkehr, erbt ein höher priorisierter Prozess, eine nur einem Prozess zur Verfügung stehende System-Resource, welche von einem niedrip priorisierten Prozess verwendet wird, anstatt die Priorität auf die des niedrig priorisierten Prozesses zu setzen. Durch Realtime-Mutexe wird die Priority Inheritance(Prioritätsvererbung) gewährleistet
+
 - Vollständige Kernel-Unterbrechbarkeit:
 
 
@@ -1082,16 +1163,16 @@ Wie kann man das Scheduling von Prozessen im Anwendungsprogramm setzen?
 
    Mit der Funktion,
 
-   .. code:: bash
+.. code:: c
 
-             #include <sched.h>
-             sched_setScheduler(pid_t pid, int policy,
-             const struct sched_param \*p);
+	#include <sched.h>
+    sched_setScheduler(pid_t pid, int policy, const struct sched_param \*p);
 
-   kann die Priorität eines Prozesses eingestellt werden.
+kann die Priorität eines Prozesses eingestellt werden.
 
 
 [SURT]_
+
 
 
 Linuxtronix, Echtzeit - prinzipielle Ansätze
@@ -1183,25 +1264,6 @@ Freie_Software_
 +--------------------------------------------------------------------------------+-----+------+------+-----+-----+-----+
 
 
-Erläutern Sie das Prinzip des Copyleft.
----------------------------------------
-
-Das Copyleft-Prinzip besagt, dass Software, die auf unter der GNU General Public License (GPL_) veröffentlichten Software basiert nur mit den gleichen Freiheiten veröffentlicht werden darf. Dies stellt sicher, das freie Software für alle zugänglich und frei bleibt.
-
-
-Welche vier Freiheiten gewährt die GPL?
----------------------------------------
-
-Niemand sollte von der Software, die er verwendet eingeschränkt werden. Es gibt vier Freiheiten, die jeder Benutzer haben sollte.
-
-    * die Freiheit die Software für jeden Zweck zu verwenden
-    * die Freiheit die Software an die eigenen Bedürfnisse anzupassen
-    * die Freiheit die Software mit Freunden und Nachbarn zu teilen
-    * die Freiheit die eigenen Änderungen zu teilen
-
-Erfüllt ein Programm diese Kriterien kann es als freie Software bezeichnet werden.
-
-
 Wie unterscheidet sich die LGPL von der GPL?
 --------------------------------------------
 
@@ -1240,34 +1302,26 @@ Heftig umstritten ist, ob der Initiator eines Open-Source-Projektes, welcher sei
 Kleine Unternehmen laufen generell Gefahr, ihre Open-Source-Softwareprojekte an große Unternehmen zu „verlieren“.
 
 
-Darf man Programme im Linux Userspace unter einer proprietären Lizenz vertreiben?
----------------------------------------------------------------------------------
-
-
 Darf man mit dem freien GNU C Compiler kommerzielle geschlossene Programme schreiben?
 -------------------------------------------------------------------------------------
+
+Ja, da dieser in der LGPL_ und nicht in der GPL_ veröffentlicht wird.
 
 
 Was halten Sie von geschlossenen Kernelmodulen?
 -----------------------------------------------
 
+Für den Hersteller kann ein geschlossenes Kernelmodul Betriebsgeheimnisse und Details über die Funktionsweise seiner Hardware schützen. Für den Benutzer bedeutet es, dass er nicht einsehen kann über welche Möglichkeiten ein Program des Kernelspace verfügt, da diese keiner weiteren Kontrolle unterstehen ist es theoretisch möglich dem Benutzer mit so einem Modul erheblichen Schaden zuzufügen (Verletzung der Persönlichkeitsrechte, Spionage, etc. ).
 
 
 Linux auf eingebetteten Systemen
 ================================
 
-Suchen Sie Geräte, die unter Linux laufen. Sie haben sicher schon selber welche entdeckt. Sie können sich aber auch von folgenden Seiten inspirieren lassen:  
-
-linuxgizmos_
-elinux_
-linuxfordevices_
-
-
 
 Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
 ------------------------------------------------------------------
 
-[TBP]_
+Open-Source und Freie Software unter der GPL_ 
 
 
 Was zeichnet Embedded Systems aus?
@@ -1312,6 +1366,16 @@ Welche Arten von Flash Speicher gibt es?
 
 In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?
 ----------------------------------------------------------------------------
+
+* boot
+		/bootloader
+		/uImage
+* root
+		/kernel
+		/boot/Device-Tree-Blob
+		/bin
+		/etc
+		...
 
 
 Wie sieht grob die memory map des gesamten Rechners aus?
@@ -1487,18 +1551,6 @@ ncftp
 +++++
 
 
-
-
-Wie ändert man die Netzwerkeinstellungen für die Schnittstellen eth0 und eth1 mit den Werkzeugen ifconfig, route, ethtool und iptables.
-
-
-
-
-Wie richtet man auf dem Host eine zweite Ethernet-Schnittstelle ein, um ein Netzwerkkabel mit dem Target zu verbinden? Wie lauten die Einstellungen auf dem Target und auf dem Host?
-
-
-
-
 Installieren Sie den Quelltext des Linux Kernels auf dem Hostrechner und kompilieren Sie ihn.
 ---------------------------------------------------------------------------------------------
 
@@ -1506,19 +1558,6 @@ Installieren Sie den Quelltext des Linux Kernels auf dem Hostrechner und kompili
 
 Installieren Sie auf Ihrem Entwicklungsrechner eine Toolchain für die ARMv5 Architektur (ELDK oder Debian).
 -----------------------------------------------------------------------------------------------------------
-
-
-
-Wie richtet man auf dem Host einen NFS Server ein?
---------------------------------------------------
-
-
-
-Wie richtet man auf dem Host einen TFTP Server ein?
----------------------------------------------------
-
-
-
 
 
 
