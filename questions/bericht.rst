@@ -137,6 +137,7 @@ Welche Risiken gibt es?
 
 Was umfasst der Lebenszyklus des Produktes?
 +++++++++++++++++++++++++++++++++++++++++++
+
 * Dauer, wie lange das Produkt verkauft wird
 * Zukünftige Erweiterungen der Funktionalität des Produkt
 * bug fixing und security support
@@ -147,6 +148,7 @@ Was umfasst der Lebenszyklus des Produktes?
 
 Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 * Man muss die Quelle zum Linux-Kernel und anderen Anwendungen die unter der GPL lizenziert sind und verwendet werde n, bereitstellen
 * Normalerweise gibt es nichts proprietäres, bei Änderungen, an GPL lizenziertem Code in einem Linux-System.
 * Man kan die Anwendungen proprietär halten. Dadurch wird das Produkt von anderen unterscheiden
@@ -193,27 +195,50 @@ Ungefähre Leistungsaufnahme
 Fragen zum Entwicklungsrechner
 ------------------------------
 
-
 Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+* Cross kompilieren(Kernel, Module, Rootfs...)
+* Terminal Emulation(picocom, filetransfer, screen...)
+* Hilfswerkzeuge(python, dd, fdisk, automake, ssh...) 
+* Flashen(Bootloader, OpendOCD)
+* Root Baukästen(Buildroot, Yocto)
+* Debuggen(gdb, printf, openocd)
+* Quelltext bearbeiten(git, cscope, ctags, IDE)
+* Internet(www, mailinglisten, ip-forward)
 .. 4 Punkte
 
 
 Welche Programme installieren Sie darauf?
 +++++++++++++++++++++++++++++++++++++++++
 
-minicom, rsync, git, svn, mercurial, gcc, gdb, vim, emacs, screen, mkfs.ext2/3/4, fsck.ext2/3/4 (e2fsprogs), Python, pyexpect, pyserial, TFTP server, NFS server
+* picocom, kermit (ckermit), minicom
+* rsync
+* git, stgit
+* mercurial (hg)
+* svn
+* gcc, gdb (nativ)
+* gcc, gdb (cross, für Zielrechner)
+* vim, emacs
+* exuberant ctags
+* screen, tmux
+* mkfs.ext2/3/4, fsck.ext2/3/4 (e2fsprogs)
+* fdisk, cfdisk (util-linux)
+* cscope
+* expect
+* Python, pyexpect, pyserial
+* xinetd
+* TFTP server
+* NFS server
+* wireshark
 
 .. 4 Punkte
-
 
 
 Nennen Sie zwei Terminalprogramme und geben Sie die üblichen Aufrufparameter an.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-minicom
-picocom
+* minicom
+* picocom
 
 .. 4 Punkte
 
@@ -473,7 +498,7 @@ Installation
 Wieso kann es wichtig sein, dass man bei einem Embedded System den Kernel auf eine neuere Version updaten kann?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+Es kann wichtig sein, da ein Kernel-Update Bugfixes, Sicherheitsupdates und neue Kernelfeatures(neue Hardwareunterstützung) mit sich bringen kann. 
 
 Gibt es im Kernel Quelltext auch eine Dokumentation?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -539,10 +564,15 @@ Beschreiben Sie, wie das Debuggen über die JTAG-Schnittstelle des Mikroprozesso
 In welchem Fall ist diese Debug-Art unbedingt notwendig?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Wenn es darum geht einen Microcontroller zu debuggen und auf dem Controller noch kein Betriebssystem läuft.
 
 
 Wie sieht die Verschaltung der nötigen Einzelteile aus?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. figure:: img/jtag-verschaltung.jpg
+
+Man benötigt auf dem Hostrechner den OpenOCD converter, welcher das Remote Serial Protocol(RSP) in die JTAG bitstream commands umwandelt. Alles grau hinterlegte im Bild oben, läuft auf dem Hostrechner.
 
 
 
@@ -551,10 +581,15 @@ Open-Source Programme und Schnittstellen für JTAG-Debugging
 
 .. Welches freie Programm wird auf dem Hostrechner benötigt, so dass man mit dem GNU Debugger gdb über JTAG debuggen kann? Welche Schnittstellen stellt das Programm bereit (Diagramm)?
 
+.. figure:: img/openOCD-schnittstellen.jpg
+
+Man benötigt auf dem Hostrechner den OpenOCD converter, um mit dem GNU Debugger über JTAG debuggen zu können. 
 
 
 Neben dem Debuggen gibt es eine weitere wichtige Funktion, die häufig über JTAG erledigt wird. Denken Sie an frisch aus der Fertigung kommende Boards.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Eine weitere wichtige Funktion ist das Verfahren des  Boundary Scan Tests. Der Zweck dieses Verfahrens ist es, integrierte Schaltungen (ICs) auf Funktion zu testen, während sie sich bereits in ihrer Arbeitsumgebung befinden, beispielsweise verlötet auf einer Platine
 
 
 Fragen zum Artikel Linux Debugging von Tim Schürmann aus der Leseliste
@@ -566,28 +601,29 @@ Fragen zum Artikel Linux Debugging von Tim Schürmann aus der Leseliste
 In welchen unterschiedlichen Varianten kann man mit dem GDB Programme auf dem Zielrechner debuggen?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+avr32-linux-gdb (Host) + eth Verbindung + gdbserver (Target)
 .. 2 Punkte
-
 
 
 Wozu dient das Programm strace?
 +++++++++++++++++++++++++++++++
 
+Wird ein Programm mit strace gestartet, protokolliert Strace alle aufgerufenen Systemfunktionen - einschließlich ihrer Parameter und Rückgabewerte - sowie alle vom Prozess empfangenen Signale, im Standardfehlerkanal(STDERR).
 .. 2 Punkte
 
 
 Wozu dient das Programm LTTng?
 ++++++++++++++++++++++++++++++
-
+LTTng trägt Daten zu bestimmten Kernelereignissen zusammen oder meldet das Erreichen von im Kernel enthaltenen Tracepoints
 .. 2 Punkte
 
 
 
 Wozu dient das Programm systemtap?
 ++++++++++++++++++++++++++++++++++
+Systemtap beobachtet das gesamte Linuxsystem, es klinkt sich in den Kernel ein und protokolliert vom Nutzer ausgewählte Ereignisse oder Systemaufrufe. Es können somit auch komplexe Performanceprobleme oder Fehlfunktionen erkannt werden.
 
 .. 2 Punkte
-
 
 
 Unterschiede zwischen "Linux" und "Embedded-Linux"
