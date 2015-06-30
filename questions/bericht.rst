@@ -572,7 +572,7 @@ Wie sieht die Verschaltung der nötigen Einzelteile aus?
 
 .. figure:: img/jtag-verschaltung.jpg
 
-Man benötigt auf dem Hostrechner den OpenOCD converter, welcher das Remote Serial Protocol(RSP) in die JTAG bitstream commands umwandelt. Alles grau hinterlegte im Bild oben, läuft auf dem Hostrechner.
+Man benötigt auf dem Hostrechner einen converter, welcher das Remote Serial Protocol(RSP) in die JTAG bitstream commands umwandelt. Alles grau hinterlegte im Bild oben, läuft auf dem Hostrechner.
 
 
 
@@ -583,8 +583,7 @@ Open-Source Programme und Schnittstellen für JTAG-Debugging
 
 .. figure:: img/openOCD-schnittstellen.jpg
 
-Man benötigt auf dem Hostrechner den OpenOCD converter, um mit dem GNU Debugger über JTAG debuggen zu können. 
-
+Um code auf dem target mithilfe des GDB über JTAG debuggen zu können, besteht OpenOCD aus zwei Schnittstellen. Diese können jeweils eine Netzwerkverbindungen öffnen, eine für GDB/RS und eine für Telnet. Der OpenOCD Server und der debugger können somit auf verschiedenen Rechnern laufen.
 
 Neben dem Debuggen gibt es eine weitere wichtige Funktion, die häufig über JTAG erledigt wird. Denken Sie an frisch aus der Fertigung kommende Boards.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -602,6 +601,7 @@ In welchen unterschiedlichen Varianten kann man mit dem GDB Programme auf dem Zi
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 avr32-linux-gdb (Host) + eth Verbindung + gdbserver (Target)
+
 .. 2 Punkte
 
 
@@ -609,12 +609,14 @@ Wozu dient das Programm strace?
 +++++++++++++++++++++++++++++++
 
 Wird ein Programm mit strace gestartet, protokolliert Strace alle aufgerufenen Systemfunktionen - einschließlich ihrer Parameter und Rückgabewerte - sowie alle vom Prozess empfangenen Signale, im Standardfehlerkanal(STDERR).
+
 .. 2 Punkte
 
 
 Wozu dient das Programm LTTng?
 ++++++++++++++++++++++++++++++
 LTTng trägt Daten zu bestimmten Kernelereignissen zusammen oder meldet das Erreichen von im Kernel enthaltenen Tracepoints
+
 .. 2 Punkte
 
 
