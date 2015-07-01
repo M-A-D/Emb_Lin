@@ -249,12 +249,11 @@ Nennen Sie zwei Terminalprogramme und geben Sie die üblichen Aufrufparameter an
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 * minicom
+	
+	Minicom wird im voraus konfiguriert über "sudo minicom -s" kann minicom entsprechend den Anforderungen des Targetrechners angepasst werden.
+
 * microcom -t <BAUDRATE> <DEV>
 * picocom -b <BAUDRATE> <DEV>
-
-[TODO]_
-
-.. aufruf Parameter hinzuzufügen
 
 .. 4 Punkte
 
@@ -443,6 +442,37 @@ Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht de
 
 Weil der first level bootloader nur eine begrenzte Menge an Bytes auf einmal laden kann, deshalb wird normalerweise der second level bootloader zwischengeschoben um den Kernel zu laden.
 
++----------------------------------------------------------------------------------------+---------+
+| Komponente / Programm                                                                  | Level   |
++========================================================================================+=========+
+| **Run-Level**                                                                          | USER    |
+| a) services unter "etc/rc.d" werden geladen                                            |         |
+| b) services unter "etc/init.d"                                                         |         |
++----------------------------------------------------------------------------------------+---------+
+| **Init**                                                                               | Kernel2 |
+| a) /etc/rc.sysinit wird ausgeführt daraus resultiert der sogenannte "init-Prozess"     |         |
+| b) Treiber / Kernelmodule werden geladen (insmod "/lib/modules/<VERSION>/<MOD>)        |         |
++----------------------------------------------------------------------------------------+---------+
+| **Kernel**                                                                             | Kernel1 |
+| a) mount initrd                                                                        |         |
+| b) linuxrc/ -> mount RootFS                                                            |         |
++----------------------------------------------------------------------------------------+---------+
+| **U-Boot**                                                                             |    L3   |
+| Lädt je nach Konfiguration den Kernel in den RAM                                       |         |
+| a) Laden von lokalem Flash Speicher (microSD, eMMC)                                    |         |
+| b) Laden vom Netzwerk (via ftp oder nfs)                                               |         |
++----------------------------------------------------------------------------------------+---------+
+| **BootStrap** (optionale Vorstufe zu U-Boot)                                           |    L2   |
+| lädt den rest von U-Boot in den RAM                                                    |         |
++----------------------------------------------------------------------------------------+---------+
+| **Bootrom**                                                                            |    L1   |
+| a) CPU spring an spezifische Adresse (je nach Modell eine andere) und fängt an Ort und |         |
+| Stelle an den Code aus zu führen. Legt die Ergebnisse im internen SRAM des uC ab.      |         |
+| b) Initialisierung von Speicher, Serieller UART Konsole und Netzwerkschnittstelle zu   |         |
+| diesem Zeitpunkt bereits möglich                                                       |         |
++----------------------------------------------------------------------------------------+---------+
+
+
 
 Wozu dient die folgende U-Boot Kommandosequenz:
 +++++++++++++++++++++++++++++++++++++++++++++++
@@ -457,12 +487,32 @@ Wozu dient die folgende U-Boot Kommandosequenz:
 Bei dieser Kommandosequenz handelt es sich um eine netboot Anweisung, bei der das uImage von einem Net-File-System Server (nfs-server) geladen wird. In diesem speziellen Fall wird von der adresse in Zeile 1 (nfsroot=192.168.1.1:/srv/rootfs) über den Ethernetanschluss das uImage geladen. Dies bedeutet, das sich zum Zeitpunkt des Startes nur der Bootloader und die Konfigurationsdatei (z.B. uEnv.txt) auf dem Festspeicher des Systems befindet.
 
 
-Welche Möglichkeiten gibt es, die Bootzeiten zu reduzieren? [6 Punkte]
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Welche Möglichkeiten gibt es, die Bootzeiten zu reduzieren?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-[TODO]_ 
+* Verkürzen des sogenannten "bootdelay" Parameters in u-Boot
 
-.. reduktion der Bootzeit nachschlagen
+.. code:: bash
+
+	setenv bootdelay 0
+	saveenv
+
+* Abschalten der Überprüfung der "Checksum" in u-Boot
+
+.. code:: bash
+
+	verify = n
+
+* Auswahl eines schnelleren Filesystems
+* Verkleinerung des Filesystems
+* Kernel Optimierung (nicht benötigte Dienste entfernen)
+* Verwendung eines eintpackten Kernels bei langsamen CPUs
+* Verwendung eines gepackten Kernels bei langsamem Festspeicher
+* Ethernet Delay entfernen
+
+[FSTL]_
+
+.. 6 Punkte
 
 
 Fragen zum Kernel
@@ -475,10 +525,6 @@ Auf der Tafel hatten wir ein Diagramm gezeichnet mit den wichtigsten Bereichen, 
 
 .. figure:: img/Kernel.png
 	:align: center
-
-[TODO]_
-
-.. Diagramm nachbauen
 
 
 Wieso ist es wünschenswert, dass ein Embedded Linux Board im Mainline Kernel unterstützt wird?
@@ -534,9 +580,10 @@ Ansteuerung von Peripherie
 
 .. 10 Punkte
 
+Schnittstellen für Hardware-Erweiterungen
++++++++++++++++++++++++++++++++++++++++++
 
-Nennen Sie fünf verschiedene Arten, wie Sie Hardware-Erweiterungen an Ihr Embedded Linux Board elektrisch anschliessen könnten.
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.. Nennen Sie fünf verschiedene Arten, wie Sie Hardware-Erweiterungen an Ihr Embedded Linux Board elektrisch anschliessen könnten.
 
 * USB
 * GPIO
@@ -547,11 +594,12 @@ Nennen Sie fünf verschiedene Arten, wie Sie Hardware-Erweiterungen an Ihr Embed
 .. 5 Punkte
 
 
+Alternativen für Userspace Programme zur Steuerung
+++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Welche alternativen Möglichkeiten gibt es zur programmiertechnischen Ansteuerung von Hardware-Erweiterungen aus dem Userspace?
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.. Welche alternativen Möglichkeiten gibt es zur programmiertechnischen Ansteuerung von Hardware-Erweiterungen aus dem Userspace?
 
-[TODO]_ 
+Eine Alternative zu Programmen aus dem Userspace wäre das schreiben eines eigenen Linux Kernel Moduls, das die Steuerung der Hardware-Erweiterungen übernimmt. Ist dieses sauber geschrieben und verwendet hauptsächlich Interrupts anstatt "polling-routinen" sollte man ein solches Modul stets dem Userspace Program vorziehen.
 
 .. 5 Punkte
 
@@ -583,8 +631,10 @@ kein “co-kernel” notwendig; gleiches Programmiermodell wie bei normalem Kern
 
 
 
-Beschreiben Sie, wie das Debuggen über die JTAG-Schnittstelle des Mikroprozessors funktioniert [8 Punkte]
----------------------------------------------------------------------------------------------------------
+Beschreiben Sie, wie das Debuggen über die JTAG-Schnittstelle des Mikroprozessors funktioniert
+----------------------------------------------------------------------------------------------
+
+.. 8 Punkte
 
 
 In welchem Fall ist diese Debug-Art unbedingt notwendig?
@@ -597,6 +647,7 @@ Wie sieht die Verschaltung der nötigen Einzelteile aus?
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. figure:: img/jtag-verschaltung.jpg
+	:align: center
 
 Man benötigt auf dem Hostrechner einen converter, welcher das Remote Serial Protocol(RSP) in die JTAG bitstream commands umwandelt. Alles grau hinterlegte im Bild oben, läuft auf dem Hostrechner.
 
@@ -731,16 +782,16 @@ Wo stehen die Namen der make targets?
 	# Path to the cross-compiler could look like:
 	# make ARCH=arm CROSS_COMPILE=${CROSS_TOOLS}/bin/arm-none-linux-gnueabi- menuconfig
 	make ARCH=arm CROSS_COMPILE=... menuconfig
-	# 	targets unter user/src/linux/.config
+	# targets unter user/src/linux/.config
     
     # make <#cores> <Path_to_CC> <Image-Name>
     # make -j5 ARCH=armCROSS_COMPILE=path/to/bin/arm-none-linux-gnueabi- zImage
     make ARCH=arm CROSS_COMPILE=... zImage
-    # 	targets unter arch/<arch>/boot/zImage
+    # targets unter arch/<arch>/boot/zImage
     
     # make -C kernel_build_dir M=`pwd` ARCH=arm CROSS_COMPILE=<...> modules
     make ARCH=arm CROSS_COMPILE=... modules
-    # 	targets unter 
+    # targets unter 
 
     make modules_install INSTALL_MOD_PATH=<your-module-path>
 
@@ -748,13 +799,18 @@ Wo stehen die Namen der make targets?
 Sie möchten einen Linux Kernel kompilieren für ein Board auf dem bereits Linux läuft, haben aber keine .config Datei. Welche Möglichkeiten gibt es?
 ***************************************************************************************************************************************************
 
-/prog/
+* extrahieren der vorhandenen ".config-file" unter "/prog/"uname -r"/.config"
 
 
 Was macht das Kommando dmesg?
 +++++++++++++++++++++++++++++
 
-[TODO]_
+dmesg steht für "display-message" und ist ein Programm, das die Meldungen des Kernel-Ringpuffers auf der Konsole ausgibt. Vor allem bei der Fehlersuche, wenn zum Beispiel ein neues Gerät nicht richtig erkannt wird, erweißt es sich als nützlich. Allerdings sind die Meldungen so umfangreich, das es sich auch empfiehlt auf ein bestimmtes Kriterium hin zu filtern.
+
+.. code:: bash
+
+	dmesg | grep <SOMETHING>
+
 
 Wie sehen Sie sich im laufenden Linux die Kernel Kommandozeile an?
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -766,6 +822,9 @@ Was ist ein uImage und wie erzeugt man es?
 ++++++++++++++++++++++++++++++++++++++++++
 
 [TODO]_
+
+.. explain / build uImage
+
 
 Wie kann man das Embedded Linux Board booten, obwohl nur das U-Boot im Flash Speicher vorhanden ist? Das Board verfügt über eine Netzwerkschnittstelle.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -779,7 +838,6 @@ U-Boot ermöglicht es ein RootFS über das Netz zu booten, Hierfür benötigt ma
 	tftpboot <file> [<load_addr>]
 	...
 	netboot=tftp ${image}; run addip;bootm
-
 
 
 
@@ -1018,15 +1076,6 @@ Welchen Funktionsumfang hat der U-Boot Bootloader?
 [ELPB]_
 
 
-Fast Startup Linux
-==================
-
-
-Welche Möglichkeiten gibt es, die Bootzeit zu reduzieren?
----------------------------------------------------------
-
-[FSTL]_
-
 
 Linux Kernel Module
 ===================
@@ -1227,14 +1276,6 @@ Beschreiben Sie kurz den Zweck von Strace, LTTng und Systemtap.
 [TSLD]_
 
 
-Embedded Debugging
-==================
-
-[EMDB]_ 
-
-
-
-
 Freie / offene Software
 =======================
 
@@ -1324,43 +1365,9 @@ Was erwartet Sie hinsichtlich der Lizenzen, wenn Sie Linux wählen?
 Open-Source und Freie Software unter der GPL_ 
 
 
-Was zeichnet Embedded Systems aus?
-----------------------------------
-
-
-Vergleichen Sie BIOS und Bootloader.
-------------------------------------
-
 
 Aus welchen wesentlichen Funktionsblöcken bestehen Embedded Systems?
 --------------------------------------------------------------------
-
-
-Aus welcher Hardware besteht die Entwicklungsumgebung?
-------------------------------------------------------
-
-
-Wie startet Embedded Linux? (von U-Boot bis init Prozess)
----------------------------------------------------------
-
-
-Welche Arten von Flash Speicher gibt es?
-----------------------------------------
-
-1) Permanent
-
-    a) 
-    b) 
-    c) 
-
-2) Non-Permanent
-
-    a) NOR-Flash
-    b) NAND-Flash
-
-        managed
-
-        not managed
 
 
 
@@ -1368,8 +1375,9 @@ In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?
 ----------------------------------------------------------------------------
 
 * boot
-		/bootloader
+		/<bootloader>
 		/uImage
+
 * root
 		/kernel
 		/boot/Device-Tree-Blob
@@ -1381,27 +1389,26 @@ In welche Regionen ist der Flash Speicher bei Linux in der Regel aufgeteilt?
 Wie sieht grob die memory map des gesamten Rechners aus?
 --------------------------------------------------------
 
-
-Beschreiben Sie den Ausführungskontext mit Applikation, C Bibliothek, Kernel und Gerätetreibern. Was läuft im Kernel-Kontext, was im User-Kontext?
-
-        
-
-Was macht die MMU und wo ist sie eingebaut?
--------------------------------------------
+.. figure:: img/linux_fs_overview.png
+	:align: center
 
 
 Wie nennt man die nicht-native Kompilierung auch?
 -------------------------------------------------
 
-"Cross-Kompilierung" - Das kompilieren von nativer Software auf einem Hostrechner für ein spezifisches Target mit Hilfe von Cross-Kompilierungs Toolchain und im Terminal gesetzten Variablen wie z.B. "$ARCH", "$CC", etc.
+"Cross-Kompilierung" - Das kompilieren von nativer Software auf einem Hostrechner für ein spezifisches Target mit Hilfe von Cross-Kompilierungs Toolchain und im Terminal gesetzten Variablen wie z.B. "$ARCH", "$CROSS_COMPILE", etc.
 
 
 Was ist native Kompilierung? Ab welcher Rechenleistung macht sie Sinn?
 ----------------------------------------------------------------------
 
+Native Kompilierung bedeutet das Software für den Target-Rechner auf diesem Kompiliert wird, dies macht nur Sinn wenn das Board für die Kompilierung ausreichende Ressourcen, neben dem Betrieb von Linux zur Verfügung hat. Generell sollten es mindestens 600 MHz Prozessortakt und 128 MB RAM sein.
+
 
 Was ist eine Embedded Linux Distribution?
 -----------------------------------------
+
+Eine speziell für ein Target (bzw. eine Gruppe von Targets mit sehr ähnlicher Architektur) angepasste Linux Distribution. Häufig werden diese noch durch Speicher und Leistungsoptimierte Programme, bzw. Programm-substitutionen (im Vergleich zu ihren Desktopvarianten) ergänzt.
 
 
 Aus wie vielen Paketen besteht eine Distribution ungefähr?
@@ -1413,17 +1420,19 @@ Aus wie vielen Paketen besteht eine Distribution ungefähr?
 Welche anderen CPUs unterstützt Linux neben dem x86?
 ----------------------------------------------------
 
+* Power Prozessoren (IBM)
+* ARM
+* MIPS
+* AVR
+
 
 Was ist ein monolithischer Kern?
 --------------------------------
 
+Bei einem monolithischen Kernel 
 
 Warum lässt sich Linux einfach auf fast beliebige Prozessoren portieren?
 ------------------------------------------------------------------------
-
-
-Wie unterscheiden sich die Befehlssätze der Prozessorfamilien?
---------------------------------------------------------------
 
 
 Virtual Memory Management
@@ -1473,53 +1482,12 @@ Welche Sprachen werden zur Programmierung verwendet?
 
 
 
-Welche Bootloader werden bei Embedded Linux verwendet? Ist grub auch eine Option?
----------------------------------------------------------------------------------
-
-
-
 Der Entwicklungsrechner
 =======================
 
 
-Installieren Sie Linux auf Ihrem Hostrechner, entweder in einer eigenen Partition oder in einer virtuelle Maschine wie z.B. VirtualBox_.
-
-
-
-
-Sehen Sie sich auf Ihrem GNU/Linux Desktop PC oder Laptop den Kernel und das Root Filesystem an. Wie viel Platz beanspruchen die einzelnen Teile?
-
-
-
-
 Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?
 -------------------------------------------------------------------------
-
-
-
-Im Skript steht eine Liste von Werkzeugen für den Entwicklungsrechner. Was macht jedes einzelne dieser Werkzeuge?.
-
-
-
-
-Lernen Sie die Bedienung Ihres Linux Rechners ausschliesslich über die Kommandozeile.
--------------------------------------------------------------------------------------
-
-
-
-Installieren Sie einen Teminal Multiplexer, z.B. screen_ oder tmux_. Auch auf dem Zielrechner ist so ein Werkzeug sehr praktisch.
-
-
-
-
-
-Welche Terminalprogramme gibt es unter Linux, um auf die Konsole über die serielle Schnittstelle zu gehen? Wie lauten die üblichen Einstellungen?
-
-
-
-
-Wie kann man Daten im Terminalprogramm mit dem Protokoll X/Y/Z-Modem übertragen? Warum sollten nur kleinere Dateien bis zu ein paar 100 KByte übertragen werden?
-
 
 
 
