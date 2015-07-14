@@ -1,6 +1,20 @@
 .. include:: etc/kopf.rst
 
 
+Das Geocaching-Modul
+====================
+
+Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefasst. Unser Projekt dient der Digitalisierung eines Notizbuches beim Geocaching_. Der Funktionsumfang und die Anzahl der in unserem Projekt verwendeten Programme ist eher gering. Im groben handelt es sich um einen W-Lan Accesspoint, der lediglich zur Verbindung mit dem auf dem Embedded-Linux Rechner befindlichen http-server dient. Dieser soll möglichst einfach von außen mit einer Konfiguration versehen werden, die drei generelle Betriebsmodi erlaubt.
+
+	* Hinweise zum Standort des nächsten Caching Punktes geben -> Anzeigen eines Textes im Browser
+	* Hinweise zum Standort des nächsten Caching Punktes geben -> Anzeigen von Bildern
+	* Eintragen des eigenen Tags nach Abschluss der Strecke -> Foto-Upload anstelle von Unterschrift
+
+
+.. figure:: img/Geocaching-Modul.jpg
+	:align: center
+
+
 Beschreibung der Hardware
 =========================
 
@@ -8,7 +22,7 @@ Beschreibung der Hardware
 
 Für das Projekt wird das BeagleBone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.
 
-Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
+Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand widmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
 
 .. code:: bash
     
@@ -66,7 +80,7 @@ Komponenten
 | Komponenten     | Model / Ausführung                  |
 +=================+=====================================+
 | CPU             | Sitara AM3358BZCZ100 ARM® Cortex-A8 |
-|                 | 1GHz  dual-core mit 2000 MIPS       |
+|                 | @ 1GHz                              |
 +-----------------+-------------------------------------+
 | RAM             | 512 MB DDR3L @ 800 MHz              |
 +-----------------+-------------------------------------+
@@ -439,7 +453,7 @@ Anpassungen in der Datei "local.conf"
 Bitbake eine Build-umgebung für ein angepasstes Yocto-linux
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
+Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden. Dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
 
 .. code:: bash
 
@@ -462,7 +476,9 @@ Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies 
 hob und toaster - graphische Oberflächen für die Konfiguration von Yocto
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+[TODO]_
 
+.. Daniel kannst du dazu irgendetwas schreiben? Man könnte es auch zu den tools verschieben oder?
 
 
 
@@ -777,7 +793,9 @@ Netboot test
 ============
 
 
-Im Netboot Teil wurde mangels eines USB auf TTL Adapters kurzerhand zum Raspberry Pi 2 gewechselt. Netzwerkboot bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. permanente kleine schreibende Zugriffe (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints).
+Netboot, also das booten von einer Netzwerkquelle gehört nicht notwendigerweise zu unserem eigentlichen Projekt, allerdings sollte man im Rahmen des Praktikums darauf eingehen. Aufgrund einer Lieferverzögerung wurde der folgende Teil auf einem bereits vorhandenen Raspberry Pi 2 getestet. Vom Netzwerk zu booten bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. Permanente kleine schreibende Zugriffe wie beim "loggen" (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints). Oder um mechanischen Beschädigungen am SD-Karten Leser des Microcontrollers vorzubeugen, wenn man des öffteren den Kernel oder das Rootfile System wechselt, oder auch um endlich wieder eine Verwendung für eine alte 16 MB große SD-Karte zu haben.
+
+
 
 
 
@@ -975,7 +993,7 @@ Einrichten des W-Lan Interfaces
 	# modifizieren der Netzwerk Interfaces
 	vi /etc/network/interfaces
 
-	# folgende Zeilen sind nur ein beispiel, aber ähnliches sollte hinzugefügt werden:
+	# folgende Zeilen sind nur ein Beispiel, aber ähnliches sollte hinzugefügt werden:
 	auto wlan0
 		iface <YOUR-WIFI-INTERFACE> inet dhcp
         address   <YOUR-SUBNET>.1
@@ -1599,6 +1617,10 @@ Literatur und sonstige Quellen
 
 .. [VICS] VI Cheat Sheet
 	http://www.lagmonster.org/docs/vi.html
+
+.. [WIKI] 
+
+..	_Geocaching: https://de.wikipedia.org/wiki/Geocaching
 
 .. [TODO] Look for comments
 

@@ -372,9 +372,7 @@ Ungefähre Leistungsaufnahme
 Fragen zum Entwicklungsrechner
 ==============================
 
-
 Für welche Aufgaben wird der Hostrechner (Entwicklungsrechner) verwendet?
--------------------------------------------------------------------------
 
 * Cross kompilieren(Kernel, Module, Rootfs...)
 * Terminal Emulation(picocom, filetransfer, screen...)
@@ -449,6 +447,338 @@ Was ist native Kompilierung? Ab welcher Rechenleistung macht sie Sinn?
 
 Native Kompilierung bedeutet das Software für den Target-Rechner auf diesem Kompiliert wird, dies macht nur Sinn wenn das Board für die Kompilierung ausreichende Ressourcen, neben dem Betrieb von Linux zur Verfügung hat. Generell sollten es mindestens 600 MHz Prozessortakt und 128 MB RAM sein.
 
+
+
+Unterschiede zwischen "Linux" und "Embedded-Linux"
+==================================================
+
+
+Wann verwendet man das "MTD" Subsystem?
+***************************************
+
+Memory-Technology-Device (MTD) bezeichnet eine Abstraktionsschicht mit einheitlicher Schnittstelle zur Kommunikation mit dem Speicher eines Linux-Systems. Der Benutzer kann somit ohne genaue Kenntnisse der Interna (z.B. des verwendeten Filesystems) mit Hilfe der API auf den Speicher zugreifen, außerdem können die selben Funktionen auch bei einem Wechsel des darunterliegenden Flash-Speichers angewandt werden. Es kommt hautsächlich bei der verwendung von "rohem Flash-Speicher" also Flash-Speicher ohne Memmory-Management-Unit (MMU) zum Einsatz.
+
+
+Was ist JFFS2 und wozu braucht man es?
+**************************************
+
+Journalling-Flash-File-System-Version-2 (JFFS2) ist ein log-Datei basiertes Filesystem mit wear-leveling und wurde ursprünglich entwickelt und die Verwendung von Flash-Speicher bei eingebetteten Systemen zu verbessern. Bis zu seiner Entwicklung wurden Pseudo-filesysteme, die ein standartisiertes Blockspeicher Device emulierten und auf die dan ein normales Filesystem aufgespielt wurden eingesetzt.
+
+wear-leveling := Schutz vor "Abnutzung" von Flash-Speicher durch wiederkehrende Schreiboperationen auf ständig gleichen Blöcken
+
+
+Welche Vorteile hat das YAFFS im Vergleich zu JFFS2?
+****************************************************
+
+Vorteile:
+
+	* Weniger Hauptspeicher verbrauch um den Status währen der Laufzeit festzuhalten, deshalb eignet es sich auch besser für skalierbare Projekte. Es eignet sich generell besser für die Verwaltung großer NAND-Speicher.
+	* Die "Garbage Collection" ist einfacher und schneller, was typischer Weise für eine Bessere Performance bei vielen Schreibzugriffen sorgt
+	* Als Fausregel lässt sich festhalten für NAND-Speicher > 64 MB eignet sich YAFFS besser als JFFS2
+
+Nachteile:
+
+	* Eignet sich kaum für NOR-Speicher
+	* NOR-Speicher ist meist zu klein um von den Vorzügen von YAFFS zu profitieren
+	* Benutzt eine komplette Page als Header für jede Datei und Unterstützt dabei keine Komprimierung. Das heißt auf kleinen Flash-Speichern, die mit gut komprimierbaren Dateien belegt werden sollen, sollte eher auf JFFS2 ausgewichen werden
+
+[YVSJ]_
+
+
+Was ist das CRAMFS?
+*******************
+
+CRAMFS (Compressed ROM Filesystem) ist ein freies unter der GPL stehendes Read-Only-Dateisystem mit integrierter Datenkompression
+
+Beim Compressed-ROM-File-System handelt es sich um ein einfaches, effizientes Filesystem mit integrierter Datenkompression, das hauptsächlich bei eingebetteten Systemen zum Einsatz kommt. Im Gegensatz zu komprimierten herkömmlichen Dateisystemen muss ein CramFS nicht erst entpackt werden. Die Dateien sind mit der "zlib" komprimiert, nur die Metainformationen liegen in unkomprimierter Form vor. Da ein schreibender Zugriff auf komprimierte Daten schwer realisierbar ist kann auf CramFS-Dateisysteme nur lesend zugegriffen werden.
+
+Einschränkungen:
+
+	* maximale Größe einer Datei 16 MB
+	* maximale Größe eines Datenträgers 256 MB
+
+
+Was bedeutet "XIP"?
++++++++++++++++++++
+
+Execute in Place (XIP) ist eine Methode bei der man Programme, die auf Speicherkarten gespeichert sind, direkt starten und ausführen kann, ohne diese in den Arbeitsspeicher zu laden. Es ist eine Erweiterung von Shared Memory, bei dem der erforderliche Speicherplatz reduziert wird.
+
+eXecute-In-Place (XIP_) bedeutet das ein Programm direkt vom Festspeicher (ROM) aus ausgeführt und nicht erst in den Hauptspeicher (RAM) gleaden wird. Unter anderem wird dies bei Level 1 Bootloadern eingesetzt, diese werden auf einer speziellen Adresse des ROM abgelegt und von dort aus ausgeführt.
+
+.. 2 Punkte
+
+
+Hauptspeicher
++++++++++++++
+
+.. 4 Punkte
+
+In welcher Speichertechnologie ist der Hauptspeicher des Embedded Linux Rechners realisiert?
+********************************************************************************************
+
+Der Hauptspeicher eines Embedded Linux Rechners ist in SDRAM realisiert. Bei neueren oder Leistungsstärkeren Boards (Siehe Raspberry Pi oder BeagleBone Black) wird häufig DDR3L RAM eingesetzt.
+
+
+Minimale Grösse des Hauptspeichers, damit man aktuelle Distributionen ohne GUI verwenden kann?
+**********************************************************************************************
+
+Bereits mit 4 MB lässt sich eine sehr einfache Linuxdistribution auf einem Embedded System betreiben, allerdings lässt sich damit keines der üblichen Paket-Management-Systeme betreiben. Für diese sind mindestens 8 MB RAM nötig. Um das komplette Spektrum an üblichen Funktionen eines minimalen Embedded Systems abzudecken sind 16 MB RAM als mindestvorraussetzung empfohlen.
+
+
+Fragen zum Bootloader
+---------------------
+
+
+Wie bootet ein Embedded Linux Rechner?
+++++++++++++++++++++++++++++++++++++++
+
+.. als Ergänzung zu den folgenden Fragen eingefügt
+
+.. figure:: img/bootloader.jpg
+  :align: center
+
+
+Der Prozessor springt zu einer spezifischen Adresse, an dieser erwartet er den bootloader zu finden. Deshalb benötigen unterschiedliche Prozessoren unterschiedliche Konfigurationen und Formatierungen beim Festspeicher (eMMC / SD). Der Prozessor beginnt nun den Code an der Stelle auszuführen.
+Nachdem der Bootloader geladen und konfiguriert wurde werden alle Treiber und Geräte initialisiert und die Dateisysteme gemountet. Der Kernel wird geladen und die Userspace Programme werden geladen.
+
+[ATES]_
+
+
+Wozu braucht man einen Bootloader?
+++++++++++++++++++++++++++++++++++
+
+
+Initialisieren des Systems
+**************************
+
+Hierbei kann unter anderem auch eine UART-Schnittstelle als serielle Debug-Konsole gestartet werden (z.B. BeagleBone Black interaktion mit u-boot). Außerdem wird dabei der Memmory-Controller des Systems initialisiert so das sowohl auf den Haupt- als auch auf den Festspeicher entsprechend seiner Eigenschaften zugegriffen werden kann. Während der Initialisierung kann der Bootvorgang unterbrochen werden und man kann mit Hilfe der seriellen Konsole Boot-Befehle (engl. bootargs) absetzen.
+
+
+Laden des Kernels
+*****************
+
+Erst nach der Initialisierung des Memmory-Controllers ist es überhaupt möglich gezielt auf den Festspecher zuzugreifen und genau darin besteht auch die nächste Aufgabe des Bootloaders. Er muss den häufig System-spezifischen Kernel in den Hauptspeicher des Embedded-Linux Rechners laden. Hierbei werden auch die Informationen des Device-Tree-Blob (einer low-level zusammenfassung der zugrunde liegenden Hardware) verwendet um die nötigen Kernelmodule mit zu laden.
+
+[ATES]_
+
+
+Nennen Sie zwei gebräuchliche Bootloader
+++++++++++++++++++++++++++++++++++++++++
+
+* Das u-boot
+* RedBoot		(RedHat)
+* rrload 		(ARM)
+* FILO 
+* CRL/OHH 
+* PPCBOOT 
+* Alios
+* 
+
+
+Wieso kann der first level bootloader im Mikrocontroller im Allgemeinen nicht den allgemeinen Bootvorgang des Linux Kernels einleiten?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Weil der first level bootloader nur eine begrenzte Menge an Bytes auf einmal laden kann, deshalb wird normalerweise der second level bootloader zwischengeschoben um den Kernel zu laden.
+
+
+Wozu dient die folgende U-Boot Kommandosequenz:
++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+    set bootargs root=/dev/nfs nfsroot=192.168.1.1:/srv/rootfs \
+    ip=192.168.1.2:192.168.1.1::255.255.255.0::eth0:none
+    nfs 0x10400000 /srv/rootfs/boot/uImage
+    bootm
+
+Bei dieser Kommandosequenz handelt es sich um eine netboot Anweisung, bei der das uImage von einem Net-File-System Server (nfs-server) geladen wird. In diesem speziellen Fall wird von der adresse in Zeile 1 (nfsroot=192.168.1.1:/srv/rootfs) über den Ethernetanschluss das uImage geladen. Dies bedeutet, das sich zum Zeitpunkt des Startes nur der Bootloader und die Konfigurationsdatei (z.B. uEnv.txt) auf dem Festspeicher des Systems befindet.
+
+
+Welche Möglichkeiten gibt es, die Bootzeiten zu reduzieren? [6 Punkte]
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+Fragen zum Kernel
+-----------------
+
+.. 10 Punkte
+
+Auf der Tafel hatten wir ein Diagramm gezeichnet mit den wichtigsten Bereichen, mit denen man beim Kernel zu tun hat. Zeichnen Sie es hin.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        (siehe Tafel von 2014)
+
+
+Wieso ist es wünschenswert, dass ein Embedded Linux Board im Mainline Kernel unterstützt wird?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Durch den Mainline-Support eines Embedded Linux Boards ist die kontinuierliche Unterstützung in späteren Versionen des Mainline Kernels gewährleistet.
+
+
+Geben Sie die Kommandozeilen an, um einen Kernel mit einem Cross-Kompiler zu kompilieren
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Konfiguration erstellen
+***********************
+
+.. code:: bash
+
+    export CCPREFIX=/path/to/your/compiler/binary/prefix-of-binary-
+    make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> menuconfig
+
+
+Kernel und Module bauen
+************************
+
+.. code:: bash
+
+    make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX>
+    make ARCH=<TARGET_ARCH> CROSS_COMPILE=<CCPREFIX> modules 
+
+
+Installation
+************
+
+.. code:: bash
+
+    sudo INSTALL_MOD_PATH=/media/rootfs make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
+
+
+Wieso kann es wichtig sein, dass man bei einem Embedded System den Kernel auf eine neuere Version updaten kann?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Es kann wichtig sein, da ein Kernel-Update Bugfixes, Sicherheitsupdates und neue Kernelfeatures(neue Hardwareunterstützung) mit sich bringen kann. 
+
+Gibt es im Kernel Quelltext auch eine Dokumentation?
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Ja, 
+
+
+Ansteuerung von Peripherie
+--------------------------
+
+.. 10 Punkte
+
+
+Nennen Sie fünf verschiedene Arten, wie Sie Hardware-Erweiterungen an Ihr Embedded Linux Board elektrisch anschliessen könnten.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+* USB
+* GPIO
+* UART
+* SPI
+* I2C
+
+.. 5 Punkte
+
+
+
+Welche alternativen Möglichkeiten gibt es zur programmiertechnischen Ansteuerung von Hardware-Erweiterungen aus dem Userspace?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. 5 Punkte
+
+
+
+Fragen zur Echtzeit mit Embedded Linux
+--------------------------------------
+
+.. 6 Punkte
+
+
+Welche prinzipiellen Lösungsansätze gibt es, um Linux mit Echtzeit-Eigenschaften auszustatten?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Verwendung eines getrennten Echtzeit-Kernels der den Linux-Kernel kontrolliert, dies ist der so genannte DualKernel-Ansatz(z.B. RTAI).
+Bereitstellung von Patches, mit denen der Linux-Kernel selbst Echtzeit-Fähigkeit erhält(RealtimePreempt-Patch).
+
+
+Wie heissen die seit Jahren etablierten praktischen Implementierungen der prinzipiellen Lösungsansätze?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+RealtimePreempt-Patch,  RTAI
+
+
+Welchen Vorteil hat der "Preempt-RT" Ansatz, auch wenn er nicht für harte Echtzeit geeignet ist
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+kein “co-kernel” notwendig; gleiches Programmiermodell wie bei normalem Kernel
+
+
+
+Beschreiben Sie, wie das Debuggen über die JTAG-Schnittstelle des Mikroprozessors funktioniert [8 Punkte]
+---------------------------------------------------------------------------------------------------------
+
+
+In welchem Fall ist diese Debug-Art unbedingt notwendig?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Wenn es darum geht einen Microcontroller zu debuggen und auf dem Controller noch kein Betriebssystem läuft.
+
+
+Wie sieht die Verschaltung der nötigen Einzelteile aus?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. figure:: img/jtag-verschaltung.jpg
+
+Man benötigt auf dem Hostrechner einen converter, welcher das Remote Serial Protocol(RSP) in die JTAG bitstream commands umwandelt. Alles grau hinterlegte im Bild oben, läuft auf dem Hostrechner.
+
+
+
+Open-Source Programme und Schnittstellen für JTAG-Debugging
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. Welches freie Programm wird auf dem Hostrechner benötigt, so dass man mit dem GNU Debugger gdb über JTAG debuggen kann? Welche Schnittstellen stellt das Programm bereit (Diagramm)?
+
+.. figure:: img/openOCD-schnittstellen.jpg
+
+Um code auf dem target mithilfe des GDB über JTAG debuggen zu können, besteht OpenOCD aus zwei Schnittstellen. Diese können jeweils eine Netzwerkverbindungen öffnen, eine für GDB/RS und eine für Telnet. Der OpenOCD Server und der debugger können somit auf verschiedenen Rechnern laufen.
+
+Neben dem Debuggen gibt es eine weitere wichtige Funktion, die häufig über JTAG erledigt wird. Denken Sie an frisch aus der Fertigung kommende Boards.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Eine weitere wichtige Funktion ist das Verfahren des  Boundary Scan Tests. Der Zweck dieses Verfahrens ist es, integrierte Schaltungen (ICs) auf Funktion zu testen, während sie sich bereits in ihrer Arbeitsumgebung befinden, beispielsweise verlötet auf einer Platine
+
+
+Fragen zum Artikel Linux Debugging von Tim Schürmann aus der Leseliste
+----------------------------------------------------------------------
+
+.. 8 Punkte
+
+
+In welchen unterschiedlichen Varianten kann man mit dem GDB Programme auf dem Zielrechner debuggen?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+avr32-linux-gdb (Host) + eth Verbindung + gdbserver (Target)
+
+.. 2 Punkte
+
+
+Wozu dient das Programm strace?
++++++++++++++++++++++++++++++++
+
+Wird ein Programm mit strace gestartet, protokolliert Strace alle aufgerufenen Systemfunktionen - einschließlich ihrer Parameter und Rückgabewerte - sowie alle vom Prozess empfangenen Signale, im Standardfehlerkanal(STDERR).
+
+.. 2 Punkte
+
+
+Wozu dient das Programm LTTng?
+++++++++++++++++++++++++++++++
+LTTng trägt Daten zu bestimmten Kernelereignissen zusammen oder meldet das Erreichen von im Kernel enthaltenen Tracepoints
+
+.. 2 Punkte
+
+
+
+Wozu dient das Programm systemtap?
+++++++++++++++++++++++++++++++++++
+Systemtap beobachtet das gesamte Linuxsystem, es klinkt sich in den Kernel ein und protokolliert vom Nutzer ausgewählte Ereignisse oder Systemaufrufe. Es können somit auch komplexe Performanceprobleme oder Fehlfunktionen erkannt werden.
+
+.. 2 Punkte
 
 
 Unterschiede zwischen "Linux" und "Embedded-Linux"
