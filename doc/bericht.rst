@@ -698,6 +698,95 @@ Das u-boot
 ==========
 
 
+Das u-boot ist einer der am meisten verbreiteten bootloader im Bereich Embedded Linux. Für die Meisten Boards und Systeme wird man auch ohne großen Aufwand eine angepasste u-boot Konfiguration finden. Mit dieser, einem Kernel, Treibern, einem Root-File-System und einigen Programmen ist eine minimale Embedded Linux Distribution bereits voll funktionsfähig.
+
+Der Bootvorgang bei einem Embedded Linux System mit u-boot läuft entsprechend dem folgenden Muster ab.
+
+* CPU springt an eine spezifische Stelle im Speicher und fängt an Ort und Stelle an den Code auszuführen
+	- der Level 1 Bootloader wird in den Cache der CPU geladen
+	- ein einfaches Speicherlayout wird geladen um den Arbeitsspeicher für die CPU zugänglich zu machen
+* Der Levle 1 Bootloader lädt teile von u-boot von einer definierten Adresse im Festspeicher oder mit Hilfe des ftp-Protokolls über Ethernet
+	- meist in mindestens 2 Vorgängen, da u-boot zu groß ist um auf einmal geladen zu werden
+* Der Levle 2 Bootloader lädt den Kernel, meistens ein sogenanntes uImage, dies enthält neben dem Linux-Kernel außerdem die wichtigsten Treiber
+	- von hier beginnt die eigentliche Initialisierung von Linux, die sich im wesentlichen nicht mehr von der Initialisierung eines Linux Desktops unterscheidet
+
+.. figure:: img/u-boot_std.png
+	:align: center
+
+
+u-boot unter yocto
+------------------
+
+Wird Yocto als Buildumgebung für das Root-File-System eingesetzt wird automatisch ein passender bootloader und ein uImage (Kernel) inklusive Treibern für das Board gebaut. Diese müssen dann nur noch wie bereits oben beschrieben auf die Partitionen der SD-Karte kopiert werden. Ohne eine solche Umgebung müssen die Folgenden Schritte durchlaufen werden.
+
+
+u-boot selbst kompilieren
+-------------------------
+
+Um u-boot selbst zu kompilieren muss zunächst das entsprechende Repositories von GitHub geclont werden.
+
+.. code:: bash
+
+	user@host:~/workspace/$ git clone git://git.denx.de/u-boot.git
+	Nach »u-boot« wird geklont
+	remote: Counting objects: 328911, done.
+	remote: Compressing objects: 100% (64169/64169), done.
+	remote: Total 328911 (delta 263337), reused 324204 (delta 258799)
+	Objekte werden empfangen: 100% (328911/328911), 73.97 MiB | 1.33 MiB/s, done.
+	Unterschiede werden aufgelöst: 100% (263337/263337), done.
+	Verbundenheit wird überprüft … Fertig.
+	Checking out files: 100% (10648/10648), done.
+
+Außerdem benötigt man einen passenden Cross-Compiler. Hierzu empfiehlt sich eine kurze Recherche im Internet, da sich manche Cross-Compiler mehr für bestimmte Boards eignen als andere. Für das BBB und den Raspberry Pi lässt sich der "gcc-arm-linux-gnueabihf" gleichermaßen einsetzten, aber sowohl Texas Instruments als auch die Raspberry Pi Foundation bieten spezielle Crosscompiler an. Etwas mehr dazu folgt im Absatz "Netboot".
+
+.. code:: bash
+	
+	# installation eines Cross-Compilers
+	user@host:~/workspace/u-boot$ sudo apt-get install gcc-arm-linux-gnueabihf
+
+
+Nun müssen noch einige Variablen im Terminal gesetzt werden.
+
+.. code:: bash
+	
+	# setzen der Ziel Architektur
+	user@host:~/workspace/u-boot$ export ARCH=arm
+	# setzen des gewünschten Cross-Compilers
+	user@host:~/workspace/u-boot$ export CROSS_COMPILE=arm-linux-gnueabihf-
+
+
+.. code:: bash
+
+	# um die Einstellungen zu testen empfiehlt sich ein test-build ohne weitere Konfiguration
+	user@host:~/workspace/u-boot$ make distclean
+	  CLEAN   scripts/basic
+	  CLEAN   scripts/kconfig
+	  CLEAN   include/config include/generated
+
+	# BOARD_CONFIG ist ein Platzhalter für die vorgefertigte config file für das Board
+	# zu finden sind diese unter "u-boot/configs"
+	user@host:~/workspace/u-boot$ make <BOARD_CONFIG>
+	#
+	# configuration written to .config
+	#
+
+	# u-boot bauen
+	# -j <ANZAHL_DER_ZUR_VERFÜGUNG_STEHENDEN_CORES>
+	user@host:~/workspace/u-boot$ make -j 4
+
+
+Nach Abschluss des Vorgangs befindet sich jetzt im Verzeichnis "/u-boot" die speziell für das spezifizierte Embedded Linux Board angepasste "u-boot" Datei.
+
+.. code:: bash
+
+	user@host:~/workspace/u-boot$ file u-boot
+	u-boot: ELF 32-bit LSB  shared object, ARM, EABI5 version 1 (SYSV), dynamically linked (uses shared libs), not stripped
+
+
+
+
+
+
 Einstellungen von u-boot überprüfen
 -----------------------------------
 
@@ -714,7 +803,6 @@ Einstellungen von u-boot überprüfen
 	# wichtige Ausgabe:
 	bootpart=0:2
 	loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}
-
 
 
 .. code:: bash
@@ -795,6 +883,21 @@ Netboot test
 
 Netboot, also das booten von einer Netzwerkquelle gehört nicht notwendigerweise zu unserem eigentlichen Projekt, allerdings sollte man im Rahmen des Praktikums darauf eingehen. Aufgrund einer Lieferverzögerung wurde der folgende Teil auf einem bereits vorhandenen Raspberry Pi 2 getestet. Vom Netzwerk zu booten bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. Permanente kleine schreibende Zugriffe wie beim "loggen" (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints). Oder um mechanischen Beschädigungen am SD-Karten Leser des Microcontrollers vorzubeugen, wenn man des öffteren den Kernel oder das Rootfile System wechselt, oder auch um endlich wieder eine Verwendung für eine alte 16 MB große SD-Karte zu haben.
 
+Da die meisten Embedded-Linux Systeme mit dem Bootloader u-boot betrieben werden können wird in diesem Abschnitt auch nur auf diesen spezifisch eingegangen. Generell gibt es zwei unterschiedliche Möglichkeiten mit u-boot vom Netzwerk zu booten, die erste Möglichkeit empfiehlt sich, wenn man häufig die Kernel-version wechselt ohne direkten Zugang zur SD-Karte des Systems. Die zweite eignet sich eher für Vorgänge mit intensivem logging oder große Datenmengen.
+
+.. figure:: img/u-boot_netboot.png
+	:align: center
+
+[AHUT]_
+
+
+Netboot via nfs
+---------------
+
+
+
+Netboot via ftp/tftp
+-------------------- 
 
 
 
@@ -1424,7 +1527,6 @@ Entfernen des eigenen Kernelmoduls
 
 
 
-
 Tools und Programme
 ===================
 
@@ -1583,6 +1685,9 @@ lighttpd - ein leichtgewichtiger http-server
 
 Literatur und sonstige Quellen
 ==============================
+
+.. [AHUT] A hany u-boot trick, von Bharath Bhushan, Linux Journal, Dezember 2013
+	http://www.linuxjournal.com/content/handy-u-boot-trick?page=0,0
 
 
 .. [BBB-AP] Wifi Accesspoint on a BeagleBone Black
