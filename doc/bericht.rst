@@ -1813,6 +1813,35 @@ lighttpd - ein leichtgewichtiger http-server
 
 [LTPD]_
 
+Httpserver mit Flask
+====================
+
+Um eine Geocaching Station darzustellen, soll ein kleiner Server implementiert werden, auf den man Dateien hochladen, und herunterladen kann. Ebenso soll eine Wegbeschreibung für Wegpunkte, die nicht das Ziel sind zu Lesen sein. 
+
+
+Verwendete Imports
+------------------
+
+Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert. 
+
+.. Flask für die wichtigsten Basisfunktionalitäten von Flask
+
+.. request um auf die Requestmethoden zugreifen zu können
+
+.. session Um einen User zu speichern
+
+.. g 
+
+.. redirect für den redirect auf die listen seite
+
+.. url_for für spezifische urls und dynamische url generierung
+
+.. abort  
+
+.. render_template um html seiten als template mit parametern anzuzeigen
+
+.. flash
+
 
 
 Literatur und sonstige Quellen

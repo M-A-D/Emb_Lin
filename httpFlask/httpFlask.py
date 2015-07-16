@@ -5,8 +5,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
 from contextlib import closing
 
-
-# create our little application :i)
+#httpserver
 app = Flask(__name__)
 app.config.from_object('config')
 
@@ -33,7 +32,6 @@ def upload_file():
 	    else:
                 file.save(os.path.join('static', file.filename))
             return redirect('/list')
-	#TODO redirect auf meine Listenansicht
     return render_template('upload.html')
 
 @app.route('/list')
