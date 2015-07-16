@@ -145,9 +145,9 @@ Von Github des Yoctoproject
 
 .. code:: bash
 	
-	git colone git://git.yoctoproject.org/meta-yocto -b <VERSION>
+	git clone git://git.yoctoproject.org/poky.git -b <branch>
 	# aktuelle Version zum Zeitpunkt des Projektbeginns war Dizzy
-    git clone git://git.yoctoproject.org/meta-yocto -b dizzy
+	git clone git://git.yoctoproject.org/poky.git -b dizzy
 
 
 Herunterladen des aktuellen images von der webseite des Yoctoproject
@@ -159,9 +159,8 @@ Herunterladen des aktuellen images von der webseite des Yoctoproject
 
 .. code:: bash
 
-	wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
-
-
+	wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7.2/poky-dizzy-12.0.2.tar.bz2
+	tar -xzf poky-dizzy-12.0.2.tar.bz2
 
 Bauen des Yocto-core-images und des Bootloaders
 -----------------------------------------------
@@ -181,10 +180,10 @@ Nachdem herunterladen und entpacken kann mit dem Bau begonnen werden. Dafür wec
 	bitbake-layers show-recipes
 
 
-Der Ordner "build" wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner "conf" und in diesem die Datei "local.conf" diese datei einthält unter anderem Informationen darüber für welches Target das Yocto Image gebaut werden soll. Um den Build-Prozess anstoßen zu können muss sie allerdings noch angepasst werden.
+Der Ordner *build* wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner *conf* und in diesem die Datei *local.conf* diese datei enthält unter anderem Informationen darüber für welches Target und welche Rezepte mit in das Yocto Image gebaut werden sollen. Um den Build-Prozess anstoßen zu können, muss sie allerdings noch angepasst werden. Außerdem muss in unserem Fall, da wir den Edimax EW-7811Un verwendeten, noch der Treiber als Kernel-Modul mit erstellt werden. 
 
 
-Anpassungen in der Datei "local.conf"
+Anpassungen in der Datei *local.conf*
 +++++++++++++++++++++++++++++++++++++
 
 .. code:: bash
@@ -201,6 +200,28 @@ Anpassungen in der Datei "local.conf"
 	# default values are provided as comments to show people example syntax. Enabling
 	# the option is a question of removing the # character and making any change to the
 	# variable as required.
+
+	#
+	# Parallelism Options
+	#
+	# These two options control how much parallelism BitBake should use. The first 
+	# option determines how many tasks bitbake should run in parallel:
+	#
+	BB_NUMBER_THREADS ?= "8"
+	#
+	# Default to setting automatically based on cpu count
+	BB_NUMBER_THREADS ?= "${@oe.utils.cpu_count()}"
+	# 
+	# The second option controls how many processes make should run in parallel when
+	# running compile tasks:
+	#
+	PARALLEL_MAKE ?= "-j 8"
+	#
+	# Default to setting automatically based on cpu count
+	PARALLEL_MAKE ?= "-j ${@oe.utils.cpu_count()}"
+	#
+	# For a quad-core machine, BB_NUMBER_THREADS = "4", PARALLEL_MAKE = "-j 4" would
+	# be appropriate for example.
 
 	#
 	# Machine Selection
@@ -425,16 +446,246 @@ Anpassungen in der Datei "local.conf"
 	# this doesn't mean anything to you.
 	CONF_VERSION = "1"
 
-	# [3.] slim ssh-client dropbear added
-	CORE_IMAGE_EXTRA_INSTALL += "dropbear"
-	# [4.] git-vcn added
-	CORE_IMAGE_EXTRA_INSTALL += "git"
-	# [5.] slim htpd-server added
-	CORE_IMAGE_EXTRA_INSTALL += "lighttpd"
-	# [6.] wireless-tools and functions for the hot-spot functionality
-	CORE_IMAGE_EXTRA_INSTALL += "wireless-tools"
+
+Erstellen des Konfigurationsfragments mit menuconfig
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Das Yocto Projekt bietet eine Reihe von leistungsfähigen Kernel-Tools zur Verwaltung von Linux-Kernel-Quellen und Konfigurationsdaten. Diese Tools können verwendet werden um eine einzige Konfigurationsänderung vorzunehmen, mehrere Patches zu verwenden, oder um gleich mit eigenen Kernel-Quellen zu arbeiten. Insbesondere ermöglichen es die Kernel-Tools Konfigurationsfragmente zu generieren, die ausschließlich die gewünschten Änderungen beinhalten. Diese Fragmente können mithilfe des menuconfig Systems bereitgestellt werden.
+
+Um ein Konfigurationsfragment zu erstellen sind folgende Schritte nötig:
+
+1) Zunächst ausführen eines Kernel-builds um die Kernel-Konfiguration zu ermöglichen(.config wird miterstellt)
+
+.. code:: bash
+
+	$ bitbake linux-yocto -c kernel_configme -f
+
+2) Kommando *menuconfig* ausführen um Treiber für wlan-Stick hinzuzufügen(erstellt neue *.config* und benennt alte in *.config.old*)
+
+.. code:: bash
+	  
+	  $ bitbake linux-yocto -c menuconfig
 
 
+.. figure:: img/Yocto-menuconfig.jpg
+   :align: center
+
+
+.. code:: bash
+
+	  Device Drivers  --->
+	       [\*] Network device support  --->
+	       [\*] Wireless LAN  --->
+	       <\*>   Realtek rtlwifi family of devices (NEW)  --->
+	             --- Realtek rtlwifi family of devices
+		     <M>   Realtek RTL8192CU/RTL8188CU USB Wireless Network Adapter
+		     [\*]   Debugging output for rtlwifi driver family
+
+
+3) *diffconfig* Kommando ausführen um das Konfigurationsfragment *fragment.cfg* zu erstellen, welches die Änderungen der *.config* und *.config.old* beiinhaltet
+
+.. code:: bash
+
+	  $ bitbake linux-yocto -c diffconfig
+
+
+Anlegen der meta-custom Layer für Anpassungen am Yocto-Standard-Build
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Es ist sehr einfach, eine neue Schicht für eigene Anpassungen am Yocto Image, zu erstellen.
+
+Erstellen der neuen Schicht meta-custom:
+
+* Erstellen der Ordnerstruktur für die Schicht
+
+.. code:: bash
+
+	  # im Verzeichnis ../yocto/poky/
+	  mkdir meta-custom
+	  mkdir meta-custom/conf
+
+* Anlegen der Layer-Konfigurationsdatei. Innerhalb jeder Schicht ist es notwendig eine conf/layer.conf file zu erstellen. Am einfachsten ist es diese von schon bestehenden Schichten zu kopieren und anschließend anzupassen.
+
+.. code:: bash
+	  
+	  # We have a conf and classes directory, add to BBPATH
+	  BBPATH .= ":${LAYERDIR}"
+
+	  # We have recipes-* directories, add to BBFILES
+	  BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
+          ${LAYERDIR}/recipes-*/*/*.bbappend"
+     
+	  BBFILE_COLLECTIONS += "custom"
+	  BBFILE_PATTERN_custom = "^${LAYERDIR}/"
+	  BBFILE_PRIORITY_custom = "5"
+	  LAYERVERSION_custom = "1"
+
+* Das anpassen der /../yocto/poky/conf/bblayers.conf ist wichtig, da beim bauen des Images nur in den Schichten gesucht wird, die in der bblayers.conf aufgeführt werden.
+
+.. code:: bash
+
+	  # LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+	  # changes incompatibly
+	  LCONF_VERSION = "6"
+
+	  BBPATH = "${TOPDIR}"
+	  BBFILES ?= ""
+	  
+	  BBLAYERS ?= " \
+	  /../yocto/poky/meta \
+	  /../yocto/poky/meta-yocto \
+	  /../yocto/poky/meta-yocto-bsp \
+	  /../yocto/poky/meta-custom \ 
+	  "
+	  BBLAYERS_NON_REMOVABLE ?= " \
+	  /../yocto/poky/meta \
+	  /../yocto/poky/meta-yocto \
+
+
+ 
+Erstellen der Recipes in meta-custom
+++++++++++++++++++++++++++++++++++++
+
+* Um die Änderungen der *fragment.cfg* hinzuzufügen, muss ein neues Rezept erstellt werden. Dazu wird die Ordnerstruktur recipes-kernel/linux/files erstellt und darin dann die *fragment.cfg* abgelegt werden.
+
+* Danach wird im Ordner recipes-kernel/linux/ die Datei linux-yocto_3.14.bbappend angelegt, die wie folgt aussieht:
+
+.. code:: bash
+	  
+	  FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+	  SRC_URI += "file://rtl8192.cfg"
+
+* Damit die Funktionalität eines Accesspoints auf dem Beaglebone mithilfe des Yocto-Images gewährleistet werden kann, werden außer dem Treiber für den W-Lan-Stick, noch die Rezepte für die Konnektivität *recipes-connectivity* und die Rezepte für das Web-Framework Flask *recipes-flask* erstellt. Der Ordner *recipes-connectivity* besteht aus den Rezepten dnsmasq, hostapd, und iw. *recipes-flask* enthält alle Rezepte die benötigt werden damit Flask läuft, die da wären, flask selber, itsdangerous, jinja2, markupsafe und werkzeug. Die Vorgehensweise zum Hinzufügen der einzelnen Rezepte, unterscheidet sich kaum.
+
+bsp. anhand des Werkzeug-recipes:
+
+* erstellen der Ordnerstruktur
+  
+.. code:: bash
+
+	  meta-custom/recipes-flask
+	  meta-custom/recipes-flask/werkzeug
+
+* anlegen der bb Datei im Ordner werkzeug
+
+.. code:: bash 
+
+	  # Wenn man ein Rezept benennt, muss die folgende Namenskonvention eingehalten werden
+	  # <basename>_<version>.bb. In diesem Fall werkzeug_0.10.4.bb
+	  
+	  
+	  DESCRIPTION = "The Swiss Army knife of Python web development"
+	  HOMEPAGE = "https://https://pypi.python.org/pypi/Werkzeug"
+	  SECTION = "devel/python"
+	  LICENSE = "BSD"
+	  LIC_FILES_CHKSUM = "file://LICENSE;md5=a68f5361a2b2ca9fdf26b38aaecb6faa"
+
+	  PR = "r0"
+	  SRCNAME = "Werkzeug"
+	  PV = "0.10.4"
+
+	  SRC_URI = "https://pypi.python.org/packages/source/W/Werkzeug/Werkzeug-0.10.4.tar.gz"
+	  SRC_URI[md5sum] = "66a488e0ac50a9ec326fe020b3083450"
+	  SRC_URI[sha256sum] = "9d2771e4c89be127bc4bac056ab7ceaf0e0064c723d6b6e195739c3af4fd5c1d"
+
+	  S = "${WORKDIR}/${SRCNAME}-${PV}"
+
+	  inherit setuptools
+
+	  CLEANBROKEN = "1"
+
+* anlegen einer bbappend file, damit für den lighttpd die module: fastcgi, alias und rewrite mitinstalliert werden.
+
+.. code:: bash
+
+	  FILESEXTRAPATHS_prepend := "${THISDIR}/${BP}:"
+
+	  RDEPENDS_${PN} += " \
+                lighttpd-module-fastcgi \
+                lighttpd-module-alias \
+                lighttpd-module-rewrite \
+	  "
+
+	  
+
+Abschließende Anpassungen in der local.conf
++++++++++++++++++++++++++++++++++++++++++++
+
+Damit die erstellten Rezepte beim bauen des Images darauf enthalten sind, muss noch die local.conf so angepasst werden dass diese mitgebaut und auf dem Image installiert werden. Dazu werden folgende Zeilen der local.conf Datei hinzugefügt:
+
+.. code:: bash
+
+	  # [3.] slim ssh-client dropbear added
+	  CORE_IMAGE_EXTRA_INSTALL += "dropbear"
+	  # [4.] git-vcn added
+	  CORE_IMAGE_EXTRA_INSTALL += "git"
+	  # [5.] slim htpd-server added
+	  CORE_IMAGE_EXTRA_INSTALL += "lighttpd"
+	  # [6.] wireless-tools and functions for the hot-spot functionality
+	  CORE_IMAGE_EXTRA_INSTALL += "wireless-tools"
+	  # [7.] dhcp-server
+	  CORE_IMAGE_EXTRA_INSTALL += "dhcp-server"
+	  # [8.] dhcp-client
+	  CORE_IMAGE_EXTRA_INSTALL += "dhcp-client"
+	  # [9.] linux firmware for wlan stick
+	  IMAGE_INSTALL_append += " linux-firmware-rtl8192cu"
+	  # [10.] flask micro-framework added
+	  IMAGE_INSTALL_append += " flask"
+	  # [11.] werkzeug wsgi added
+	  IMAGE_INSTALL_append += " werkzeug"
+	  # [12.] jinja2 template engine added
+	  IMAGE_INSTALL_append += " jinja2"
+	  # [13.] itsdangerous Various helpers to pass trusted data to untrusted environments and back
+	  IMAGE_INSTALL_append += " itsdangerous"
+	  #[14.] markupsafe Implements a XML/HTML/XHTML Markup safe string for Python
+	  IMAGE_INSTALL_append += " markupsafe"
+	  # [15.] flup needed for fastcgi support
+	  IMAGE_INSTALL_append += " flup"
+
+Finale Ordnerstruktur in meta-custom
+++++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+	  
+	  meta-custom
+	  │  
+	  ├── conf
+	  │   └── layer.conf
+	  ├── recipes-connectivity 
+	  │   ├── hostapd
+	  │   │   ├── hostapd-2.2
+	  │   │   │   ├── defconfig
+	  │   │   │   ├── hostapd.service
+	  │   │   │   └── init
+	  │   │   └── hostapd_2.2.bb
+	  │   └── iw
+	  │       ├── iw
+	  │       │   └── 0001-iw-version.sh-don-t-use-git-describe-for-versioning.patch
+	  │       └── iw_3.15.bb
+	  ├── recipes-extended
+	  │   └── lighttpd
+	  │       └── lighttpd_1.4.33.bbappend
+	  ├── recipes-flask
+	  │   ├── flask
+	  │   │   └── flask_1.0.0.bb
+	  │   ├── flup
+	  │   │   └── flup_1.0.2.bb
+	  │   ├── itsdangerous
+	  │   │   └── itsdangerous_0.24.bb
+	  │   ├── jinja2
+	  │   │   └── jinja2_2.7.3.bb
+	  │   ├── markupsafe
+	  │   │   └── markupsafe_0.23.bb
+	  │   └── werkzeug
+	  │       └── werkzeug_0.10.4.bb
+	  └── recipes-kernel
+	      └── linux
+                  ├── files
+                  │   └── rtl8192.cfg
+                  └── linux-yocto_3.14.bbappend
+
+	  
 
 Bitbake eine Build-umgebung für ein angepasstes Yocto-linux
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -457,6 +708,7 @@ Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies 
 
 .. figure:: img/Yocto-build1.png
    :align: center
+
 
 
 hob und toaster - graphische Oberflächen für die Konfiguration von Yocto
@@ -1125,7 +1377,7 @@ Da das BeagleBone Black später als selbstständiger DHCP-Server fungieren soll 
 Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung
 -------------------------------------------------------------------------------
 
-Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespecherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter "../dnsmasq/dnsmasq.conf" um die folgenden Einstellungen ergänzt.
+Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespeicherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter "../dnsmasq/dnsmasq.conf" um die folgenden Einstellungen ergänzt.
 
 
 .. code:: bash
