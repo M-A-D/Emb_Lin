@@ -1843,6 +1843,64 @@ Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert.
 .. flash
 
 
+Benutzung der Applikation
+-------------------------
+
+Seiten:
+.......
+
+.. index.html
+
+Startseite, von der aus man zu den anderen Seiten gelangen kann.
+Hier wird eine Wegbeschreibung angezeigt, wenn eine vorhanden ist.
+Hier wird auf die Listenansicht und die Seite zum Dateiupload verlinkt.
+Der link zum Dateiupload kann deaktiviert werden.
+
+
+.. list.html
+
+Hier werden die einzelnen hochgeladenen Dateien angezeigt.
+Diese können angeklickt und damit im Browser angezeigt werden.
+
+.. upload.html
+
+Hier ist die Möglichkeit eine Datei hoch zu laden.
+
+Datei upload:
+.............
+
+Den Upload erreicht man einfach über einen Link von der Startseite aus.
+Dieser muss dazu aktiviert worden sein. 
+Ansonsten kann man einfach die URL für den Upload:
+
+/upload 
+
+aufrufen und kann trotzdem darauf zugreifen.
+
+
+Upload aktivieren:
+..................
+
+Um zu aktivieren, dass von der Startseite aus der Link zum Upload erscheint, läd man eine Datei mit dem Namen enable_ubload.txt hoch.
+Diese wird in der Listenansicht nicht angezeigt.
+
+Upload deaktivieren:
+....................
+
+Um den Upload wieder zu deaktivieren, ohne alle Dateien löschen zu müssen, läd man eine Datei mit dem Namen disable_upload.txt hoch.
+Diese wird garnicht erst in die Liste der Dateien aufgenommen, sondern aktiviert nur die Funktion, die die enable_upload.txt wieder entfernt, und somit den Link zur Uploadseite ebenfalls nicht mehr sichtbar macht.
+
+Dateien löschen:
+................
+
+Wenn man das System zurücksetzen möchte, läd man eine clear_uploads.txt hoch. Diese wird ebenfalls garnicht ganz hochgeladen, sondern löst aus, dass alle anderen Dateien gelöscht werden.
+
+Wegbeschreibung:
+................
+
+Für die Wegbeschreibung läd man eine hint.txt mit der entsprechenden Wegbeschreibung hoch.
+Diese wird auf der Startseite angezeigt.
+
 
 Literatur und sonstige Quellen
 ==============================
