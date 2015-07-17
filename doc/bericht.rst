@@ -2,8 +2,9 @@
 
 
 
-Das Geocaching-Modul
-====================
+======================
+ Das Geocaching-Modul
+======================
 
 
 Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefasst. Unser Projekt dient der Digitalisierung eines Notizbuches beim Geocaching_. Der Funktionsumfang und die Anzahl der in unserem Projekt verwendeten Programme ist eher gering. Im groben handelt es sich um einen W-Lan Accesspoint, der lediglich zur Verbindung mit dem auf dem Embedded-Linux Rechner befindlichen http-server dient. Dieser soll möglichst einfach von außen mit einer Konfiguration versehen werden, die drei generelle Betriebsmodi erlaubt.
@@ -18,13 +19,14 @@ Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefass
 
 
 
-Beschreibung der Hardware
-=========================
+===========================
+ Beschreibung der Hardware
+===========================
 
 
 Für das Projekt wird das BeagleBone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.
 
-Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
+Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand widmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
 
 .. code:: bash
     
@@ -51,7 +53,7 @@ Es befindet sich bereits eine angepasste Debian Version Linux beaglebone 3.8.13-
 
 
 Verbindung
-----------
+==========
 
 
 .. code:: bash
@@ -64,7 +66,7 @@ Verbindung
 
 
 Blockschaltplan Beaglebone Black
---------------------------------
+================================
 
 
 .. figure:: img/BBB-Blockschaltplan.png
@@ -72,7 +74,7 @@ Blockschaltplan Beaglebone Black
 
 
 Komponenten
------------
+===========
 
 
 .. figure:: img/BBB-components.png
@@ -128,13 +130,14 @@ Komponenten
 
 
 
-Bau einer eigenen Linuxumgebung mit dem Yoctoproject
-====================================================
+======================================================
+ Bau einer eigenen Linuxumgebung mit dem Yoctoproject
+======================================================
 
 
-Zu Begin soll eine neue angepasste Linuxumgebung für das Beagelbone Black compiliert und auf der MicroSD-Karte platziert werden. Hierzu bedienen wir uns im ersten Teil des Yoctoproject. Bei diesem handelt es sich um eine vereinfachte Version von "". Yocto wurde in den letzten Jahren zu einem wichtigen Standard in der Wirtschaft. Yocto ermöglicht den einfachen Bau von minimale angepasste Linux-distributionen für das eigene Board. Außerdem unterstützt es die Erstellung eines eigenen Paket-servers von dem aus mit dem Paketmanager "smart" updates auf allen Boards durchgeführt werden können. [BBB-YOCTO]_
+Zu Beginn soll eine neue angepasste Linuxumgebung für das Beagelbone Black kompiliert und auf der MicroSD-Karte platziert werden. Hierzu bedienen wir uns im ersten Teil des Yoctoproject. Bei diesem handelt es sich um eine vereinfachte Version von "". Yocto wurde ist in den letzten Jahren zu einem wichtigen Standard in der Wirtschaft gereift. Yocto ermöglicht den einfachen Bau, von minimal angepassten Linux-distributionen für das eigene Board. Außerdem unterstützt es die Erstellung eines eigenen Paket-servers, von dem aus mit dem Paketmanager "smart" updates auf allen Boards durchgeführt werden können. [BBB-YOCTO]_
 
-Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobten Linux Distribution. Wir haben Ubuntu 14.04 LTS-Version für den folgenden Bauversuch verwendet. Bevor mit dem Bauen einer eigenen Linux Distribution begonnen werden konnte mussten noch die folgenden Pakete nachinstalliert werden:
+Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobten Linux Distribution. Wir haben Ubuntu 14.04 LTS-Version für den folgenden Bauversuch verwendet. Bevor mit dem Bauen einer eigenen Linux Distribution begonnen werden konnte, mussten noch die folgenden Pakete nachinstalliert werden:
 
 .. code:: bash
 
@@ -153,11 +156,11 @@ Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobte
 
 
 Herunterladen der Yocto Buildumgebung
--------------------------------------
+=====================================
 
 
 Von Github des Yoctoproject
-+++++++++++++++++++++++++++
+---------------------------
 
 .. code:: bash
 	
@@ -167,7 +170,7 @@ Von Github des Yoctoproject
 
 
 Herunterladen des aktuellen images von der webseite des Yoctoproject
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------------------
 
 [TODO]_
 
@@ -179,13 +182,13 @@ Herunterladen des aktuellen images von der webseite des Yoctoproject
 	tar -xzf poky-dizzy-12.0.2.tar.bz2
 
 Bauen des Yocto-core-images und des Bootloaders
------------------------------------------------
+===============================================
 
 
 Erstellen der Buildumgebung und Überprüfung der Variablen
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+---------------------------------------------------------
 
-Nachdem herunterladen und entpacken kann mit dem Bau begonnen werden. Dafür wechselt man in das Verzeichnis "poky/". In diesem Verzeichnis befinden sich die Sources und Konfigurations-Dateien, die für den Bauvorgang benötigt werden. Vor jedem neuen Bauvorgang sollte die Buildumgebung gesourced werden. Dies sorgt dafür das die für den Bau benötigten Variablen, wie zum Beispiel Compiler, Kernel und Architekturen im jeweiligen Terminal gesetzt werden. Wechselt man das Terminal muss die Buildumgebung erneut gesourced werden. Eine weitere wichtige Anmerkung, je nach Konfiguration wird für das Bauen zwischen 10 und 25 GB Speicherplatz benötigt, läuft dieser voll bricht der Bauvorgang einfach ab!
+Nach dem herunterladen und entpacken, kann mit dem Bau begonnen werden. Dafür wechselt man in das Verzeichnis "poky/". In diesem Verzeichnis befinden sich die Sources und Konfigurations-Dateien, die für den Bauvorgang benötigt werden. Vor jedem neuen Bauvorgang sollte die Buildumgebung gesourced werden. Dies sorgt dafür das die für den Bau benötigten Variablen, wie zum Beispiel Compiler, Kernel und Architekturen im jeweiligen Terminal gesetzt werden. Wechselt man das Terminal muss die Buildumgebung erneut gesourced werden. Eine weitere wichtige Anmerkung, je nach Konfiguration wird für das Bauen zwischen 10 und 25 GB Speicherplatz benötigt, läuft dieser voll bricht der Bauvorgang ab. Er setzt beim nächsten Versuch dafür wieder an der Stelle fort an welcher abgebrochen wurde.
 
 .. code:: bash
 
@@ -200,7 +203,7 @@ Der Ordner *build* wurde angelegt und außerdem ist das Terminal gleich in diese
 
 
 Anpassungen in der Datei *local.conf*
-+++++++++++++++++++++++++++++++++++++
+-------------------------------------
 
 .. code:: bash
 
@@ -464,7 +467,7 @@ Anpassungen in der Datei *local.conf*
 
 
 Erstellen des Konfigurationsfragments mit menuconfig
-++++++++++++++++++++++++++++++++++++++++++++++++++++
+----------------------------------------------------
 
 Das Yocto Projekt bietet eine Reihe von leistungsfähigen Kernel-Tools zur Verwaltung von Linux-Kernel-Quellen und Konfigurationsdaten. Diese Tools können verwendet werden um eine einzige Konfigurationsänderung vorzunehmen, mehrere Patches zu verwenden, oder um gleich mit eigenen Kernel-Quellen zu arbeiten. Insbesondere ermöglichen es die Kernel-Tools Konfigurationsfragmente zu generieren, die ausschließlich die gewünschten Änderungen beinhalten. Diese Fragmente können mithilfe des menuconfig Systems bereitgestellt werden.
 
@@ -492,7 +495,7 @@ Um ein Konfigurationsfragment zu erstellen sind folgende Schritte nötig:
 	  Device Drivers  --->
 	       [\*] Network device support  --->
 	       [\*] Wireless LAN  --->
-	       <\*>   Realtek rtlwifi family of devices (NEW)  --->
+	       <*>   Realtek rtlwifi family of devices (NEW)  --->
 	             --- Realtek rtlwifi family of devices
 		     <M>   Realtek RTL8192CU/RTL8188CU USB Wireless Network Adapter
 		     [\*]   Debugging output for rtlwifi driver family
@@ -506,13 +509,13 @@ Um ein Konfigurationsfragment zu erstellen sind folgende Schritte nötig:
 
 
 Anlegen der meta-custom Layer für Anpassungen am Yocto-Standard-Build
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+---------------------------------------------------------------------
 
 Es ist sehr einfach, eine neue Schicht für eigene Anpassungen am Yocto Image, zu erstellen.
 
 Erstellen der neuen Schicht meta-custom:
 
-* Erstellen der Ordnerstruktur für die Schicht
+1) Erstellen der Ordnerstruktur für die Schicht
 
 .. code:: bash
 
@@ -520,7 +523,7 @@ Erstellen der neuen Schicht meta-custom:
 	  mkdir meta-custom
 	  mkdir meta-custom/conf
 
-* Anlegen der Layer-Konfigurationsdatei. Innerhalb jeder Schicht ist es notwendig eine conf/layer.conf file zu erstellen. Am einfachsten ist es diese von schon bestehenden Schichten zu kopieren und anschließend anzupassen.
+2) Anlegen der Layer-Konfigurationsdatei. Innerhalb jeder Schicht ist es notwendig eine conf/layer.conf file zu erstellen. Am einfachsten ist es diese von schon bestehenden Schichten zu kopieren und anschließend anzupassen.
 
 .. code:: bash
 	  
@@ -536,7 +539,7 @@ Erstellen der neuen Schicht meta-custom:
 	  BBFILE_PRIORITY_custom = "5"
 	  LAYERVERSION_custom = "1"
 
-* Das anpassen der /../yocto/poky/conf/bblayers.conf ist wichtig, da beim bauen des Images nur in den Schichten gesucht wird, die in der bblayers.conf aufgeführt werden.
+3) Das anpassen der /../yocto/poky/conf/bblayers.conf ist wichtig, da beim bauen des Images nur in den Schichten gesucht wird, die in der bblayers.conf aufgeführt werden.
 
 .. code:: bash
 
@@ -560,7 +563,7 @@ Erstellen der neuen Schicht meta-custom:
 
  
 Erstellen der Recipes in meta-custom
-++++++++++++++++++++++++++++++++++++
+------------------------------------
 
 * Um die Änderungen der *fragment.cfg* hinzuzufügen, muss ein neues Rezept erstellt werden. Dazu wird die Ordnerstruktur recipes-kernel/linux/files erstellt und darin dann die *fragment.cfg* abgelegt werden.
 
@@ -573,7 +576,7 @@ Erstellen der Recipes in meta-custom
 
 * Damit die Funktionalität eines Accesspoints auf dem Beaglebone mithilfe des Yocto-Images gewährleistet werden kann, werden außer dem Treiber für den W-Lan-Stick, noch die Rezepte für die Konnektivität *recipes-connectivity* und die Rezepte für das Web-Framework Flask *recipes-flask* erstellt. Der Ordner *recipes-connectivity* besteht aus den Rezepten dnsmasq, hostapd, und iw. *recipes-flask* enthält alle Rezepte die benötigt werden damit Flask läuft, die da wären, flask selber, itsdangerous, jinja2, markupsafe und werkzeug. Die Vorgehensweise zum Hinzufügen der einzelnen Rezepte, unterscheidet sich kaum.
 
-bsp. anhand des Werkzeug-recipes:
+Bsp. anhand des Werkzeug-recipes:
 
 * erstellen der Ordnerstruktur
   
@@ -610,7 +613,7 @@ bsp. anhand des Werkzeug-recipes:
 
 	  CLEANBROKEN = "1"
 
-* anlegen einer bbappend file, damit für den lighttpd die module: fastcgi, alias und rewrite mitinstalliert werden.
+* anlegen einer bbappend file, damit für den lighttpd die module: fastcgi, alias und rewrite mitinstalliert werden, da diese für die Konfiguration des lighttpd benötigt werden.
 
 .. code:: bash
 
@@ -625,9 +628,9 @@ bsp. anhand des Werkzeug-recipes:
 	  
 
 Abschließende Anpassungen in der local.conf
-+++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------
 
-Damit die erstellten Rezepte beim bauen des Images darauf enthalten sind, muss noch die local.conf so angepasst werden dass diese mitgebaut und auf dem Image installiert werden. Dazu werden folgende Zeilen der local.conf Datei hinzugefügt:
+Damit die erstellten Rezepte beim bauen des Images darauf enthalten sind, muss noch die local.conf so angepasst werden dass diese mitgebaut und auf dem Image installiert werden. Dazu werden folgende Zeilen der *local.conf* Datei hinzugefügt:
 
 .. code:: bash
 
@@ -660,7 +663,7 @@ Damit die erstellten Rezepte beim bauen des Images darauf enthalten sind, muss n
 
 
 Finale Ordnerstruktur in meta-custom
-++++++++++++++++++++++++++++++++++++
+------------------------------------
 
 .. code:: bash
 
@@ -705,9 +708,9 @@ Finale Ordnerstruktur in meta-custom
 	  
 
 Bitbake eine Build-umgebung für ein angepasstes Yocto-linux
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-----------------------------------------------------------
 
-Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
+Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden. Dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
 
 .. code:: bash
 
@@ -729,14 +732,15 @@ Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies 
 
 
 hob und toaster - graphische Oberflächen für die Konfiguration von Yocto
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+------------------------------------------------------------------------
 
 
 
 
 
-Vorbereiten der microSD Karte
-=============================
+===============================
+ Vorbereiten der microSD Karte
+===============================
 
 
 .. code:: bash
@@ -795,7 +799,7 @@ Vorbereiten der microSD Karte
 
 
 boot formatieren als FAT16 (LBA)
---------------------------------
+================================
 
 .. code:: bash
 
@@ -808,7 +812,7 @@ boot formatieren als FAT16 (LBA)
 
 
 root als "Linux" formatieren
-----------------------------
+============================
 
 .. code:: bash
 
@@ -837,7 +841,7 @@ root als "Linux" formatieren
 
 
 Die Änderungen auf der SD Karte anwenden
-----------------------------------------
+========================================
 
 .. code:: bash
 
@@ -865,11 +869,11 @@ Die Änderungen auf der SD Karte anwenden
 
 
 Anlegen des Filesystem und der Partitionstabelle
-------------------------------------------------
+================================================
 
 
 "boot-Partition"
-++++++++++++++++
+----------------
 
 Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogenannte "bootable" flag gesetzt werden.
 
@@ -880,7 +884,7 @@ Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogen
 
 
 "root-Partition"
-++++++++++++++++
+----------------
 
 Die root-Partition benötigt ein Linux kompatibles Filesystem in diesem Beispiel verwenden wir ext3.
 
@@ -900,12 +904,13 @@ Die root-Partition benötigt ein Linux kompatibles Filesystem in diesem Beispiel
 
 
 
-Platzieren der Daten auf der SD-Karte
-=====================================
+=======================================
+ Platzieren der Daten auf der SD-Karte
+=======================================
 
 
 Installation des Bootloaders
-----------------------------
+============================
 
 .. code:: bash
 
@@ -914,7 +919,7 @@ Installation des Bootloaders
 
 
 Kopieren und Entpacken des Filesystems
---------------------------------------
+======================================
 
 .. code:: bash
 	
@@ -947,8 +952,9 @@ Kopieren und Entpacken des Filesystems
 	 
 
 
-Das u-boot
-==========
+============
+ Das u-boot
+============
 
 
 Das u-boot ist einer der am meisten verbreiteten bootloader im Bereich Embedded Linux. Für die Meisten Boards und Systeme wird man auch ohne großen Aufwand eine angepasste u-boot Konfiguration finden. Mit dieser, einem Kernel, Treibern, einem Root-File-System und einigen Programmen ist eine minimale Embedded Linux Distribution bereits voll funktionsfähig.
@@ -968,13 +974,13 @@ Der Bootvorgang bei einem Embedded Linux System mit u-boot läuft entsprechend d
 
 
 u-boot unter yocto
-------------------
+==================
 
-Wird Yocto als Buildumgebung für das Root-File-System eingesetzt wird automatisch ein passender bootloader und ein uImage (Kernel) inklusive Treibern für das Board gebaut. Diese müssen dann nur noch wie bereits oben beschrieben auf die Partitionen der SD-Karte kopiert werden. Ohne eine solche Umgebung müssen die Folgenden Schritte durchlaufen werden.
+Wird Yocto als Buildumgebung für das Root-File-System eingesetzt wird automatisch ein passender bootloader und ein uImage (Kernel) inklusive Treibern für das Board gebaut. Diese müssen dann nur noch, wie bereits oben beschrieben auf die Partitionen der SD-Karte kopiert werden. Ohne eine solche Umgebung müssen die Folgenden Schritte durchlaufen werden.
 
 
 u-boot selbst kompilieren
--------------------------
+=========================
 
 Um u-boot selbst zu kompilieren muss zunächst das entsprechende Repositories von GitHub geclont werden.
 
@@ -1028,7 +1034,7 @@ Nun müssen noch einige Variablen im Terminal gesetzt werden.
 	user@host:~/workspace/u-boot$ make -j 4
 
 
-Nach Abschluss des Vorgangs befindet sich jetzt im Verzeichnis "/u-boot" die speziell für das spezifizierte Embedded Linux Board angepasste "u-boot" Datei.
+Nach Abschluss des Vorgangs befindet sich jetzt im Verzeichnis "/u-boot", die speziell für das spezifizierte Embedded Linux Board angepasste "u-boot" Datei.
 
 .. code:: bash
 
@@ -1038,7 +1044,7 @@ Nach Abschluss des Vorgangs befindet sich jetzt im Verzeichnis "/u-boot" die spe
 
 
 Einstellungen von u-boot überprüfen
------------------------------------
+===================================
 
 .. code:: bash
 	
@@ -1072,9 +1078,9 @@ Einstellungen von u-boot überprüfen
 
 
 Zugriff auf das serielle Terminal während des Bootvorganges
------------------------------------------------------------
+===========================================================
 
-Nachdem das Beaglebone Black mit dem USB-to-ttl mit dem Entwicklungsrechner verbunden wurde müssen noch einige Einstellungen getätigt werden um das arbeiten mit einem "Serial-Terminal-Emulator" möglich zu machen.
+Nachdem das Beaglebone Black mit dem USB-to-ttl mit dem Entwicklungsrechner verbunden wurde müssen noch einige Einstellungen getätigt werden, um das arbeiten mit einem "Serial-Terminal-Emulator" möglich zu machen.
 
 .. figure:: img/Connect-BBB-SerialTerminal.png
 	:align: center
@@ -1095,7 +1101,7 @@ Unter anderem muss die richtige Schnittstelle, auf die die Verbindung zum BBB im
 .. figure:: img/BBB-dmesg.png
    :align: center
 
-Um während des Bootvorganges auf das Serielle Terminal und somit auch auf den Bootloader u-boot zugreifen zu können benötigt man einen serielles Terminal (bzw. einen Emulator) wie z.B. Minicom außerdem werden spezielle Befugnisse für das Zugreifen auf den Port benötigt hierfür gibt es 2 unterschiedliche herangehensweisen: 
+Um während des Bootvorganges auf das Serielle Terminal und somit auch auf den Bootloader u-boot zugreifen zu können, benötigt man einen serielles Terminal (bzw. einen Emulator) wie z.B. Minicom außerdem werden spezielle Befugnisse für das Zugreifen auf den Port benötigt hierfür gibt es 2 unterschiedliche herangehensweisen: 
 
 a) Ändern der Befugnisse um auf den seriellen Port zugreifen zu dürfen
 
@@ -1128,8 +1134,9 @@ Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit de
 
 
 
-Netboot test
-============
+==============
+ Netboot test
+==============
 
 
 Netboot, also das booten von einer Netzwerkquelle gehört nicht notwendigerweise zu unserem eigentlichen Projekt, allerdings sollte man im Rahmen des Praktikums darauf eingehen. Aufgrund einer Lieferverzögerung wurde der folgende Teil auf einem bereits vorhandenen Raspberry Pi 2 getestet. Vom Netzwerk zu booten bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. Permanente kleine schreibende Zugriffe wie beim "loggen" (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints). Oder um mechanischen Beschädigungen am SD-Karten Leser des Microcontrollers vorzubeugen, wenn man des öffteren den Kernel oder das Rootfile System wechselt, oder auch um endlich wieder eine Verwendung für eine alte 16 MB große SD-Karte zu haben.
@@ -1144,22 +1151,23 @@ Da die meisten Embedded-Linux Systeme mit dem Bootloader u-boot betrieben werden
 
 
 Netboot via nfs
----------------
+===============
 
 
 
 Netboot via ftp/tftp
--------------------- 
+====================
 
 
 
 
 
-Debian 8.0 für das BeagleBone Black
-===================================
+=====================================
+ Debian 8.0 für das BeagleBone Black
+=====================================
 
 
-Da sich das arbeiten und entwickeln unter der selbst gebauten Yocto-distribution als zunehmend schwierig herausgestellt hat und wir bereits Erfahrungen mit dem Selbst bauen und kompilieren von Images für unser BBB gesammelt haben wurde beschlossen für die Fertigstellung unseres Projektes auf ein Debian zu wechseln. Vor allem um auf den Komfort eines Paketmanagers zurückgreifen zu können.
+Da sich das arbeiten und entwickeln unter der selbst gebauten Yocto-distribution als zunehmend schwierig herausgestellt hat und wir bereits Erfahrungen mit dem Selbst bauen und kompilieren von Images für unser BBB gesammelt haben, wurde beschlossen für die Fertigstellung unseres Projektes auf ein Debian zu wechseln. Vor allem um auf den Komfort eines Paketmanagers zurückgreifen zu können.
 
 .. code:: bash
 
@@ -1176,7 +1184,7 @@ Da sich das arbeiten und entwickeln unter der selbst gebauten Yocto-distribution
 
 
 Die ersten Schritte nach dem erfolgreichen platzieren des images:
------------------------------------------------------------------
+=================================================================
 
 .. code:: bash
 
@@ -1214,8 +1222,9 @@ Die ersten Schritte nach dem erfolgreichen platzieren des images:
 	sudo apt-get install isc-dhcp-server
 
 
-Einrichten eines Accesspoint auf dem BeagleBone Black
-=====================================================
+=======================================================
+ Einrichten eines Accesspoint auf dem BeagleBone Black
+=======================================================
 
 
 Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem W-Lan Adapter einen dhcp-server, einen http-server, wie zum Beispiel (Apache - im Desktop Bereich oder lighttpd - im ES-Bereich) und einen DNS-Server. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.
@@ -1257,7 +1266,7 @@ Um die Anleitung möglichst allgemein zu halten werden in der folgenden Erkläru
 
 
 Finden und identifizieren des W-Lan Devices
--------------------------------------------
+===========================================
 
 Da es sich bei Boards wie dem BeagleBone Black oder dem Raspberry Pi eigentlich ausschließlich um USB W-Lan Sticks handelt sollte es möglich sein mit dem Befehl "lsusb" die verfügbaren USB-Schnittstellen auf angeschlossene Geräte zu überprüfen. Hat man also seinen W-Lan Stick mit dem Board verbunden sollte man zunächst folgendes versuchen:
 
@@ -1281,9 +1290,9 @@ Diese meldung zeigt uns, dass der Stick bereits als W-Lan Device erkannt wurde u
 
 
 Finden, identifizieren und laden des Treibers
----------------------------------------------
+=============================================
 
-Unter Linux gibt es eigentlich keine Treiber sondern Kernelmodule oder kurz lkms (linux-kernel-modules).
+Unter Linux gibt es eigentlich keine Treiber, sondern Kernelmodule oder kurz lkms (linux-kernel-modules).
 
 .. code:: bash
 
@@ -1342,7 +1351,7 @@ Ist der richtige Treiber für das W-Lan Modul geladen ist es außerdem nötig zu
 
 
 Einrichten des W-Lan Interfaces
--------------------------------
+===============================
 
 .. code:: bash
 
@@ -1421,7 +1430,7 @@ Die Ausgabe von "iwconfig" zeigt, dass dem Interface "wlan0" eine Hardwareadress
 
 
 Konfiguration des hostapd
--------------------------
+=========================
 
 .. code:: bash
 
@@ -1479,10 +1488,10 @@ In der Datei "hostapd.conf" werden die Standard Parameter für den Wifi-Accesspo
 
 
 Konfiguration des isc-dhcp-servers
-----------------------------------
+==================================
 
 
-Da das BeagleBone Black später als selbstständiger DHCP-Server fungieren soll muss ein Subnetz deklariert werden. Mit der Konfigurations-Datei bestimmt man, welche IP-Adressen der DHCP-Server vergeben kann und somit auch die maximale Anzahl der möglichen Verbindungen. Hierzu wird die Datei unter "/etc/dhcp/dchpd.conf" entsprechend dem folgenden Muster Ergänzt.
+Da das BeagleBone Black später als selbstständiger DHCP-Server fungieren soll, muss ein Subnetz deklariert werden. Mit der Konfigurations-Datei bestimmt man, welche IP-Adressen der DHCP-Server vergeben kann und somit auch die maximale Anzahl der möglichen Verbindungen. Hierzu wird die Datei unter "/etc/dhcp/dchpd.conf" entsprechend dem folgenden Muster Ergänzt.
 
 
 .. code:: bash
@@ -1495,9 +1504,16 @@ Da das BeagleBone Black später als selbstständiger DHCP-Server fungieren soll 
 	interface <YOUR-WIFI-INTERFACE>;
 	}
 
+Damit der dhcp-server auch automatisch beim booten mitstartet, wurde folgender Befehl ausgeführt:
+
+.. code:: bash
+	  
+	  ln -s /etc/dhcp/dhcpd.conf /etc/rc5.d/S70dhcp-server
+
+
 
 Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung
--------------------------------------------------------------------------------
+===============================================================================
 
 Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespeicherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter "../dnsmasq/dnsmasq.conf" um die folgenden Einstellungen ergänzt.
 
@@ -1525,8 +1541,9 @@ Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine D
 
 
 
-Httpserver mit Flask
-====================
+======================
+ Httpserver mit Flask
+======================
 
 Um eine Geocaching Station darzustellen, soll ein kleiner Server implementiert werden, auf den man Dateien hochladen, und herunterladen kann. Ebenso soll eine Wegbeschreibung für Wegpunkte, die nicht das Ziel sind zu Lesen sein.
 Verwendete Imports
@@ -1535,7 +1552,7 @@ Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert.
 
 
 Verwendete Imports
-------------------
+==================
 
 Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert. 
 
@@ -1559,10 +1576,11 @@ Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert.
 
 
 
-GPIO - General-Purpose-In-and-Output
-====================================
+======================================
+ GPIO - General-Purpose-In-and-Output
+======================================
 
-Unter GPIO versteht man gemeinhin allgemeine Ein- und Ausgabepins das BeagleBone Black besitzt 66 frei zugängliche freie GPIO-Pins aufgeteilt auf die zwei Header P8 und P9.
+Unter GPIO versteht man gemeinhin allgemeine Ein- und Ausgabepins. Das BeagleBone Black besitzt 66 frei zugängliche freie GPIO-Pins, aufgeteilt auf die zwei Header P8 und P9.
 
 Unter Linux 
 
@@ -1600,7 +1618,7 @@ Unter Linux
 
 
 Verwendung des sogenannten "sysfs"
-----------------------------------
+==================================
 
 .. code:: bash
 
@@ -1623,13 +1641,14 @@ Verwendung des sogenannten "sysfs"
 
 
 
-lkms - Linux-Kernel-Module
-==========================
+============================
+ lkms - Linux-Kernel-Module
+============================
 
 [TLKM]_
 
 Installation der Linux-header
------------------------------
+=============================
 
 .. code:: bash
 
@@ -1652,10 +1671,10 @@ Installation der Linux-header
 
 
 Bauen eines eigenen Treibers
-----------------------------
+============================
 
 
-Der folgende Abschnitt wurde unter Debian 8.1 mit dem Kernel 3.14.43-ti-r67 ausgeführt und getestet. Im laufe dieses Versuchs sollte ein eigener Dummy-treiber geschrieben und geladen werden. Während dies unter buildroot oder yocto bereits während der Konfiguration der recipes mit einigen wenigen Befehlen möglich ist muss beim selbst schreiben ein wenig mehr Aufwand in Kauf genommen werden.
+Der folgende Abschnitt wurde unter Debian 8.1 mit dem Kernel 3.14.43-ti-r67 ausgeführt und getestet. Im laufe dieses Versuchs sollte ein eigener Dummy-treiber geschrieben und geladen werden. Während dies unter buildroot oder yocto bereits während der Konfiguration der recipes mit einigen wenigen Befehlen möglich ist, muss beim selbst schreiben ein wenig mehr Aufwand in Kauf genommen werden.
 
 Ein einfaches Beispiel für eine eigenes Kernelmodul könnte in etwar wie die folgende Datei aussehen:
 
@@ -1711,7 +1730,7 @@ Ein einfaches Beispiel für eine eigenes Kernelmodul könnte in etwar wie die fo
 	MODULE_SUPPORTED_DEVICE("testdevice");
 	
 
-Die einfachste Möglichkeit um ein eigenes Kernelmodul zu bauen ist es eine eigene Makefile zu schreiben. Meine Makefile enthielt folgende Zeilen:
+Die einfachste Möglichkeit um ein eigenes Kernelmodul zu bauen, ist es eine eigene Makefile zu schreiben. Meine Makefile enthielt folgende Zeilen:
 
 .. code:: make
 
@@ -1765,7 +1784,7 @@ Nach dem anlegen der Dateien kann der Buildprozess in der Konsole angestoßen, d
 
 
 Laden des selbst compilierten Treibers
---------------------------------------
+======================================
 
 .. code:: bash
 
@@ -1799,7 +1818,7 @@ Laden des selbst compilierten Treibers
 
 
 Entfernen des eigenen Kernelmoduls
-----------------------------------
+==================================
 
 .. code:: bash
 
@@ -1816,16 +1835,17 @@ Entfernen des eigenen Kernelmoduls
 
 
 
-Tools und Programme
-===================
+=====================
+ Tools und Programme
+=====================
 
 
 Minicom ein serial Terminal Emulator
-------------------------------------
+====================================
 
 
 Installation
-++++++++++++
+------------
 
 .. code:: bash
 
@@ -1841,34 +1861,34 @@ Einstellungen des seriellen Anschlusses
 
 
 Unter A das richtige Device einrichten
-++++++++++++++++++++++++++++++++++++++
+--------------------------------------
 
 .. figure:: img/microcom-setup2.png
    :align: center
 
 
 Als default Speichern
-+++++++++++++++++++++
+---------------------
 
 .. figure:: img/microcom-setup3.png
    :align: center
 
 
 Minicom beenden und neu starten
-+++++++++++++++++++++++++++++++
+-------------------------------
 
 .. figure:: img/microcom-setup4.png
    :align: center
 
 
-fdisk partitionierungs tool 
----------------------------
+fdisk partitionierungs tool
+===========================
 
 "fdisk" ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux installation vorbereiten.
 
 
 Laufwerk auswählen
-++++++++++++++++++
+------------------
 
 öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)
 
@@ -1878,7 +1898,7 @@ Laufwerk auswählen
 
 
 Laufwerksinformationen ausgeben
-+++++++++++++++++++++++++++++++
+-------------------------------
 
 * Auflisten der Partitionstabelle eines Laufwerks
 
@@ -1898,7 +1918,7 @@ Laufwerksinformationen ausgeben
 
 
 Sonstige Befehle
-++++++++++++++++
+----------------
 
 .. code:: bash
 	
@@ -1932,7 +1952,7 @@ Sonstige Befehle
 
 
 Unterschiedliche Formatierungen
-+++++++++++++++++++++++++++++++
+-------------------------------
 
 .. code:: bash
 
@@ -1966,18 +1986,72 @@ Unterschiedliche Formatierungen
 
 
 lighttpd - ein leichtgewichtiger http-server
---------------------------------------------
+============================================
 
-[TODO]_
+Als Webserver wurde der lighttpd verwendet, da dieser ein schlichter, robuster und Resourcen-sparender Server ist. Außerdem ist die Anbindung von Flask Web-Applikationen mittels FastCGI möglich.
 
-.. wie viel von dem lighttpd braucht man wirklich?
+
+Anpassung der lighttpd.conf
+---------------------------
+
+.. code:: bash
+
+server.modules              = (                                      
+                                "mod_rewrite",                       
+                                "mod_alias",                         
+                                "mod_access",                        
+                                "mod_fastcgi",                       
+                                )  
+server.document-root        = "/www/geoCaching/"                           
+                                                                           
+server.errorlog             = "/www/logs/lighttpd.error.log"               
+                                                                           
+# files to check for if .../ is requested                                  
+index-file.names            = ( "index.php", "index.html",                 
+                                "index.htm", "default.htm" )   
+
+## deny access the file-extensions                                         
+#                                                                          
+# ~    is for backupfiles from vi, emacs, joe, ...                         
+# .inc is often used for code includes which should in general not be part 
+#      of the document-root                                                
+url.access-deny             = ( "~", ".inc" )                              
+                                                                           
+$HTTP["host"] == "www2.example.org" {                                      
+        $HTTP["url"] =~ "\.pdf$" {                                         
+          server.range-requests = "disable"                                
+        }                                                                  
+}                                                                          
+                                                                           
+##                                                                         
+# which extensions should not be handle via static-file transfer           
+#                                                                          
+# .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi        
+static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )   
+
+	  
+fastcgi.server = ("/httpFlask.py" =>                                       
+	  ((                                                                  
+	  "host" => "127.0.0.1",                                     
+          "port" => "5000",                                          
+          "bin-path" => "/www/geoCaching/httpFlask.py",
+          "check-local" => "disable",                                                           
+          "max-procs" => 1                                                                      
+	  ))                                                                                                
+)   
+
+url.rewrite-once = (                                                                                  
+    "^(/geoCaching($|/.*))$" => "$1",                                                                 
+    "^(/.*)$" => "httpFlask.py$1"                                                                     
+)  
 
 [LTPD]_
 
 
 
-Literatur und sonstige Quellen
-==============================
+================================
+ Literatur und sonstige Quellen
+================================
 
 
 .. [AHUT] A hany u-boot trick, von Bharath Bhushan, Linux Journal, Dezember 2013
