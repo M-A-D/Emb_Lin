@@ -40,17 +40,6 @@ Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wid
 Es befindet sich bereits eine angepasste Debian Version Linux beaglebone 3.8.13-bone47 auf dem 4 GB großen eMMC Speicher. Es wird per default von der eMMC gebootet und unter Verwendung von Maus, Tastatur und Display könnte man das BBB wie einen  rechenpower armen PC verwenden.
 
 
-.. cat /proc/cpuinfo
-.. cat /proc/meminfo
-.. cat /proc/version
-.. cat /lib/libc.so
-
-.. bootloader
-.. printenv
-.. 
-
-.. hush.c - shell
-
 
 Verbindung
 ==========
@@ -172,14 +161,11 @@ Von Github des Yoctoproject
 Herunterladen des aktuellen images von der webseite des Yoctoproject
 --------------------------------------------------------------------
 
-[TODO]_
-
-.. add a description and the link
-
 .. code:: bash
 
 	wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7.2/poky-dizzy-12.0.2.tar.bz2
 	tar -xzf poky-dizzy-12.0.2.tar.bz2
+
 
 Bauen des Yocto-core-images und des Bootloaders
 ===============================================
@@ -731,13 +717,6 @@ Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden. Dies
 
 
 
-hob und toaster - graphische Oberflächen für die Konfiguration von Yocto
-------------------------------------------------------------------------
-
-
-
-
-
 ===============================
  Vorbereiten der microSD Karte
 ===============================
@@ -1141,7 +1120,7 @@ Außerdem muss der Terminal Emulator der Wahl noch angepasst werden, bzw. mit de
 
 Netboot, also das booten von einer Netzwerkquelle gehört nicht notwendigerweise zu unserem eigentlichen Projekt, allerdings sollte man im Rahmen des Praktikums darauf eingehen. Aufgrund einer Lieferverzögerung wurde der folgende Teil auf einem bereits vorhandenen Raspberry Pi 2 getestet. Vom Netzwerk zu booten bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. Permanente kleine schreibende Zugriffe wie beim "loggen" (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints). Oder um mechanischen Beschädigungen am SD-Karten Leser des Microcontrollers vorzubeugen, wenn man des öffteren den Kernel oder das Rootfile System wechselt, oder auch um endlich wieder eine Verwendung für eine alte 16 MB große SD-Karte zu haben.
 
-Da die meisten Embedded-Linux Systeme mit dem Bootloader u-boot betrieben werden können wird in diesem Abschnitt auch nur auf diesen spezifisch eingegangen. Generell gibt es zwei unterschiedliche Möglichkeiten mit u-boot vom Netzwerk zu booten, die erste Möglichkeit empfiehlt sich, wenn man häufig die Kernel-version wechselt ohne direkten Zugang zur SD-Karte des Systems. Die zweite eignet sich eher für Vorgänge mit intensivem logging oder große Datenmengen.
+Da die meisten Embedded Linux Systeme mit dem Bootloader u-boot betrieben werden können wird in diesem Abschnitt auch nur auf diesen spezifisch eingegangen. Generell gibt es zwei unterschiedliche Möglichkeiten mit u-boot vom Netzwerk zu booten, die erste Möglichkeit empfiehlt sich, wenn man häufig die Kernel-version wechselt ohne direkten Zugang zur SD-Karte des Systems. Die zweite eignet sich eher für Vorgänge mit intensivem logging oder große Datenmengen.
 
 .. figure:: img/u-boot_netboot.png
 	:align: center
@@ -1149,16 +1128,72 @@ Da die meisten Embedded-Linux Systeme mit dem Bootloader u-boot betrieben werden
 [AHUT]_
 
 
+Netboot via ftp/tftp
+==================== 
+
+Die erste Möglichkeit von einer Netzwerk Ressource zu booten ist es einen ftp-/ tpft-server aufzusetzen und auf diesem den Kernel (für Netboot typischerweise das zImage) und das Root Filesystem für das Board abzulegen. Auf dem Festspeicher des Embedded Linux Boards befinden sich nur der bootloader, eine Konfigurationsdatei (uEnv.txt) und eventuell noch direkt ausführbare Dateien. Wird das System jetzt gestartet wird der bootloader gestartet, dieser folgt den Anweisungen in der Konfigurationsdatein und versucht den Kernel von der angegebenen Quelle zu laden. Der Kernel startet und lädt das Root Filesystem von einer angegebenen Adresse. Diese kann sich z.B. auch auf dem ftp-server befinden.
+
+.. figure:: img/u-boot_netboot_ftp.png
+	:align: center
+
+.. code:: bash
+
+	# uEnv.txt example for nfs
+	ipaddr=<FREE_IP>
+	serverip=<IP_OF_THE_FTP_SERVER> 
+	kernel_file=<NAME_OF_THE_KERNEL_FILE>
+	console=ttyO0,115200n8
+	loadzimage=tftp ${loadaddr} ${kernel_file}
+	loadfdt=tftp ${fdtaddr} ${fdtfile}
+	my_bootargs=setenv bootargs console=${console} ${optargs}
+	uenvcmd=run loadzimage; run loadfdt; run my_bootargs; bootz ${loadaddr} - ${fdtaddr}
+	
+
 
 Netboot via nfs
 ===============
 
+Die andere Möglichkeit von einer Netzwerk Ressource zu booten ist es das Root Filesystem auf einem nfs-server zur Verfügung zu stellen. Dies ist vor allem für das arbeiten mit größeren Dateien oder für langfristiges logging geeignet. Außerdem ist es möglich das ganze aufzuteilen (siehe Grafik oben) so dass der Kernel von einem tftp-server und das Root Filesystem von einem nfs-server geladen werden. Um nur das Root Filesystem vom server zu laden müssen auf dem Embedded Linux System mindestens der bootloader, der Kernel und eine Konfigurationsdatei vorhanden sein.
 
 
-Netboot via ftp/tftp
-====================
+.. figure:: img/u-boot_netboot_nfs.png
+	:align: center
+
+.. code:: bash
+	
+	# uEnv.txt example for ftp and nfs
+	ipaddr=<FREE_IP>
+	serverip=<IP_OF_THE_FTP_SERVER>
+	kernel_file=zImage
+	console=ttyO0,115200n8
+	loadzimage=tftp ${loadaddr} ${kernel_file}
+	loadfdt=tftp ${fdtaddr} ${fdtfile}
+	my_bootargs=setenv bootargs console=${console} ${optargs} root=/dev/nfs rw nfsroot=${serverip}:/home/fedora/rootdir ip=${ipaddr}:::::eth0
+	uenvcmd=run loadzimage; run loadfdt; run my_bootargs; bootz ${loadaddr} - ${fdtaddr}
+	
+
+Angepasst an das Board und die gegebenheiten im lokalen Netz sollte es nun möglich sein vom Netzwerk zu booten.
 
 
+Besonderheiten beim Raspberry Pi
+================================
+
+Im Gegensatz zu den Meisten Embedded Linux Boards besitzt der Raspberry Pi kein herkömmliches Bootrom, um u-boot laden zu können ist die sogenannte "start.elf" nötig. Auch diese muss, entweder von einem fertigen image extrahiert, oder selbst kompiliert und auf der SD-Karte platziert werden, ansonsten kann, wie bei jedem anderen Board vorgegangen werden.
+
+.. figure:: img/Abbildung-1.png
+	:align: center
+
+[LMKT]_
+
+Generelle Vorgehensweise
+========================
+
+.. figure:: img/Abbildung-2.png
+	:align: center
+
+[LMKT]_
+
+Für unseren Versuch wurde ein Netgear R7000 WLAN-Accesspoint mit nfs- und tftp-server Funktion verwendet, leider brach dieser wiederhohlt während des ladens des Root Filesystems ab.
 
 
 
@@ -1620,6 +1655,9 @@ Unter Linux
 Verwendung des sogenannten "sysfs"
 ==================================
 
+
+Beim sysfs handelt es sich um ein virtuelles Dateisystem, das von Linux Kernel (ab Version 2.5) bereitgestellt wird, es gibt einem die Möglichkeit zur Laufzeit sowohl im Kernel-, als auch im Userspace auf Informationen von Kernel Subsystemen, wie z.B. Gerätetreibern zugreifen lässt. Auch Serielle Schnittstellen wurden auf dieses System abgebildet und somit ist es möglich auf GPIO-Pins durch das bearbeiten von "Textdateien" zuzugreifen.
+
 .. code:: bash
 
 	# Anlegen eines Deskriptors für den gewünschten Pin
@@ -1644,6 +1682,9 @@ Verwendung des sogenannten "sysfs"
 ============================
  lkms - Linux-Kernel-Module
 ============================
+
+
+Linux-Kernel-Module sind Subsysteme des Kernels und dementsprechend Anwendungen des Kernelspace, sie dienen unter anderem der Steuerung von Hardware (vgl. Treiber unter Windwos). Für den nativen Bau eins solchen Moduls werden die sogenannten "Linux-header" eine Bibliothek mit zugehörigen Funktionen benötigt. Will man ein solches Modul Cross-Compilieren, sollte man sich an ein Buildsystem, wie zum Beispiel Yocto, Buildroot oder LFS halten, da für diesen Vorgang nicht nur der Compiler und die Architektur sondern auch der exakt selbe Kernel ausschlaggeben sind. Außerdem sollte angemerkt werden, dass in einem Modul keine Aufrufe von Funktionen des Userspace (Standard Bibliotheken) möglich ist. Für das native Compilieren stellt Linux eine spezielle Funktion, den sogenannten kBuild zur Verfügung.
 
 [TLKM]_
 
@@ -1730,7 +1771,7 @@ Ein einfaches Beispiel für eine eigenes Kernelmodul könnte in etwar wie die fo
 	MODULE_SUPPORTED_DEVICE("testdevice");
 	
 
-Die einfachste Möglichkeit um ein eigenes Kernelmodul zu bauen, ist es eine eigene Makefile zu schreiben. Meine Makefile enthielt folgende Zeilen:
+Mit den Befehlen aus meiner Makefile war es möglich das modul zu compilieren und zu bauen. In der Makefile wird ein make Befehl, der bereits in einer Bibliothek vorhanden ist aufgerufen, dieser übernimmt dann den eigentlichen Buildvorgang. Übrigens würde es auf diesem Weg auch direkt auf dem Hostrechner funktionieren.
 
 .. code:: make
 
@@ -1820,6 +1861,7 @@ Laden des selbst compilierten Treibers
 Entfernen des eigenen Kernelmoduls
 ==================================
 
+
 .. code:: bash
 
 	debian@arm:~/workspace/hello_kernel_module$ sudo rmmod -f hello
@@ -1832,6 +1874,77 @@ Entfernen des eigenen Kernelmoduls
 	make[1]: Leaving directory '/usr/src/linux-headers-3.14.43-ti-r67'
 	rm -rf *~ *.o
 
+
+
+===========================
+Unabhängige Stromversorgung
+===========================
+
+
+Leider konnte aufgrund der verspäteten fertigstellung unseres Projektes keine Messung des tatsächlichen Verbrauchs mehr vorgenommen werden, deshalb wird in den folgenden Berechnungen auf Angaben von Texas Instruments zurück gegriffen.
+
+
+Energiebedarf des BeagleBone Black
+==================================
+
+.. code:: bash
+	
+	P = U   * I
+
+	P[max] = 5 V * 460 mA
+	P[max] = 5 V * 460 * 10^-3 A
+	P[max] = 2,3 W
+
+	P[min] = 5 V * 210 mA
+	P[min] = 5 V * 210 * 10^-3 A
+	P[min] = 1,05 W
+
+Da ein WLAN-Stick mit betrieben werden soll und an anderen Stellen mit Mittelwerten gerechnet wird, wählen wir das pessimistische Ergebnis (P[max]).
+
+.. code:: bash
+
+	Tagesbedarf [Wh/d] = P[max] * 24 h = 55,2 Wh/d
+
+Es sollten mindestens 2 Tage Systemautonomie mit der Batterie garantiert werden.
+
+.. code:: bash
+
+	# 30 % gilt als angemessene Reserver für Lithium-Ionen-Akkus im Dauerbetrieb
+	Bedarf [2d] = ( 55,2 Wh/d * 2 ) + 30 % = 144 Wh
+
+Große RC-Akkus aus dem Modellbau, die gerade noch klein genug sind um in einem Gehäuse zusammen mit dem BBB verbaut zu werden, haben 12 V bei ca. 20 Ah.
+
+.. code:: bash
+
+	# ca. 20 % Verlustleistung für einen Spannungswandler
+	Akkumulatorgröße = (Bedarf / Spannung) + 20 % = 14,4 Ah
+
+Also wäre es Möglich das Board beinahe 3 Tage ohne zusätzliche Energieversorgung mit einem solchen Akku zu betreiben. Aus Kostengründen wäre es aber bereits an dieser Stelle zu teuer das Projekt weiter zu Verfolgen, da diese Akkus, je nach Ausführung und Qualität bereits im Preisbereich zwischen 60,00 € und 100,00 € liegen.
+
+
+Benötigte Solarzellen
+=====================
+
+Es gibt mobile Solarzellen, die relativ gut geeignet für den Zweck zu sein scheinen. Unter Berücksichtigung des Wirkungsgrades (< 0,08), der Fläche (0,25 m²) und der mittleren Solaren Einstrahlung in Deutschland würde ein solches Solarpanel bei guter Ausrichtung weniger als 20 kWh im Jahr sammeln.
+
+.. code:: bash
+
+	Mittlere Solare Einstrahlung für Deutschland 3 kWh/m² pro Tag
+
+	Aufnahme der Solarzelle < 8%
+
+	=> 3 kWh/m²/d * 8 % = 240 Wh/m²/d
+
+	Solarzelle hat ca. 0,25 m²
+
+	=> 240 Wh/m²/d / 4 = 60 Wh/d
+
+	# im Optimalfall ohne weitere Verlustbetrachtungen aufgrund von Einstrahlungswinkel und Temperatur
+	In einem Jahr aufgenommene Energie 365 d * 60 Wh = 21,9 kWh/a
+
+	Jahresverbrauch (BBB) = 55,2 Wh/d * 365 d = 20,15 kWh/a
+
+Also wären mindestens zwei Solarpanels mit einen viertel Quadratmeter nötig um das System zu versorgen. Allerdings sollten diese in den Wintermonaten trotz der Reserve von mehr als 2 Tagen nicht ausreichend sein, da genauere Betrachtungen der Ladeverluste erst nach der Auswahl konkreter Bauteile getroffen werden können.
 
 
 
@@ -2161,6 +2274,9 @@ Diese wird auf der Startseite angezeigt.
 
 .. [BBB-PIN-OUT] Pin-Out des BeagleBone Black
 	http://cholla.mmto.org/computers/beagle/hardware/pinout1-1024x585.png
+
+.. [LMKT] Kerntechnik, von  Jürgen Quade und Eva-Katharina Kunst, Linux Magazin, Dezember 2013
+	http://www.linux-magazin.de/Ausgaben/2013/12/Kern-Technik
 
 .. [LTPD] lighttpd
 	http://www.lighttpd.net/
