@@ -1,10 +1,12 @@
 .. include:: etc/kopf.rst
 
 
+
 Das Geocaching-Modul
 ====================
 
-Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefasst. Unser Projekt dient der Digitalisierung eines Notizbuches beim Geocaching_. Der Funktionsumfang und die Anzahl der in unserem Projekt verwendeten Programme ist eher gering. Im groben handelt es sich um einen W-Lan Accesspoint, der lediglich zur Verbindung mit dem auf dem Embedded-Linux Rechner befindlichen http-server dient. Dieser soll möglichst einfach von außen mit einer Konfiguration versehen werden, die drei generelle Betriebsmodi erlaubt.
+
+Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefasst. Unser Projekt dient der Digitalisierung eines Notizbuches beim Geocaching_. Der Funktionsumfang und die Anzahl der in unserem Projekt verwendeten Programme ist eher gering. Im groben handelt es sich um einen WLAN Accesspoint, der lediglich zur Verbindung mit dem auf dem Embedded Linux Rechner befindlichen http-server dient. Dieser soll möglichst einfach von außen mit einer Konfiguration versehen werden, die drei generelle Betriebsmodi erlaubt.
 
 	* Hinweise zum Standort des nächsten Caching Punktes geben -> Anzeigen eines Textes im Browser
 	* Hinweise zum Standort des nächsten Caching Punktes geben -> Anzeigen von Bildern
@@ -15,14 +17,14 @@ Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefass
 	:align: center
 
 
+
 Beschreibung der Hardware
 =========================
 
 
-
 Für das Projekt wird das BeagleBone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.
 
-Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand widmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
+Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.
 
 .. code:: bash
     
@@ -159,23 +161,18 @@ Von Github des Yoctoproject
 
 .. code:: bash
 	
-	git colone git://git.yoctoproject.org/meta-yocto -b <VERSION>
+	git clone git://git.yoctoproject.org/poky.git -b <branch>
 	# aktuelle Version zum Zeitpunkt des Projektbeginns war Dizzy
-    git clone git://git.yoctoproject.org/meta-yocto -b dizzy
+	git clone git://git.yoctoproject.org/poky.git -b dizzy
 
 
 Herunterladen des aktuellen images von der webseite des Yoctoproject
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-[TODO]_
-
-.. add a description and the link
-
 .. code:: bash
 
-	wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
-
-
+	wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7.2/poky-dizzy-12.0.2.tar.bz2
+	tar -xzf poky-dizzy-12.0.2.tar.bz2
 
 Bauen des Yocto-core-images und des Bootloaders
 -----------------------------------------------
@@ -195,10 +192,10 @@ Nachdem herunterladen und entpacken kann mit dem Bau begonnen werden. Dafür wec
 	bitbake-layers show-recipes
 
 
-Der Ordner "build" wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner "conf" und in diesem die Datei "local.conf" diese datei einthält unter anderem Informationen darüber für welches Target das Yocto Image gebaut werden soll. Um den Build-Prozess anstoßen zu können muss sie allerdings noch angepasst werden.
+Der Ordner *build* wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner *conf* und in diesem die Datei *local.conf* diese datei enthält unter anderem Informationen darüber für welches Target und welche Rezepte mit in das Yocto Image gebaut werden sollen. Um den Build-Prozess anstoßen zu können, muss sie allerdings noch angepasst werden. Außerdem muss in unserem Fall, da wir den Edimax EW-7811Un verwendeten, noch der Treiber als Kernel-Modul mit erstellt werden. 
 
 
-Anpassungen in der Datei "local.conf"
+Anpassungen in der Datei *local.conf*
 +++++++++++++++++++++++++++++++++++++
 
 .. code:: bash
@@ -215,6 +212,28 @@ Anpassungen in der Datei "local.conf"
 	# default values are provided as comments to show people example syntax. Enabling
 	# the option is a question of removing the # character and making any change to the
 	# variable as required.
+
+	#
+	# Parallelism Options
+	#
+	# These two options control how much parallelism BitBake should use. The first 
+	# option determines how many tasks bitbake should run in parallel:
+	#
+	BB_NUMBER_THREADS ?= "8"
+	#
+	# Default to setting automatically based on cpu count
+	BB_NUMBER_THREADS ?= "${@oe.utils.cpu_count()}"
+	# 
+	# The second option controls how many processes make should run in parallel when
+	# running compile tasks:
+	#
+	PARALLEL_MAKE ?= "-j 8"
+	#
+	# Default to setting automatically based on cpu count
+	PARALLEL_MAKE ?= "-j ${@oe.utils.cpu_count()}"
+	#
+	# For a quad-core machine, BB_NUMBER_THREADS = "4", PARALLEL_MAKE = "-j 4" would
+	# be appropriate for example.
 
 	#
 	# Machine Selection
@@ -439,21 +458,252 @@ Anpassungen in der Datei "local.conf"
 	# this doesn't mean anything to you.
 	CONF_VERSION = "1"
 
-	# [3.] slim ssh-client dropbear added
-	CORE_IMAGE_EXTRA_INSTALL += "dropbear"
-	# [4.] git-vcn added
-	CORE_IMAGE_EXTRA_INSTALL += "git"
-	# [5.] slim htpd-server added
-	CORE_IMAGE_EXTRA_INSTALL += "lighttpd"
-	# [6.] wireless-tools and functions for the hot-spot functionality
-	CORE_IMAGE_EXTRA_INSTALL += "wireless-tools"
+
+Erstellen des Konfigurationsfragments mit menuconfig
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Das Yocto Projekt bietet eine Reihe von leistungsfähigen Kernel-Tools zur Verwaltung von Linux-Kernel-Quellen und Konfigurationsdaten. Diese Tools können verwendet werden um eine einzige Konfigurationsänderung vorzunehmen, mehrere Patches zu verwenden, oder um gleich mit eigenen Kernel-Quellen zu arbeiten. Insbesondere ermöglichen es die Kernel-Tools Konfigurationsfragmente zu generieren, die ausschließlich die gewünschten Änderungen beinhalten. Diese Fragmente können mithilfe des menuconfig Systems bereitgestellt werden.
+
+Um ein Konfigurationsfragment zu erstellen sind folgende Schritte nötig:
+
+1) Zunächst ausführen eines Kernel-builds um die Kernel-Konfiguration zu ermöglichen(.config wird miterstellt)
+
+.. code:: bash
+
+	$ bitbake linux-yocto -c kernel_configme -f
+
+2) Kommando *menuconfig* ausführen um Treiber für wlan-Stick hinzuzufügen(erstellt neue *.config* und benennt alte in *.config.old*)
+
+.. code:: bash
+	  
+	  $ bitbake linux-yocto -c menuconfig
 
 
+.. figure:: img/Yocto-menuconfig.jpg
+   :align: center
+
+
+.. code:: bash
+
+	  Device Drivers  --->
+	       [\*] Network device support  --->
+	       [\*] Wireless LAN  --->
+	       <\*>   Realtek rtlwifi family of devices (NEW)  --->
+	             --- Realtek rtlwifi family of devices
+		     <M>   Realtek RTL8192CU/RTL8188CU USB Wireless Network Adapter
+		     [\*]   Debugging output for rtlwifi driver family
+
+
+3) *diffconfig* Kommando ausführen um das Konfigurationsfragment *fragment.cfg* zu erstellen, welches die Änderungen der *.config* und *.config.old* beiinhaltet
+
+.. code:: bash
+
+	  $ bitbake linux-yocto -c diffconfig
+
+
+Anlegen der meta-custom Layer für Anpassungen am Yocto-Standard-Build
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Es ist sehr einfach, eine neue Schicht für eigene Anpassungen am Yocto Image, zu erstellen.
+
+Erstellen der neuen Schicht meta-custom:
+
+* Erstellen der Ordnerstruktur für die Schicht
+
+.. code:: bash
+
+	  # im Verzeichnis ../yocto/poky/
+	  mkdir meta-custom
+	  mkdir meta-custom/conf
+
+* Anlegen der Layer-Konfigurationsdatei. Innerhalb jeder Schicht ist es notwendig eine conf/layer.conf file zu erstellen. Am einfachsten ist es diese von schon bestehenden Schichten zu kopieren und anschließend anzupassen.
+
+.. code:: bash
+	  
+	  # We have a conf and classes directory, add to BBPATH
+	  BBPATH .= ":${LAYERDIR}"
+
+	  # We have recipes-* directories, add to BBFILES
+	  BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
+          ${LAYERDIR}/recipes-*/*/*.bbappend"
+     
+	  BBFILE_COLLECTIONS += "custom"
+	  BBFILE_PATTERN_custom = "^${LAYERDIR}/"
+	  BBFILE_PRIORITY_custom = "5"
+	  LAYERVERSION_custom = "1"
+
+* Das anpassen der /../yocto/poky/conf/bblayers.conf ist wichtig, da beim bauen des Images nur in den Schichten gesucht wird, die in der bblayers.conf aufgeführt werden.
+
+.. code:: bash
+
+	  # LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+	  # changes incompatibly
+	  LCONF_VERSION = "6"
+
+	  BBPATH = "${TOPDIR}"
+	  BBFILES ?= ""
+	  
+	  BBLAYERS ?= " \
+	  /../yocto/poky/meta \
+	  /../yocto/poky/meta-yocto \
+	  /../yocto/poky/meta-yocto-bsp \
+	  /../yocto/poky/meta-custom \ 
+	  "
+	  BBLAYERS_NON_REMOVABLE ?= " \
+	  /../yocto/poky/meta \
+	  /../yocto/poky/meta-yocto \
+
+
+ 
+Erstellen der Recipes in meta-custom
+++++++++++++++++++++++++++++++++++++
+
+* Um die Änderungen der *fragment.cfg* hinzuzufügen, muss ein neues Rezept erstellt werden. Dazu wird die Ordnerstruktur recipes-kernel/linux/files erstellt und darin dann die *fragment.cfg* abgelegt werden.
+
+* Danach wird im Ordner recipes-kernel/linux/ die Datei linux-yocto_3.14.bbappend angelegt, die wie folgt aussieht:
+
+.. code:: bash
+	  
+	  FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+	  SRC_URI += "file://rtl8192.cfg"
+
+* Damit die Funktionalität eines Accesspoints auf dem Beaglebone mithilfe des Yocto-Images gewährleistet werden kann, werden außer dem Treiber für den WLAN-Stick, noch die Rezepte für die Konnektivität *recipes-connectivity* und die Rezepte für das Web-Framework Flask *recipes-flask* erstellt. Der Ordner *recipes-connectivity* besteht aus den Rezepten dnsmasq, hostapd, und iw. *recipes-flask* enthält alle Rezepte die benötigt werden damit Flask läuft, die da wären, flask selber, itsdangerous, jinja2, markupsafe und werkzeug. Die Vorgehensweise zum Hinzufügen der einzelnen Rezepte, unterscheidet sich kaum.
+
+bsp. anhand des Werkzeug-recipes:
+
+* erstellen der Ordnerstruktur
+  
+.. code:: bash
+
+	  meta-custom/recipes-flask
+	  meta-custom/recipes-flask/werkzeug
+
+* anlegen der bb Datei im Ordner werkzeug
+
+.. code:: bash 
+
+	  # Wenn man ein Rezept benennt, muss die folgende Namenskonvention eingehalten werden
+	  # <basename>_<version>.bb. In diesem Fall werkzeug_0.10.4.bb
+	  
+	  
+	  DESCRIPTION = "The Swiss Army knife of Python web development"
+	  HOMEPAGE = "https://https://pypi.python.org/pypi/Werkzeug"
+	  SECTION = "devel/python"
+	  LICENSE = "BSD"
+	  LIC_FILES_CHKSUM = "file://LICENSE;md5=a68f5361a2b2ca9fdf26b38aaecb6faa"
+
+	  PR = "r0"
+	  SRCNAME = "Werkzeug"
+	  PV = "0.10.4"
+
+	  SRC_URI = "https://pypi.python.org/packages/source/W/Werkzeug/Werkzeug-0.10.4.tar.gz"
+	  SRC_URI[md5sum] = "66a488e0ac50a9ec326fe020b3083450"
+	  SRC_URI[sha256sum] = "9d2771e4c89be127bc4bac056ab7ceaf0e0064c723d6b6e195739c3af4fd5c1d"
+
+	  S = "${WORKDIR}/${SRCNAME}-${PV}"
+
+	  inherit setuptools
+
+	  CLEANBROKEN = "1"
+
+* anlegen einer bbappend file, damit für den lighttpd die module: fastcgi, alias und rewrite mitinstalliert werden.
+
+.. code:: bash
+
+	  FILESEXTRAPATHS_prepend := "${THISDIR}/${BP}:"
+
+	  RDEPENDS_${PN} += " \
+                lighttpd-module-fastcgi \
+                lighttpd-module-alias \
+                lighttpd-module-rewrite \
+	  "
+
+	  
+
+Abschließende Anpassungen in der local.conf
++++++++++++++++++++++++++++++++++++++++++++
+
+Damit die erstellten Rezepte beim bauen des Images darauf enthalten sind, muss noch die local.conf so angepasst werden dass diese mitgebaut und auf dem Image installiert werden. Dazu werden folgende Zeilen der local.conf Datei hinzugefügt:
+
+.. code:: bash
+
+	  # [3.] slim ssh-client dropbear added
+	  CORE_IMAGE_EXTRA_INSTALL += "dropbear"
+	  # [4.] git-vcn added
+	  CORE_IMAGE_EXTRA_INSTALL += "git"
+	  # [5.] slim htpd-server added
+	  CORE_IMAGE_EXTRA_INSTALL += "lighttpd"
+	  # [6.] wireless-tools and functions for the hot-spot functionality
+	  CORE_IMAGE_EXTRA_INSTALL += "wireless-tools"
+	  # [7.] dhcp-server
+	  CORE_IMAGE_EXTRA_INSTALL += "dhcp-server"
+	  # [8.] dhcp-client
+	  CORE_IMAGE_EXTRA_INSTALL += "dhcp-client"
+	  # [9.] linux firmware for wlan stick
+	  IMAGE_INSTALL_append += " linux-firmware-rtl8192cu"
+	  # [10.] flask micro-framework added
+	  IMAGE_INSTALL_append += " flask"
+	  # [11.] werkzeug wsgi added
+	  IMAGE_INSTALL_append += " werkzeug"
+	  # [12.] jinja2 template engine added
+	  IMAGE_INSTALL_append += " jinja2"
+	  # [13.] itsdangerous Various helpers to pass trusted data to untrusted environments and back
+	  IMAGE_INSTALL_append += " itsdangerous"
+	  #[14.] markupsafe Implements a XML/HTML/XHTML Markup safe string for Python
+	  IMAGE_INSTALL_append += " markupsafe"
+	  # [15.] flup needed for fastcgi support
+	  IMAGE_INSTALL_append += " flup"
+
+
+Finale Ordnerstruktur in meta-custom
+++++++++++++++++++++++++++++++++++++
+
+.. code:: bash
+
+	  
+	  meta-custom
+	  │  
+	  ├── conf
+	  │   └── layer.conf
+	  ├── recipes-connectivity 
+	  │   ├── hostapd
+	  │   │   ├── hostapd-2.2
+	  │   │   │   ├── defconfig
+	  │   │   │   ├── hostapd.service
+	  │   │   │   └── init
+	  │   │   └── hostapd_2.2.bb
+	  │   └── iw
+	  │       ├── iw
+	  │       │   └── 0001-iw-version.sh-don-t-use-git-describe-for-versioning.patch
+	  │       └── iw_3.15.bb
+	  ├── recipes-extended
+	  │   └── lighttpd
+	  │       └── lighttpd_1.4.33.bbappend
+	  ├── recipes-flask
+	  │   ├── flask
+	  │   │   └── flask_1.0.0.bb
+	  │   ├── flup
+	  │   │   └── flup_1.0.2.bb
+	  │   ├── itsdangerous
+	  │   │   └── itsdangerous_0.24.bb
+	  │   ├── jinja2
+	  │   │   └── jinja2_2.7.3.bb
+	  │   ├── markupsafe
+	  │   │   └── markupsafe_0.23.bb
+	  │   └── werkzeug
+	  │       └── werkzeug_0.10.4.bb
+	  └── recipes-kernel
+	      └── linux
+                  ├── files
+                  │   └── rtl8192.cfg
+                  └── linux-yocto_3.14.bbappend
+
+	  
 
 Bitbake eine Build-umgebung für ein angepasstes Yocto-linux
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden. Dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
+Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.
 
 .. code:: bash
 
@@ -471,14 +721,6 @@ Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden. Dies
 
 .. figure:: img/Yocto-build1.png
    :align: center
-
-
-hob und toaster - graphische Oberflächen für die Konfiguration von Yocto
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-[TODO]_
-
-.. Daniel kannst du dazu irgendetwas schreiben? Man könnte es auch zu den tools verschieben oder?
 
 
 
@@ -698,7 +940,7 @@ Das u-boot
 ==========
 
 
-Das u-boot ist einer der am meisten verbreiteten bootloader im Bereich Embedded Linux. Für die Meisten Boards und Systeme wird man auch ohne großen Aufwand eine angepasste u-boot Konfiguration finden. Mit dieser, einem Kernel, Treibern, einem Root-File-System und einigen Programmen ist eine minimale Embedded Linux Distribution bereits voll funktionsfähig.
+Das u-boot ist einer der am meisten verbreiteten bootloader im Bereich Embedded Linux. Für die Meisten Boards und Systeme wird man auch ohne großen Aufwand eine angepasste u-boot Konfiguration finden. Mit dieser, einem Kernel, Treibern, einem Root Filesystem und einigen Programmen ist eine minimale Embedded Linux Distribution bereits voll funktionsfähig.
 
 Der Bootvorgang bei einem Embedded Linux System mit u-boot läuft entsprechend dem folgenden Muster ab.
 
@@ -717,7 +959,7 @@ Der Bootvorgang bei einem Embedded Linux System mit u-boot läuft entsprechend d
 u-boot unter yocto
 ------------------
 
-Wird Yocto als Buildumgebung für das Root-File-System eingesetzt wird automatisch ein passender bootloader und ein uImage (Kernel) inklusive Treibern für das Board gebaut. Diese müssen dann nur noch wie bereits oben beschrieben auf die Partitionen der SD-Karte kopiert werden. Ohne eine solche Umgebung müssen die Folgenden Schritte durchlaufen werden.
+Wird Yocto als Buildumgebung für das Root Filesystem eingesetzt wird automatisch ein passender bootloader und ein uImage (Kernel) inklusive Treibern für das Board gebaut. Diese müssen dann nur noch wie bereits oben beschrieben auf die Partitionen der SD-Karte kopiert werden. Ohne eine solche Umgebung müssen die Folgenden Schritte durchlaufen werden.
 
 
 u-boot selbst kompilieren
@@ -805,6 +1047,7 @@ Einstellungen von u-boot überprüfen
 	loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}
 
 
+
 .. code:: bash
 
 	strings u-boot.img | grep bootdir
@@ -883,7 +1126,7 @@ Netboot test
 
 Netboot, also das booten von einer Netzwerkquelle gehört nicht notwendigerweise zu unserem eigentlichen Projekt, allerdings sollte man im Rahmen des Praktikums darauf eingehen. Aufgrund einer Lieferverzögerung wurde der folgende Teil auf einem bereits vorhandenen Raspberry Pi 2 getestet. Vom Netzwerk zu booten bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. Permanente kleine schreibende Zugriffe wie beim "loggen" (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints). Oder um mechanischen Beschädigungen am SD-Karten Leser des Microcontrollers vorzubeugen, wenn man des öffteren den Kernel oder das Rootfile System wechselt, oder auch um endlich wieder eine Verwendung für eine alte 16 MB große SD-Karte zu haben.
 
-Da die meisten Embedded-Linux Systeme mit dem Bootloader u-boot betrieben werden können wird in diesem Abschnitt auch nur auf diesen spezifisch eingegangen. Generell gibt es zwei unterschiedliche Möglichkeiten mit u-boot vom Netzwerk zu booten, die erste Möglichkeit empfiehlt sich, wenn man häufig die Kernel-version wechselt ohne direkten Zugang zur SD-Karte des Systems. Die zweite eignet sich eher für Vorgänge mit intensivem logging oder große Datenmengen.
+Da die meisten Embedded Linux Systeme mit dem Bootloader u-boot betrieben werden können wird in diesem Abschnitt auch nur auf diesen spezifisch eingegangen. Generell gibt es zwei unterschiedliche Möglichkeiten mit u-boot vom Netzwerk zu booten, die erste Möglichkeit empfiehlt sich, wenn man häufig die Kernel-version wechselt ohne direkten Zugang zur SD-Karte des Systems. Die zweite eignet sich eher für Vorgänge mit intensivem logging oder große Datenmengen.
 
 .. figure:: img/u-boot_netboot.png
 	:align: center
@@ -891,14 +1134,72 @@ Da die meisten Embedded-Linux Systeme mit dem Bootloader u-boot betrieben werden
 [AHUT]_
 
 
-Netboot via nfs
----------------
-
-
-
 Netboot via ftp/tftp
 -------------------- 
 
+Die erste Möglichkeit von einer Netzwerk Ressource zu booten ist es einen ftp-/ tpft-server aufzusetzen und auf diesem den Kernel (für Netboot typischerweise das zImage) und das Root Filesystem für das Board abzulegen. Auf dem Festspeicher des Embedded Linux Boards befinden sich nur der bootloader, eine Konfigurationsdatei (uEnv.txt) und eventuell noch direkt ausführbare Dateien. Wird das System jetzt gestartet wird der bootloader gestartet, dieser folgt den Anweisungen in der Konfigurationsdatein und versucht den Kernel von der angegebenen Quelle zu laden. Der Kernel startet und lädt das Root Filesystem von einer angegebenen Adresse. Diese kann sich z.B. auch auf dem ftp-server befinden.
+
+.. figure:: img/u-boot_netboot_ftp.png
+	:align: center
+
+.. code:: bash
+
+	# uEnv.txt example for nfs
+	ipaddr=<FREE_IP>
+	serverip=<IP_OF_THE_FTP_SERVER> 
+	kernel_file=<NAME_OF_THE_KERNEL_FILE>
+	console=ttyO0,115200n8
+	loadzimage=tftp ${loadaddr} ${kernel_file}
+	loadfdt=tftp ${fdtaddr} ${fdtfile}
+	my_bootargs=setenv bootargs console=${console} ${optargs}
+	uenvcmd=run loadzimage; run loadfdt; run my_bootargs; bootz ${loadaddr} - ${fdtaddr}
+	
+
+
+Netboot via nfs
+---------------
+
+Die andere Möglichkeit von einer Netzwerk Ressource zu booten ist es das Root Filesystem auf einem nfs-server zur Verfügung zu stellen. Dies ist vor allem für das arbeiten mit größeren Dateien oder für langfristiges logging geeignet. Außerdem ist es möglich das ganze aufzuteilen (siehe Grafik oben) so dass der Kernel von einem tftp-server und das Root Filesystem von einem nfs-server geladen werden. Um nur das Root Filesystem vom server zu laden müssen auf dem Embedded Linux System mindestens der bootloader, der Kernel und eine Konfigurationsdatei vorhanden sein.
+
+
+.. figure:: img/u-boot_netboot_nfs.png
+	:align: center
+
+.. code:: bash
+	
+	# uEnv.txt example for ftp and nfs
+	ipaddr=<FREE_IP>
+	serverip=<IP_OF_THE_FTP_SERVER>
+	kernel_file=zImage
+	console=ttyO0,115200n8
+	loadzimage=tftp ${loadaddr} ${kernel_file}
+	loadfdt=tftp ${fdtaddr} ${fdtfile}
+	my_bootargs=setenv bootargs console=${console} ${optargs} root=/dev/nfs rw nfsroot=${serverip}:/home/fedora/rootdir ip=${ipaddr}:::::eth0
+	uenvcmd=run loadzimage; run loadfdt; run my_bootargs; bootz ${loadaddr} - ${fdtaddr}
+	
+
+Angepasst an das Board und die gegebenheiten im lokalen Netz sollte es nun möglich sein vom Netzwerk zu booten.
+
+
+Besonderheiten beim Raspberry Pi
+--------------------------------
+
+Im Gegensatz zu den Meisten Embedded Linux Boards besitzt der Raspberry Pi kein herkömmliches Bootrom, um u-boot laden zu können ist die sogenannte "start.elf" nötig. Auch diese muss, entweder von einem fertigen image extrahiert, oder selbst kompiliert und auf der SD-Karte platziert werden, ansonsten kann, wie bei jedem anderen Board vorgegangen werden.
+
+.. figure:: img/Abbildung-1.png
+	:align: center
+
+[LMKT]_
+
+Generelle Vorgehensweise
+------------------------
+
+.. figure:: img/Abbildung-2.png
+	:align: center
+
+[LMKT]_
+
+Für unseren Versuch wurde ein Netgear R7000 WLAN-Accesspoint mit nfs- und tftp-server Funktion verwendet, leider brach dieser wiederhohlt während des ladens des Root Filesystems ab.
 
 
 
@@ -965,24 +1266,24 @@ Einrichten eines Accesspoint auf dem BeagleBone Black
 =====================================================
 
 
-Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem W-Lan Adapter einen dhcp-server, einen http-server, wie zum Beispiel (Apache - im Desktop Bereich oder lighttpd - im ES-Bereich) und einen DNS-Server. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.
+Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem WLAN Adapter einen dhcp-server, einen http-server, wie zum Beispiel (Apache - im Desktop Bereich oder lighttpd - im ES-Bereich) und einen DNS-Server. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.
 
 Um die Anleitung möglichst allgemein zu halten werden in der folgenden Erklärung die eigentlichen Werte durch die Lables in der Tabelle ersetzt die von uns verwendeten Konfigurationen wurden in den Dateien unter "../config-files/" abgelegt.
 
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
 | Name            | Lable                       | Value in unserer Konfiguration | Funktion                                                         |
 +=================+=============================+================================+==================================================================+
-| ssid            | <Your-SSID>                 | GeoSpotAp                      | der Name des lokalen W-Lan Netzwerkes                            |
+| ssid            | <Your-SSID>                 | GeoSpotAp                      | der Name des lokalen WLAN Netzwerkes                             |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
-| wpa_passphrase  | <Your-Passphrase>           | geospotap                      | das Passwort für den Zugang zum W-Lan                            |
+| wpa_passphrase  | <Your-Passphrase>           | geospotap                      | das Passwort für den Zugang zum WLAN                             |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
-| interface       | <YOUR-WIFI-INTERFACE>       | wlan0                          | der Name des W-Lan Interfaces (gewöhnlich wlan0)                 |
+| interface       | <YOUR-WIFI-INTERFACE>       | wlan0                          | der Name des WLAN Interfaces (gewöhnlich wlan0)                  |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
 | bridge          | <YOUR-BRIDGE-NAME>          |                                | Name der lokalen bridge (gewöhnlich br0)                         |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
 | driver          | <GENERIC-DRIVER-IF>         |                                | Treiber Interface für "hostapd"                                  |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
-| channel         | <YOUR-WIFI-CHANNEL>         | 09                             | der Kanal des W-Lan Netzes (auf lokale Gegebenheiten reagieren!) |
+| channel         | <YOUR-WIFI-CHANNEL>         | 09                             | der Kanal des WLAN Netzes (auf lokale Gegebenheiten reagieren!)  |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
 | country_code    | <YOUR-COUNTRY-CODE>         | Ländercode (GER = Deutschland) |                                                                  |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
@@ -993,7 +1294,7 @@ Um die Anleitung möglichst allgemein zu halten werden in der folgenden Erkläru
 +                 +-----------------------------+--------------------------------+                                                                  +
 |                 | <LAST-FREE-IP>              | 192.168.4.64                   |                                                                  |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
-| adress          | <x>.<y>.<z>.<BASE-ADRESS>   | 192.168.4.1                    | Basis Adresse des w-lan Moduls                                   |
+| adress          | <x>.<y>.<z>.<BASE-ADRESS>   | 192.168.4.1                    | Basis Adresse des WLAN Moduls                                    |
 +-----------------+-----------------------------+--------------------------------+------------------------------------------------------------------+
 | netmask         | <YOUR-NETMASK>              | 191 (= 255 - 64)               | Zum ausmaskieren von Werten z.B. 255.255.255.<#-of-free-ips>     |
 |                 |                             |                                | oder 255.255.255.0                                               |
@@ -1003,10 +1304,10 @@ Um die Anleitung möglichst allgemein zu halten werden in der folgenden Erkläru
     
 
 
-Finden und identifizieren des W-Lan Devices
+Finden und identifizieren des WLAN Devices
 -------------------------------------------
 
-Da es sich bei Boards wie dem BeagleBone Black oder dem Raspberry Pi eigentlich ausschließlich um USB W-Lan Sticks handelt sollte es möglich sein mit dem Befehl "lsusb" die verfügbaren USB-Schnittstellen auf angeschlossene Geräte zu überprüfen. Hat man also seinen W-Lan Stick mit dem Board verbunden sollte man zunächst folgendes versuchen:
+Da es sich bei Boards wie dem BeagleBone Black oder dem Raspberry Pi eigentlich ausschließlich um USB WLAN Sticks handelt sollte es möglich sein mit dem Befehl "lsusb" die verfügbaren USB-Schnittstellen auf angeschlossene Geräte zu überprüfen. Hat man also seinen WLAN Stick mit dem Board verbunden sollte man zunächst folgendes versuchen:
 
 .. code:: bash
 
@@ -1016,7 +1317,7 @@ Da es sich bei Boards wie dem BeagleBone Black oder dem Raspberry Pi eigentlich 
     Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 
 
-Auf "Bus 001 Device 002" befindet sich unser W-Lan stick mit dem Chipsatz "Atheros AR9271", nun kann überprüft werden ob dieser bereits im Kernel angemeldet ist.
+Auf "Bus 001 Device 002" befindet sich unser WLAN stick mit dem Chipsatz "Atheros AR9271", nun kann überprüft werden ob dieser bereits im Kernel angemeldet ist.
 
 .. code:: bash
 
@@ -1024,7 +1325,7 @@ Auf "Bus 001 Device 002" befindet sich unser W-Lan stick mit dem Chipsatz "Ather
     [   19.484197] ieee80211 phy0: Atheros AR9271 Rev:1
 
 
-Diese meldung zeigt uns, dass der Stick bereits als W-Lan Device erkannt wurde und auch, dass sein Treiber bereits vorhanden ist. Das vorangestellte "ieee80211" verweist auf den IEEE Standart für W-Lan Geräte. Ist dies nicht der Fall hilft eine kurze Recherche meist weiter. Die meisten Hersteller bieten Firmware Pakete an, die über den "apt-get Mechanismus" heruntergeladen werden können. Anschließend sollte ein Neustart des Gerätes dazu führen das der W-Lan Stick betriebsbereit ist.
+Diese meldung zeigt uns, dass der Stick bereits als WLAN Device erkannt wurde und auch, dass sein Treiber bereits vorhanden ist. Das vorangestellte "ieee80211" verweist auf den IEEE Standart für WLAN Geräte. Ist dies nicht der Fall hilft eine kurze Recherche meist weiter. Die meisten Hersteller bieten Firmware Pakete an, die über den "apt-get Mechanismus" heruntergeladen werden können. Anschließend sollte ein Neustart des Gerätes dazu führen das der WLAN Stick betriebsbereit ist.
 
 
 Finden, identifizieren und laden des Treibers
@@ -1046,7 +1347,7 @@ Unter Linux gibt es eigentlich keine Treiber sondern Kernelmodule oder kurz lkms
     mrp                     6444  1 8021q
     llc                     3179  2 stp,garp
     
-    # [!] hier folgen die Treiber für unser W-lan Modul
+    # [!] hier folgen die Treiber für unser WLAN Modul
     
     ath9k_htc              53619  0 
     ath9k_common            1644  1 ath9k_htc
@@ -1079,7 +1380,7 @@ Sollte das Modul, welches für ein Gerät benötigt wird zwar auf dem Gerät ver
 	root@arm:~# modprobe <DIRECTORY/SOMETHING.ko>
 
 
-Ist der richtige Treiber für das W-Lan Modul geladen ist es außerdem nötig zu überprüfen, ob das Modul auch die nötigen Funktionen unterstützt, die für einen Wifi-Accesspoint nötig sind.
+Ist der richtige Treiber für das WLAN Modul geladen ist es außerdem nötig zu überprüfen, ob das Modul auch die nötigen Funktionen unterstützt, die für einen Wifi-Accesspoint nötig sind.
 
 .. code:: bash
 
@@ -1088,7 +1389,7 @@ Ist der richtige Treiber für das W-Lan Modul geladen ist es außerdem nötig zu
 
 
 
-Einrichten des W-Lan Interfaces
+Einrichten des WLAN Interfaces
 -------------------------------
 
 .. code:: bash
@@ -1096,7 +1397,7 @@ Einrichten des W-Lan Interfaces
 	# modifizieren der Netzwerk Interfaces
 	vi /etc/network/interfaces
 
-	# folgende Zeilen sind nur ein Beispiel, aber ähnliches sollte hinzugefügt werden:
+	# folgende Zeilen sind nur ein beispiel, aber ähnliches sollte hinzugefügt werden:
 	auto wlan0
 		iface <YOUR-WIFI-INTERFACE> inet dhcp
         address   <YOUR-SUBNET>.1
@@ -1132,7 +1433,7 @@ Einrichten des W-Lan Interfaces
 	        RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 
-Die Ausgabe von "iwconfig" zeigt, dass dem Interface "wlan0" eine Hardwareadresse hinzugefügt wurde, nun kann man überprüfen ob das W-Lan Device auch den "AP-Mode" unterstützt. Dieser Modus ist unbedingt nötig um mit seinem Board einen Wifi-Accesspoint aufbauen zu können.
+Die Ausgabe von "iwconfig" zeigt, dass dem Interface "wlan0" eine Hardwareadresse hinzugefügt wurde, nun kann man überprüfen ob das WLAN Device auch den "AP-Mode" unterstützt. Dieser Modus ist unbedingt nötig um mit seinem Board einen Wifi-Accesspoint aufbauen zu können.
 
 .. code:: bash
 
@@ -1246,7 +1547,7 @@ Da das BeagleBone Black später als selbstständiger DHCP-Server fungieren soll 
 Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung
 -------------------------------------------------------------------------------
 
-Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespecherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter "../dnsmasq/dnsmasq.conf" um die folgenden Einstellungen ergänzt.
+Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespeicherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter "../dnsmasq/dnsmasq.conf" um die folgenden Einstellungen ergänzt.
 
 
 .. code:: bash
@@ -1269,6 +1570,41 @@ Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine D
 
 
 [BBB-AP]_
+
+
+
+Httpserver mit Flask
+====================
+
+Um eine Geocaching Station darzustellen, soll ein kleiner Server implementiert werden, auf den man Dateien hochladen, und herunterladen kann. Ebenso soll eine Wegbeschreibung für Wegpunkte, die nicht das Ziel sind zu Lesen sein.
+Verwendete Imports
+
+Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert.
+
+
+Verwendete Imports
+------------------
+
+Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert. 
+
+.. Flask für die wichtigsten Basisfunktionalitäten von Flask
+
+.. request um auf die Requestmethoden zugreifen zu können
+
+.. session Um einen User zu speichern
+
+.. g 
+
+.. redirect für den redirect auf die listen seite
+
+.. url_for für spezifische urls und dynamische url generierung
+
+.. abort  
+
+.. render_template um html seiten als template mit parametern anzuzeigen
+
+.. flash
+
 
 
 GPIO - General-Purpose-In-and-Output
@@ -1314,6 +1650,8 @@ Unter Linux
 Verwendung des sogenannten "sysfs"
 ----------------------------------
 
+Beim sysfs handelt es sich um ein virtuelles Dateisystem, das von Linux Kernel (ab Version 2.5) bereitgestellt wird, es gibt einem die Möglichkeit zur Laufzeit sowohl im Kernel-, als auch im Userspace auf Informationen von Kernel Subsystemen, wie z.B. Gerätetreibern zugreifen lässt. Auch Serielle Schnittstellen wurden auf dieses System abgebildet und somit ist es möglich auf GPIO-Pins durch das bearbeiten von "Textdateien" zuzugreifen.
+
 .. code:: bash
 
 	# Anlegen eines Deskriptors für den gewünschten Pin
@@ -1337,6 +1675,8 @@ Verwendung des sogenannten "sysfs"
 
 lkms - Linux-Kernel-Module
 ==========================
+
+Linux-Kernel-Module sind Subsysteme des Kernels und dementsprechend Anwendungen des Kernelspace, sie dienen unter anderem der Steuerung von Hardware (vgl. Treiber unter Windwos). Für den nativen Bau eins solchen Moduls werden die sogenannten "Linux-header" eine Bibliothek mit zugehörigen Funktionen benötigt. Will man ein solches Modul Cross-Compilieren, sollte man sich an ein Buildsystem, wie zum Beispiel Yocto, Buildroot oder LFS halten, da für diesen Vorgang nicht nur der Compiler und die Architektur sondern auch der exakt selbe Kernel ausschlaggeben sind. Außerdem sollte angemerkt werden, dass in einem Modul keine Aufrufe von Funktionen des Userspace (Standard Bibliotheken) möglich ist. Für das native Compilieren stellt Linux eine spezielle Funktion, den sogenannten kBuild zur Verfügung.
 
 [TLKM]_
 
@@ -1423,7 +1763,7 @@ Ein einfaches Beispiel für eine eigenes Kernelmodul könnte in etwar wie die fo
 	MODULE_SUPPORTED_DEVICE("testdevice");
 	
 
-Die einfachste Möglichkeit um ein eigenes Kernelmodul zu bauen ist es eine eigene Makefile zu schreiben. Meine Makefile enthielt folgende Zeilen:
+Mit den Befehlen aus meiner Makefile war es möglich das modul zu compilieren und zu bauen. In der Makefile wird ein make Befehl, der bereits in einer Bibliothek vorhanden ist aufgerufen, dieser übernimmt dann den eigentlichen Buildvorgang. Übrigens würde es auf diesem Weg auch direkt auf dem Hostrechner funktionieren.
 
 .. code:: make
 
@@ -1441,7 +1781,7 @@ Die einfachste Möglichkeit um ein eigenes Kernelmodul zu bauen ist es eine eige
 	        make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 	        rm -rf *~ *.o
 
-Nach dem anlegen der Dateien kann der Buildprozess in der Konsole angestoßen, das Modul überprüft und geladen werden.
+Nach dem Anlegen der Dateien kann der Buildprozess in der Konsole angestoßen, das Modul überprüft und geladen werden.
 
 .. code:: bash
 
@@ -1524,6 +1864,75 @@ Entfernen des eigenen Kernelmoduls
 	  CLEAN   /home/debian/workspace/hello_kernel_module/Module.symvers
 	make[1]: Leaving directory '/usr/src/linux-headers-3.14.43-ti-r67'
 	rm -rf *~ *.o
+
+
+
+Unabhängige Stromversorgung
+===========================
+
+Leider konnte aufgrund der verspäteten fertigstellung unseres Projektes keine Messung des tatsächlichen Verbrauchs mehr vorgenommen werden, deshalb wird in den folgenden Berechnungen auf Angaben von Texas Instruments zurück gegriffen.
+
+Energiebedarf des BeagleBone Black
+----------------------------------
+
+.. code:: bash
+	
+	P = U   * I
+
+	P[max] = 5 V * 460 mA
+	P[max] = 5 V * 460 * 10^-3 A
+	P[max] = 2,3 W
+
+	P[min] = 5 V * 210 mA
+	P[min] = 5 V * 210 * 10^-3 A
+	P[min] = 1,05 W
+
+Da ein WLAN-Stick mit betrieben werden soll und an anderen Stellen mit Mittelwerten gerechnet wird, wählen wir das pessimistische Ergebnis (P[max]).
+
+.. code:: bash
+
+	Tagesbedarf [Wh/d] = P[max] * 24 h = 55,2 Wh/d
+
+Es sollten mindestens 2 Tage Systemautonomie mit der Batterie garantiert werden.
+
+.. code:: bash
+
+	# 30 % gilt als angemessene Reserver für Lithium-Ionen-Akkus im Dauerbetrieb
+	Bedarf [2d] = ( 55,2 Wh/d * 2 ) + 30 % = 144 Wh
+
+Große RC-Akkus aus dem Modellbau, die gerade noch klein genug sind um in einem Gehäuse zusammen mit dem BBB verbaut zu werden, haben 12 V bei ca. 20 Ah.
+
+.. code:: bash
+
+	# ca. 20 % Verlustleistung für einen Spannungswandler
+	Akkumulatorgröße = (Bedarf / Spannung) + 20 % = 14,4 Ah
+
+Also wäre es Möglich das Board beinahe 3 Tage ohne zusätzliche Energieversorgung mit einem solchen Akku zu betreiben. Aus Kostengründen wäre es aber bereits an dieser Stelle zu teuer das Projekt weiter zu Verfolgen, da diese Akkus, je nach Ausführung und Qualität bereits im Preisbereich zwischen 60,00 € und 100,00 € liegen.
+
+
+Benötigte Solarzellen
+---------------------
+
+Es gibt mobile Solarzellen, die relativ gut geeignet für den Zweck zu sein scheinen. Unter Berücksichtigung des Wirkungsgrades (< 0,08), der Fläche (0,25 m²) und der mittleren Solaren Einstrahlung in Deutschland würde ein solches Solarpanel bei guter Ausrichtung weniger als 20 kWh im Jahr sammeln.
+
+.. code:: bash
+
+	Mittlere Solare Einstrahlung für Deutschland 3 kWh/m² pro Tag
+
+	Aufnahme der Solarzelle < 8%
+
+	=> 3 kWh/m²/d * 8 % = 240 Wh/m²/d
+
+	Solarzelle hat ca. 0,25 m²
+
+	=> 240 Wh/m²/d / 4 = 60 Wh/d
+
+	# im Optimalfall ohne weitere Verlustbetrachtungen aufgrund von Einstrahlungswinkel und Temperatur
+	In einem Jahr aufgenommene Energie 365 d * 60 Wh = 21,9 kWh/a
+
+	Jahresverbrauch (BBB) = 55,2 Wh/d * 365 d = 20,15 kWh/a
+
+Also wären mindestens zwei Solarpanels mit einen viertel Quadratmeter nötig um das System zu versorgen. Allerdings sollten diese in den Wintermonaten trotz der Reserve von mehr als 2 Tagen nicht ausreichend sein, da genauere Betrachtungen der Ladeverluste erst nach der Auswahl konkreter Bauteile getroffen werden können.
 
 
 
@@ -1679,16 +2088,26 @@ Unterschiedliche Formatierungen
 lighttpd - ein leichtgewichtiger http-server
 --------------------------------------------
 
+[TODO]_
+
+.. wie viel von dem lighttpd braucht man wirklich?
+
 [LTPD]_
+
+
+Zusammenfassung
+===============
+
+
 
 
 
 Literatur und sonstige Quellen
 ==============================
 
+
 .. [AHUT] A hany u-boot trick, von Bharath Bhushan, Linux Journal, Dezember 2013
 	http://www.linuxjournal.com/content/handy-u-boot-trick?page=0,0
-
 
 .. [BBB-AP] Wifi Accesspoint on a BeagleBone Black
 	https://fleshandmachines.wordpress.com/2012/10/04/wifi-acces-point-on-beaglebone-with-dhcp/
@@ -1708,6 +2127,9 @@ Literatur und sonstige Quellen
 .. [BBB-PIN-OUT] Pin-Out des BeagleBone Black
 	http://cholla.mmto.org/computers/beagle/hardware/pinout1-1024x585.png
 
+.. [LMKT] Kerntechnik, von  Jürgen Quade und Eva-Katharina Kunst, Linux Magazin, Dezember 2013
+	http://www.linux-magazin.de/Ausgaben/2013/12/Kern-Technik
+
 .. [LTPD] lighttpd
 	http://www.lighttpd.net/
 
@@ -1723,9 +2145,12 @@ Literatur und sonstige Quellen
 .. [VICS] VI Cheat Sheet
 	http://www.lagmonster.org/docs/vi.html
 
-.. [WIKI] 
+.. [WIKI] Wikipedia the free Encyclopedia
+
+..	(just mentioned to gather links for further information)
 
 ..	_Geocaching: https://de.wikipedia.org/wiki/Geocaching
+
 
 .. [TODO] Look for comments
 

@@ -384,13 +384,13 @@ Studiengang Technische Informatik, 6. Semester <br>
 Sommersemester 2015
  <br>
 <!-- print date -->
-Datum: 2015-05-06 16:53
+Datum: 2015-07-17 22:15
 
 <p>
 
 Matthias Pfitzmayer, &lt;matthias.pfitzmayer@hs-augsburg.de&gt;,  #935691 <br>
 Daniel Schneider, &lt;daniel.schneider@hs-augsburg.de&gt;,  # <br>
-Matthias Struwe, &lt;matthias.struwe@hs-augsburg.de&gt;,  # <br>
+Matthias Struwe, &lt;matthias.struwe@hs-augsburg.de&gt;,  #935745 <br>
 
 <hr>
 <img src=img/cc-logo.jpg width="150" alt="cc-logo"><br>
@@ -408,104 +408,120 @@ Geocaching Modul
 <div class="contents topic" id="inhalt">
 <p class="topic-title first">Inhalt</p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#das-geocaching-modul" id="id10">1&nbsp;&nbsp;&nbsp;Das Geocaching-Modul</a></li>
-<li><a class="reference internal" href="#beschreibung-der-hardware" id="id11">2&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a><ul class="auto-toc">
-<li><a class="reference internal" href="#verbindung" id="id12">2.1&nbsp;&nbsp;&nbsp;Verbindung</a></li>
-<li><a class="reference internal" href="#blockschaltplan-beaglebone-black" id="id13">2.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></li>
-<li><a class="reference internal" href="#komponenten" id="id14">2.3&nbsp;&nbsp;&nbsp;Komponenten</a></li>
+<li><a class="reference internal" href="#das-geocaching-modul" id="id11">1&nbsp;&nbsp;&nbsp;Das Geocaching-Modul</a></li>
+<li><a class="reference internal" href="#beschreibung-der-hardware" id="id12">2&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a><ul class="auto-toc">
+<li><a class="reference internal" href="#verbindung" id="id13">2.1&nbsp;&nbsp;&nbsp;Verbindung</a></li>
+<li><a class="reference internal" href="#blockschaltplan-beaglebone-black" id="id14">2.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></li>
+<li><a class="reference internal" href="#komponenten" id="id15">2.3&nbsp;&nbsp;&nbsp;Komponenten</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject" id="id15">3&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a><ul class="auto-toc">
-<li><a class="reference internal" href="#herunterladen-der-yocto-buildumgebung" id="id16">3.1&nbsp;&nbsp;&nbsp;Herunterladen der Yocto Buildumgebung</a><ul class="auto-toc">
-<li><a class="reference internal" href="#von-github-des-yoctoproject" id="id17">3.1.1&nbsp;&nbsp;&nbsp;Von Github des Yoctoproject</a></li>
-<li><a class="reference internal" href="#herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject" id="id18">3.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></li>
+<li><a class="reference internal" href="#bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject" id="id16">3&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a><ul class="auto-toc">
+<li><a class="reference internal" href="#herunterladen-der-yocto-buildumgebung" id="id17">3.1&nbsp;&nbsp;&nbsp;Herunterladen der Yocto Buildumgebung</a><ul class="auto-toc">
+<li><a class="reference internal" href="#von-github-des-yoctoproject" id="id18">3.1.1&nbsp;&nbsp;&nbsp;Von Github des Yoctoproject</a></li>
+<li><a class="reference internal" href="#herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject" id="id19">3.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bauen-des-yocto-core-images-und-des-bootloaders" id="id19">3.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a><ul class="auto-toc">
-<li><a class="reference internal" href="#erstellen-der-buildumgebung-und-uberprufung-der-variablen" id="id20">3.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></li>
-<li><a class="reference internal" href="#anpassungen-in-der-datei-local-conf" id="id21">3.2.2&nbsp;&nbsp;&nbsp;Anpassungen in der Datei &quot;local.conf&quot;</a></li>
-<li><a class="reference internal" href="#bitbake-eine-build-umgebung-fur-ein-angepasstes-yocto-linux" id="id22">3.2.3&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></li>
-<li><a class="reference internal" href="#hob-und-toaster-graphische-oberflachen-fur-die-konfiguration-von-yocto" id="id23">3.2.4&nbsp;&nbsp;&nbsp;hob und toaster - graphische Oberflächen für die Konfiguration von Yocto</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id24">4&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a><ul class="auto-toc">
-<li><a class="reference internal" href="#boot-formatieren-als-fat16-lba" id="id25">4.1&nbsp;&nbsp;&nbsp;boot formatieren als FAT16 (LBA)</a></li>
-<li><a class="reference internal" href="#root-als-linux-formatieren" id="id26">4.2&nbsp;&nbsp;&nbsp;root als &quot;Linux&quot; formatieren</a></li>
-<li><a class="reference internal" href="#die-anderungen-auf-der-sd-karte-anwenden" id="id27">4.3&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></li>
-<li><a class="reference internal" href="#anlegen-des-filesystem-und-der-partitionstabelle" id="id28">4.4&nbsp;&nbsp;&nbsp;Anlegen des Filesystem und der Partitionstabelle</a><ul class="auto-toc">
-<li><a class="reference internal" href="#boot-partition" id="id29">4.4.1&nbsp;&nbsp;&nbsp;&quot;boot-Partition&quot;</a></li>
-<li><a class="reference internal" href="#root-partition" id="id30">4.4.2&nbsp;&nbsp;&nbsp;&quot;root-Partition&quot;</a></li>
+<li><a class="reference internal" href="#bauen-des-yocto-core-images-und-des-bootloaders" id="id20">3.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a><ul class="auto-toc">
+<li><a class="reference internal" href="#erstellen-der-buildumgebung-und-uberprufung-der-variablen" id="id21">3.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></li>
+<li><a class="reference internal" href="#anpassungen-in-der-datei-local-conf" id="id22">3.2.2&nbsp;&nbsp;&nbsp;Anpassungen in der Datei <em>local.conf</em></a></li>
+<li><a class="reference internal" href="#erstellen-des-konfigurationsfragments-mit-menuconfig" id="id23">3.2.3&nbsp;&nbsp;&nbsp;Erstellen des Konfigurationsfragments mit menuconfig</a></li>
+<li><a class="reference internal" href="#anlegen-der-meta-custom-layer-fur-anpassungen-am-yocto-standard-build" id="id24">3.2.4&nbsp;&nbsp;&nbsp;Anlegen der meta-custom Layer für Anpassungen am Yocto-Standard-Build</a></li>
+<li><a class="reference internal" href="#erstellen-der-recipes-in-meta-custom" id="id25">3.2.5&nbsp;&nbsp;&nbsp;Erstellen der Recipes in meta-custom</a></li>
+<li><a class="reference internal" href="#abschlieszende-anpassungen-in-der-local-conf" id="id26">3.2.6&nbsp;&nbsp;&nbsp;Abschließende Anpassungen in der local.conf</a></li>
+<li><a class="reference internal" href="#finale-ordnerstruktur-in-meta-custom" id="id27">3.2.7&nbsp;&nbsp;&nbsp;Finale Ordnerstruktur in meta-custom</a></li>
+<li><a class="reference internal" href="#bitbake-eine-build-umgebung-fur-ein-angepasstes-yocto-linux" id="id28">3.2.8&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#platzieren-der-daten-auf-der-sd-karte" id="id31">5&nbsp;&nbsp;&nbsp;Platzieren der Daten auf der SD-Karte</a><ul class="auto-toc">
-<li><a class="reference internal" href="#installation-des-bootloaders" id="id32">5.1&nbsp;&nbsp;&nbsp;Installation des Bootloaders</a></li>
-<li><a class="reference internal" href="#kopieren-und-entpacken-des-filesystems" id="id33">5.2&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></li>
+<li><a class="reference internal" href="#vorbereiten-der-microsd-karte" id="id29">4&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a><ul class="auto-toc">
+<li><a class="reference internal" href="#boot-formatieren-als-fat16-lba" id="id30">4.1&nbsp;&nbsp;&nbsp;boot formatieren als FAT16 (LBA)</a></li>
+<li><a class="reference internal" href="#root-als-linux-formatieren" id="id31">4.2&nbsp;&nbsp;&nbsp;root als &quot;Linux&quot; formatieren</a></li>
+<li><a class="reference internal" href="#die-anderungen-auf-der-sd-karte-anwenden" id="id32">4.3&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></li>
+<li><a class="reference internal" href="#anlegen-des-filesystem-und-der-partitionstabelle" id="id33">4.4&nbsp;&nbsp;&nbsp;Anlegen des Filesystem und der Partitionstabelle</a><ul class="auto-toc">
+<li><a class="reference internal" href="#boot-partition" id="id34">4.4.1&nbsp;&nbsp;&nbsp;&quot;boot-Partition&quot;</a></li>
+<li><a class="reference internal" href="#root-partition" id="id35">4.4.2&nbsp;&nbsp;&nbsp;&quot;root-Partition&quot;</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#das-u-boot" id="id34">6&nbsp;&nbsp;&nbsp;Das u-boot</a><ul class="auto-toc">
-<li><a class="reference internal" href="#u-boot-unter-yocto" id="id35">6.1&nbsp;&nbsp;&nbsp;u-boot unter yocto</a></li>
-<li><a class="reference internal" href="#u-boot-selbst-kompilieren" id="id36">6.2&nbsp;&nbsp;&nbsp;u-boot selbst kompilieren</a></li>
-<li><a class="reference internal" href="#einstellungen-von-u-boot-uberprufen" id="id37">6.3&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></li>
-<li><a class="reference internal" href="#zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges" id="id38">6.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#netboot-test" id="id39">7&nbsp;&nbsp;&nbsp;Netboot test</a><ul class="auto-toc">
-<li><a class="reference internal" href="#netboot-via-nfs" id="id40">7.1&nbsp;&nbsp;&nbsp;Netboot via nfs</a></li>
-<li><a class="reference internal" href="#netboot-via-ftp-tftp" id="id41">7.2&nbsp;&nbsp;&nbsp;Netboot via ftp/tftp</a></li>
+<li><a class="reference internal" href="#platzieren-der-daten-auf-der-sd-karte" id="id36">5&nbsp;&nbsp;&nbsp;Platzieren der Daten auf der SD-Karte</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installation-des-bootloaders" id="id37">5.1&nbsp;&nbsp;&nbsp;Installation des Bootloaders</a></li>
+<li><a class="reference internal" href="#kopieren-und-entpacken-des-filesystems" id="id38">5.2&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#debian-8-0-fur-das-beaglebone-black" id="id42">8&nbsp;&nbsp;&nbsp;Debian 8.0 für das BeagleBone Black</a><ul class="auto-toc">
-<li><a class="reference internal" href="#die-ersten-schritte-nach-dem-erfolgreichen-platzieren-des-images" id="id43">8.1&nbsp;&nbsp;&nbsp;Die ersten Schritte nach dem erfolgreichen platzieren des images:</a></li>
+<li><a class="reference internal" href="#das-u-boot" id="id39">6&nbsp;&nbsp;&nbsp;Das u-boot</a><ul class="auto-toc">
+<li><a class="reference internal" href="#u-boot-unter-yocto" id="id40">6.1&nbsp;&nbsp;&nbsp;u-boot unter yocto</a></li>
+<li><a class="reference internal" href="#u-boot-selbst-kompilieren" id="id41">6.2&nbsp;&nbsp;&nbsp;u-boot selbst kompilieren</a></li>
+<li><a class="reference internal" href="#einstellungen-von-u-boot-uberprufen" id="id42">6.3&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></li>
+<li><a class="reference internal" href="#zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges" id="id43">6.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#einrichten-eines-accesspoint-auf-dem-beaglebone-black" id="id44">9&nbsp;&nbsp;&nbsp;Einrichten eines Accesspoint auf dem BeagleBone Black</a><ul class="auto-toc">
-<li><a class="reference internal" href="#finden-und-identifizieren-des-w-lan-devices" id="id45">9.1&nbsp;&nbsp;&nbsp;Finden und identifizieren des W-Lan Devices</a></li>
-<li><a class="reference internal" href="#finden-identifizieren-und-laden-des-treibers" id="id46">9.2&nbsp;&nbsp;&nbsp;Finden, identifizieren und laden des Treibers</a></li>
-<li><a class="reference internal" href="#einrichten-des-w-lan-interfaces" id="id47">9.3&nbsp;&nbsp;&nbsp;Einrichten des W-Lan Interfaces</a></li>
-<li><a class="reference internal" href="#konfiguration-des-hostapd" id="id48">9.4&nbsp;&nbsp;&nbsp;Konfiguration des hostapd</a></li>
-<li><a class="reference internal" href="#konfiguration-des-isc-dhcp-servers" id="id49">9.5&nbsp;&nbsp;&nbsp;Konfiguration des isc-dhcp-servers</a></li>
-<li><a class="reference internal" href="#erstellen-einer-dns-maske-zur-weiterleiten-einer-bestehenden-netzwerkverbindung" id="id50">9.6&nbsp;&nbsp;&nbsp;Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung</a></li>
+<li><a class="reference internal" href="#netboot-test" id="id44">7&nbsp;&nbsp;&nbsp;Netboot test</a><ul class="auto-toc">
+<li><a class="reference internal" href="#netboot-via-ftp-tftp" id="id45">7.1&nbsp;&nbsp;&nbsp;Netboot via ftp/tftp</a></li>
+<li><a class="reference internal" href="#netboot-via-nfs" id="id46">7.2&nbsp;&nbsp;&nbsp;Netboot via nfs</a></li>
+<li><a class="reference internal" href="#besonderheiten-beim-raspberry-pi" id="id47">7.3&nbsp;&nbsp;&nbsp;Besonderheiten beim Raspberry Pi</a></li>
+<li><a class="reference internal" href="#generelle-vorgehensweise" id="id48">7.4&nbsp;&nbsp;&nbsp;Generelle Vorgehensweise</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#gpio-general-purpose-in-and-output" id="id51">10&nbsp;&nbsp;&nbsp;GPIO - General-Purpose-In-and-Output</a><ul class="auto-toc">
-<li><a class="reference internal" href="#verwendung-des-sogenannten-sysfs" id="id52">10.1&nbsp;&nbsp;&nbsp;Verwendung des sogenannten &quot;sysfs&quot;</a></li>
+<li><a class="reference internal" href="#debian-8-0-fur-das-beaglebone-black" id="id49">8&nbsp;&nbsp;&nbsp;Debian 8.0 für das BeagleBone Black</a><ul class="auto-toc">
+<li><a class="reference internal" href="#die-ersten-schritte-nach-dem-erfolgreichen-platzieren-des-images" id="id50">8.1&nbsp;&nbsp;&nbsp;Die ersten Schritte nach dem erfolgreichen platzieren des images:</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#lkms-linux-kernel-module" id="id53">11&nbsp;&nbsp;&nbsp;lkms - Linux-Kernel-Module</a><ul class="auto-toc">
-<li><a class="reference internal" href="#installation-der-linux-header" id="id54">11.1&nbsp;&nbsp;&nbsp;Installation der Linux-header</a></li>
-<li><a class="reference internal" href="#bauen-eines-eigenen-treibers" id="id55">11.2&nbsp;&nbsp;&nbsp;Bauen eines eigenen Treibers</a></li>
-<li><a class="reference internal" href="#laden-des-selbst-compilierten-treibers" id="id56">11.3&nbsp;&nbsp;&nbsp;Laden des selbst compilierten Treibers</a></li>
-<li><a class="reference internal" href="#entfernen-des-eigenen-kernelmoduls" id="id57">11.4&nbsp;&nbsp;&nbsp;Entfernen des eigenen Kernelmoduls</a></li>
+<li><a class="reference internal" href="#einrichten-eines-accesspoint-auf-dem-beaglebone-black" id="id51">9&nbsp;&nbsp;&nbsp;Einrichten eines Accesspoint auf dem BeagleBone Black</a><ul class="auto-toc">
+<li><a class="reference internal" href="#finden-und-identifizieren-des-wlan-devices" id="id52">9.1&nbsp;&nbsp;&nbsp;Finden und identifizieren des WLAN Devices</a></li>
+<li><a class="reference internal" href="#finden-identifizieren-und-laden-des-treibers" id="id53">9.2&nbsp;&nbsp;&nbsp;Finden, identifizieren und laden des Treibers</a></li>
+<li><a class="reference internal" href="#einrichten-des-wlan-interfaces" id="id54">9.3&nbsp;&nbsp;&nbsp;Einrichten des WLAN Interfaces</a></li>
+<li><a class="reference internal" href="#konfiguration-des-hostapd" id="id55">9.4&nbsp;&nbsp;&nbsp;Konfiguration des hostapd</a></li>
+<li><a class="reference internal" href="#konfiguration-des-isc-dhcp-servers" id="id56">9.5&nbsp;&nbsp;&nbsp;Konfiguration des isc-dhcp-servers</a></li>
+<li><a class="reference internal" href="#erstellen-einer-dns-maske-zur-weiterleiten-einer-bestehenden-netzwerkverbindung" id="id57">9.6&nbsp;&nbsp;&nbsp;Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tools-und-programme" id="id58">12&nbsp;&nbsp;&nbsp;Tools und Programme</a><ul class="auto-toc">
-<li><a class="reference internal" href="#minicom-ein-serial-terminal-emulator" id="id59">12.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a><ul class="auto-toc">
-<li><a class="reference internal" href="#installation" id="id60">12.1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
-<li><a class="reference internal" href="#unter-a-das-richtige-device-einrichten" id="id61">12.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></li>
-<li><a class="reference internal" href="#als-default-speichern" id="id62">12.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></li>
-<li><a class="reference internal" href="#minicom-beenden-und-neu-starten" id="id63">12.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></li>
+<li><a class="reference internal" href="#httpserver-mit-flask" id="id58">10&nbsp;&nbsp;&nbsp;Httpserver mit Flask</a><ul class="auto-toc">
+<li><a class="reference internal" href="#verwendete-imports" id="id59">10.1&nbsp;&nbsp;&nbsp;Verwendete Imports</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id64">12.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
-<li><a class="reference internal" href="#laufwerk-auswahlen" id="id65">12.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></li>
-<li><a class="reference internal" href="#laufwerksinformationen-ausgeben" id="id66">12.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></li>
-<li><a class="reference internal" href="#sonstige-befehle" id="id67">12.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
-<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id68">12.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
+<li><a class="reference internal" href="#gpio-general-purpose-in-and-output" id="id60">11&nbsp;&nbsp;&nbsp;GPIO - General-Purpose-In-and-Output</a><ul class="auto-toc">
+<li><a class="reference internal" href="#verwendung-des-sogenannten-sysfs" id="id61">11.1&nbsp;&nbsp;&nbsp;Verwendung des sogenannten &quot;sysfs&quot;</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#lighttpd-ein-leichtgewichtiger-http-server" id="id69">12.3&nbsp;&nbsp;&nbsp;lighttpd - ein leichtgewichtiger http-server</a></li>
+<li><a class="reference internal" href="#lkms-linux-kernel-module" id="id62">12&nbsp;&nbsp;&nbsp;lkms - Linux-Kernel-Module</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installation-der-linux-header" id="id63">12.1&nbsp;&nbsp;&nbsp;Installation der Linux-header</a></li>
+<li><a class="reference internal" href="#bauen-eines-eigenen-treibers" id="id64">12.2&nbsp;&nbsp;&nbsp;Bauen eines eigenen Treibers</a></li>
+<li><a class="reference internal" href="#laden-des-selbst-compilierten-treibers" id="id65">12.3&nbsp;&nbsp;&nbsp;Laden des selbst compilierten Treibers</a></li>
+<li><a class="reference internal" href="#entfernen-des-eigenen-kernelmoduls" id="id66">12.4&nbsp;&nbsp;&nbsp;Entfernen des eigenen Kernelmoduls</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id70">13&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
+<li><a class="reference internal" href="#unabhangige-stromversorgung" id="id67">13&nbsp;&nbsp;&nbsp;Unabhängige Stromversorgung</a><ul class="auto-toc">
+<li><a class="reference internal" href="#energiebedarf-des-beaglebone-black" id="id68">13.1&nbsp;&nbsp;&nbsp;Energiebedarf des BeagleBone Black</a></li>
+<li><a class="reference internal" href="#benotigte-solarzellen" id="id69">13.2&nbsp;&nbsp;&nbsp;Benötigte Solarzellen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tools-und-programme" id="id70">14&nbsp;&nbsp;&nbsp;Tools und Programme</a><ul class="auto-toc">
+<li><a class="reference internal" href="#minicom-ein-serial-terminal-emulator" id="id71">14.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installation" id="id72">14.1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
+<li><a class="reference internal" href="#unter-a-das-richtige-device-einrichten" id="id73">14.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></li>
+<li><a class="reference internal" href="#als-default-speichern" id="id74">14.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></li>
+<li><a class="reference internal" href="#minicom-beenden-und-neu-starten" id="id75">14.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fdisk-partitionierungs-tool" id="id76">14.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a><ul class="auto-toc">
+<li><a class="reference internal" href="#laufwerk-auswahlen" id="id77">14.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></li>
+<li><a class="reference internal" href="#laufwerksinformationen-ausgeben" id="id78">14.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></li>
+<li><a class="reference internal" href="#sonstige-befehle" id="id79">14.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></li>
+<li><a class="reference internal" href="#unterschiedliche-formatierungen" id="id80">14.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lighttpd-ein-leichtgewichtiger-http-server" id="id81">14.3&nbsp;&nbsp;&nbsp;lighttpd - ein leichtgewichtiger http-server</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zusammenfassung" id="id82">15&nbsp;&nbsp;&nbsp;Zusammenfassung</a></li>
+<li><a class="reference internal" href="#literatur-und-sonstige-quellen" id="id83">16&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></li>
 </ul>
 </div>
 <div class="section" id="das-geocaching-modul">
-<h1><a class="toc-backref" href="#id10">1&nbsp;&nbsp;&nbsp;Das Geocaching-Modul</a></h1>
-<p>Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefasst. Unser Projekt dient der Digitalisierung eines Notizbuches beim <a class="reference external" href="https://de.wikipedia.org/wiki/Geocaching">Geocaching</a>. Der Funktionsumfang und die Anzahl der in unserem Projekt verwendeten Programme ist eher gering. Im groben handelt es sich um einen W-Lan Accesspoint, der lediglich zur Verbindung mit dem auf dem Embedded-Linux Rechner befindlichen http-server dient. Dieser soll möglichst einfach von außen mit einer Konfiguration versehen werden, die drei generelle Betriebsmodi erlaubt.</p>
+<h1><a class="toc-backref" href="#id11">1&nbsp;&nbsp;&nbsp;Das Geocaching-Modul</a></h1>
+<p>Die Ursprüngliche Idee zum Projekt wurde in der folgenden Grafik zusammengefasst. Unser Projekt dient der Digitalisierung eines Notizbuches beim <a class="reference external" href="https://de.wikipedia.org/wiki/Geocaching">Geocaching</a>. Der Funktionsumfang und die Anzahl der in unserem Projekt verwendeten Programme ist eher gering. Im groben handelt es sich um einen WLAN Accesspoint, der lediglich zur Verbindung mit dem auf dem Embedded Linux Rechner befindlichen http-server dient. Dieser soll möglichst einfach von außen mit einer Konfiguration versehen werden, die drei generelle Betriebsmodi erlaubt.</p>
 <blockquote>
 <ul class="simple">
 <li>Hinweise zum Standort des nächsten Caching Punktes geben -&gt; Anzeigen eines Textes im Browser</li>
@@ -518,9 +534,9 @@ Geocaching Modul
 </div>
 </div>
 <div class="section" id="beschreibung-der-hardware">
-<h1><a class="toc-backref" href="#id11">2&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a></h1>
+<h1><a class="toc-backref" href="#id12">2&nbsp;&nbsp;&nbsp;Beschreibung der Hardware</a></h1>
 <p>Für das Projekt wird das BeagleBone Black verwendet. Gründe hierfür sind der günstige Preis, die gute Verarbeitung und die hohe Leistung bei relativ geringem Energiebedarf.</p>
-<p>Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand widmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.</p>
+<p>Zunächst werden wir uns einmal mit der Hard- und Software im Orginalzustand wittmen. Verbindet man ein neues BeagleBone Black via USB mit dem Host-/Entwicklungsrechner so wird eine weitere Netzwerkverbindung geöffnet. Über diese kann man via ssh eine Verbindung zum Target starten.</p>
 <pre class="code bash literal-block">
 ssh debian&#64;192.168.7.2
 <span class="comment"># pwd: temppwd</span>
@@ -538,7 +554,7 @@ ssh debian&#64;192.168.7.2
 <!--  -->
 <!-- hush.c - shell -->
 <div class="section" id="verbindung">
-<h2><a class="toc-backref" href="#id12">2.1&nbsp;&nbsp;&nbsp;Verbindung</a></h2>
+<h2><a class="toc-backref" href="#id13">2.1&nbsp;&nbsp;&nbsp;Verbindung</a></h2>
 <pre class="code bash literal-block">
 debian&#64;beaglebone:~# ifconfig
 debian&#64;beaglebone:~# dhclient eth0
@@ -548,13 +564,13 @@ debian&#64;beaglebone:~# dhclient eth0
 </div>
 </div>
 <div class="section" id="blockschaltplan-beaglebone-black">
-<h2><a class="toc-backref" href="#id13">2.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></h2>
+<h2><a class="toc-backref" href="#id14">2.2&nbsp;&nbsp;&nbsp;Blockschaltplan Beaglebone Black</a></h2>
 <div class="figure align-center">
 <img alt="img/BBB-Blockschaltplan.png" src="img/BBB-Blockschaltplan.png" />
 </div>
 </div>
 <div class="section" id="komponenten">
-<h2><a class="toc-backref" href="#id14">2.3&nbsp;&nbsp;&nbsp;Komponenten</a></h2>
+<h2><a class="toc-backref" href="#id15">2.3&nbsp;&nbsp;&nbsp;Komponenten</a></h2>
 <div class="figure align-center">
 <img alt="img/BBB-components.png" src="img/BBB-components.png" />
 </div>
@@ -641,7 +657,7 @@ debian&#64;beaglebone:~# dhclient eth0
 </div>
 </div>
 <div class="section" id="bau-einer-eigenen-linuxumgebung-mit-dem-yoctoproject">
-<h1><a class="toc-backref" href="#id15">3&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a></h1>
+<h1><a class="toc-backref" href="#id16">3&nbsp;&nbsp;&nbsp;Bau einer eigenen Linuxumgebung mit dem Yoctoproject</a></h1>
 <p>Zu Begin soll eine neue angepasste Linuxumgebung für das Beagelbone Black compiliert und auf der MicroSD-Karte platziert werden. Hierzu bedienen wir uns im ersten Teil des Yoctoproject. Bei diesem handelt es sich um eine vereinfachte Version von &quot;&quot;. Yocto wurde in den letzten Jahren zu einem wichtigen Standard in der Wirtschaft. Yocto ermöglicht den einfachen Bau von minimale angepasste Linux-distributionen für das eigene Board. Außerdem unterstützt es die Erstellung eines eigenen Paket-servers von dem aus mit dem Paketmanager &quot;smart&quot; updates auf allen Boards durchgeführt werden können. <a class="citation-reference" href="#bbb-yocto" id="id2">[BBB-YOCTO]</a></p>
 <p>Für den Bau der Yocto-distribution empfiehlt sich die Verwendung einer erprobten Linux Distribution. Wir haben Ubuntu 14.04 LTS-Version für den folgenden Bauversuch verwendet. Bevor mit dem Bauen einer eigenen Linux Distribution begonnen werden konnte mussten noch die folgenden Pakete nachinstalliert werden:</p>
 <pre class="code bash literal-block">
@@ -659,28 +675,27 @@ debian&#64;beaglebone:~# dhclient eth0
 </span>sudo apt-get install g++
 </pre>
 <div class="section" id="herunterladen-der-yocto-buildumgebung">
-<h2><a class="toc-backref" href="#id16">3.1&nbsp;&nbsp;&nbsp;Herunterladen der Yocto Buildumgebung</a></h2>
+<h2><a class="toc-backref" href="#id17">3.1&nbsp;&nbsp;&nbsp;Herunterladen der Yocto Buildumgebung</a></h2>
 <div class="section" id="von-github-des-yoctoproject">
-<h3><a class="toc-backref" href="#id17">3.1.1&nbsp;&nbsp;&nbsp;Von Github des Yoctoproject</a></h3>
+<h3><a class="toc-backref" href="#id18">3.1.1&nbsp;&nbsp;&nbsp;Von Github des Yoctoproject</a></h3>
 <pre class="code bash literal-block">
-    git colone git://git.yoctoproject.org/meta-yocto -b &lt;VERSION&gt;
-    <span class="comment"># aktuelle Version zum Zeitpunkt des Projektbeginns war Dizzy
-</span>git clone git://git.yoctoproject.org/meta-yocto -b dizzy
+git clone git://git.yoctoproject.org/poky.git -b &lt;branch&gt;
+<span class="comment"># aktuelle Version zum Zeitpunkt des Projektbeginns war Dizzy
+</span>git clone git://git.yoctoproject.org/poky.git -b dizzy
 </pre>
 </div>
 <div class="section" id="herunterladen-des-aktuellen-images-von-der-webseite-des-yoctoproject">
-<h3><a class="toc-backref" href="#id18">3.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></h3>
-<p><a class="citation-reference" href="#todo" id="id3">[TODO]</a></p>
-<!-- add a description and the link -->
+<h3><a class="toc-backref" href="#id19">3.1.2&nbsp;&nbsp;&nbsp;Herunterladen des aktuellen images von der webseite des Yoctoproject</a></h3>
 <pre class="code bash literal-block">
-wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beaglebone/beaglebone-dizzy-12.0.0.tar.bz2
+wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7.2/poky-dizzy-12.0.2.tar.bz2
+tar -xzf poky-dizzy-12.0.2.tar.bz2
 </pre>
 </div>
 </div>
 <div class="section" id="bauen-des-yocto-core-images-und-des-bootloaders">
-<h2><a class="toc-backref" href="#id19">3.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a></h2>
+<h2><a class="toc-backref" href="#id20">3.2&nbsp;&nbsp;&nbsp;Bauen des Yocto-core-images und des Bootloaders</a></h2>
 <div class="section" id="erstellen-der-buildumgebung-und-uberprufung-der-variablen">
-<h3><a class="toc-backref" href="#id20">3.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></h3>
+<h3><a class="toc-backref" href="#id21">3.2.1&nbsp;&nbsp;&nbsp;Erstellen der Buildumgebung und Überprüfung der Variablen</a></h3>
 <p>Nachdem herunterladen und entpacken kann mit dem Bau begonnen werden. Dafür wechselt man in das Verzeichnis &quot;poky/&quot;. In diesem Verzeichnis befinden sich die Sources und Konfigurations-Dateien, die für den Bauvorgang benötigt werden. Vor jedem neuen Bauvorgang sollte die Buildumgebung gesourced werden. Dies sorgt dafür das die für den Bau benötigten Variablen, wie zum Beispiel Compiler, Kernel und Architekturen im jeweiligen Terminal gesetzt werden. Wechselt man das Terminal muss die Buildumgebung erneut gesourced werden. Eine weitere wichtige Anmerkung, je nach Konfiguration wird für das Bauen zwischen 10 und 25 GB Speicherplatz benötigt, läuft dieser voll bricht der Bauvorgang einfach ab!</p>
 <pre class="code bash literal-block">
 <span class="name builtin">source </span>oe-init-build-env build
@@ -689,10 +704,10 @@ wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beagleb
 <span class="comment"># anzeigen verschiedener vorkonfigurierter &quot;Rezepte&quot;
 </span>bitbake-layers show-recipes
 </pre>
-<p>Der Ordner &quot;build&quot; wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner &quot;conf&quot; und in diesem die Datei &quot;local.conf&quot; diese datei einthält unter anderem Informationen darüber für welches Target das Yocto Image gebaut werden soll. Um den Build-Prozess anstoßen zu können muss sie allerdings noch angepasst werden.</p>
+<p>Der Ordner <em>build</em> wurde angelegt und außerdem ist das Terminal gleich in diesen gewechselt. In diesem Ordner befindet sich der Unterordner <em>conf</em> und in diesem die Datei <em>local.conf</em> diese datei enthält unter anderem Informationen darüber für welches Target und welche Rezepte mit in das Yocto Image gebaut werden sollen. Um den Build-Prozess anstoßen zu können, muss sie allerdings noch angepasst werden. Außerdem muss in unserem Fall, da wir den Edimax EW-7811Un verwendeten, noch der Treiber als Kernel-Modul mit erstellt werden.</p>
 </div>
 <div class="section" id="anpassungen-in-der-datei-local-conf">
-<h3><a class="toc-backref" href="#id21">3.2.2&nbsp;&nbsp;&nbsp;Anpassungen in der Datei &quot;local.conf&quot;</a></h3>
+<h3><a class="toc-backref" href="#id22">3.2.2&nbsp;&nbsp;&nbsp;Anpassungen in der Datei <em>local.conf</em></a></h3>
 <pre class="code bash literal-block">
 <span class="comment">#
 # This file is your local configuration file and is where all local user settings
@@ -706,6 +721,28 @@ wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.7/machines/beagleb
 # default values are provided as comments to show people example syntax. Enabling
 # the option is a question of removing the # character and making any change to the
 # variable as required.
+</span>
+<span class="comment">#
+# Parallelism Options
+#
+# These two options control how much parallelism BitBake should use. The first
+# option determines how many tasks bitbake should run in parallel:
+#
+</span>BB_NUMBER_THREADS ?<span class="operator">=</span> <span class="literal string double">&quot;8&quot;</span>
+<span class="comment">#
+# Default to setting automatically based on cpu count
+</span>BB_NUMBER_THREADS ?<span class="operator">=</span> <span class="literal string double">&quot;${&#64;oe.utils.cpu_count()}&quot;</span>
+<span class="comment">#
+# The second option controls how many processes make should run in parallel when
+# running compile tasks:
+#
+</span>PARALLEL_MAKE ?<span class="operator">=</span> <span class="literal string double">&quot;-j 8&quot;</span>
+<span class="comment">#
+# Default to setting automatically based on cpu count
+</span>PARALLEL_MAKE ?<span class="operator">=</span> <span class="literal string double">&quot;-j ${&#64;oe.utils.cpu_count()}&quot;</span>
+<span class="comment">#
+# For a quad-core machine, BB_NUMBER_THREADS = &quot;4&quot;, PARALLEL_MAKE = &quot;-j 4&quot; would
+# be appropriate for example.
 </span>
 <span class="comment">#
 # Machine Selection
@@ -929,7 +966,159 @@ ASSUME_PROVIDED +<span class="operator">=</span> <span class="literal string dou
 # track the version of this file when it was generated. This can safely be ignored if
 # this doesn't mean anything to you.
 </span><span class="name variable">CONF_VERSION</span> <span class="operator">=</span> <span class="literal string double">&quot;1&quot;</span>
+</pre>
+</div>
+<div class="section" id="erstellen-des-konfigurationsfragments-mit-menuconfig">
+<h3><a class="toc-backref" href="#id23">3.2.3&nbsp;&nbsp;&nbsp;Erstellen des Konfigurationsfragments mit menuconfig</a></h3>
+<p>Das Yocto Projekt bietet eine Reihe von leistungsfähigen Kernel-Tools zur Verwaltung von Linux-Kernel-Quellen und Konfigurationsdaten. Diese Tools können verwendet werden um eine einzige Konfigurationsänderung vorzunehmen, mehrere Patches zu verwenden, oder um gleich mit eigenen Kernel-Quellen zu arbeiten. Insbesondere ermöglichen es die Kernel-Tools Konfigurationsfragmente zu generieren, die ausschließlich die gewünschten Änderungen beinhalten. Diese Fragmente können mithilfe des menuconfig Systems bereitgestellt werden.</p>
+<p>Um ein Konfigurationsfragment zu erstellen sind folgende Schritte nötig:</p>
+<ol class="arabic simple">
+<li>Zunächst ausführen eines Kernel-builds um die Kernel-Konfiguration zu ermöglichen(.config wird miterstellt)</li>
+</ol>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>bitbake linux-yocto -c kernel_configme -f
+</pre>
+<ol class="arabic simple" start="2">
+<li>Kommando <em>menuconfig</em> ausführen um Treiber für wlan-Stick hinzuzufügen(erstellt neue <em>.config</em> und benennt alte in <em>.config.old</em>)</li>
+</ol>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>bitbake linux-yocto -c menuconfig
+</pre>
+<div class="figure align-center">
+<img alt="img/Yocto-menuconfig.jpg" src="img/Yocto-menuconfig.jpg" />
+</div>
+<pre class="code bash literal-block">
+Device Drivers  ---&gt;
+     <span class="operator">[</span><span class="literal string escape">\*</span><span class="operator">]</span> Network device support  ---&gt;
+     <span class="operator">[</span><span class="literal string escape">\*</span><span class="operator">]</span> Wireless LAN  ---&gt;
+     &lt;<span class="literal string escape">\*</span>&gt;   Realtek rtlwifi family of devices <span class="operator">(</span>NEW<span class="operator">)</span>  ---&gt;
+           --- Realtek rtlwifi family of devices
+           &lt;M&gt;   Realtek RTL8192CU/RTL8188CU USB Wireless Network Adapter
+           <span class="operator">[</span><span class="literal string escape">\*</span><span class="operator">]</span>   Debugging output <span class="keyword">for </span>rtlwifi driver family
+</pre>
+<ol class="arabic simple" start="3">
+<li><em>diffconfig</em> Kommando ausführen um das Konfigurationsfragment <em>fragment.cfg</em> zu erstellen, welches die Änderungen der <em>.config</em> und <em>.config.old</em> beiinhaltet</li>
+</ol>
+<pre class="code bash literal-block">
+<span class="name variable">$ </span>bitbake linux-yocto -c diffconfig
+</pre>
+</div>
+<div class="section" id="anlegen-der-meta-custom-layer-fur-anpassungen-am-yocto-standard-build">
+<h3><a class="toc-backref" href="#id24">3.2.4&nbsp;&nbsp;&nbsp;Anlegen der meta-custom Layer für Anpassungen am Yocto-Standard-Build</a></h3>
+<p>Es ist sehr einfach, eine neue Schicht für eigene Anpassungen am Yocto Image, zu erstellen.</p>
+<p>Erstellen der neuen Schicht meta-custom:</p>
+<ul class="simple">
+<li>Erstellen der Ordnerstruktur für die Schicht</li>
+</ul>
+<pre class="code bash literal-block">
+<span class="comment"># im Verzeichnis ../yocto/poky/
+</span>mkdir meta-custom
+mkdir meta-custom/conf
+</pre>
+<ul class="simple">
+<li>Anlegen der Layer-Konfigurationsdatei. Innerhalb jeder Schicht ist es notwendig eine conf/layer.conf file zu erstellen. Am einfachsten ist es diese von schon bestehenden Schichten zu kopieren und anschließend anzupassen.</li>
+</ul>
+<pre class="code bash literal-block">
+<span class="comment"># We have a conf and classes directory, add to BBPATH
+</span>BBPATH .<span class="operator">=</span> <span class="literal string double">&quot;:${LAYERDIR}&quot;</span>
 
+<span class="comment"># We have recipes-* directories, add to BBFILES
+</span>BBFILES +<span class="operator">=</span> <span class="literal string double">&quot;${LAYERDIR}/recipes-*/*/*.bb \
+${LAYERDIR}/recipes-*/*/*.bbappend&quot;</span>
+
+BBFILE_COLLECTIONS +<span class="operator">=</span> <span class="literal string double">&quot;custom&quot;</span>
+<span class="name variable">BBFILE_PATTERN_custom</span> <span class="operator">=</span> <span class="literal string double">&quot;^${LAYERDIR}/&quot;</span>
+<span class="name variable">BBFILE_PRIORITY_custom</span> <span class="operator">=</span> <span class="literal string double">&quot;5&quot;</span>
+<span class="name variable">LAYERVERSION_custom</span> <span class="operator">=</span> <span class="literal string double">&quot;1&quot;</span>
+</pre>
+<ul class="simple">
+<li>Das anpassen der /../yocto/poky/conf/bblayers.conf ist wichtig, da beim bauen des Images nur in den Schichten gesucht wird, die in der bblayers.conf aufgeführt werden.</li>
+</ul>
+<pre class="code bash literal-block">
+<span class="comment"># LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+</span><span class="name variable">LCONF_VERSION</span> <span class="operator">=</span> <span class="literal string double">&quot;6&quot;</span>
+
+<span class="name variable">BBPATH</span> <span class="operator">=</span> <span class="literal string double">&quot;${TOPDIR}&quot;</span>
+BBFILES ?<span class="operator">=</span> <span class="literal string double">&quot;&quot;</span>
+
+BBLAYERS ?<span class="operator">=</span> <span class="literal string double">&quot; \
+/../yocto/poky/meta \
+/../yocto/poky/meta-yocto \
+/../yocto/poky/meta-yocto-bsp \
+/../yocto/poky/meta-custom \
+&quot;</span>
+BBLAYERS_NON_REMOVABLE ?<span class="operator">=</span> <span class="error">&quot;</span> <span class="literal string escape">\
+</span>/../yocto/poky/meta <span class="literal string escape">\
+</span>/../yocto/poky/meta-yocto <span class="literal string escape">\</span>
+</pre>
+</div>
+<div class="section" id="erstellen-der-recipes-in-meta-custom">
+<h3><a class="toc-backref" href="#id25">3.2.5&nbsp;&nbsp;&nbsp;Erstellen der Recipes in meta-custom</a></h3>
+<ul class="simple">
+<li>Um die Änderungen der <em>fragment.cfg</em> hinzuzufügen, muss ein neues Rezept erstellt werden. Dazu wird die Ordnerstruktur recipes-kernel/linux/files erstellt und darin dann die <em>fragment.cfg</em> abgelegt werden.</li>
+<li>Danach wird im Ordner recipes-kernel/linux/ die Datei linux-yocto_3.14.bbappend angelegt, die wie folgt aussieht:</li>
+</ul>
+<pre class="code bash literal-block">
+FILESEXTRAPATHS_prepend :<span class="operator">=</span> <span class="literal string double">&quot;${THISDIR}/files:&quot;</span>
+SRC_URI +<span class="operator">=</span> <span class="literal string double">&quot;file://rtl8192.cfg&quot;</span>
+</pre>
+<ul class="simple">
+<li>Damit die Funktionalität eines Accesspoints auf dem Beaglebone mithilfe des Yocto-Images gewährleistet werden kann, werden außer dem Treiber für den WLAN-Stick, noch die Rezepte für die Konnektivität <em>recipes-connectivity</em> und die Rezepte für das Web-Framework Flask <em>recipes-flask</em> erstellt. Der Ordner <em>recipes-connectivity</em> besteht aus den Rezepten dnsmasq, hostapd, und iw. <em>recipes-flask</em> enthält alle Rezepte die benötigt werden damit Flask läuft, die da wären, flask selber, itsdangerous, jinja2, markupsafe und werkzeug. Die Vorgehensweise zum Hinzufügen der einzelnen Rezepte, unterscheidet sich kaum.</li>
+</ul>
+<p>bsp. anhand des Werkzeug-recipes:</p>
+<ul class="simple">
+<li>erstellen der Ordnerstruktur</li>
+</ul>
+<pre class="code bash literal-block">
+meta-custom/recipes-flask
+meta-custom/recipes-flask/werkzeug
+</pre>
+<ul class="simple">
+<li>anlegen der bb Datei im Ordner werkzeug</li>
+</ul>
+<pre class="code bash literal-block">
+<span class="comment"># Wenn man ein Rezept benennt, muss die folgende Namenskonvention eingehalten werden
+# &lt;basename&gt;_&lt;version&gt;.bb. In diesem Fall werkzeug_0.10.4.bb
+</span>
+
+<span class="name variable">DESCRIPTION</span> <span class="operator">=</span> <span class="literal string double">&quot;The Swiss Army knife of Python web development&quot;</span>
+<span class="name variable">HOMEPAGE</span> <span class="operator">=</span> <span class="literal string double">&quot;https://https://pypi.python.org/pypi/Werkzeug&quot;</span>
+<span class="name variable">SECTION</span> <span class="operator">=</span> <span class="literal string double">&quot;devel/python&quot;</span>
+<span class="name variable">LICENSE</span> <span class="operator">=</span> <span class="literal string double">&quot;BSD&quot;</span>
+<span class="name variable">LIC_FILES_CHKSUM</span> <span class="operator">=</span> <span class="literal string double">&quot;file://LICENSE;md5=a68f5361a2b2ca9fdf26b38aaecb6faa&quot;</span>
+
+<span class="name variable">PR</span> <span class="operator">=</span> <span class="literal string double">&quot;r0&quot;</span>
+<span class="name variable">SRCNAME</span> <span class="operator">=</span> <span class="literal string double">&quot;Werkzeug&quot;</span>
+<span class="name variable">PV</span> <span class="operator">=</span> <span class="literal string double">&quot;0.10.4&quot;</span>
+
+<span class="name variable">SRC_URI</span> <span class="operator">=</span> <span class="literal string double">&quot;https://pypi.python.org/packages/source/W/Werkzeug/Werkzeug-0.10.4.tar.gz&quot;</span>
+SRC_URI<span class="operator">[</span>md5sum<span class="operator">]</span> <span class="operator">=</span> <span class="literal string double">&quot;66a488e0ac50a9ec326fe020b3083450&quot;</span>
+SRC_URI<span class="operator">[</span>sha256sum<span class="operator">]</span> <span class="operator">=</span> <span class="literal string double">&quot;9d2771e4c89be127bc4bac056ab7ceaf0e0064c723d6b6e195739c3af4fd5c1d&quot;</span>
+
+<span class="name variable">S</span> <span class="operator">=</span> <span class="literal string double">&quot;${WORKDIR}/${SRCNAME}-${PV}&quot;</span>
+
+inherit setuptools
+
+<span class="name variable">CLEANBROKEN</span> <span class="operator">=</span> <span class="literal string double">&quot;1&quot;</span>
+</pre>
+<ul class="simple">
+<li>anlegen einer bbappend file, damit für den lighttpd die module: fastcgi, alias und rewrite mitinstalliert werden.</li>
+</ul>
+<pre class="code bash literal-block">
+FILESEXTRAPATHS_prepend :<span class="operator">=</span> <span class="literal string double">&quot;${THISDIR}/${BP}:&quot;</span>
+
+RDEPENDS_<span class="keyword">${</span><span class="name variable">PN</span><span class="keyword">}</span> +<span class="operator">=</span> <span class="literal string double">&quot; \
+      lighttpd-module-fastcgi \
+      lighttpd-module-alias \
+      lighttpd-module-rewrite \
+&quot;</span>
+</pre>
+</div>
+<div class="section" id="abschlieszende-anpassungen-in-der-local-conf">
+<h3><a class="toc-backref" href="#id26">3.2.6&nbsp;&nbsp;&nbsp;Abschließende Anpassungen in der local.conf</a></h3>
+<p>Damit die erstellten Rezepte beim bauen des Images darauf enthalten sind, muss noch die local.conf so angepasst werden dass diese mitgebaut und auf dem Image installiert werden. Dazu werden folgende Zeilen der local.conf Datei hinzugefügt:</p>
+<pre class="code bash literal-block">
 <span class="comment"># [3.] slim ssh-client dropbear added
 </span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;dropbear&quot;</span>
 <span class="comment"># [4.] git-vcn added
@@ -938,11 +1127,70 @@ ASSUME_PROVIDED +<span class="operator">=</span> <span class="literal string dou
 </span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;lighttpd&quot;</span>
 <span class="comment"># [6.] wireless-tools and functions for the hot-spot functionality
 </span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;wireless-tools&quot;</span>
+<span class="comment"># [7.] dhcp-server
+</span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;dhcp-server&quot;</span>
+<span class="comment"># [8.] dhcp-client
+</span>CORE_IMAGE_EXTRA_INSTALL +<span class="operator">=</span> <span class="literal string double">&quot;dhcp-client&quot;</span>
+<span class="comment"># [9.] linux firmware for wlan stick
+</span>IMAGE_INSTALL_append +<span class="operator">=</span> <span class="literal string double">&quot; linux-firmware-rtl8192cu&quot;</span>
+<span class="comment"># [10.] flask micro-framework added
+</span>IMAGE_INSTALL_append +<span class="operator">=</span> <span class="literal string double">&quot; flask&quot;</span>
+<span class="comment"># [11.] werkzeug wsgi added
+</span>IMAGE_INSTALL_append +<span class="operator">=</span> <span class="literal string double">&quot; werkzeug&quot;</span>
+<span class="comment"># [12.] jinja2 template engine added
+</span>IMAGE_INSTALL_append +<span class="operator">=</span> <span class="literal string double">&quot; jinja2&quot;</span>
+<span class="comment"># [13.] itsdangerous Various helpers to pass trusted data to untrusted environments and back
+</span>IMAGE_INSTALL_append +<span class="operator">=</span> <span class="literal string double">&quot; itsdangerous&quot;</span>
+<span class="comment">#[14.] markupsafe Implements a XML/HTML/XHTML Markup safe string for Python
+</span>IMAGE_INSTALL_append +<span class="operator">=</span> <span class="literal string double">&quot; markupsafe&quot;</span>
+<span class="comment"># [15.] flup needed for fastcgi support
+</span>IMAGE_INSTALL_append +<span class="operator">=</span> <span class="literal string double">&quot; flup&quot;</span>
+</pre>
+</div>
+<div class="section" id="finale-ordnerstruktur-in-meta-custom">
+<h3><a class="toc-backref" href="#id27">3.2.7&nbsp;&nbsp;&nbsp;Finale Ordnerstruktur in meta-custom</a></h3>
+<pre class="code bash literal-block">
+meta-custom
+│
+├── conf
+│&nbsp;&nbsp; └── layer.conf
+├── recipes-connectivity
+│&nbsp;&nbsp; ├── hostapd
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── hostapd-2.2
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── defconfig
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── hostapd.service
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── init
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── hostapd_2.2.bb
+│&nbsp;&nbsp; └── iw
+│&nbsp;&nbsp;     ├── iw
+│&nbsp;&nbsp;     │&nbsp;&nbsp; └── 0001-iw-version.sh-don-t-use-git-describe-for-versioning.patch
+│&nbsp;&nbsp;     └── iw_3.15.bb
+├── recipes-extended
+│&nbsp;&nbsp; └── lighttpd
+│&nbsp;&nbsp;     └── lighttpd_1.4.33.bbappend
+├── recipes-flask
+│&nbsp;&nbsp; ├── flask
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── flask_1.0.0.bb
+│&nbsp;&nbsp; ├── flup
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── flup_1.0.2.bb
+│&nbsp;&nbsp; ├── itsdangerous
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── itsdangerous_0.24.bb
+│&nbsp;&nbsp; ├── jinja2
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── jinja2_2.7.3.bb
+│&nbsp;&nbsp; ├── markupsafe
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── markupsafe_0.23.bb
+│&nbsp;&nbsp; └── werkzeug
+│&nbsp;&nbsp;     └── werkzeug_0.10.4.bb
+└── recipes-kernel
+    └── linux
+        ├── files
+        │&nbsp;&nbsp; └── rtl8192.cfg
+        └── linux-yocto_3.14.bbappend
 </pre>
 </div>
 <div class="section" id="bitbake-eine-build-umgebung-fur-ein-angepasstes-yocto-linux">
-<h3><a class="toc-backref" href="#id22">3.2.3&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></h3>
-<p>Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden. Dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.</p>
+<h3><a class="toc-backref" href="#id28">3.2.8&nbsp;&nbsp;&nbsp;Bitbake eine Build-umgebung für ein angepasstes Yocto-linux</a></h3>
+<p>Im nächsten Schritt kann nun mit dem Bau des Yocto Images begonnen werden dies kann je nach Host-Rechner bis zu mehreren Stunden dauern, deswegen sollte man hier entsprechend viel Zeit einplanen. Außerdem sollte bedacht werden das dieser Vorgang einen Großteil der Zeit annähernd alle Ressourcen auf dem Entwicklungsrechner beansprucht.</p>
 <pre class="code bash literal-block">
 <span class="comment"># eine Linuxumgebung, die neben den vorgeingestellten Komponenten die wichtigsten Grundfunktionen enthält
 # die von uns gewählte Konfiguration
@@ -960,15 +1208,10 @@ ASSUME_PROVIDED +<span class="operator">=</span> <span class="literal string dou
 <img alt="img/Yocto-build1.png" src="img/Yocto-build1.png" />
 </div>
 </div>
-<div class="section" id="hob-und-toaster-graphische-oberflachen-fur-die-konfiguration-von-yocto">
-<h3><a class="toc-backref" href="#id23">3.2.4&nbsp;&nbsp;&nbsp;hob und toaster - graphische Oberflächen für die Konfiguration von Yocto</a></h3>
-<p><a class="citation-reference" href="#todo" id="id4">[TODO]</a></p>
-<!-- Daniel kannst du dazu irgendetwas schreiben? Man könnte es auch zu den tools verschieben oder? -->
-</div>
 </div>
 </div>
 <div class="section" id="vorbereiten-der-microsd-karte">
-<h1><a class="toc-backref" href="#id24">4&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h1>
+<h1><a class="toc-backref" href="#id29">4&nbsp;&nbsp;&nbsp;Vorbereiten der microSD Karte</a></h1>
 <pre class="code bash literal-block">
 sudo fdisk -lu &lt;dev/device_name&gt;
 <span class="comment"># for my system
@@ -1022,7 +1265,7 @@ Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="opera
 The bootable flag on partition 1 is enabled now.
 </pre>
 <div class="section" id="boot-formatieren-als-fat16-lba">
-<h2><a class="toc-backref" href="#id25">4.1&nbsp;&nbsp;&nbsp;boot formatieren als FAT16 (LBA)</a></h2>
+<h2><a class="toc-backref" href="#id30">4.1&nbsp;&nbsp;&nbsp;boot formatieren als FAT16 (LBA)</a></h2>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: t
 Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="operator">)</span>: 1
@@ -1033,7 +1276,7 @@ Changed <span class="name builtin">type </span>of partition <span class="literal
 </pre>
 </div>
 <div class="section" id="root-als-linux-formatieren">
-<h2><a class="toc-backref" href="#id26">4.2&nbsp;&nbsp;&nbsp;root als &quot;Linux&quot; formatieren</a></h2>
+<h2><a class="toc-backref" href="#id31">4.2&nbsp;&nbsp;&nbsp;root als &quot;Linux&quot; formatieren</a></h2>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: t
 Partitionsnummer <span class="operator">(</span>1,2, default 2<span class="operator">)</span>: 2
@@ -1060,7 +1303,7 @@ Device         Boot  Start      End  Sectors  Size Id Type
 </pre>
 </div>
 <div class="section" id="die-anderungen-auf-der-sd-karte-anwenden">
-<h2><a class="toc-backref" href="#id27">4.3&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></h2>
+<h2><a class="toc-backref" href="#id32">4.3&nbsp;&nbsp;&nbsp;Die Änderungen auf der SD Karte anwenden</a></h2>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: w
 The partition table has been altered.
@@ -1085,16 +1328,16 @@ mmcblk0     179:0    0  14,7G  0 disk
 </pre>
 </div>
 <div class="section" id="anlegen-des-filesystem-und-der-partitionstabelle">
-<h2><a class="toc-backref" href="#id28">4.4&nbsp;&nbsp;&nbsp;Anlegen des Filesystem und der Partitionstabelle</a></h2>
+<h2><a class="toc-backref" href="#id33">4.4&nbsp;&nbsp;&nbsp;Anlegen des Filesystem und der Partitionstabelle</a></h2>
 <div class="section" id="boot-partition">
-<h3><a class="toc-backref" href="#id29">4.4.1&nbsp;&nbsp;&nbsp;&quot;boot-Partition&quot;</a></h3>
+<h3><a class="toc-backref" href="#id34">4.4.1&nbsp;&nbsp;&nbsp;&quot;boot-Partition&quot;</a></h3>
 <p>Für die boot-Partition benötigt man das FAT16 Format, außerdem muss das sogenannte &quot;bootable&quot; flag gesetzt werden.</p>
 <pre class="code bash literal-block">
 sudo mkfs.vfat -F 16 -n <span class="literal string double">&quot;boot&quot;</span> /dev/mmcblk0p1
 </pre>
 </div>
 <div class="section" id="root-partition">
-<h3><a class="toc-backref" href="#id30">4.4.2&nbsp;&nbsp;&nbsp;&quot;root-Partition&quot;</a></h3>
+<h3><a class="toc-backref" href="#id35">4.4.2&nbsp;&nbsp;&nbsp;&quot;root-Partition&quot;</a></h3>
 <p>Die root-Partition benötigt ein Linux kompatibles Filesystem in diesem Beispiel verwenden wir ext3.</p>
 <pre class="code bash literal-block">
 sudo mke2fs -j -L <span class="literal string double">&quot;root&quot;</span> /dev/mmcblk0p2
@@ -1113,16 +1356,16 @@ Die Superblöcke und die Informationen über die Dateisystemnutzung werden gesch
 </div>
 </div>
 <div class="section" id="platzieren-der-daten-auf-der-sd-karte">
-<h1><a class="toc-backref" href="#id31">5&nbsp;&nbsp;&nbsp;Platzieren der Daten auf der SD-Karte</a></h1>
+<h1><a class="toc-backref" href="#id36">5&nbsp;&nbsp;&nbsp;Platzieren der Daten auf der SD-Karte</a></h1>
 <div class="section" id="installation-des-bootloaders">
-<h2><a class="toc-backref" href="#id32">5.1&nbsp;&nbsp;&nbsp;Installation des Bootloaders</a></h2>
+<h2><a class="toc-backref" href="#id37">5.1&nbsp;&nbsp;&nbsp;Installation des Bootloaders</a></h2>
 <pre class="code bash literal-block">
 cp MLO /media/&lt;USER&gt;/boot1/MLO
 cp u-boot.img /media/&lt;USER&gt;/boot1/u-boot.img
 </pre>
 </div>
 <div class="section" id="kopieren-und-entpacken-des-filesystems">
-<h2><a class="toc-backref" href="#id33">5.2&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></h2>
+<h2><a class="toc-backref" href="#id38">5.2&nbsp;&nbsp;&nbsp;Kopieren und Entpacken des Filesystems</a></h2>
 <pre class="code bash literal-block">
 <span class="comment"># Dateisystem direkt auf der SD-Karte entpacken (von manchen systemen nicht unterstützt)
 </span>sudo tar -xvpf core-image-&lt;something...&gt;.tar.bz2 -C /media/&lt;USER&gt;/root/
@@ -1152,8 +1395,8 @@ sudo cp uImage /media/&lt;USER&gt;/root/boot/uImage
 </div>
 </div>
 <div class="section" id="das-u-boot">
-<h1><a class="toc-backref" href="#id34">6&nbsp;&nbsp;&nbsp;Das u-boot</a></h1>
-<p>Das u-boot ist einer der am meisten verbreiteten bootloader im Bereich Embedded Linux. Für die Meisten Boards und Systeme wird man auch ohne großen Aufwand eine angepasste u-boot Konfiguration finden. Mit dieser, einem Kernel, Treibern, einem Root-File-System und einigen Programmen ist eine minimale Embedded Linux Distribution bereits voll funktionsfähig.</p>
+<h1><a class="toc-backref" href="#id39">6&nbsp;&nbsp;&nbsp;Das u-boot</a></h1>
+<p>Das u-boot ist einer der am meisten verbreiteten bootloader im Bereich Embedded Linux. Für die Meisten Boards und Systeme wird man auch ohne großen Aufwand eine angepasste u-boot Konfiguration finden. Mit dieser, einem Kernel, Treibern, einem Root Filesystem und einigen Programmen ist eine minimale Embedded Linux Distribution bereits voll funktionsfähig.</p>
 <p>Der Bootvorgang bei einem Embedded Linux System mit u-boot läuft entsprechend dem folgenden Muster ab.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1186,11 +1429,11 @@ sudo cp uImage /media/&lt;USER&gt;/root/boot/uImage
 <img alt="img/u-boot_std.png" src="img/u-boot_std.png" />
 </div>
 <div class="section" id="u-boot-unter-yocto">
-<h2><a class="toc-backref" href="#id35">6.1&nbsp;&nbsp;&nbsp;u-boot unter yocto</a></h2>
-<p>Wird Yocto als Buildumgebung für das Root-File-System eingesetzt wird automatisch ein passender bootloader und ein uImage (Kernel) inklusive Treibern für das Board gebaut. Diese müssen dann nur noch wie bereits oben beschrieben auf die Partitionen der SD-Karte kopiert werden. Ohne eine solche Umgebung müssen die Folgenden Schritte durchlaufen werden.</p>
+<h2><a class="toc-backref" href="#id40">6.1&nbsp;&nbsp;&nbsp;u-boot unter yocto</a></h2>
+<p>Wird Yocto als Buildumgebung für das Root Filesystem eingesetzt wird automatisch ein passender bootloader und ein uImage (Kernel) inklusive Treibern für das Board gebaut. Diese müssen dann nur noch wie bereits oben beschrieben auf die Partitionen der SD-Karte kopiert werden. Ohne eine solche Umgebung müssen die Folgenden Schritte durchlaufen werden.</p>
 </div>
 <div class="section" id="u-boot-selbst-kompilieren">
-<h2><a class="toc-backref" href="#id36">6.2&nbsp;&nbsp;&nbsp;u-boot selbst kompilieren</a></h2>
+<h2><a class="toc-backref" href="#id41">6.2&nbsp;&nbsp;&nbsp;u-boot selbst kompilieren</a></h2>
 <p>Um u-boot selbst zu kompilieren muss zunächst das entsprechende Repositories von GitHub geclont werden.</p>
 <pre class="code bash literal-block">
 user&#64;host:~/workspace/<span class="name variable">$ </span>git clone git://git.denx.de/u-boot.git
@@ -1240,7 +1483,7 @@ u-boot: ELF 32-bit LSB  shared object, ARM, EABI5 version 1 <span class="operato
 </pre>
 </div>
 <div class="section" id="einstellungen-von-u-boot-uberprufen">
-<h2><a class="toc-backref" href="#id37">6.3&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></h2>
+<h2><a class="toc-backref" href="#id42">6.3&nbsp;&nbsp;&nbsp;Einstellungen von u-boot überprüfen</a></h2>
 <pre class="code bash literal-block">
 strings u-boot.img | grep loaduimage
 <span class="comment"># wichtige Ausgabe:
@@ -1264,7 +1507,7 @@ strings u-boot.img | grep bootfile
 </pre>
 </div>
 <div class="section" id="zugriff-auf-das-serielle-terminal-wahrend-des-bootvorganges">
-<h2><a class="toc-backref" href="#id38">6.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></h2>
+<h2><a class="toc-backref" href="#id43">6.4&nbsp;&nbsp;&nbsp;Zugriff auf das serielle Terminal während des Bootvorganges</a></h2>
 <p>Nachdem das Beaglebone Black mit dem USB-to-ttl mit dem Entwicklungsrechner verbunden wurde müssen noch einige Einstellungen getätigt werden um das arbeiten mit einem &quot;Serial-Terminal-Emulator&quot; möglich zu machen.</p>
 <div class="figure align-center">
 <img alt="img/Connect-BBB-SerialTerminal.png" src="img/Connect-BBB-SerialTerminal.png" />
@@ -1324,22 +1567,69 @@ sudo usermod -a -G dialout &lt;username&gt;
 </div>
 </div>
 <div class="section" id="netboot-test">
-<h1><a class="toc-backref" href="#id39">7&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
+<h1><a class="toc-backref" href="#id44">7&nbsp;&nbsp;&nbsp;Netboot test</a></h1>
 <p>Netboot, also das booten von einer Netzwerkquelle gehört nicht notwendigerweise zu unserem eigentlichen Projekt, allerdings sollte man im Rahmen des Praktikums darauf eingehen. Aufgrund einer Lieferverzögerung wurde der folgende Teil auf einem bereits vorhandenen Raspberry Pi 2 getestet. Vom Netzwerk zu booten bietet sich vor allem an, wenn entweder mit besonders großen Dateinen gearbeitet werden soll oder ein kontinuierlicher geringer Datenstrom verarbeitet werden soll. Permanente kleine schreibende Zugriffe wie beim &quot;loggen&quot; (v.A. wenn ein Datensatz erheblich kleiner ist als ein Block des SD-Speichers) vermindern die Lebensdauer einer SD-Karte erheblich. Um diese Probleme zu umgehen bedient man sich eines FTP-Servers (häufig findet man diese auch in modernen Routern und Accesspoints). Oder um mechanischen Beschädigungen am SD-Karten Leser des Microcontrollers vorzubeugen, wenn man des öffteren den Kernel oder das Rootfile System wechselt, oder auch um endlich wieder eine Verwendung für eine alte 16 MB große SD-Karte zu haben.</p>
-<p>Da die meisten Embedded-Linux Systeme mit dem Bootloader u-boot betrieben werden können wird in diesem Abschnitt auch nur auf diesen spezifisch eingegangen. Generell gibt es zwei unterschiedliche Möglichkeiten mit u-boot vom Netzwerk zu booten, die erste Möglichkeit empfiehlt sich, wenn man häufig die Kernel-version wechselt ohne direkten Zugang zur SD-Karte des Systems. Die zweite eignet sich eher für Vorgänge mit intensivem logging oder große Datenmengen.</p>
+<p>Da die meisten Embedded Linux Systeme mit dem Bootloader u-boot betrieben werden können wird in diesem Abschnitt auch nur auf diesen spezifisch eingegangen. Generell gibt es zwei unterschiedliche Möglichkeiten mit u-boot vom Netzwerk zu booten, die erste Möglichkeit empfiehlt sich, wenn man häufig die Kernel-version wechselt ohne direkten Zugang zur SD-Karte des Systems. Die zweite eignet sich eher für Vorgänge mit intensivem logging oder große Datenmengen.</p>
 <div class="figure align-center">
 <img alt="img/u-boot_netboot.png" src="img/u-boot_netboot.png" />
 </div>
-<p><a class="citation-reference" href="#ahut" id="id5">[AHUT]</a></p>
-<div class="section" id="netboot-via-nfs">
-<h2><a class="toc-backref" href="#id40">7.1&nbsp;&nbsp;&nbsp;Netboot via nfs</a></h2>
-</div>
+<p><a class="citation-reference" href="#ahut" id="id3">[AHUT]</a></p>
 <div class="section" id="netboot-via-ftp-tftp">
-<h2><a class="toc-backref" href="#id41">7.2&nbsp;&nbsp;&nbsp;Netboot via ftp/tftp</a></h2>
+<h2><a class="toc-backref" href="#id45">7.1&nbsp;&nbsp;&nbsp;Netboot via ftp/tftp</a></h2>
+<p>Die erste Möglichkeit von einer Netzwerk Ressource zu booten ist es einen ftp-/ tpft-server aufzusetzen und auf diesem den Kernel (für Netboot typischerweise das zImage) und das Root Filesystem für das Board abzulegen. Auf dem Festspeicher des Embedded Linux Boards befinden sich nur der bootloader, eine Konfigurationsdatei (uEnv.txt) und eventuell noch direkt ausführbare Dateien. Wird das System jetzt gestartet wird der bootloader gestartet, dieser folgt den Anweisungen in der Konfigurationsdatein und versucht den Kernel von der angegebenen Quelle zu laden. Der Kernel startet und lädt das Root Filesystem von einer angegebenen Adresse. Diese kann sich z.B. auch auf dem ftp-server befinden.</p>
+<div class="figure align-center">
+<img alt="img/u-boot_netboot_ftp.png" src="img/u-boot_netboot_ftp.png" />
+</div>
+<pre class="code bash literal-block">
+<span class="comment"># uEnv.txt example for nfs
+</span><span class="name variable">ipaddr</span><span class="operator">=</span>&lt;FREE_IP&gt;
+<span class="name variable">serverip</span><span class="operator">=</span>&lt;IP_OF_THE_FTP_SERVER&gt;
+<span class="name variable">kernel_file</span><span class="operator">=</span>&lt;NAME_OF_THE_KERNEL_FILE&gt;
+<span class="name variable">console</span><span class="operator">=</span>ttyO0,115200n8
+<span class="name variable">loadzimage</span><span class="operator">=</span>tftp <span class="keyword">${</span><span class="name variable">loadaddr</span><span class="keyword">}</span> <span class="keyword">${</span><span class="name variable">kernel_file</span><span class="keyword">}</span>
+<span class="name variable">loadfdt</span><span class="operator">=</span>tftp <span class="keyword">${</span><span class="name variable">fdtaddr</span><span class="keyword">}</span> <span class="keyword">${</span><span class="name variable">fdtfile</span><span class="keyword">}</span>
+<span class="name variable">my_bootargs</span><span class="operator">=</span>setenv bootargs <span class="name variable">console</span><span class="operator">=</span><span class="keyword">${</span><span class="name variable">console</span><span class="keyword">}</span> <span class="keyword">${</span><span class="name variable">optargs</span><span class="keyword">}</span>
+<span class="name variable">uenvcmd</span><span class="operator">=</span>run loadzimage; run loadfdt; run my_bootargs; bootz <span class="keyword">${</span><span class="name variable">loadaddr</span><span class="keyword">}</span> - <span class="keyword">${</span><span class="name variable">fdtaddr</span><span class="keyword">}</span>
+</pre>
+</div>
+<div class="section" id="netboot-via-nfs">
+<h2><a class="toc-backref" href="#id46">7.2&nbsp;&nbsp;&nbsp;Netboot via nfs</a></h2>
+<p>Die andere Möglichkeit von einer Netzwerk Ressource zu booten ist es das Root Filesystem auf einem nfs-server zur Verfügung zu stellen. Dies ist vor allem für das arbeiten mit größeren Dateien oder für langfristiges logging geeignet. Außerdem ist es möglich das ganze aufzuteilen (siehe Grafik oben) so dass der Kernel von einem tftp-server und das Root Filesystem von einem nfs-server geladen werden. Um nur das Root Filesystem vom server zu laden müssen auf dem Embedded Linux System mindestens der bootloader, der Kernel und eine Konfigurationsdatei vorhanden sein.</p>
+<div class="figure align-center">
+<img alt="img/u-boot_netboot_nfs.png" src="img/u-boot_netboot_nfs.png" />
+</div>
+<pre class="code bash literal-block">
+<span class="comment"># uEnv.txt example for ftp and nfs
+</span><span class="name variable">ipaddr</span><span class="operator">=</span>&lt;FREE_IP&gt;
+<span class="name variable">serverip</span><span class="operator">=</span>&lt;IP_OF_THE_FTP_SERVER&gt;
+<span class="name variable">kernel_file</span><span class="operator">=</span>zImage
+<span class="name variable">console</span><span class="operator">=</span>ttyO0,115200n8
+<span class="name variable">loadzimage</span><span class="operator">=</span>tftp <span class="keyword">${</span><span class="name variable">loadaddr</span><span class="keyword">}</span> <span class="keyword">${</span><span class="name variable">kernel_file</span><span class="keyword">}</span>
+<span class="name variable">loadfdt</span><span class="operator">=</span>tftp <span class="keyword">${</span><span class="name variable">fdtaddr</span><span class="keyword">}</span> <span class="keyword">${</span><span class="name variable">fdtfile</span><span class="keyword">}</span>
+<span class="name variable">my_bootargs</span><span class="operator">=</span>setenv bootargs <span class="name variable">console</span><span class="operator">=</span><span class="keyword">${</span><span class="name variable">console</span><span class="keyword">}</span> <span class="keyword">${</span><span class="name variable">optargs</span><span class="keyword">}</span> <span class="name variable">root</span><span class="operator">=</span>/dev/nfs rw <span class="name variable">nfsroot</span><span class="operator">=</span><span class="keyword">${</span><span class="name variable">serverip</span><span class="keyword">}</span>:/home/fedora/rootdir <span class="name variable">ip</span><span class="operator">=</span><span class="keyword">${</span><span class="name variable">ipaddr</span><span class="keyword">}</span>:::::eth0
+<span class="name variable">uenvcmd</span><span class="operator">=</span>run loadzimage; run loadfdt; run my_bootargs; bootz <span class="keyword">${</span><span class="name variable">loadaddr</span><span class="keyword">}</span> - <span class="keyword">${</span><span class="name variable">fdtaddr</span><span class="keyword">}</span>
+</pre>
+<p>Angepasst an das Board und die gegebenheiten im lokalen Netz sollte es nun möglich sein vom Netzwerk zu booten.</p>
+</div>
+<div class="section" id="besonderheiten-beim-raspberry-pi">
+<h2><a class="toc-backref" href="#id47">7.3&nbsp;&nbsp;&nbsp;Besonderheiten beim Raspberry Pi</a></h2>
+<p>Im Gegensatz zu den Meisten Embedded Linux Boards besitzt der Raspberry Pi kein herkömmliches Bootrom, um u-boot laden zu können ist die sogenannte &quot;start.elf&quot; nötig. Auch diese muss, entweder von einem fertigen image extrahiert, oder selbst kompiliert und auf der SD-Karte platziert werden, ansonsten kann, wie bei jedem anderen Board vorgegangen werden.</p>
+<div class="figure align-center">
+<img alt="img/Abbildung-1.png" src="img/Abbildung-1.png" />
+</div>
+<p><a class="citation-reference" href="#lmkt" id="id4">[LMKT]</a></p>
+</div>
+<div class="section" id="generelle-vorgehensweise">
+<h2><a class="toc-backref" href="#id48">7.4&nbsp;&nbsp;&nbsp;Generelle Vorgehensweise</a></h2>
+<div class="figure align-center">
+<img alt="img/Abbildung-2.png" src="img/Abbildung-2.png" />
+</div>
+<p><a class="citation-reference" href="#lmkt" id="id5">[LMKT]</a></p>
+<p>Für unseren Versuch wurde ein Netgear R7000 WLAN-Accesspoint mit nfs- und tftp-server Funktion verwendet, leider brach dieser wiederhohlt während des ladens des Root Filesystems ab.</p>
 </div>
 </div>
 <div class="section" id="debian-8-0-fur-das-beaglebone-black">
-<h1><a class="toc-backref" href="#id42">8&nbsp;&nbsp;&nbsp;Debian 8.0 für das BeagleBone Black</a></h1>
+<h1><a class="toc-backref" href="#id49">8&nbsp;&nbsp;&nbsp;Debian 8.0 für das BeagleBone Black</a></h1>
 <p>Da sich das arbeiten und entwickeln unter der selbst gebauten Yocto-distribution als zunehmend schwierig herausgestellt hat und wir bereits Erfahrungen mit dem Selbst bauen und kompilieren von Images für unser BBB gesammelt haben wurde beschlossen für die Fertigstellung unseres Projektes auf ein Debian zu wechseln. Vor allem um auf den Komfort eines Paketmanagers zurückgreifen zu können.</p>
 <pre class="code bash literal-block">
 <span class="comment"># einfach ein passendes SD-Karten abbild finden und herunterladen
@@ -1353,7 +1643,7 @@ sudo usermod -a -G dialout &lt;username&gt;
 </span>sudo dd <span class="keyword">if</span><span class="operator">=</span>./bone-debian-8.0-console-armhf-2015-05-08-2gb.img <span class="name variable">of</span><span class="operator">=</span>/dev/sdX
 </pre>
 <div class="section" id="die-ersten-schritte-nach-dem-erfolgreichen-platzieren-des-images">
-<h2><a class="toc-backref" href="#id43">8.1&nbsp;&nbsp;&nbsp;Die ersten Schritte nach dem erfolgreichen platzieren des images:</a></h2>
+<h2><a class="toc-backref" href="#id50">8.1&nbsp;&nbsp;&nbsp;Die ersten Schritte nach dem erfolgreichen platzieren des images:</a></h2>
 <pre class="code bash literal-block">
 <span class="comment"># aufgrund der Voreinstellungen im image ist es wieder möglich über die mini-USB Schnittstelle per ssh mit dem Board zu verbinden
 </span>ssh debian&#64;192.168.7.2
@@ -1391,8 +1681,8 @@ dpkg-reconfigure -f noninteractive tzdata
 </div>
 </div>
 <div class="section" id="einrichten-eines-accesspoint-auf-dem-beaglebone-black">
-<h1><a class="toc-backref" href="#id44">9&nbsp;&nbsp;&nbsp;Einrichten eines Accesspoint auf dem BeagleBone Black</a></h1>
-<p>Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem W-Lan Adapter einen dhcp-server, einen http-server, wie zum Beispiel (Apache - im Desktop Bereich oder lighttpd - im ES-Bereich) und einen DNS-Server. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.</p>
+<h1><a class="toc-backref" href="#id51">9&nbsp;&nbsp;&nbsp;Einrichten eines Accesspoint auf dem BeagleBone Black</a></h1>
+<p>Um eine Accesspoint Funktion zu ermöglichen benötigt ein Rechner oder ein Embedded System neben einem WLAN Adapter einen dhcp-server, einen http-server, wie zum Beispiel (Apache - im Desktop Bereich oder lighttpd - im ES-Bereich) und einen DNS-Server. Außerdem müssen diverse Einstellungen entsprechend der geplanten Verwendungsweise getroffen werden. Im folgenden wird dieser Vorgang behandelt.</p>
 <p>Um die Anleitung möglichst allgemein zu halten werden in der folgenden Erklärung die eigentlichen Werte durch die Lables in der Tabelle ersetzt die von uns verwendeten Konfigurationen wurden in den Dateien unter &quot;../config-files/&quot; abgelegt.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -1412,17 +1702,17 @@ dpkg-reconfigure -f noninteractive tzdata
 <tr><td>ssid</td>
 <td>&lt;Your-SSID&gt;</td>
 <td>GeoSpotAp</td>
-<td>der Name des lokalen W-Lan Netzwerkes</td>
+<td>der Name des lokalen WLAN Netzwerkes</td>
 </tr>
 <tr><td>wpa_passphrase</td>
 <td>&lt;Your-Passphrase&gt;</td>
 <td>geospotap</td>
-<td>das Passwort für den Zugang zum W-Lan</td>
+<td>das Passwort für den Zugang zum WLAN</td>
 </tr>
 <tr><td>interface</td>
 <td>&lt;YOUR-WIFI-INTERFACE&gt;</td>
 <td>wlan0</td>
-<td>der Name des W-Lan Interfaces (gewöhnlich wlan0)</td>
+<td>der Name des WLAN Interfaces (gewöhnlich wlan0)</td>
 </tr>
 <tr><td>bridge</td>
 <td>&lt;YOUR-BRIDGE-NAME&gt;</td>
@@ -1437,7 +1727,7 @@ dpkg-reconfigure -f noninteractive tzdata
 <tr><td>channel</td>
 <td>&lt;YOUR-WIFI-CHANNEL&gt;</td>
 <td>09</td>
-<td>der Kanal des W-Lan Netzes (auf lokale Gegebenheiten reagieren!)</td>
+<td>der Kanal des WLAN Netzes (auf lokale Gegebenheiten reagieren!)</td>
 </tr>
 <tr><td>country_code</td>
 <td>&lt;YOUR-COUNTRY-CODE&gt;</td>
@@ -1461,7 +1751,7 @@ dpkg-reconfigure -f noninteractive tzdata
 <tr><td>adress</td>
 <td>&lt;x&gt;.&lt;y&gt;.&lt;z&gt;.&lt;BASE-ADRESS&gt;</td>
 <td>192.168.4.1</td>
-<td>Basis Adresse des w-lan Moduls</td>
+<td>Basis Adresse des WLAN Moduls</td>
 </tr>
 <tr><td>netmask</td>
 <td>&lt;YOUR-NETMASK&gt;</td>
@@ -1476,24 +1766,24 @@ oder 255.255.255.0</td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="finden-und-identifizieren-des-w-lan-devices">
-<h2><a class="toc-backref" href="#id45">9.1&nbsp;&nbsp;&nbsp;Finden und identifizieren des W-Lan Devices</a></h2>
-<p>Da es sich bei Boards wie dem BeagleBone Black oder dem Raspberry Pi eigentlich ausschließlich um USB W-Lan Sticks handelt sollte es möglich sein mit dem Befehl &quot;lsusb&quot; die verfügbaren USB-Schnittstellen auf angeschlossene Geräte zu überprüfen. Hat man also seinen W-Lan Stick mit dem Board verbunden sollte man zunächst folgendes versuchen:</p>
+<div class="section" id="finden-und-identifizieren-des-wlan-devices">
+<h2><a class="toc-backref" href="#id52">9.1&nbsp;&nbsp;&nbsp;Finden und identifizieren des WLAN Devices</a></h2>
+<p>Da es sich bei Boards wie dem BeagleBone Black oder dem Raspberry Pi eigentlich ausschließlich um USB WLAN Sticks handelt sollte es möglich sein mit dem Befehl &quot;lsusb&quot; die verfügbaren USB-Schnittstellen auf angeschlossene Geräte zu überprüfen. Hat man also seinen WLAN Stick mit dem Board verbunden sollte man zunächst folgendes versuchen:</p>
 <pre class="code bash literal-block">
     root&#64;arm:~# lsusb
 <span class="comment"># sollte eine ähnliche Ausgabe erzeugen
 </span>Bus 001 Device 002: ID 0846:9030 NetGear, Inc. WNA1100 Wireless-N 150 <span class="operator">[</span>Atheros AR9271<span class="operator">]</span>
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 </pre>
-<p>Auf &quot;Bus 001 Device 002&quot; befindet sich unser W-Lan stick mit dem Chipsatz &quot;Atheros AR9271&quot;, nun kann überprüft werden ob dieser bereits im Kernel angemeldet ist.</p>
+<p>Auf &quot;Bus 001 Device 002&quot; befindet sich unser WLAN stick mit dem Chipsatz &quot;Atheros AR9271&quot;, nun kann überprüft werden ob dieser bereits im Kernel angemeldet ist.</p>
 <pre class="code bash literal-block">
     root&#64;arm:~# dmesg | grep AR9271
 <span class="operator">[</span>   19.484197<span class="operator">]</span> ieee80211 phy0: Atheros AR9271 Rev:1
 </pre>
-<p>Diese meldung zeigt uns, dass der Stick bereits als W-Lan Device erkannt wurde und auch, dass sein Treiber bereits vorhanden ist. Das vorangestellte &quot;ieee80211&quot; verweist auf den IEEE Standart für W-Lan Geräte. Ist dies nicht der Fall hilft eine kurze Recherche meist weiter. Die meisten Hersteller bieten Firmware Pakete an, die über den &quot;apt-get Mechanismus&quot; heruntergeladen werden können. Anschließend sollte ein Neustart des Gerätes dazu führen das der W-Lan Stick betriebsbereit ist.</p>
+<p>Diese meldung zeigt uns, dass der Stick bereits als WLAN Device erkannt wurde und auch, dass sein Treiber bereits vorhanden ist. Das vorangestellte &quot;ieee80211&quot; verweist auf den IEEE Standart für WLAN Geräte. Ist dies nicht der Fall hilft eine kurze Recherche meist weiter. Die meisten Hersteller bieten Firmware Pakete an, die über den &quot;apt-get Mechanismus&quot; heruntergeladen werden können. Anschließend sollte ein Neustart des Gerätes dazu führen das der WLAN Stick betriebsbereit ist.</p>
 </div>
 <div class="section" id="finden-identifizieren-und-laden-des-treibers">
-<h2><a class="toc-backref" href="#id46">9.2&nbsp;&nbsp;&nbsp;Finden, identifizieren und laden des Treibers</a></h2>
+<h2><a class="toc-backref" href="#id53">9.2&nbsp;&nbsp;&nbsp;Finden, identifizieren und laden des Treibers</a></h2>
 <p>Unter Linux gibt es eigentlich keine Treiber sondern Kernelmodule oder kurz lkms (linux-kernel-modules).</p>
 <pre class="code bash literal-block">
 root&#64;arm:~# lsmod
@@ -1508,7 +1798,7 @@ stp                     1316  1 garp
 mrp                     6444  1 8021q
 llc                     3179  2 stp,garp
 
-<span class="comment"># [!] hier folgen die Treiber für unser W-lan Modul
+<span class="comment"># [!] hier folgen die Treiber für unser WLAN Modul
 </span>
 ath9k_htc              53619  0
 ath9k_common            1644  1 ath9k_htc
@@ -1537,19 +1827,19 @@ uio                     7008  1 uio_pdrv_genirq
 <pre class="code bash literal-block">
 root&#64;arm:~# modprobe &lt;DIRECTORY/SOMETHING.ko&gt;
 </pre>
-<p>Ist der richtige Treiber für das W-Lan Modul geladen ist es außerdem nötig zu überprüfen, ob das Modul auch die nötigen Funktionen unterstützt, die für einen Wifi-Accesspoint nötig sind.</p>
+<p>Ist der richtige Treiber für das WLAN Modul geladen ist es außerdem nötig zu überprüfen, ob das Modul auch die nötigen Funktionen unterstützt, die für einen Wifi-Accesspoint nötig sind.</p>
 <pre class="code bash literal-block">
 root&#64;arm:~# modinfo ath9k_htc
 ...
 </pre>
 </div>
-<div class="section" id="einrichten-des-w-lan-interfaces">
-<h2><a class="toc-backref" href="#id47">9.3&nbsp;&nbsp;&nbsp;Einrichten des W-Lan Interfaces</a></h2>
+<div class="section" id="einrichten-des-wlan-interfaces">
+<h2><a class="toc-backref" href="#id54">9.3&nbsp;&nbsp;&nbsp;Einrichten des WLAN Interfaces</a></h2>
 <pre class="code bash literal-block">
 <span class="comment"># modifizieren der Netzwerk Interfaces
 </span>vi /etc/network/interfaces
 
-<span class="comment"># folgende Zeilen sind nur ein Beispiel, aber ähnliches sollte hinzugefügt werden:
+<span class="comment"># folgende Zeilen sind nur ein beispiel, aber ähnliches sollte hinzugefügt werden:
 </span>auto wlan0
         iface &lt;YOUR-WIFI-INTERFACE&gt; inet dhcp
 address   &lt;YOUR-SUBNET&gt;.1
@@ -1584,7 +1874,7 @@ wlan0   Link encap:Ethernet  HWaddr e0:46:9a:0d:61:a3
         collisions:0 txqueuelen:1000
         RX bytes:0 <span class="operator">(</span>0.0 B<span class="operator">)</span>  TX bytes:0 <span class="operator">(</span>0.0 B<span class="operator">)</span>
 </pre>
-<p>Die Ausgabe von &quot;iwconfig&quot; zeigt, dass dem Interface &quot;wlan0&quot; eine Hardwareadresse hinzugefügt wurde, nun kann man überprüfen ob das W-Lan Device auch den &quot;AP-Mode&quot; unterstützt. Dieser Modus ist unbedingt nötig um mit seinem Board einen Wifi-Accesspoint aufbauen zu können.</p>
+<p>Die Ausgabe von &quot;iwconfig&quot; zeigt, dass dem Interface &quot;wlan0&quot; eine Hardwareadresse hinzugefügt wurde, nun kann man überprüfen ob das WLAN Device auch den &quot;AP-Mode&quot; unterstützt. Dieser Modus ist unbedingt nötig um mit seinem Board einen Wifi-Accesspoint aufbauen zu können.</p>
 <pre class="code bash literal-block">
 root&#64;arm iw list
 
@@ -1618,7 +1908,7 @@ Device supports TX status socket option.
 </pre>
 </div>
 <div class="section" id="konfiguration-des-hostapd">
-<h2><a class="toc-backref" href="#id48">9.4&nbsp;&nbsp;&nbsp;Konfiguration des hostapd</a></h2>
+<h2><a class="toc-backref" href="#id55">9.4&nbsp;&nbsp;&nbsp;Konfiguration des hostapd</a></h2>
 <pre class="code bash literal-block">
 vi /etc/default/hostapd
 <span class="comment"># setzen der option
@@ -1669,7 +1959,7 @@ vi /etc/default/hostapd
 </pre>
 </div>
 <div class="section" id="konfiguration-des-isc-dhcp-servers">
-<h2><a class="toc-backref" href="#id49">9.5&nbsp;&nbsp;&nbsp;Konfiguration des isc-dhcp-servers</a></h2>
+<h2><a class="toc-backref" href="#id56">9.5&nbsp;&nbsp;&nbsp;Konfiguration des isc-dhcp-servers</a></h2>
 <p>Da das BeagleBone Black später als selbstständiger DHCP-Server fungieren soll muss ein Subnetz deklariert werden. Mit der Konfigurations-Datei bestimmt man, welche IP-Adressen der DHCP-Server vergeben kann und somit auch die maximale Anzahl der möglichen Verbindungen. Hierzu wird die Datei unter &quot;/etc/dhcp/dchpd.conf&quot; entsprechend dem folgenden Muster Ergänzt.</p>
 <pre class="code bash literal-block">
 subnet &lt;YOUR-SUBNET&gt;.0 netmask &lt;YOUR-NETMASK&gt; <span class="operator">{</span>
@@ -1682,8 +1972,8 @@ interface &lt;YOUR-WIFI-INTERFACE&gt;;
 </pre>
 </div>
 <div class="section" id="erstellen-einer-dns-maske-zur-weiterleiten-einer-bestehenden-netzwerkverbindung">
-<h2><a class="toc-backref" href="#id50">9.6&nbsp;&nbsp;&nbsp;Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung</a></h2>
-<p>Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespecherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter &quot;../dnsmasq/dnsmasq.conf&quot; um die folgenden Einstellungen ergänzt.</p>
+<h2><a class="toc-backref" href="#id57">9.6&nbsp;&nbsp;&nbsp;Erstellen einer DNS-Maske zur weiterleiten einer bestehenden Netzwerkverbindung</a></h2>
+<p>Um die volle Funktionalität eines Wifi-Accesspoints zu ermöglichen muss eine DNS-Maske erstellt werden. Für unser Projekt war dies nicht nötig, da wir nur auf eine auf den BeagleBone Black gespeicherte Webseite zugreifen müssen. Allerdings bietet es sich an hier auch noch den letzten Schritt zu beschreiben. Hierzu wird die Konfigurationsdatei unter &quot;../dnsmasq/dnsmasq.conf&quot; um die folgenden Einstellungen ergänzt.</p>
 <pre class="code bash literal-block">
 <span class="comment">### wifi-interface-name ###
 </span><span class="name variable">interface</span><span class="operator">=</span>&lt;YOUR-WIFI-INTERFACE&gt;
@@ -1703,8 +1993,27 @@ interface &lt;YOUR-WIFI-INTERFACE&gt;;
 <p><a class="citation-reference" href="#bbb-ap" id="id6">[BBB-AP]</a></p>
 </div>
 </div>
+<div class="section" id="httpserver-mit-flask">
+<h1><a class="toc-backref" href="#id58">10&nbsp;&nbsp;&nbsp;Httpserver mit Flask</a></h1>
+<p>Um eine Geocaching Station darzustellen, soll ein kleiner Server implementiert werden, auf den man Dateien hochladen, und herunterladen kann. Ebenso soll eine Wegbeschreibung für Wegpunkte, die nicht das Ziel sind zu Lesen sein.
+Verwendete Imports</p>
+<p>Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert.</p>
+<div class="section" id="verwendete-imports">
+<h2><a class="toc-backref" href="#id59">10.1&nbsp;&nbsp;&nbsp;Verwendete Imports</a></h2>
+<p>Flask wird nicht komplett benötigt, also wird nur ein Teil davon importiert.</p>
+<!-- Flask für die wichtigsten Basisfunktionalitäten von Flask -->
+<!-- request um auf die Requestmethoden zugreifen zu können -->
+<!-- session Um einen User zu speichern -->
+<!-- g -->
+<!-- redirect für den redirect auf die listen seite -->
+<!-- url_for für spezifische urls und dynamische url generierung -->
+<!-- abort -->
+<!-- render_template um html seiten als template mit parametern anzuzeigen -->
+<!-- flash -->
+</div>
+</div>
 <div class="section" id="gpio-general-purpose-in-and-output">
-<h1><a class="toc-backref" href="#id51">10&nbsp;&nbsp;&nbsp;GPIO - General-Purpose-In-and-Output</a></h1>
+<h1><a class="toc-backref" href="#id60">11&nbsp;&nbsp;&nbsp;GPIO - General-Purpose-In-and-Output</a></h1>
 <p>Unter GPIO versteht man gemeinhin allgemeine Ein- und Ausgabepins das BeagleBone Black besitzt 66 frei zugängliche freie GPIO-Pins aufgeteilt auf die zwei Header P8 und P9.</p>
 <p>Unter Linux</p>
 <div class="figure align-center">
@@ -1794,7 +2103,8 @@ interface &lt;YOUR-WIFI-INTERFACE&gt;;
 </tbody>
 </table>
 <div class="section" id="verwendung-des-sogenannten-sysfs">
-<h2><a class="toc-backref" href="#id52">10.1&nbsp;&nbsp;&nbsp;Verwendung des sogenannten &quot;sysfs&quot;</a></h2>
+<h2><a class="toc-backref" href="#id61">11.1&nbsp;&nbsp;&nbsp;Verwendung des sogenannten &quot;sysfs&quot;</a></h2>
+<p>Beim sysfs handelt es sich um ein virtuelles Dateisystem, das von Linux Kernel (ab Version 2.5) bereitgestellt wird, es gibt einem die Möglichkeit zur Laufzeit sowohl im Kernel-, als auch im Userspace auf Informationen von Kernel Subsystemen, wie z.B. Gerätetreibern zugreifen lässt. Auch Serielle Schnittstellen wurden auf dieses System abgebildet und somit ist es möglich auf GPIO-Pins durch das bearbeiten von &quot;Textdateien&quot; zuzugreifen.</p>
 <pre class="code bash literal-block">
 <span class="comment"># Anlegen eines Deskriptors für den gewünschten Pin
 </span>root&#64;arm:~# <span class="name builtin">echo</span> &lt;PIN#&gt; &gt; /sys/class/gpio/export
@@ -1816,10 +2126,11 @@ interface &lt;YOUR-WIFI-INTERFACE&gt;;
 </div>
 </div>
 <div class="section" id="lkms-linux-kernel-module">
-<h1><a class="toc-backref" href="#id53">11&nbsp;&nbsp;&nbsp;lkms - Linux-Kernel-Module</a></h1>
+<h1><a class="toc-backref" href="#id62">12&nbsp;&nbsp;&nbsp;lkms - Linux-Kernel-Module</a></h1>
+<p>Linux-Kernel-Module sind Subsysteme des Kernels und dementsprechend Anwendungen des Kernelspace, sie dienen unter anderem der Steuerung von Hardware (vgl. Treiber unter Windwos). Für den nativen Bau eins solchen Moduls werden die sogenannten &quot;Linux-header&quot; eine Bibliothek mit zugehörigen Funktionen benötigt. Will man ein solches Modul Cross-Compilieren, sollte man sich an ein Buildsystem, wie zum Beispiel Yocto, Buildroot oder LFS halten, da für diesen Vorgang nicht nur der Compiler und die Architektur sondern auch der exakt selbe Kernel ausschlaggeben sind. Außerdem sollte angemerkt werden, dass in einem Modul keine Aufrufe von Funktionen des Userspace (Standard Bibliotheken) möglich ist. Für das native Compilieren stellt Linux eine spezielle Funktion, den sogenannten kBuild zur Verfügung.</p>
 <p><a class="citation-reference" href="#tlkm" id="id8">[TLKM]</a></p>
 <div class="section" id="installation-der-linux-header">
-<h2><a class="toc-backref" href="#id54">11.1&nbsp;&nbsp;&nbsp;Installation der Linux-header</a></h2>
+<h2><a class="toc-backref" href="#id63">12.1&nbsp;&nbsp;&nbsp;Installation der Linux-header</a></h2>
 <pre class="code bash literal-block">
 debian&#64;arm:~<span class="name variable">$ </span>sudo apt-get install linux-headers-<span class="keyword">$(</span>uname -r<span class="keyword">)</span>
 Reading package lists... Done
@@ -1840,7 +2151,7 @@ Setting up linux-headers-3.14.43-ti-r67 <span class="operator">(</span>1jessie<s
 </pre>
 </div>
 <div class="section" id="bauen-eines-eigenen-treibers">
-<h2><a class="toc-backref" href="#id55">11.2&nbsp;&nbsp;&nbsp;Bauen eines eigenen Treibers</a></h2>
+<h2><a class="toc-backref" href="#id64">12.2&nbsp;&nbsp;&nbsp;Bauen eines eigenen Treibers</a></h2>
 <p>Der folgende Abschnitt wurde unter Debian 8.1 mit dem Kernel 3.14.43-ti-r67 ausgeführt und getestet. Im laufe dieses Versuchs sollte ein eigener Dummy-treiber geschrieben und geladen werden. Während dies unter buildroot oder yocto bereits während der Konfiguration der recipes mit einigen wenigen Befehlen möglich ist muss beim selbst schreiben ein wenig mehr Aufwand in Kauf genommen werden.</p>
 <p>Ein einfaches Beispiel für eine eigenes Kernelmodul könnte in etwar wie die folgende Datei aussehen:</p>
 <pre class="code c literal-block">
@@ -1893,7 +2204,7 @@ Setting up linux-headers-3.14.43-ti-r67 <span class="operator">(</span>1jessie<s
  **/</span>
 <span class="name">MODULE_SUPPORTED_DEVICE</span><span class="punctuation">(</span><span class="literal string">&quot;testdevice&quot;</span><span class="punctuation">);</span>
 </pre>
-<p>Die einfachste Möglichkeit um ein eigenes Kernelmodul zu bauen ist es eine eigene Makefile zu schreiben. Meine Makefile enthielt folgende Zeilen:</p>
+<p>Mit den Befehlen aus meiner Makefile war es möglich das modul zu compilieren und zu bauen. In der Makefile wird ein make Befehl, der bereits in einer Bibliothek vorhanden ist aufgerufen, dieser übernimmt dann den eigentlichen Buildvorgang. Übrigens würde es auf diesem Weg auch direkt auf dem Hostrechner funktionieren.</p>
 <pre class="code make literal-block">
 <span class="comment"># &#64;file Makefile
 </span><span class="comment"># &#64;brief makefile for a simple test kernel module
@@ -1909,7 +2220,7 @@ Setting up linux-headers-3.14.43-ti-r67 <span class="operator">(</span>1jessie<s
         make -C /lib/modules/<span class="keyword">$(</span>shell uname -r<span class="keyword">)</span>/build <span class="name variable">M</span><span class="operator">=</span><span class="keyword">$(</span>PWD<span class="keyword">)</span> clean
         rm -rf *~ *.o
 </pre>
-<p>Nach dem anlegen der Dateien kann der Buildprozess in der Konsole angestoßen, das Modul überprüft und geladen werden.</p>
+<p>Nach dem Anlegen der Dateien kann der Buildprozess in der Konsole angestoßen, das Modul überprüft und geladen werden.</p>
 <pre class="code bash literal-block">
 <span class="comment"># der build Vorgang
 </span>debian&#64;arm:~/workspace/hello_kernel_module<span class="name variable">$ </span>make all
@@ -1942,7 +2253,7 @@ vermagic:       3.14.43-ti-r67 SMP preempt mod_unload modversions ARMv7 p2v8
 </pre>
 </div>
 <div class="section" id="laden-des-selbst-compilierten-treibers">
-<h2><a class="toc-backref" href="#id56">11.3&nbsp;&nbsp;&nbsp;Laden des selbst compilierten Treibers</a></h2>
+<h2><a class="toc-backref" href="#id65">12.3&nbsp;&nbsp;&nbsp;Laden des selbst compilierten Treibers</a></h2>
 <pre class="code bash literal-block">
 <span class="comment"># Laden des Moduls
 </span>debian&#64;arm:~/workspace/hello_kernel_module/ sudo insmod hello.ko
@@ -1974,7 +2285,7 @@ uio                     7008  1 uio_pdrv_genirq
 </pre>
 </div>
 <div class="section" id="entfernen-des-eigenen-kernelmoduls">
-<h2><a class="toc-backref" href="#id57">11.4&nbsp;&nbsp;&nbsp;Entfernen des eigenen Kernelmoduls</a></h2>
+<h2><a class="toc-backref" href="#id66">12.4&nbsp;&nbsp;&nbsp;Entfernen des eigenen Kernelmoduls</a></h2>
 <pre class="code bash literal-block">
 debian&#64;arm:~/workspace/hello_kernel_module<span class="name variable">$ </span>sudo rmmod -f hello
 
@@ -1988,12 +2299,66 @@ rm -rf *~ *.o
 </pre>
 </div>
 </div>
+<div class="section" id="unabhangige-stromversorgung">
+<h1><a class="toc-backref" href="#id67">13&nbsp;&nbsp;&nbsp;Unabhängige Stromversorgung</a></h1>
+<p>Leider konnte aufgrund der verspäteten fertigstellung unseres Projektes keine Messung des tatsächlichen Verbrauchs mehr vorgenommen werden, deshalb wird in den folgenden Berechnungen auf Angaben von Texas Instruments zurück gegriffen.</p>
+<div class="section" id="energiebedarf-des-beaglebone-black">
+<h2><a class="toc-backref" href="#id68">13.1&nbsp;&nbsp;&nbsp;Energiebedarf des BeagleBone Black</a></h2>
+<pre class="code bash literal-block">
+<span class="name variable">P</span> <span class="operator">=</span> U   * I
+
+P<span class="operator">[</span>max<span class="operator">]</span> <span class="operator">=</span> 5 V * 460 mA
+P<span class="operator">[</span>max<span class="operator">]</span> <span class="operator">=</span> 5 V * 460 * 10^-3 A
+P<span class="operator">[</span>max<span class="operator">]</span> <span class="operator">=</span> 2,3 W
+
+P<span class="operator">[</span>min<span class="operator">]</span> <span class="operator">=</span> 5 V * 210 mA
+P<span class="operator">[</span>min<span class="operator">]</span> <span class="operator">=</span> 5 V * 210 * 10^-3 A
+P<span class="operator">[</span>min<span class="operator">]</span> <span class="operator">=</span> 1,05 W
+</pre>
+<p>Da ein WLAN-Stick mit betrieben werden soll und an anderen Stellen mit Mittelwerten gerechnet wird, wählen wir das pessimistische Ergebnis (P[max]).</p>
+<pre class="code bash literal-block">
+Tagesbedarf <span class="operator">[</span>Wh/d<span class="operator">]</span> <span class="operator">=</span> P<span class="operator">[</span>max<span class="operator">]</span> * 24 <span class="name variable">h</span> <span class="operator">=</span> 55,2 Wh/d
+</pre>
+<p>Es sollten mindestens 2 Tage Systemautonomie mit der Batterie garantiert werden.</p>
+<pre class="code bash literal-block">
+<span class="comment"># 30 % gilt als angemessene Reserver für Lithium-Ionen-Akkus im Dauerbetrieb
+</span>Bedarf <span class="operator">[</span>2d<span class="operator">]</span> <span class="operator">=</span> <span class="operator">(</span> 55,2 Wh/d * 2 <span class="operator">)</span> + 30 % <span class="operator">=</span> 144 Wh
+</pre>
+<p>Große RC-Akkus aus dem Modellbau, die gerade noch klein genug sind um in einem Gehäuse zusammen mit dem BBB verbaut zu werden, haben 12 V bei ca. 20 Ah.</p>
+<pre class="code bash literal-block">
+<span class="comment"># ca. 20 % Verlustleistung für einen Spannungswandler
+</span>Akkumulatorgröße <span class="operator">=</span> <span class="operator">(</span>Bedarf / Spannung<span class="operator">)</span> + 20 % <span class="operator">=</span> 14,4 Ah
+</pre>
+<p>Also wäre es Möglich das Board beinahe 3 Tage ohne zusätzliche Energieversorgung mit einem solchen Akku zu betreiben. Aus Kostengründen wäre es aber bereits an dieser Stelle zu teuer das Projekt weiter zu Verfolgen, da diese Akkus, je nach Ausführung und Qualität bereits im Preisbereich zwischen 60,00 € und 100,00 € liegen.</p>
+</div>
+<div class="section" id="benotigte-solarzellen">
+<h2><a class="toc-backref" href="#id69">13.2&nbsp;&nbsp;&nbsp;Benötigte Solarzellen</a></h2>
+<p>Es gibt mobile Solarzellen, die relativ gut geeignet für den Zweck zu sein scheinen. Unter Berücksichtigung des Wirkungsgrades (&lt; 0,08), der Fläche (0,25 m²) und der mittleren Solaren Einstrahlung in Deutschland würde ein solches Solarpanel bei guter Ausrichtung weniger als 20 kWh im Jahr sammeln.</p>
+<pre class="code bash literal-block">
+Mittlere Solare Einstrahlung für Deutschland 3 kWh/m² pro Tag
+
+Aufnahme der Solarzelle &lt; 8%
+
+<span class="operator">=</span>&gt; 3 kWh/m²/d * 8 % <span class="operator">=</span> 240 Wh/m²/d
+
+Solarzelle hat ca. 0,25 m²
+
+<span class="operator">=</span>&gt; 240 Wh/m²/d / <span class="name variable">4</span> <span class="operator">=</span> 60 Wh/d
+
+<span class="comment"># im Optimalfall ohne weitere Verlustbetrachtungen aufgrund von Einstrahlungswinkel und Temperatur
+</span>In einem Jahr aufgenommene Energie 365 d * 60 <span class="name variable">Wh</span> <span class="operator">=</span> 21,9 kWh/a
+
+Jahresverbrauch <span class="operator">(</span>BBB<span class="operator">)</span> <span class="operator">=</span> 55,2 Wh/d * 365 <span class="name variable">d</span> <span class="operator">=</span> 20,15 kWh/a
+</pre>
+<p>Also wären mindestens zwei Solarpanels mit einen viertel Quadratmeter nötig um das System zu versorgen. Allerdings sollten diese in den Wintermonaten trotz der Reserve von mehr als 2 Tagen nicht ausreichend sein, da genauere Betrachtungen der Ladeverluste erst nach der Auswahl konkreter Bauteile getroffen werden können.</p>
+</div>
+</div>
 <div class="section" id="tools-und-programme">
-<h1><a class="toc-backref" href="#id58">12&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
+<h1><a class="toc-backref" href="#id70">14&nbsp;&nbsp;&nbsp;Tools und Programme</a></h1>
 <div class="section" id="minicom-ein-serial-terminal-emulator">
-<h2><a class="toc-backref" href="#id59">12.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a></h2>
+<h2><a class="toc-backref" href="#id71">14.1&nbsp;&nbsp;&nbsp;Minicom ein serial Terminal Emulator</a></h2>
 <div class="section" id="installation">
-<h3><a class="toc-backref" href="#id60">12.1.1&nbsp;&nbsp;&nbsp;Installation</a></h3>
+<h3><a class="toc-backref" href="#id72">14.1.1&nbsp;&nbsp;&nbsp;Installation</a></h3>
 <pre class="code bash literal-block">
 <span class="comment"># for ubuntu / debian based distributions
 </span>sudo apt-get install minicom
@@ -2006,36 +2371,36 @@ sudo minicom -s
 </div>
 </div>
 <div class="section" id="unter-a-das-richtige-device-einrichten">
-<h3><a class="toc-backref" href="#id61">12.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></h3>
+<h3><a class="toc-backref" href="#id73">14.1.2&nbsp;&nbsp;&nbsp;Unter A das richtige Device einrichten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup2.png" src="img/microcom-setup2.png" />
 </div>
 </div>
 <div class="section" id="als-default-speichern">
-<h3><a class="toc-backref" href="#id62">12.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></h3>
+<h3><a class="toc-backref" href="#id74">14.1.3&nbsp;&nbsp;&nbsp;Als default Speichern</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup3.png" src="img/microcom-setup3.png" />
 </div>
 </div>
 <div class="section" id="minicom-beenden-und-neu-starten">
-<h3><a class="toc-backref" href="#id63">12.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></h3>
+<h3><a class="toc-backref" href="#id75">14.1.4&nbsp;&nbsp;&nbsp;Minicom beenden und neu starten</a></h3>
 <div class="figure align-center">
 <img alt="img/microcom-setup4.png" src="img/microcom-setup4.png" />
 </div>
 </div>
 </div>
 <div class="section" id="fdisk-partitionierungs-tool">
-<h2><a class="toc-backref" href="#id64">12.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
+<h2><a class="toc-backref" href="#id76">14.2&nbsp;&nbsp;&nbsp;fdisk partitionierungs tool</a></h2>
 <p>&quot;fdisk&quot; ist das standard Partitionierungstool unter Linux ohne graphische Oberfläche. Mit wenigen Befehlen lässt sich so z.B. eine SD-Karte auf die Linux installation vorbereiten.</p>
 <div class="section" id="laufwerk-auswahlen">
-<h3><a class="toc-backref" href="#id65">12.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></h3>
+<h3><a class="toc-backref" href="#id77">14.2.1&nbsp;&nbsp;&nbsp;Laufwerk auswählen</a></h3>
 <p>öffnen eines Laufwerks (z.B. mmcblk0 für SD Karte)</p>
 <pre class="code bash literal-block">
 sudo fdisk /dev/mmcblk0
 </pre>
 </div>
 <div class="section" id="laufwerksinformationen-ausgeben">
-<h3><a class="toc-backref" href="#id66">12.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></h3>
+<h3><a class="toc-backref" href="#id78">14.2.2&nbsp;&nbsp;&nbsp;Laufwerksinformationen ausgeben</a></h3>
 <ul class="simple">
 <li>Auflisten der Partitionstabelle eines Laufwerks</li>
 </ul>
@@ -2054,7 +2419,7 @@ Device         Boot Start      End  Sectors  Size Id Type
 </pre>
 </div>
 <div class="section" id="sonstige-befehle">
-<h3><a class="toc-backref" href="#id67">12.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
+<h3><a class="toc-backref" href="#id79">14.2.3&nbsp;&nbsp;&nbsp;Sonstige Befehle</a></h3>
 <pre class="code bash literal-block">
 DOS <span class="operator">(</span>MBR<span class="operator">)</span>
    a   toggle a bootable flag
@@ -2086,7 +2451,7 @@ Create a new label
 </pre>
 </div>
 <div class="section" id="unterschiedliche-formatierungen">
-<h3><a class="toc-backref" href="#id68">12.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
+<h3><a class="toc-backref" href="#id80">14.2.4&nbsp;&nbsp;&nbsp;Unterschiedliche Formatierungen</a></h3>
 <pre class="code bash literal-block">
 Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span>: l
 
@@ -2119,16 +2484,21 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 </div>
 </div>
 <div class="section" id="lighttpd-ein-leichtgewichtiger-http-server">
-<h2><a class="toc-backref" href="#id69">12.3&nbsp;&nbsp;&nbsp;lighttpd - ein leichtgewichtiger http-server</a></h2>
-<p><a class="citation-reference" href="#ltpd" id="id9">[LTPD]</a></p>
+<h2><a class="toc-backref" href="#id81">14.3&nbsp;&nbsp;&nbsp;lighttpd - ein leichtgewichtiger http-server</a></h2>
+<p><a class="citation-reference" href="#todo" id="id9">[TODO]</a></p>
+<!-- wie viel von dem lighttpd braucht man wirklich? -->
+<p><a class="citation-reference" href="#ltpd" id="id10">[LTPD]</a></p>
 </div>
+</div>
+<div class="section" id="zusammenfassung">
+<h1><a class="toc-backref" href="#id82">15&nbsp;&nbsp;&nbsp;Zusammenfassung</a></h1>
 </div>
 <div class="section" id="literatur-und-sonstige-quellen">
-<h1><a class="toc-backref" href="#id70">13&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
+<h1><a class="toc-backref" href="#id83">16&nbsp;&nbsp;&nbsp;Literatur und sonstige Quellen</a></h1>
 <table class="docutils citation" frame="void" id="ahut" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[AHUT]</a></td><td>A hany u-boot trick, von Bharath Bhushan, Linux Journal, Dezember 2013
+<tr><td class="label"><a class="fn-backref" href="#id3">[AHUT]</a></td><td>A hany u-boot trick, von Bharath Bhushan, Linux Journal, Dezember 2013
 <a class="reference external" href="http://www.linuxjournal.com/content/handy-u-boot-trick?page=0,0">http://www.linuxjournal.com/content/handy-u-boot-trick?page=0,0</a></td></tr>
 </tbody>
 </table>
@@ -2174,10 +2544,17 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 <a class="reference external" href="http://cholla.mmto.org/computers/beagle/hardware/pinout1-1024x585.png">http://cholla.mmto.org/computers/beagle/hardware/pinout1-1024x585.png</a></td></tr>
 </tbody>
 </table>
+<table class="docutils citation" frame="void" id="lmkt" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[LMKT]</td><td><em>(<a class="fn-backref" href="#id4">1</a>, <a class="fn-backref" href="#id5">2</a>)</em> Kerntechnik, von  Jürgen Quade und Eva-Katharina Kunst, Linux Magazin, Dezember 2013
+<a class="reference external" href="http://www.linux-magazin.de/Ausgaben/2013/12/Kern-Technik">http://www.linux-magazin.de/Ausgaben/2013/12/Kern-Technik</a></td></tr>
+</tbody>
+</table>
 <table class="docutils citation" frame="void" id="ltpd" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id9">[LTPD]</a></td><td>lighttpd
+<tr><td class="label"><a class="fn-backref" href="#id10">[LTPD]</a></td><td>lighttpd
 <a class="reference external" href="http://www.lighttpd.net/">http://www.lighttpd.net/</a></td></tr>
 </tbody>
 </table>
@@ -2212,13 +2589,14 @@ Befehl <span class="operator">(</span>m für Hilfe<span class="operator">)</span
 <table class="docutils citation" frame="void" id="wiki" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[WIKI]</td><td></td></tr>
+<tr><td class="label">[WIKI]</td><td>Wikipedia the free Encyclopedia</td></tr>
 </tbody>
 </table>
+<!-- (just mentioned to gather links for further information) -->
 <table class="docutils citation" frame="void" id="todo" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[TODO]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Look for comments</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id9">[TODO]</a></td><td>Look for comments</td></tr>
 </tbody>
 </table>
 <!-- vim: et sw=4 ts=4 -->
