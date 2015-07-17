@@ -1996,54 +1996,54 @@ Anpassung der lighttpd.conf
 
 .. code:: bash
 
-server.modules              = (                                      
-                                "mod_rewrite",                       
-                                "mod_alias",                         
-                                "mod_access",                        
-                                "mod_fastcgi",                       
-                                )  
-server.document-root        = "/www/geoCaching/"                           
-                                                                           
-server.errorlog             = "/www/logs/lighttpd.error.log"               
-                                                                           
-# files to check for if .../ is requested                                  
-index-file.names            = ( "index.php", "index.html",                 
-                                "index.htm", "default.htm" )   
+	  server.modules              = (                                      
+          "mod_rewrite",                       
+          "mod_alias",                         
+          "mod_access",                        
+          "mod_fastcgi",                       
+          )  
+	  server.document-root        = "/www/geoCaching/"                           
+          
+	  server.errorlog             = "/www/logs/lighttpd.error.log"               
+          
+	  # files to check for if .../ is requested                                  
+	  index-file.names            = ( "index.php", "index.html",                 
+          "index.htm", "default.htm" )   
 
-## deny access the file-extensions                                         
-#                                                                          
-# ~    is for backupfiles from vi, emacs, joe, ...                         
-# .inc is often used for code includes which should in general not be part 
-#      of the document-root                                                
-url.access-deny             = ( "~", ".inc" )                              
-                                                                           
-$HTTP["host"] == "www2.example.org" {                                      
-        $HTTP["url"] =~ "\.pdf$" {                                         
-          server.range-requests = "disable"                                
-        }                                                                  
-}                                                                          
-                                                                           
-##                                                                         
-# which extensions should not be handle via static-file transfer           
-#                                                                          
-# .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi        
-static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )   
+	  ## deny access the file-extensions                                         
+	  #                                                                          
+	  # ~    is for backupfiles from vi, emacs, joe, ...                         
+	  # .inc is often used for code includes which should in general not be part 
+	  #      of the document-root                                                
+	  url.access-deny             = ( "~", ".inc" )                              
+          
+	  $HTTP["host"] == "www2.example.org" {                                      
+	       $HTTP["url"] =~ "\.pdf$" {                                         
+	       server.range-requests = "disable"                                
+	       }                                                                  
+	  }                                                                          
 
-	  
-fastcgi.server = ("/httpFlask.py" =>                                       
-	  ((                                                                  
-	  "host" => "127.0.0.1",                                     
-          "port" => "5000",                                          
-          "bin-path" => "/www/geoCaching/httpFlask.py",
-          "check-local" => "disable",                                                           
-          "max-procs" => 1                                                                      
-	  ))                                                                                                
-)   
+	  ##                                                                         
+	  # which extensions should not be handle via static-file transfer           
+	  #                                                                          
+	  # .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi        
+	  static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )   
 
-url.rewrite-once = (                                                                                  
-    "^(/geoCaching($|/.*))$" => "$1",                                                                 
-    "^(/.*)$" => "httpFlask.py$1"                                                                     
-)  
+
+	  fastcgi.server = ("/httpFlask.py" =>                                       
+	          ((                                                                  
+		     "host" => "127.0.0.1",                                     
+		     "port" => "5000",                                          
+		     "bin-path" => "/www/geoCaching/httpFlask.py",
+		     "check-local" => "disable",                                                           
+		     "max-procs" => 1                                                                      
+		  ))                                                                                                
+	  )   
+
+	  url.rewrite-once = (                                                                                  
+	      "^(/geoCaching($|/.*))$" => "$1",                                                                 
+	      "^(/.*)$" => "httpFlask.py$1"                                                                     
+	  )  
 
 [LTPD]_
 
